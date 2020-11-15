@@ -37,6 +37,6 @@ jobs:
       - name: Service Dependencies Ready
         run: npm ci
       - name: Service Start
-        run: npm run start > /dev/null 2>&1 &
+        run: npm run start
       - name: Cypress run
         uses: cypress-io/github-action@v2
