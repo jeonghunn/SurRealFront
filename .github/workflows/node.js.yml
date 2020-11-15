@@ -37,6 +37,8 @@ jobs:
       - name: Service Dependencies Ready
         run: npm ci
       - name: Service Start
-        run: npm run start & wait-on http://localhost:4200
+        run: npm run start
+      - name: Wait
+        run: wait-on http://localhost:4200
       - name: Cypress run
         uses: cypress-io/github-action@v2
