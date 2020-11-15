@@ -37,7 +37,7 @@ jobs:
       - name: Service Dependencies Ready
         run: npm ci
       - name: Service Start
-        run: npm run start
+        run: npm run start &
       - name: Wait
         run: wait-on http://localhost:4200
       - name: Cypress run
