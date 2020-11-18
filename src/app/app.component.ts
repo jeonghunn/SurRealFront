@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public title: string = 'TingClient';
+
+  public constructor(
+    translateService: TranslateService,
+  ) {
+    translateService.setDefaultLang(translateService.getBrowserLang());
+  }
 }

@@ -1,0 +1,13 @@
+{
+  "HELLO_WORLD": "Hello World!",
+  "HTTP_ERROR": {
+    "404_NOT_FOUND": {
+      "TITLE": "404 Not Found",
+      "DESCRIPTION":"Sorry. That page you looking for doesn't exist."
+    },
+    "500_INTERNAL_SERVER_ERROR": {
+      "TITLE": "Sorry, Something went wrong.",
+      "DESCRIPTION":"We will fix this problem soon."
+    }
+  }
+}

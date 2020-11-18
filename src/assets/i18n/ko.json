@@ -1,0 +1,13 @@
+{
+  "HELLO_WORLD": "안녕 세상!",
+  "HTTP_ERROR": {
+    "404_NOT_FOUND": {
+      "TITLE": "존재하지 않는 페이지",
+      "DESCRIPTION":"지금 찾는 페이지는 없거나 삭제된 페이지입니다."
+    },
+    "500_INTERNAL_SERVER_ERROR": {
+      "TITLE": "죄송합니다, 문제가 발생했습니다.",
+      "DESCRIPTION":"빠른 시간 내에 문제를 해결 하도록 하겠습니다."
+    }
+  }
+}
