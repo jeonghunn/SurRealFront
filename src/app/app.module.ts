@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { InfoComponent } from './info/info.component';
+import { MainComponent } from './main/main.component';
 import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
 
 const HttpLoaderFactory = (http: HttpClient) => {
@@ -29,6 +30,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
     AppComponent,
     InfoComponent,
     MatchModalComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

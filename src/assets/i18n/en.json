@@ -9,5 +9,12 @@
       "TITLE": "Sorry, Something went wrong.",
       "DESCRIPTION":"We will fix this problem soon."
     }
+  },
+  "NAV_BAR": {
+    "FIND_NEW_MATCH": "New Match"
+  },
+  "INTRODUCTION": {
+    "TITLE": "Find a new friend who think like you.",
+    "DESCRIPTION": "Select a gender to start!"
   }
 }

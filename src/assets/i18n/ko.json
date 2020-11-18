@@ -9,5 +9,12 @@
       "TITLE": "죄송합니다, 문제가 발생했습니다.",
       "DESCRIPTION":"빠른 시간 내에 문제를 해결 하도록 하겠습니다."
     }
+  },
+  "NAV_BAR": {
+    "FIND_NEW_MATCH": "매칭 시작"
+  },
+  "INTRODUCTION": {
+    "TITLE": "나랑 같은 생각을 하는 사람을 찾아 보세요.",
+    "DESCRIPTION": "성별을 선택하고 시작하세요!"
   }
 }
