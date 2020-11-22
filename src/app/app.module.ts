@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -47,6 +48,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
     MatDialogModule,
     MatButtonModule,
     MatRadioModule,
+    MatSidenavModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
