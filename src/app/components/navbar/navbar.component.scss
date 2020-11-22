@@ -3,3 +3,12 @@
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
+
+mat-toolbar {
+  background-color: transparent;
+}
+
+.start-button {
+  background-color: #ef5350;
+  font-size: 16px;
+}

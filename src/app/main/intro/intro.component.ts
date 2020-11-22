@@ -4,13 +4,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: [ './main.component.scss' ],
+  selector: 'app-intro',
+  templateUrl: './intro.component.html',
+  styleUrls: [ './intro.component.scss' ],
 })
-export class MainComponent implements OnInit {
-
-  public isGuest: boolean = true;
+export class IntroComponent implements OnInit {
 
   // tslint:disable-next-line:no-empty
   public constructor() { }

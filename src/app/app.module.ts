@@ -11,6 +11,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -18,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { InfoComponent } from './info/info.component';
+import { IntroComponent } from './main/intro/intro.component';
 import { MainComponent } from './main/main.component';
 import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
 
@@ -31,6 +33,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
     InfoComponent,
     MatchModalComponent,
     MainComponent,
+    IntroComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
     MatFormFieldModule,
     MatDialogModule,
     MatButtonModule,
+    MatRadioModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

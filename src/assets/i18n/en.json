@@ -14,7 +14,12 @@
     "FIND_NEW_MATCH": "New Match"
   },
   "INTRODUCTION": {
-    "TITLE": "Find a new friend who think like you.",
-    "DESCRIPTION": "Select a gender to start!"
+    "TITLE": "Find a new friend who thinks like you.",
+    "DESCRIPTION": "Select your gender to start!",
+    "START": "Start"
+  },
+  "GENDER": {
+    "MALE": "Male",
+    "FEMALE": "Female"
   }
 }

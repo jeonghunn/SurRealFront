@@ -4,13 +4,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: [ './main.component.scss' ],
+  selector: 'app-container-layout',
+  templateUrl: './container-layout.component.html',
+  styleUrls: [ './container-layout.component.scss' ],
 })
-export class MainComponent implements OnInit {
-
-  public isGuest: boolean = true;
+export class ContainerLayoutComponent implements OnInit {
 
   // tslint:disable-next-line:no-empty
   public constructor() { }

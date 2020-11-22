@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  margin-top: 15%;
+}
+
+app-container-layout {
+  .container {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+}
+
+.introduction {
+  vertical-align: middle;
+
+  h1 {
+    font-size: 48px;
+    font-weight: bold;
+    line-height: normal;
+    word-break: keep-all;
+  }
+
+  p {
+    padding-top: 16px;
+    font-size: 24px;
+  }
+
+  .register {
+    display: block;
+    margin-top: 64px;
+    mat-radio-group {
+      min-width: 200px;
+
+      mat-radio-button {
+        margin-right: 16px;
+      }
+    }
+
+    button {
+      margin-top: 16px;
+    }
+  }
+
+
+
+}

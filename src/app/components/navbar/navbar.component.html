@@ -21,9 +21,9 @@
   
   <span class="space"></span>
 
-  <button mat-button [matMenuTriggerFor]="afterMenu">After</button>
-  <mat-menu #afterMenu="matMenu" xPosition="after">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
+  <button
+    mat-button
+    (click)="openDialog()"
+    class="start-button"
+  >{{ 'NAV_BAR.FIND_NEW_MATCH' | translate }}</button>
 </mat-toolbar>

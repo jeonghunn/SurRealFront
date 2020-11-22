@@ -9,6 +9,8 @@ import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ContainerLayoutComponent } from './layout/container-layout/container-layout.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,16 @@ import { NavbarComponent } from './navbar/navbar.component';
     FooterComponent,
     Error404Component,
     Error500Component,
+    ContainerLayoutComponent,
 
   ],
-  exports: [
-    NavbarComponent,
-    FooterComponent,
-    Error404Component,
-    Error500Component,
-  ],
+    exports: [
+        NavbarComponent,
+        FooterComponent,
+        Error404Component,
+        Error500Component,
+        ContainerLayoutComponent,
+    ],
   imports: [
     UiModule,
     TranslateModule,
@@ -31,6 +35,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatMenuModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
   ],
 })
 export class ComponentsModule { }
