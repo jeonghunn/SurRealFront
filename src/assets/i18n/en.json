@@ -10,13 +10,17 @@
       "DESCRIPTION":"We will fix this problem soon."
     }
   },
+  "ERROR": {
+    "UNKNOWN": "Sorry, Something went wrong. Please try again. FEEDBACK: jeonghunn1@gmail.com"
+  },
   "NAV_BAR": {
     "FIND_NEW_MATCH": "New Match"
   },
   "INTRODUCTION": {
     "TITLE": "Find a new friend who thinks like you.",
     "DESCRIPTION": "Select your gender to start!",
-    "START": "Start"
+    "START": "Start",
+    "SELECT_GENDER_DESC": "Please select your gender."
   },
   "GENDER": {
     "MALE": "Male",

@@ -5,6 +5,7 @@ import {
   HttpClient,
   HttpClientModule,
 } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -13,6 +14,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -49,6 +54,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
     MatButtonModule,
     MatRadioModule,
     MatSidenavModule,
+    MatSnackBarModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -57,8 +63,14 @@ const HttpLoaderFactory = (http: HttpClient) => {
         deps: [ HttpClient ],
       },
     }),
+    FormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 2500 },
+    },
+  ],
   bootstrap: [ AppComponent ],
 })
 export class AppModule { }

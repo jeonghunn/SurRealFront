@@ -10,13 +10,17 @@
       "DESCRIPTION":"빠른 시간 내에 문제를 해결 하도록 하겠습니다."
     }
   },
+  "ERROR": {
+    "UNKNOWN": "죄송합니다. 무언가가 잘못 처리되었어요. 다시 시도해 주세요. 의견: jeonghunn1@gmail.com"
+  },
   "NAV_BAR": {
     "FIND_NEW_MATCH": "매칭 시작"
   },
   "INTRODUCTION": {
     "TITLE": "나와 같은 생각을 하는 사람을 찾아 보세요.",
     "DESCRIPTION": "성별을 선택하고 시작하세요!",
-    "START": "시작하기"
+    "START": "시작하기",
+    "SELECT_GENDER_DESC": "성별을 선택해 주세요."
   },
   "GENDER": {
     "MALE": "남성",

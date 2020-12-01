@@ -2,6 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import {
+  Gender,
+  UserSimpleSet,
+} from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,6 +33,14 @@ export class DataService {
     formData.append('a', 'CoreVersion');
 
     return this.httpClient.post<string>(this.apiUrl, formData).pipe(
+    );
+  }
+
+  public requestSignUp(gender: Gender): Observable<UserSimpleSet> {
+    const formData: FormData = this.getFromDataBase('ting_signup');
+    formData.append('gender', gender.toString());
+
+    return this.httpClient.post<UserSimpleSet>(this.apiUrl, formData).pipe(
     );
   }
 

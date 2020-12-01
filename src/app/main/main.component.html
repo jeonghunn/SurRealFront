@@ -1,1 +1,4 @@
-<app-intro *ngIf="isGuest"></app-intro>
+<app-intro
+  *ngIf="isGuest"
+  (registered)="onRegister()"
+></app-intro>

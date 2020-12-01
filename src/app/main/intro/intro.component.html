@@ -4,15 +4,27 @@
     <p>{{ 'INTRODUCTION.DESCRIPTION' | translate }}</p>
 
     <div class="register">
-      <mat-radio-group aria-label="Select an option">
+      <mat-radio-group
+        [(ngModel)]="gender"
+        aria-label="Select an option"
+      >
         <mat-radio-button value="1">{{ 'GENDER.MALE' | translate }}</mat-radio-button>
         <mat-radio-button value="2">{{ 'GENDER.FEMALE' | translate }}</mat-radio-button>
       </mat-radio-group>
       <br><br>
       <button
         mat-raised-button
+        *ngIf="!isRequesting"
         color="primary"
-      >{{ 'INTRODUCTION.START' | translate }}</button>
+        (click)="onStartClick()"
+      >
+        {{ 'INTRODUCTION.START' | translate }}
+      </button>
+      <mat-spinner
+        *ngIf="isRequesting"
+        [diameter]="20"
+      ></mat-spinner>
     </div>
+
   </div>
 </app-container-layout>
