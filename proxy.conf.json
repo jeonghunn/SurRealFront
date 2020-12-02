@@ -1,0 +1,7 @@
+{
+  "/api.php": {
+    "target": "https://unopenedbox.com/develop/ting",
+    "secure": true,
+    "changeOrigin": true
+  }
+}
