@@ -21,6 +21,7 @@ export class MainComponent implements OnInit {
     }
   }
 
+  // tslint:disable-next-line:no-empty
   public ngOnInit(): void {
   }
 

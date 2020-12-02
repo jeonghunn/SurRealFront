@@ -8,7 +8,7 @@ describe('ContainerLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContainerLayoutComponent ]
+      declarations: [ ContainerLayoutComponent ],
     })
     .compileComponents();
   });
