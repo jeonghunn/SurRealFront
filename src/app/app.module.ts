@@ -27,7 +27,6 @@ import { ComponentsModule } from './components/components.module';
 import { InfoComponent } from './info/info.component';
 import { IntroComponent } from './main/intro/intro.component';
 import { MainComponent } from './main/main.component';
-import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
@@ -37,7 +36,6 @@ const HttpLoaderFactory = (http: HttpClient) => {
   declarations: [
     AppComponent,
     InfoComponent,
-    MatchModalComponent,
     MainComponent,
     IntroComponent,
   ],
