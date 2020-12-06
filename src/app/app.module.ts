@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,6 +27,7 @@ import { ComponentsModule } from './components/components.module';
 import { InfoComponent } from './info/info.component';
 import { IntroComponent } from './main/intro/intro.component';
 import { MainComponent } from './main/main.component';
+import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
@@ -36,6 +37,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
   declarations: [
     AppComponent,
     InfoComponent,
+    MatchModalComponent,
     MainComponent,
     IntroComponent,
   ],
@@ -47,10 +49,10 @@ const HttpLoaderFactory = (http: HttpClient) => {
     MatCardModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatFormFieldModule,
     MatDialogModule,
     MatButtonModule,
     MatRadioModule,
+    MatInputModule,
     MatSidenavModule,
     MatSnackBarModule,
     HttpClientModule,

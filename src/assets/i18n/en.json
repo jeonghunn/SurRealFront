@@ -24,6 +24,16 @@
   },
   "GENDER": {
     "MALE": "Male",
-    "FEMALE": "Female"
+    "FEMALE": "Female",
+    "ALL":"All"
+  },
+  "MATCH": {
+    "START_NEW_MATCH": "Create a New Match",
+    "MESSAGE_DESC": "Leave your message and contact to someone who will be connected with you.",
+    "MESSAGE_PLACEHOLDER": "Ex. Hi nice to meet you. My email: jeonghunn1@gmail.com",
+    "MESSAGE": "Message",
+    "DOESNT_MATTER": "Doesn't Matter",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm"
   }
 }
