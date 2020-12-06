@@ -37,7 +37,8 @@ jobs:
       # and run all Cypress tests
       - name: Service Dependencies Ready
         run: npm ci
-      - name: Service Start
-        run: npm start & npx wait-on http://localhost:4200
       - name: Cypress run
         uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
