@@ -33,6 +33,7 @@
     "MESSAGE": "메세지",
     "MESSAGE_PLACEHOLDER": "예시. 안녕하세요! 제 카카오톡 아이디는 ~에요.ㅎㅎ",
     "CANCEL": "취소",
-    "CONFIRM": "시작"
+    "CONFIRM": "시작",
+    "TARGET": "매칭 대상 선택"
   }
 }

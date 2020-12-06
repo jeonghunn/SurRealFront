@@ -34,6 +34,7 @@
     "MESSAGE": "Message",
     "DOESNT_MATTER": "Doesn't Matter",
     "CANCEL": "Cancel",
-    "CONFIRM": "Confirm"
+    "CONFIRM": "Confirm",
+    "TARGET": "Find someone who is"
   }
 }

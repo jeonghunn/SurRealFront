@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
   Gender,
+  ResponseSet,
   UserSimpleSet,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
@@ -42,6 +43,14 @@ export class DataService {
 
     return this.httpClient.post<UserSimpleSet>(this.apiUrl, formData).pipe(
     );
+  }
+
+  public requestMatch(gender: Gender, message: string): Observable<ResponseSet> {
+    const formData: FormData = this.getFromDataBase('ting_queue');
+    formData.append('prefer_gender', gender.toString());
+    formData.append('message', message);
+
+    return this.httpClient.post<ResponseSet>(this.apiUrl, formData).pipe();
   }
 
   private handleDefaultResponse(value: any): any {

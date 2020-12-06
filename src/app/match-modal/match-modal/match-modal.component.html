@@ -1,23 +1,37 @@
-<h1 mat-dialog-title>{{ 'MATCH.START_NEW_MATCH' | translate }}</h1>
-<div mat-dialog-content>
-  <div class="gender">
-    <mat-radio-group
-      aria-label="Select an option"
-    >
-      <mat-radio-button value="0">{{ 'GENDER.ALL' | translate }}</mat-radio-button>
-      <mat-radio-button value="1">{{ 'GENDER.MALE' | translate }}</mat-radio-button>
-      <mat-radio-button value="2">{{ 'GENDER.FEMALE' | translate }}</mat-radio-button>
-    </mat-radio-group>
+<mat-spinner
+  *ngIf="isLoading"
+  [diameter]="48"
+></mat-spinner>
+<div *ngIf="!isMatching && !isLoading">
+  <h1 mat-dialog-title>{{ 'MATCH.START_NEW_MATCH' | translate }}</h1>
+  <div mat-dialog-content>
+    <div class="gender">
+      <p>{{ 'MATCH.TARGET' | translate }}:</p>
+      <mat-radio-group
+        aria-label="Select an option"
+      >
+        <mat-radio-button value="0" checked>{{ 'GENDER.ALL' | translate }}</mat-radio-button>
+        <mat-radio-button value="1">{{ 'GENDER.MALE' | translate }}</mat-radio-button>
+        <mat-radio-button value="2">{{ 'GENDER.FEMALE' | translate }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>{{ 'MATCH.MESSAGE' | translate }}</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="firstMessage"
+          [placeholder]="'MATCH.MESSAGE_PLACEHOLDER' | translate"
+        ></textarea>
+      </mat-form-field>
+      <p>{{ 'MATCH.MESSAGE_DESC' | translate }}</p>
+    </div>
   </div>
-  <div>
-    <mat-form-field class="example-full-width">
-      <mat-label>{{ 'MATCH.MESSAGE' | translate }}</mat-label>
-      <textarea matInput [placeholder]="'MATCH.MESSAGE_PLACEHOLDER' | translate"></textarea>
-    </mat-form-field>
-    <p>{{ 'MATCH.MESSAGE_DESC' | translate }}</p>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()">{{ 'MATCH.CANCEL' | translate }}</button>
+    <button mat-button cdkFocusInitial (click)="startMatchMaking()">{{ 'MATCH.CONFIRM' | translate }}</button>
   </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">{{ 'MATCH.CANCEL' | translate }}</button>
-  <button mat-button cdkFocusInitial>{{ 'MATCH.CONFIRM' | translate }}</button>
+<div *ngIf="isMatching && !isLoading">
+  <h1 mat-dialog-title>Matching...</h1>
 </div>

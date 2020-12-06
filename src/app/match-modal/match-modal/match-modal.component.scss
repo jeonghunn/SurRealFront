@@ -2,6 +2,11 @@ mat-form-field {
   width: 100%;
 }
 
+mat-spinner{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 mat-radio-group {
   min-width: 200px;
 
@@ -12,4 +17,8 @@ mat-radio-group {
 
 .gender {
   margin-bottom: 16px;
+
+  p {
+    margin-top: 8px;
+  }
 }
