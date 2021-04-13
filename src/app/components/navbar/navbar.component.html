@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <span>Ting</span>
+  <span>SurReal</span>
 
   <button mat-button [matMenuTriggerFor]="aboveMenu">Above</button>
   <mat-menu #aboveMenu="matMenu" yPosition="above">
@@ -18,12 +18,12 @@
     <button mat-menu-item>Item 1</button>
     <button mat-menu-item>Item 2</button>
   </mat-menu>
-  
+
   <span class="space"></span>
 
   <button
-    mat-button
+    mat-stroked-button
     (click)="openDialog()"
     class="start-button"
-  >{{ 'NAV_BAR.FIND_NEW_MATCH' | translate }}</button>
+  >{{ 'NAV_BAR.START' | translate }}</button>
 </mat-toolbar>

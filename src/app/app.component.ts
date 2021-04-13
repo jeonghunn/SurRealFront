@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: [ './app.component.scss' ],
 })
 export class AppComponent {
-  public title: string = 'TingClient';
+  public title: string = 'SurRealClient';
 
   public constructor(
     public translateService: TranslateService,
