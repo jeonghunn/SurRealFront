@@ -1,10 +1,10 @@
-<app-navbar></app-navbar>
 <mat-drawer-container
   class="drawer-container"
   [hasBackdrop]="false"
 >
   <mat-drawer #drawer [mode]="'side'" [opened]="true">I'm a drawer</mat-drawer>
   <mat-drawer-content>
+    <app-navbar></app-navbar>
     <div class="container">
       <router-outlet></router-outlet>
     </div>
