@@ -24,10 +24,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
+import { LayoutModule } from './layout/layout.module';
 import { MainComponent } from './main/main.component';
 import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
 import { PageModule } from './page/page.module';
-import {LayoutModule} from './layout/layout.module';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
