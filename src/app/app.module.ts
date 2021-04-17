@@ -27,6 +27,7 @@ import { ComponentsModule } from './components/components.module';
 import { MainComponent } from './main/main.component';
 import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
 import { PageModule } from './page/page.module';
+import {LayoutModule} from './layout/layout.module';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
@@ -62,6 +63,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
       },
     }),
     FormsModule,
+    LayoutModule,
   ],
   providers: [
     {

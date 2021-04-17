@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { MatchModalComponent } from 'src/app/match-modal/match-modal/match-modal.component';
 
 @Component({

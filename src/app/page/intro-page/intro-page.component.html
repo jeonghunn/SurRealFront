@@ -1,0 +1,75 @@
+<app-one-container>
+  <h1>{{ 'INTRO_PAGE.TITLE' | translate }}</h1>
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>{{ 'INTRO_PAGE.CHOOSE_SERVER' | translate }}</ng-template>
+        <div>
+          <mat-selection-list #shoes [multiple]="false">
+            <mat-list-option [disableRipple]="true">
+              <h3 class="title">{{ 'INTRO_PAGE.SIGN_UP.TITLE' | translate }}</h3>
+              <p>{{ 'INTRO_PAGE.SIGN_UP.DESCRIPTION' | translate }}</p>
+            </mat-list-option>
+            <mat-list-option [disableRipple]="true">
+              <h3 class="title">{{ 'INTRO_PAGE.INSTANTLY_START.TITLE' | translate }}</h3>
+              <p>{{ 'INTRO_PAGE.INSTANTLY_START.DESCRIPTION' | translate }}</p>
+            </mat-list-option>
+            <mat-list-option [disableRipple]="true">
+              <h3 class="title">{{ 'INTRO_PAGE.BUILD_YOUR_OWN_SERVER.TITLE' | translate }}</h3>
+              <p>{{ 'INTRO_PAGE.BUILD_YOUR_OWN_SERVER.DESCRIPTION' | translate }}</p>
+            </mat-list-option>
+          </mat-selection-list>
+
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [label]="'INTRO_PAGE.SIGN_UP.TITLE' | translate">
+      <div>
+        <h2>{{ 'INTRO_PAGE.SIGN_UP.SERVER_TITLE' | translate }}</h2>
+        <mat-form-field appearance="fill">
+          <mat-label>Server URL</mat-label>
+          <input matInput #input maxlength="70" placeholder="https://">
+          <mat-hint align="end">{{ input.value?.length || 0 }}/70</mat-hint>
+        </mat-form-field>
+      </div>
+      <div>
+        <h2>{{ 'INTRO_PAGE.SIGN_UP.TITLE' | translate }}</h2>
+        <form class="sign_up">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="email@example.com" required>
+            <mat-error>Wrong email</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="isHidePassword ? 'password' : 'text'">
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="isHidePassword = !isHidePassword"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="isHidePassword"
+            >
+              <mat-icon>{{ isHidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      </div>
+      <form>
+        <div class="footer">
+          <button mat-raised-button matStepperPrevious>{{ 'INTRO_PAGE.BACK' | translate }}</button>
+          <button
+            mat-raised-button
+            matStepperNext
+            color="primary"
+          >{{ 'INTRO_PAGE.NEXT' | translate }}</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{ 'INTRO_PAGE.COMPLETE' | translate }}</ng-template>
+      <h1>{{ 'INTRO_PAGE.DONE.TITLE' | translate }}</h1>
+      <mat-spinner [diameter]="16"></mat-spinner>
+    </mat-step>
+  </mat-horizontal-stepper>
+</app-one-container>

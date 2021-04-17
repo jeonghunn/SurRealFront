@@ -35,5 +35,11 @@
     "CANCEL": "취소",
     "CONFIRM": "시작",
     "TARGET": "매칭 대상 선택"
+  },
+  "SIGN_IN": {
+    "TITLE": "로그인",
+    "EMAIL": "이메일 주소",
+    "PASSWORD": "비밀번호",
+    "SIGN_UP": "SurReal에 계정 등록"
   }
 }
