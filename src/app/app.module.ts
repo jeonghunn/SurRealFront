@@ -24,10 +24,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
-import { InfoComponent } from './info/info.component';
-import { IntroComponent } from './main/intro/intro.component';
 import { MainComponent } from './main/main.component';
 import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
+import { PageModule } from './page/page.module';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
@@ -36,16 +35,15 @@ const HttpLoaderFactory = (http: HttpClient) => {
 @NgModule({
   declarations: [
     AppComponent,
-    InfoComponent,
     MatchModalComponent,
     MainComponent,
-    IntroComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ComponentsModule,
+    PageModule,
     MatCardModule,
     MatChipsModule,
     MatProgressSpinnerModule,
