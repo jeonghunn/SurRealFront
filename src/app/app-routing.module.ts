@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { AboutComponent } from './page/about/about.component';
 import { SettingComponent } from './page/setting/setting.component';
 import { SignInComponent } from './page/sign-in/sign-in.component';
+import { SignUpComponent } from './page/sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'setting', component: SettingComponent },
   { path: 'signin', component: SignInComponent },
+  { path: 'signup', component: SignUpComponent },
   { path: '**', component: Error404Component },
 ];
 

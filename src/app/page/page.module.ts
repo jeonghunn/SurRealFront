@@ -14,6 +14,7 @@ import { AboutComponent } from './about/about.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { SettingComponent } from './setting/setting.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
     SettingComponent,
     IntroPageComponent,
     SignInComponent,
+    SignUpComponent,
   ],
   imports: [
     CommonModule,

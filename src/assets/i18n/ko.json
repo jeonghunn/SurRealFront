@@ -41,5 +41,10 @@
     "EMAIL": "이메일 주소",
     "PASSWORD": "비밀번호",
     "SIGN_UP": "SurReal에 계정 등록"
+  },
+  "SIGN_UP": {
+    "TITLE": "계정 등록",
+    "EMAIL": "이메일 주소",
+    "PASSWORD": "비밀번호"
   }
 }

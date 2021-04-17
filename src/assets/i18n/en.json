@@ -32,5 +32,11 @@
     "EMAIL": "Email Address",
     "PASSWORD": "Password",
     "SIGN_UP": "Sign up for SurReal"
+  },
+  "SIGN_UP": {
+    "TITLE": "Sign Up for SurReal",
+    "EMAIL": "Email Address",
+    "PASSWORD": "Password",
+    "SIGN_UP": "Sign up for SurReal"
   }
 }
