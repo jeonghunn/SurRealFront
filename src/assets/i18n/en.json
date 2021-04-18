@@ -31,12 +31,16 @@
     "TITLE": "Sign In",
     "EMAIL": "Email Address",
     "PASSWORD": "Password",
-    "SIGN_UP": "Sign up for SurReal"
+    "SIGN_UP": "Sign up for SurReal",
+    "WRONG": "Wrong email address or password. Please try again."
   },
   "SIGN_UP": {
     "TITLE": "Sign Up for SurReal",
     "EMAIL": "Email Address",
     "PASSWORD": "Password",
-    "SIGN_UP": "Sign up for SurReal"
+    "SIGN_UP": "Sign up for SurReal",
+    "NAME": "Name",
+    "WRONG_EMAIL": "This is not valid email address.",
+    "WRONG_PASSWORD": "Password must be at least 8 characters long."
   }
 }

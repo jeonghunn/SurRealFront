@@ -45,6 +45,9 @@
   "SIGN_UP": {
     "TITLE": "계정 등록",
     "EMAIL": "이메일 주소",
-    "PASSWORD": "비밀번호"
+    "PASSWORD": "비밀번호",
+    "NAME": "이름",
+    "WRONG_EMAIL": "올바른 이메일 주소가 아닙니다.",
+    "WRONG_PASSWORD": "비밀번호는 최소 8자 이상이어야 합니다."
   }
 }
