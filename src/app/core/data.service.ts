@@ -1,10 +1,18 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import {
-  Gender,
-  ResponseSet,
+  HttpClient,
+  HttpErrorResponse,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  Observable,
+  Subject,
+  throwError,
+} from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import {
   UserSimpleSet,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
@@ -13,48 +21,53 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DataService {
+  public httpErrorCode: Subject<number> = new Subject<number>();
+
   private readonly apiUrl: string = environment.api_url;
 
   public constructor(
     private router: Router,
     private httpClient: HttpClient,
+    private matSnackBar: MatSnackBar,
+    private translateService: TranslateService,
   ) { }
 
-  public getFromDataBase(action: string): FormData {
-    const formData = new FormData();
-    formData.append('a', action);
-    formData.append('auth', 'asdf');
-    formData.append('apiv', '1');
-    formData.append('api_key', 'asdf');
-    return formData;
-  }
-
-  public getCoreVersion(): Observable<string> {
-    const formData = new FormData();
-    formData.append('a', 'CoreVersion');
-
-    return this.httpClient.post<string>(this.apiUrl, formData).pipe(
+  public signUp(formData: FormData): Observable<UserSimpleSet> {
+    return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/signup`, formData).pipe(
+      map(this.handleResponse),
+      catchError(error => this.handleError(error)),
     );
   }
 
-  public requestSignUp(gender: Gender): Observable<UserSimpleSet> {
-    const formData: FormData = this.getFromDataBase('ting_signup');
-    formData.append('gender', gender.toString());
-
-    return this.httpClient.post<UserSimpleSet>(this.apiUrl, formData).pipe(
-    );
-  }
-
-  public requestMatch(gender: Gender, message: string): Observable<ResponseSet> {
-    const formData: FormData = this.getFromDataBase('ting_queue');
-    formData.append('prefer_gender', gender.toString());
-    formData.append('message', message);
-
-    return this.httpClient.post<ResponseSet>(this.apiUrl, formData).pipe();
-  }
-
-  private handleDefaultResponse(value: any): any {
+  public handleResponse(value: any): any {
     return value;
+  }
+
+  private handleError(error: HttpErrorResponse, isBig: boolean = true): Observable<any> {
+    let isBigError: boolean = false;
+
+    switch (error.status) {
+      case 401:
+        if (!window.location.href.includes('/signin')) {
+          location.href = `/signin?return=${window.location.href}`;
+        }
+        break;
+      case 403:
+        this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.403_FORBIDDEN.DESCRIPTION'));
+        break;
+      case 404:
+        this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.404_NOT_FOUND.DESCRIPTION'));
+        isBigError = isBig;
+        break;
+      default:
+        break;
+    }
+
+    if (isBigError) {
+      this.httpErrorCode.next(error.status);
+    }
+
+    return throwError(error);
   }
 
 }

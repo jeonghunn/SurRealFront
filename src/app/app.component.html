@@ -6,7 +6,10 @@
   <mat-drawer-content>
     <app-navbar></app-navbar>
     <div class="container">
-      <router-outlet></router-outlet>
+      <router-outlet *ngIf="!pageErrorCode else errorPage"></router-outlet>
+      <ng-template #errorPage>
+        <app-error-page [errorCode]="pageErrorCode"></app-error-page>
+      </ng-template>
     </div>
     <app-footer></app-footer>
   </mat-drawer-content>

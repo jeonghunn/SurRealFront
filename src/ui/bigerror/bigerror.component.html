@@ -1,6 +1,10 @@
 <div class="bigerror">
 <h1>{{ title }}</h1>
   <h5>{{ description }}</h5>
+  <div class="controls">
+    <ng-content></ng-content>
+  </div>
+
   <img
     *ngIf="imageUrl != null"
     [src]="imageUrl"/>

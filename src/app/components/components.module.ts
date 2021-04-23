@@ -6,22 +6,19 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TranslateModule } from '@ngx-translate/core';
 import { FooterComponent } from 'src/app/layout/footer/footer.component';
-import { NavbarComponent } from 'src/app/layout/navbar/navbar.component';
 import { UiModule } from 'src/ui/ui.module';
-import { Error404Component } from './error404/error404.component';
-import { Error500Component } from './error500/error500.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
     FooterComponent,
-    Error404Component,
-    Error500Component,
+    ErrorPageComponent,
 
   ],
   exports: [
     FooterComponent,
-    Error404Component,
-    Error500Component,
+    ErrorPageComponent,
   ],
   imports: [
     UiModule,
@@ -31,6 +28,7 @@ import { Error500Component } from './error500/error500.component';
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
+    CommonModule,
   ],
 })
 export class ComponentsModule { }

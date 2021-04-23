@@ -3,7 +3,10 @@
     <div class="header">
       <h1>{{ 'SIGN_UP.TITLE' | translate }}</h1>
     </div>
-    <form [formGroup]="signUpForm">
+    <form
+      [formGroup]="signUpForm"
+      (ngSubmit)="onSubmit()"
+    >
       <mat-form-field appearance="fill">
         <mat-label>{{ 'SIGN_UP.EMAIL' | translate }}</mat-label>
         <input
@@ -42,8 +45,10 @@
       </mat-form-field>
       <button
         mat-fab
+        [disabled]="!signUpForm.valid"
         color="primary"
         class="submit"
+        type="submit"
       >
         <mat-icon>done</mat-icon>
       </button>

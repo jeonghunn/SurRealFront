@@ -1,9 +1,15 @@
 {
   "HELLO_WORLD": "Hello World!",
   "HTTP_ERROR": {
+    "REFRESH": "Refresh",
+    "FEEDBACK": "Feedback",
+    "403_FORBIDDEN": {
+      "TITLE": "403 Forbidden",
+      "DESCRIPTION":"Sorry. You can not proceed without permission."
+    },
     "404_NOT_FOUND": {
       "TITLE": "404 Not Found",
-      "DESCRIPTION":"Sorry. That page you looking for doesn't exist."
+      "DESCRIPTION":"Sorry. The contents you looking for doesn't exist."
     },
     "500_INTERNAL_SERVER_ERROR": {
       "TITLE": "Sorry, Something went wrong.",

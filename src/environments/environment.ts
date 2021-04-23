@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'api.php',
+  api_url: '/api',
   api_key: 'xT3FP4AuctM',
   api_version: 1,
 };

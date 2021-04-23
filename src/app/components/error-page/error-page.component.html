@@ -1,0 +1,14 @@
+<app-bigerror
+  *ngIf="errorCode >= 500"
+  [title]="'HTTP_ERROR.500_INTERNAL_SERVER_ERROR.TITLE' | translate"
+  [description]="'HTTP_ERROR.500_INTERNAL_SERVER_ERROR.DESCRIPTION' | translate"
+>
+  <button mat-stroked-button (click)="refresh()">{{ 'HTTP_ERROR.REFRESH' | translate }}</button>
+  <button mat-stroked-button (click)="feedback()">{{ 'HTTP_ERROR.FEEDBACK' | translate }}</button>
+</app-bigerror>
+<app-bigerror
+  *ngIf="errorCode === 404"
+  [title]="'HTTP_ERROR.404_NOT_FOUND.TITLE' | translate"
+  [description]="'HTTP_ERROR.404_NOT_FOUND.DESCRIPTION' | translate"
+  [imageUrl]="'/assets/img/404_error.png'"
+></app-bigerror>
