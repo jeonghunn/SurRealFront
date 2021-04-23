@@ -2,7 +2,7 @@
   "HELLO_WORLD": "안녕 세상!",
   "HTTP_ERROR": {
     "REFRESH": "새로고침",
-    "FEEDBACK": "Feedback",
+    "FEEDBACK": "문의하기",
     "403_FORBIDDEN": {
       "TITLE": "403 Forbidden",
       "DESCRIPTION":"죄송합니다. 권한이 충분하지 않아 계속 진행할 수 없습니다."
