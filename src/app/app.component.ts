@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { DataService } from './core/data.service';
 import { Util } from './core/util';
-import {DataService} from './core/data.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ export class AppComponent implements OnDestroy {
     translateService.setDefaultLang(translateService.getBrowserLang());
     this.subscriptions.push(
       this.dataService.httpErrorCode.subscribe((code: number) => {
-        console.log("asdfasdfasdfasdf");
+        console.log('asdfasdfasdfasdf');
         this.pageErrorCode = code;
       }),
     );
