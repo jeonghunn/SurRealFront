@@ -33,7 +33,7 @@ export class DataService {
   ) { }
 
   public signUp(formData: FormData): Observable<UserSimpleSet> {
-    return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/signup`, formData).pipe(
+    return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/user`, formData).pipe(
       map(this.handleResponse),
       catchError(error => this.handleError(error)),
     );
@@ -57,6 +57,12 @@ export class DataService {
         break;
       case 404:
         this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.404_NOT_FOUND.DESCRIPTION'));
+        isBigError = isBig;
+        break;
+      case 500:
+      case 501:
+      case 502:
+      case 504:
         isBigError = isBig;
         break;
       default:
