@@ -26,7 +26,6 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { LayoutModule } from './layout/layout.module';
 import { MainComponent } from './main/main.component';
-import { MatchModalComponent } from './match-modal/match-modal/match-modal.component';
 import { PageModule } from './page/page.module';
 
 const HttpLoaderFactory = (http: HttpClient) => {
@@ -36,7 +35,6 @@ const HttpLoaderFactory = (http: HttpClient) => {
 @NgModule({
   declarations: [
     AppComponent,
-    MatchModalComponent,
     MainComponent,
   ],
   imports: [
