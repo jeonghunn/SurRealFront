@@ -25,6 +25,10 @@ export class MainComponent implements OnInit {
   public ngOnInit(): void {
   }
 
+  public openDiscordServer(): void {
+    location.href = 'https://discord.gg/ucpW3hChb7';
+  }
+
   public onRegister(): void {
     this.isGuest = false;
   }
