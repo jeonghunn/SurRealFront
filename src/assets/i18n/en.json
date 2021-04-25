@@ -47,6 +47,7 @@
     "SIGN_UP": "Sign up for SurReal",
     "NAME": "Name",
     "WRONG_EMAIL": "This is not valid email address.",
-    "WRONG_PASSWORD": "Password must be at least 8 characters long."
+    "WRONG_PASSWORD": "Password must be at least 8 characters long.",
+    "DUPLICATED": "This email address is already registered. Please try another one."
   }
 }

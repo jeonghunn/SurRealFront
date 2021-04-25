@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { TranslateModule } from '@ngx-translate/core';
 import { LayoutModule } from 'src/app/layout/layout.module';
+import { UiModule } from 'src/ui/ui.module';
 import { AboutComponent } from './about/about.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { SettingComponent } from './setting/setting.component';
@@ -38,6 +39,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatListModule,
     MatIconModule,
     ReactiveFormsModule,
+    UiModule,
   ],
 })
 export class PageModule { }

@@ -10,8 +10,8 @@ export enum ResponseResult {
 }
 
 export class UserSimpleSet {
-  public auth: string;
-  public page_srl: number;
+  public id: number;
+  public token: string;
 }
 
 export class ResponseSet {

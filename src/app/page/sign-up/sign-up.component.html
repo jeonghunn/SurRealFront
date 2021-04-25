@@ -1,5 +1,12 @@
 <app-one-container>
-  <div class="signin">
+  <app-spinner
+    *ngIf="isLoading"
+    [diameter]="48"
+  ></app-spinner>
+  <div
+    *ngIf="!isLoading"
+    class="signin"
+  >
     <div class="header">
       <h1>{{ 'SIGN_UP.TITLE' | translate }}</h1>
     </div>
@@ -45,7 +52,7 @@
       </mat-form-field>
       <button
         mat-fab
-        [disabled]="!signUpForm.valid"
+        [disabled]="!signUpForm.valid || isLoading"
         color="primary"
         class="submit"
         type="submit"
