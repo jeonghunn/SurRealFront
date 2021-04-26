@@ -39,6 +39,10 @@ export class DataService {
     );
   }
 
+  public signIn(formData: FormData): Observable<UserSimpleSet> {
+    return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/user/signin`, formData);
+  }
+
   public handleResponse(value: any): any {
     return value;
   }
