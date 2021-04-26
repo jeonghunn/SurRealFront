@@ -57,6 +57,7 @@
     "NAME": "이름",
     "WRONG_EMAIL": "올바른 이메일 주소가 아닙니다.",
     "WRONG_PASSWORD": "비밀번호는 최소 8자 이상이어야 합니다.",
+    "HIDE_PASSWORD": "비밀번호 숨기기",
     "DUPLICATED": "이미 사용중인 이메일 주소입니다."
   }
 }
