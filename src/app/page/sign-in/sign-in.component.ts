@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -19,7 +22,7 @@ import { UserSimpleSet } from '../../model/type';
   templateUrl: './sign-in.component.html',
   styleUrls: [ './sign-in.component.scss' ],
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
 
   public isHidePassword: boolean = true;
   public isLoading: boolean = false;
@@ -35,6 +38,12 @@ export class SignInComponent {
     private identityService: IdentityService,
     public router: Router,
   ) {
+  }
+
+  public ngOnInit(): void {
+    if (this.identityService.getAuth()) {
+      this.goMain();
+    }
   }
 
   public goMain(): void {
