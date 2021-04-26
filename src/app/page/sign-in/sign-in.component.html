@@ -29,6 +29,7 @@
         <mat-label>{{ 'SIGN_IN.PASSWORD' | translate }}</mat-label>
         <input
           matInput
+          required
           [formControlName]="'password'"
           [type]="isHidePassword ? 'password' : 'text'"
         >
