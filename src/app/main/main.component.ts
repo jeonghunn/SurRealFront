@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   public constructor(
     private identityService: IdentityService,
   ) {
-    if (identityService.getAuth()) {
+    if (identityService.isSignedIn) {
       this.isGuest = false;
     }
   }

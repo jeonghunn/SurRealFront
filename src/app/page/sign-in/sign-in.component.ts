@@ -41,7 +41,7 @@ export class SignInComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    if (this.identityService.getAuth()) {
+    if (this.identityService.isSignedIn) {
       this.goMain();
     }
   }

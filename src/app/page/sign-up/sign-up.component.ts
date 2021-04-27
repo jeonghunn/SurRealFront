@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    if (this.identityService.getAuth()) {
+    if (this.identityService.isSignedIn) {
       this.router.navigateByUrl('/').then(null);
     }
   }
