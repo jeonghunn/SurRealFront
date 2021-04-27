@@ -31,6 +31,4 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('signup').then(null);
   }
 
-  public ngOnInit(): void {
-  }
 }
