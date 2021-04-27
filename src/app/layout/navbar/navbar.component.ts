@@ -11,7 +11,7 @@ import { IdentityService } from 'src/app/core/identity.service';
   templateUrl: './navbar.component.html',
   styleUrls: [ './navbar.component.scss' ],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
   public constructor(
     public dialog: MatDialog,
