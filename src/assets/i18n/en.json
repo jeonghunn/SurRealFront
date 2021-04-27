@@ -20,7 +20,8 @@
     "UNKNOWN": "Sorry, Something went wrong. Please try again. FEEDBACK: jeonghunn1@gmail.com"
   },
   "NAV_BAR": {
-    "FIND_NEW_MATCH": "New Match"
+    "SIGN_IN": "Sign in",
+    "SIGN_UP": "Sign up"
   },
   "INTRODUCTION": {
     "TITLE": "Find a new friend who thinks like you.",

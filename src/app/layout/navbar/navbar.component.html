@@ -21,8 +21,15 @@
 
   <span class="space"></span>
 
-  <button
-    mat-stroked-button
-    class="start-button"
-  >{{ 'NAV_BAR.START' | translate }}</button>
+  <ng-container *ngIf="!isSignedIn">
+    <button
+      mat-button
+      (click)="goSignIn()"
+    >{{ 'NAV_BAR.SIGN_IN' | translate }}</button>
+    <button
+      mat-stroked-button
+      (click)="goSignUp()"
+    >{{ 'NAV_BAR.SIGN_UP' | translate }}</button>
+  </ng-container>
+
 </mat-toolbar>

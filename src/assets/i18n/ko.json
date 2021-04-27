@@ -20,7 +20,8 @@
     "UNKNOWN": "죄송합니다. 무언가가 잘못 처리되었어요. 다시 시도해 주세요. 의견: jeonghunn1@gmail.com"
   },
   "NAV_BAR": {
-    "FIND_NEW_MATCH": "매칭 시작"
+    "SIGN_IN": "로그인",
+    "SIGN_UP": "회원가입"
   },
   "INTRODUCTION": {
     "TITLE": "나와 같은 생각을 하는 사람을 찾아 보세요.",
