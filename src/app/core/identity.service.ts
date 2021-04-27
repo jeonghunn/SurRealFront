@@ -20,6 +20,9 @@ export class IdentityService {
     return this.cookieService.get('Authorization');
   }
 
+  public remove(): void {
+    this.cookieService.delete('Authorization');
+  }
   public setAuth(auth: string): void {
     this.cookieService.set( 'auth', auth );
   }

@@ -16,6 +16,7 @@ import {
   UserSimpleSet,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
+import { IdentityService } from './identity.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,7 @@ export class DataService {
     private httpClient: HttpClient,
     private matSnackBar: MatSnackBar,
     private translateService: TranslateService,
+    private identityService: IdentityService,
   ) { }
 
   public signUp(formData: FormData): Observable<UserSimpleSet> {
@@ -53,6 +55,7 @@ export class DataService {
     switch (error.status) {
       case 401:
         if (!window.location.href.includes('/signin')) {
+          this.identityService.remove();
           location.href = `/signin?return=${window.location.href}`;
         }
         break;
