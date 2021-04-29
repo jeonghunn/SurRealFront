@@ -69,7 +69,6 @@ export class SignUpComponent implements OnInit {
         )
       .subscribe((result: UserSimpleSet) => {
         this.isLoading = false;
-        this.identityService.setAuth(result.token);
         this.goMain();
       });
   }
