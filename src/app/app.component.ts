@@ -22,7 +22,6 @@ export class AppComponent implements OnDestroy {
     translateService.setDefaultLang(translateService.getBrowserLang());
     this.subscriptions.push(
       this.dataService.httpErrorCode.subscribe((code: number) => {
-        console.log('asdfasdfasdfasdf');
         this.pageErrorCode = code;
       }),
     );

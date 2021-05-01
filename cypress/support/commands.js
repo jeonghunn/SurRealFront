@@ -6,3 +6,34 @@ Cypress.Commands.add('goto', (url) => {
     }
   });
 });
+
+Cypress.Commands.add('signin', (user) => {
+  let id = 'admin@admin.com';
+  const password  = '12345678';
+
+  switch (user) {
+    case 'user':
+      id = 'test@test.com';
+      break;
+    case 'unknown':
+      id = 'unknown@unknown.com';
+      break;
+    default:
+      id = 'admin@admin.com';
+  }
+
+  if (user === 'user') {
+    id = 'test@test.com';
+  }
+
+  cy.server();
+  cy.route('POST', '**/signin').as('getSignIn');
+  cy.goto('/signin');
+  cy.get('#mat-input-0', {timeout: 10000})
+    .type(id).should('have.value', id);
+  cy.get('#mat-input-1')
+    .type(password).should('have.value',password);
+  cy.get('.submit').click();
+  cy.wait('@getSignIn');
+
+});
