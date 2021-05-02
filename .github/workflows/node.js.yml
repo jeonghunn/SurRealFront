@@ -37,7 +37,8 @@ jobs:
       # and run all Cypress tests
       - name: Service Dependencies Ready
         run: npm ci
-        run: curl https://surreal.unopenedbox.com
+      - name: Service Dependencies Ready
+        run: curl https://surreal.unopenedbox.com 
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
