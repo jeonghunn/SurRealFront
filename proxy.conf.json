@@ -1,10 +1,7 @@
 {
   "/api": {
-    "target": "https://surreal.unopenedbox.com/api",
+    "target": "https://surreal.unopenedbox.com/",
     "secure": true,
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": "/"
-    }
+    "changeOrigin": true
   }
 }
