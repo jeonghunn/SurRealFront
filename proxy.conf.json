@@ -2,6 +2,7 @@
   "/api": {
     "target": "https://surreal.unopenedbox.com/",
     "secure": false,
+    "port": 443,
     "changeOrigin": true
   }
 }
