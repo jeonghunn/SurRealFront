@@ -1,7 +1,7 @@
 {
   "/api": {
     "target": "https://surreal.unopenedbox.com/",
-    "secure": true,
+    "secure": false,
     "changeOrigin": true
   }
 }
