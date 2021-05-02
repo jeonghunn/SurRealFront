@@ -1,4 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DataService } from './core/data.service';
@@ -9,15 +14,18 @@ import { Util } from './core/util';
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.scss' ],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'SurRealClient';
   public pageErrorCode: number;
+  public isSmallWidth: boolean = false;
 
+  private MOBILE_WIDTH: number = 600;
   private subscriptions: Subscription[] = [];
 
   public constructor(
     public translateService: TranslateService,
     public dataService: DataService,
+    public elementRef: ElementRef,
   ) {
     translateService.setDefaultLang(translateService.getBrowserLang());
     this.subscriptions.push(
@@ -25,6 +33,14 @@ export class AppComponent implements OnDestroy {
         this.pageErrorCode = code;
       }),
     );
+  }
+
+  public ngOnInit(): void {
+    this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
+  }
+
+  public onWindowResize(event: any): void {
+    this.isSmallWidth = event.target.innerWidth < this.MOBILE_WIDTH;
   }
 
   public ngOnDestroy(): void {

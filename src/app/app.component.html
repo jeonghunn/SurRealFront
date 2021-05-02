@@ -1,8 +1,13 @@
 <mat-drawer-container
   class="drawer-container"
+  (window:resize)="onWindowResize($event)"
   [hasBackdrop]="false"
 >
-  <mat-drawer #drawer [mode]="'side'" [opened]="true">I'm a drawer</mat-drawer>
+  <mat-drawer
+    #drawer
+    [mode]="'side'"
+    [opened]="!isSmallWidth"
+  >I'm a drawer</mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>
     <div class="container">
