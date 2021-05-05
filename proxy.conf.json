@@ -1,9 +1,8 @@
 {
   "/api": {
-    "target": "https://surreal.unopenedbox.com/",
+    "target": "https://surreal.unopenedbox.com",
     "logLevel": "debug",
-    "secure": false,
-    "port": 443,
+    "secure": true,
     "changeOrigin": true
   }
 }
