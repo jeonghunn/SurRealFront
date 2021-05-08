@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <span
+    (click)="goMain()"
+    class="main"
+  >SurReal (Alpha)</span>
+
+  <button mat-button [matMenuTriggerFor]="aboveMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #aboveMenu="matMenu" yPosition="above">
+    <button mat-menu-item (click)="goAbout()">About</button>
+  </mat-menu>
+
+
+
+  <span class="space"></span>
+
+  <ng-container *ngIf="!isSignedIn">
+    <button
+      mat-button
+      (click)="goSignIn()"
+    >{{ 'NAV_BAR.SIGN_IN' | translate }}</button>
+    <button
+      mat-stroked-button
+      (click)="goSignUp()"
+    >{{ 'NAV_BAR.SIGN_UP' | translate }}</button>
+  </ng-container>
+
+</mat-toolbar>

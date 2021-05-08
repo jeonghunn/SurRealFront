@@ -1,5 +1,8 @@
+import {
+  browser,
+  logging,
+} from 'protractor';
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -10,7 +13,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('TingClient app is running!');
+    expect(page.getTitleText()).toEqual('SurRealClient app is running!');
   });
 
   afterEach(async () => {

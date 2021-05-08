@@ -1,0 +1,66 @@
+<app-one-container>
+  <app-spinner
+    *ngIf="isLoading"
+    [diameter]="48"
+  ></app-spinner>
+  <div
+    *ngIf="!isLoading"
+    class="signup"
+  >
+    <div class="header">
+      <h1>{{ 'SIGN_UP.TITLE' | translate }}</h1>
+    </div>
+    <form
+      [formGroup]="signUpForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>{{ 'SIGN_UP.EMAIL' | translate }}</mat-label>
+        <input
+          matInput
+          placeholder="email@example.com"
+          required
+          [formControlName]="'email'"
+        >
+        <mat-error>{{ 'SIGN_UP.WRONG_EMAIL' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ 'SIGN_UP.PASSWORD' | translate }}</mat-label>
+        <input
+          matInput
+          [type]="isHidePassword ? 'password' : 'text'"
+          [formControlName]="'password'"
+        >
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="isHidePassword = !isHidePassword"
+          [attr.aria-label]="'SIGN_UP.HIDE_PASSWORD' | translate"
+          [attr.aria-pressed]="isHidePassword"
+        >
+          <mat-icon>{{ isHidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error>{{ 'SIGN_UP.WRONG_PASSWORD' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ 'SIGN_UP.NAME' | translate }}</mat-label>
+        <input
+          matInput
+          required
+          [formControlName]="'name'"
+        >
+      </mat-form-field>
+      <button
+        mat-fab
+        [disabled]="!signUpForm.valid || isLoading"
+        color="primary"
+        class="submit"
+        type="submit"
+      >
+        <mat-icon>done</mat-icon>
+      </button>
+    </form>
+  </div>
+
+
+</app-one-container>

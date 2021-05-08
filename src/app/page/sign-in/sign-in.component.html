@@ -1,0 +1,64 @@
+<app-one-container>
+  <app-spinner
+    *ngIf="isLoading"
+    [diameter]="48"
+  ></app-spinner>
+  <div
+    *ngIf="!isLoading"
+    class="signin"
+  >
+    <div class="header">
+      <h1>{{ 'SIGN_IN.TITLE' | translate }}</h1>
+      <mat-error *ngIf="hasAuthError">{{ 'SIGN_IN.WRONG' | translate }}</mat-error>
+    </div>
+    <form
+      [formGroup]="signInForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>{{ 'SIGN_IN.EMAIL' | translate }}</mat-label>
+        <input
+          matInput
+          [formControlName]="'email'"
+          placeholder="email@example.com"
+          required
+        >
+        <mat-error>{{ 'SIGN_UP.WRONG_EMAIL' | translate }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{ 'SIGN_IN.PASSWORD' | translate }}</mat-label>
+        <input
+          matInput
+          required
+          [formControlName]="'password'"
+          [type]="isHidePassword ? 'password' : 'text'"
+        >
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="isHidePassword = !isHidePassword"
+          [attr.aria-label]="'SIGN_IN.HIDE_PASSWORD' | translate"
+          [attr.aria-pressed]="isHidePassword"
+        >
+          <mat-icon>{{ isHidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <button
+        mat-fab
+        [disabled]="!signInForm.valid || isLoading"
+        color="primary"
+        class="submit"
+      >
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </form>
+    <div class="additional_buttons">
+      <button
+        mat-stroked-button
+        (click)="router.navigateByUrl('signup')"
+      >{{ 'SIGN_IN.SIGN_UP' | translate }}</button>
+    </div>
+  </div>
+
+
+</app-one-container>

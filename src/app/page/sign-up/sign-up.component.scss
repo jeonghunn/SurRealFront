@@ -1,0 +1,30 @@
+.signup {
+  margin-top: 64px;
+  align-items: center;
+
+  .header {
+    text-align: center;
+  }
+
+  form {
+    margin-top: 64px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: block;
+    max-width: 400px;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .submit {
+      margin-top: 32px;
+    }
+  }
+}
+
+.additional_buttons {
+  margin-top: 72px;
+  text-align: center;
+}

@@ -1,0 +1,64 @@
+{
+  "HELLO_WORLD": "안녕 세상!",
+  "HTTP_ERROR": {
+    "REFRESH": "새로고침",
+    "FEEDBACK": "문의하기",
+    "403_FORBIDDEN": {
+      "TITLE": "403 Forbidden",
+      "DESCRIPTION":"죄송합니다. 권한이 충분하지 않아 계속 진행할 수 없습니다."
+    },
+    "404_NOT_FOUND": {
+      "TITLE": "존재하지 않는 페이지",
+      "DESCRIPTION":"지금 찾고자 하는 항목은 없거나 삭제 되었습니다."
+    },
+    "500_INTERNAL_SERVER_ERROR": {
+      "TITLE": "죄송합니다, 문제가 발생했습니다.",
+      "DESCRIPTION":"빠른 시간 내에 문제를 해결 하도록 하겠습니다."
+    }
+  },
+  "ERROR": {
+    "UNKNOWN": "죄송합니다. 무언가가 잘못 처리되었어요. 다시 시도해 주세요. 의견: jeonghunn1@gmail.com"
+  },
+  "NAV_BAR": {
+    "SIGN_IN": "로그인",
+    "SIGN_UP": "회원가입"
+  },
+  "INTRODUCTION": {
+    "TITLE": "나와 같은 생각을 하는 사람을 찾아 보세요.",
+    "DESCRIPTION": "성별을 선택하고 시작하세요!",
+    "START": "시작하기",
+    "SELECT_GENDER_DESC": "성별을 선택해 주세요."
+  },
+  "GENDER": {
+    "MALE": "남성",
+    "FEMALE": "여성",
+    "ALL": "상관 없음"
+  },
+  "MATCH": {
+    "START_NEW_MATCH": "새로운 매치 시작하기",
+    "MESSAGE_DESC": "매칭될 사람에게 메세지를 남겨주세요.",
+    "MESSAGE": "메세지",
+    "MESSAGE_PLACEHOLDER": "예시. 안녕하세요! 제 카카오톡 아이디는 ~에요.ㅎㅎ",
+    "CANCEL": "취소",
+    "CONFIRM": "시작",
+    "TARGET": "매칭 대상 선택"
+  },
+  "SIGN_IN": {
+    "TITLE": "로그인",
+    "EMAIL": "이메일 주소",
+    "PASSWORD": "비밀번호",
+    "SIGN_UP": "SurReal에 계정 등록",
+    "HIDE_PASSWORD": "비밀번호 숨기기",
+    "WRONG": "올바르지 않은 이메일 주소 또는 비밀번호 입니다."
+  },
+  "SIGN_UP": {
+    "TITLE": "계정 등록",
+    "EMAIL": "이메일 주소",
+    "PASSWORD": "비밀번호",
+    "NAME": "이름",
+    "WRONG_EMAIL": "올바른 이메일 주소가 아닙니다.",
+    "WRONG_PASSWORD": "비밀번호는 최소 8자 이상이어야 합니다.",
+    "HIDE_PASSWORD": "비밀번호 숨기기",
+    "DUPLICATED": "이미 사용중인 이메일 주소입니다."
+  }
+}

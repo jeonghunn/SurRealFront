@@ -1,0 +1,55 @@
+{
+  "HELLO_WORLD": "Hello World!",
+  "HTTP_ERROR": {
+    "REFRESH": "Refresh",
+    "FEEDBACK": "Feedback",
+    "403_FORBIDDEN": {
+      "TITLE": "403 Forbidden",
+      "DESCRIPTION":"Sorry. You can not proceed without permission."
+    },
+    "404_NOT_FOUND": {
+      "TITLE": "404 Not Found",
+      "DESCRIPTION":"Sorry. The contents you looking for doesn't exist."
+    },
+    "500_INTERNAL_SERVER_ERROR": {
+      "TITLE": "Sorry, Something went wrong.",
+      "DESCRIPTION":"We will fix this problem soon."
+    }
+  },
+  "ERROR": {
+    "UNKNOWN": "Sorry, Something went wrong. Please try again. FEEDBACK: jeonghunn1@gmail.com"
+  },
+  "NAV_BAR": {
+    "SIGN_IN": "Sign in",
+    "SIGN_UP": "Sign up"
+  },
+  "INTRODUCTION": {
+    "TITLE": "Find a new friend who thinks like you.",
+    "DESCRIPTION": "Select your gender to start!",
+    "START": "Start",
+    "SELECT_GENDER_DESC": "Please select your gender."
+  },
+  "GENDER": {
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "ALL":"All"
+  },
+  "SIGN_IN": {
+    "TITLE": "Sign In",
+    "EMAIL": "Email Address",
+    "PASSWORD": "Password",
+    "SIGN_UP": "Sign up for SurReal",
+    "WRONG": "Wrong email address or password. Please try again."
+  },
+  "SIGN_UP": {
+    "TITLE": "Sign Up for SurReal",
+    "EMAIL": "Email Address",
+    "PASSWORD": "Password",
+    "SIGN_UP": "Sign up for SurReal",
+    "NAME": "Name",
+    "WRONG_EMAIL": "This is not valid email address.",
+    "WRONG_PASSWORD": "Password must be at least 8 characters long.",
+    "HIDE_PASSWORD": "Hide Password",
+    "DUPLICATED": "This email address is already registered. Please try another one."
+  }
+}
