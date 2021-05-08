@@ -24,6 +24,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
+import { Guard } from './core/guard/guard';
 import { LayoutModule } from './layout/layout.module';
 import { MainComponent } from './main/main.component';
 import { PageModule } from './page/page.module';
@@ -64,6 +65,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
     LayoutModule,
   ],
   providers: [
+    Guard,
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { duration: 2500 },

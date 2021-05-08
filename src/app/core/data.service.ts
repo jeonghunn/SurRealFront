@@ -11,12 +11,14 @@ import {
   Subject,
   throwError,
 } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 import {
   UserSimpleSet,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
-import { IdentityService } from './identity.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +33,6 @@ export class DataService {
     private httpClient: HttpClient,
     private matSnackBar: MatSnackBar,
     private translateService: TranslateService,
-    private identityService: IdentityService,
   ) { }
 
   public signUp(formData: FormData): Observable<UserSimpleSet> {
@@ -45,6 +46,13 @@ export class DataService {
     return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/user/signin`, formData);
   }
 
+  public verify(): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}/user/verify`).pipe(
+      map(this.handleResponse),
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
   public handleResponse(value: any): any {
     return value;
   }
@@ -54,10 +62,7 @@ export class DataService {
 
     switch (error.status) {
       case 401:
-        if (!window.location.href.includes('/signin')) {
-          this.identityService.remove();
-          location.href = `/signin?return=${window.location.href}`;
-        }
+        this.router.navigateByUrl(`/intro?return=${window.location.pathname}`);
         break;
       case 403:
         this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.403_FORBIDDEN.DESCRIPTION'));

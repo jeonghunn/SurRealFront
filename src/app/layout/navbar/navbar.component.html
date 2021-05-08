@@ -15,7 +15,7 @@
 
   <span class="space"></span>
 
-  <ng-container *ngIf="!isSignedIn">
+  <ng-container *ngIf="!isSignedIn else signedIn">
     <button
       mat-button
       (click)="goSignIn()"
@@ -25,5 +25,11 @@
       (click)="goSignUp()"
     >{{ 'NAV_BAR.SIGN_UP' | translate }}</button>
   </ng-container>
+  <ng-template #signedIn>
+    <button
+      mat-button
+      (click)="goSignIn()"
+    >{{ userName }}</button>
+  </ng-template>
 
 </mat-toolbar>

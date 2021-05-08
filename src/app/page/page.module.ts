@@ -14,6 +14,7 @@ import { LayoutModule } from 'src/app/layout/layout.module';
 import { UiModule } from 'src/ui/ui.module';
 import { AboutComponent } from './about/about.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
+import { LandingComponent } from './landing/landing.component';
 import { SettingComponent } from './setting/setting.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -25,6 +26,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     IntroPageComponent,
     SignInComponent,
     SignUpComponent,
+    LandingComponent,
   ],
   imports: [
     CommonModule,
