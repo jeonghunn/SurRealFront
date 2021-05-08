@@ -6,7 +6,7 @@
   <mat-drawer
     #drawer
     [mode]="'side'"
-    [opened]="!isSmallWidth"
+    [opened]="!isSmallWidth && isSignedIn"
   >I'm a drawer</mat-drawer>
   <mat-drawer-content>
     <app-navbar></app-navbar>

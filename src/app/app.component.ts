@@ -7,6 +7,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DataService } from './core/data.service';
+import { IdentityService } from './core/identity.service';
 import { Util } from './core/util';
 
 @Component({
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public translateService: TranslateService,
     public dataService: DataService,
     public elementRef: ElementRef,
+    public identityService: IdentityService,
   ) {
     translateService.setDefaultLang(translateService.getBrowserLang());
     this.subscriptions.push(
@@ -33,6 +35,10 @@ export class AppComponent implements OnInit, OnDestroy {
         this.pageErrorCode = code;
       }),
     );
+  }
+
+  public get isSignedIn(): boolean {
+    return this.identityService.isSignedIn;
   }
 
   public ngOnInit(): void {
