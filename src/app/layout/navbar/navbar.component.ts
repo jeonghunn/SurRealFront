@@ -23,6 +23,14 @@ export class NavbarComponent {
     return this.identityService.isSignedIn;
   }
 
+  public goMain(): void {
+    this.router.navigateByUrl('/').then(null);
+  }
+
+  public goAbout(): void {
+    this.router.navigateByUrl('about').then(null);
+  }
+
   public goSignIn(): void {
     this.router.navigateByUrl('signin').then(null);
   }
