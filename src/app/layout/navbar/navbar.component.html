@@ -4,10 +4,10 @@
     class="main"
   >SurReal (Alpha)</span>
 
-  <button mat-button [matMenuTriggerFor]="aboveMenu">
+  <button mat-button [matMenuTriggerFor]="moreMenu">
     <mat-icon>more_vert</mat-icon>
   </button>
-  <mat-menu #aboveMenu="matMenu" yPosition="above">
+  <mat-menu #moreMenu="matMenu" yPosition="above">
     <button mat-menu-item (click)="goAbout()">About</button>
   </mat-menu>
 
