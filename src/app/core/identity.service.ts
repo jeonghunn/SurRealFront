@@ -26,6 +26,10 @@ export class IdentityService {
     return this.auth?.length > 0;
   }
 
+  public get isNeedToVerify(): boolean {
+    return this.isSignedIn && this.user$.getValue() === undefined;
+  }
+
   public get auth(): string {
     return this.cookieService.get('Authorization');
   }
@@ -36,7 +40,7 @@ export class IdentityService {
 
   public verify(): Observable<User> {
     return this.dataService.verify().pipe(
-      tap((user: User) => this.user$.next(user)),
+      tap((result: any) => this.user$.next(result.user)),
     );
   }
 

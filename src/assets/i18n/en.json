@@ -21,7 +21,8 @@
   },
   "NAV_BAR": {
     "SIGN_IN": "Sign in",
-    "SIGN_UP": "Sign up"
+    "SIGN_UP": "Sign up",
+    "SIGN_OUT": "Sign Out"
   },
   "INTRODUCTION": {
     "TITLE": "Find a new friend who thinks like you.",

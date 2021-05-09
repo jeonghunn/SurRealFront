@@ -28,8 +28,11 @@
   <ng-template #signedIn>
     <button
       mat-button
-      (click)="goSignIn()"
-    >{{ userName }}</button>
+      [matMenuTriggerFor]="profileMenu"
+    ><mat-icon>account_circle</mat-icon> {{ userFirstName }}</button>
+    <mat-menu #profileMenu="matMenu" yPosition="above">
+      <button mat-menu-item (click)="signOut()">{{ 'NAV_BAR.SIGN_OUT' | translate }}</button>
+    </mat-menu>
   </ng-template>
 
 </mat-toolbar>

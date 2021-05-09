@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {
+  HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
 } from '@angular/common/http';
@@ -28,6 +29,7 @@ import { Guard } from './core/guard/guard';
 import { LayoutModule } from './layout/layout.module';
 import { MainComponent } from './main/main.component';
 import { PageModule } from './page/page.module';
+import {AuthInterceptor} from './core/auth.intercepter';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
@@ -69,6 +71,11 @@ const HttpLoaderFactory = (http: HttpClient) => {
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { duration: 2500 },
+    },
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
     },
   ],
   bootstrap: [ AppComponent ],
