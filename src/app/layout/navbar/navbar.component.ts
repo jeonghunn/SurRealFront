@@ -1,8 +1,11 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -16,6 +19,12 @@ import { Util } from 'src/app/core/util';
   styleUrls: [ './navbar.component.scss' ],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+
+  @Output()
+  public readonly toggleSidNav: EventEmitter<null> = new EventEmitter();
+
+  @Input()
+  public readonly isSmallWidth: boolean = false;
 
   public userFirstName: string;
 
@@ -61,6 +70,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public goSignUp(): void {
     this.router.navigateByUrl('signup').then(null);
+  }
+
+  public onSideNavToggleClick(): void {
+    this.toggleSidNav.emit();
   }
 
   public signOut(): void {

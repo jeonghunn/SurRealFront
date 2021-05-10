@@ -6,10 +6,14 @@
   <mat-drawer
     #drawer
     [mode]="'side'"
-    [opened]="!isSmallWidth && isSignedIn"
-  >I'm a drawer</mat-drawer>
+    [opened]="isSideNavOpen && isSignedIn"
+    class="drawer"
+  ></mat-drawer>
   <mat-drawer-content>
-    <app-navbar></app-navbar>
+    <app-navbar
+      (toggleSidNav)="toggleSideNav()"
+      [isSmallWidth]="isSmallWidth"
+    ></app-navbar>
     <div class="container">
       <router-outlet *ngIf="!pageErrorCode else errorPage"></router-outlet>
       <ng-template #errorPage>

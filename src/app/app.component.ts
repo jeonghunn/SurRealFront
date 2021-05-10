@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnDestroy,
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'SurRealClient';
   public pageErrorCode: number;
   public isSmallWidth: boolean = false;
+  public isSideNavOpen: boolean = true;
 
   private MOBILE_WIDTH: number = 600;
   private subscriptions: Subscription[] = [];
@@ -28,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public dataService: DataService,
     public elementRef: ElementRef,
     public identityService: IdentityService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     translateService.setDefaultLang(translateService.getBrowserLang());
     this.subscriptions.push(
@@ -43,10 +46,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
+    this.isSideNavOpen = this.isSmallWidth;
   }
 
   public onWindowResize(event: any): void {
     this.isSmallWidth = event.target.innerWidth < this.MOBILE_WIDTH;
+  }
+
+  public toggleSideNav(): void {
+    this.isSideNavOpen = !this.isSideNavOpen;
+    this.changeDetectorRef.markForCheck();
   }
 
   public ngOnDestroy(): void {

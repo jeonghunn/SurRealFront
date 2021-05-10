@@ -3,7 +3,13 @@
     (click)="goMain()"
     class="main"
   >SurReal (Alpha)</span>
-
+  <button
+    mat-button
+    *ngIf="isSignedIn && isSmallWidth"
+    (click)="onSideNavToggleClick()"
+  >
+    <mat-icon>people_alt_outlined</mat-icon>
+  </button>
   <button mat-button [matMenuTriggerFor]="moreMenu">
     <mat-icon>more_vert</mat-icon>
   </button>
