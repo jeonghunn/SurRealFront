@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {
-  HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
+  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,11 +25,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
+import { AuthInterceptor } from './core/auth.intercepter';
 import { Guard } from './core/guard/guard';
 import { LayoutModule } from './layout/layout.module';
 import { MainComponent } from './main/main.component';
 import { PageModule } from './page/page.module';
-import {AuthInterceptor} from './core/auth.intercepter';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
