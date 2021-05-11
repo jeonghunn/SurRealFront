@@ -6,7 +6,7 @@
   <mat-drawer
     #drawer
     [mode]="'side'"
-    [opened]="isSideNavOpen && isSignedIn"
+    [opened]="(isSideNavOpen || !isSmallWidth) && isSignedIn"
     class="drawer"
   ></mat-drawer>
   <mat-drawer-content>
