@@ -5,11 +5,11 @@ import {
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: [ './sidenav.component.scss' ],
+  selector: 'app-place-list',
+  templateUrl: './place-list.component.html',
+  styleUrls: [ './place-list.component.scss' ],
 })
-export class SidenavComponent implements OnInit {
+export class PlaceListComponent implements OnInit {
 
   @Output()
   public readonly toggleSidNav: EventEmitter<null> = new EventEmitter();

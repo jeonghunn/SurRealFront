@@ -1,0 +1,43 @@
+.sidebar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+
+  .header {
+    text-align: center;
+
+    h1 {
+      margin-block-end: 0;
+    }
+
+    p {
+      margin-block-start: 0;
+    }
+
+  }
+
+  .icon{
+    width: 64px;
+    height: 64px;
+    background-color: #EAEAEA;
+    -webkit-border-radius: 60px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 60px;
+    -moz-background-clip: padding;
+    border-radius: 60px;
+    background-clip: padding-box;
+    margin: 8px auto 0 auto;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    align-items: center;
+
+    mat-icon {
+    }
+  }
+
+
+}

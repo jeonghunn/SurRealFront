@@ -8,15 +8,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TranslateModule } from '@ngx-translate/core';
+import { ComponentsModule } from '../components/components.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OneContainerComponent } from './one-container/one-container.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
+import { PlaceListComponent } from './place-list/place-list.component';
 
 @NgModule({
   declarations: [
-    SidenavComponent,
+    PlaceListComponent,
     NavbarComponent,
     OneContainerComponent,
+    PlaceListComponent,
   ],
   imports: [
     CommonModule,
@@ -28,9 +30,10 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     MatProgressBarModule,
     TranslateModule,
     MatMenuModule,
+    ComponentsModule,
   ],
   exports: [
-    SidenavComponent,
+    PlaceListComponent,
     NavbarComponent,
     OneContainerComponent,
   ],

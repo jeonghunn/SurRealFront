@@ -8,7 +8,9 @@
     [mode]="'side'"
     [opened]="(isSideNavOpen || !isSmallWidth) && isSignedIn"
     class="drawer"
-  ></mat-drawer>
+  >
+    <app-place-list></app-place-list>
+  </mat-drawer>
   <mat-drawer-content>
     <app-navbar
       (toggleSidNav)="toggleSideNav()"
