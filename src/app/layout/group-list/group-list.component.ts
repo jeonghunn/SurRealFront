@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './place-list.component.html',
   styleUrls: [ './place-list.component.scss' ],
 })
-export class PlaceListComponent implements OnInit {
+export class GroupListComponent implements OnInit {
 
   @Output()
   public readonly toggleSidNav: EventEmitter<null> = new EventEmitter();
