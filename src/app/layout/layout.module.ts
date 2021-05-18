@@ -9,16 +9,15 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule } from '../components/components.module';
+import { GroupListComponent } from './group-list/group-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OneContainerComponent } from './one-container/one-container.component';
-import { PlaceListComponent } from './place-list/place-list.component';
 
 @NgModule({
   declarations: [
-    PlaceListComponent,
+    GroupListComponent,
     NavbarComponent,
     OneContainerComponent,
-    PlaceListComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +32,7 @@ import { PlaceListComponent } from './place-list/place-list.component';
     ComponentsModule,
   ],
   exports: [
-    PlaceListComponent,
+    GroupListComponent,
     NavbarComponent,
     OneContainerComponent,
   ],

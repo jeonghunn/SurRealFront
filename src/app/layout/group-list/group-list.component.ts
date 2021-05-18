@@ -5,9 +5,9 @@ import {
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-place-list',
-  templateUrl: './place-list.component.html',
-  styleUrls: [ './place-list.component.scss' ],
+  selector: 'app-group-list',
+  templateUrl: './group-list.component.html',
+  styleUrls: [ './group-list.component.scss' ],
 })
 export class GroupListComponent implements OnInit {
 
