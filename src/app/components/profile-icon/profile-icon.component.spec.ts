@@ -8,7 +8,7 @@ describe('ProfileIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileIconComponent ]
+      declarations: [ ProfileIconComponent ],
     })
     .compileComponents();
   });
