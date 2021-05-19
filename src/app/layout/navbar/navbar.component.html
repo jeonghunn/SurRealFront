@@ -37,6 +37,7 @@
       [matMenuTriggerFor]="profileMenu"
     ><mat-icon>account_circle</mat-icon> {{ userFirstName }}</button>
     <mat-menu #profileMenu="matMenu" yPosition="above">
+      <button mat-menu-item (click)="goSetting()">{{ 'NAV_BAR.SETTING' | translate }}</button>
       <button mat-menu-item (click)="signOut()">{{ 'NAV_BAR.SIGN_OUT' | translate }}</button>
     </mat-menu>
   </ng-template>

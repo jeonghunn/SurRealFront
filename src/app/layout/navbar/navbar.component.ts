@@ -72,6 +72,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('signup').then(null);
   }
 
+  public goSetting(): void {
+    this.router.navigateByUrl('setting').then(null);
+  }
+
   public onSideNavToggleClick(): void {
     this.toggleSidNav.emit();
   }
