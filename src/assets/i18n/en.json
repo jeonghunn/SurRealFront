@@ -22,7 +22,8 @@
   "NAV_BAR": {
     "SIGN_IN": "Sign in",
     "SIGN_UP": "Sign up",
-    "SIGN_OUT": "Sign Out"
+    "SIGN_OUT": "Sign Out",
+    "SETTING": "Settings"
   },
   "INTRODUCTION": {
     "TITLE": "Find a new friend who thinks like you.",
