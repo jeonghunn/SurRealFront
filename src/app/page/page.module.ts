@@ -9,17 +9,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { UiModule } from 'src/ui/ui.module';
 import { AboutComponent } from './about/about.component';
+import { GroupCreateComponent } from './group/group-create/group-create.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { LandingComponent } from './landing/landing.component';
 import { SettingComponent } from './setting/setting.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { GroupCreateComponent } from './group/group-create/group-create.component';
-import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
