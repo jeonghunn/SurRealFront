@@ -18,6 +18,8 @@ import { LandingComponent } from './landing/landing.component';
 import { SettingComponent } from './setting/setting.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { GroupCreateComponent } from './group/group-create/group-create.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     SignInComponent,
     SignUpComponent,
     LandingComponent,
+    GroupCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatButtonModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
     TranslateModule,
     MatListModule,
     MatIconModule,

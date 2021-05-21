@@ -9,7 +9,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule } from '../components/components.module';
-import { GroupListComponent } from './group-list/group-list.component';
+import { GroupListComponent } from '../components/group-list/group-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OneContainerComponent } from './one-container/one-container.component';
 

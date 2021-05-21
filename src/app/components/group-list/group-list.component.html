@@ -5,7 +5,11 @@
   <app-profile-icon></app-profile-icon>
   <app-profile-icon></app-profile-icon>
   <app-profile-icon></app-profile-icon>
-  <div matRipple class="icon" >
+  <div
+    matRipple
+    (click)="go('group/create')"
+    class="icon"
+  >
     <mat-icon>add</mat-icon>
   </div>
 </div>
