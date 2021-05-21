@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FooterComponent } from 'src/app/layout/footer/footer.component';
 import { UiModule } from 'src/ui/ui.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { ProfileIconComponent } from './profile-icon/profile-icon.component';
+import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
 
 @NgModule({
   declarations: [
