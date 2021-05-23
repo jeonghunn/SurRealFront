@@ -3,6 +3,11 @@
   "HTTP_ERROR": {
     "REFRESH": "Refresh",
     "FEEDBACK": "Feedback",
+    "BACK": "Go Back",
+    "400_BAD_REQUEST": {
+      "TITLE": "400 Bad Request",
+      "DESCRIPTION":"You entered wrong URL or probably this is not correct way to access."
+    },
     "403_FORBIDDEN": {
       "TITLE": "403 Forbidden",
       "DESCRIPTION":"Sorry. You can not proceed without permission."

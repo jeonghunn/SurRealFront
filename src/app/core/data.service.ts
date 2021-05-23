@@ -61,6 +61,9 @@ export class DataService {
     let isBigError: boolean = false;
 
     switch (error.status) {
+      case 400:
+        isBigError = isBig;
+        break;
       case 401:
         this.router.navigateByUrl(`/intro?return=${window.location.pathname}`);
         break;

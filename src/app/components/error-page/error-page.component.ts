@@ -21,4 +21,8 @@ export class ErrorPageComponent {
     window.location.href = 'mailto:jeonghunn1@gmail.com';
   }
 
+  public goBack(): void {
+    window.history.back();
+  }
+
 }
