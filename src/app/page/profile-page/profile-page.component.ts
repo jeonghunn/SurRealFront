@@ -2,7 +2,6 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,7 +15,7 @@ import { User } from 'src/app/model/type';
   templateUrl: './profile-page.component.html',
   styleUrls: [ './profile-page.component.scss' ],
 })
-export class ProfilePageComponent implements OnInit, OnDestroy {
+export class ProfilePageComponent implements OnDestroy {
 
   public user: User = null;
   public isLoading: boolean = true;
@@ -39,10 +38,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.detectChanges();
       }),
     );
-
-  }
-
-  public ngOnInit(): void {
 
   }
 
