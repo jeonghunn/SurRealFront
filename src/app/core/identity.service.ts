@@ -38,6 +38,10 @@ export class IdentityService {
     return this.user$.getValue()?.name;
   }
 
+  public get id(): number {
+    return this.user$.getValue()?.id;
+  }
+
   public verify(): Observable<User> {
     return this.dataService.verify().pipe(
       tap((result: any) => this.user$.next(result.user)),

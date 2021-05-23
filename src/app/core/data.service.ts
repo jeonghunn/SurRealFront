@@ -16,6 +16,7 @@ import {
   map,
 } from 'rxjs/operators';
 import {
+  User,
   UserSimpleSet,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
@@ -50,6 +51,13 @@ export class DataService {
     return this.httpClient.get(`${this.apiUrl}/user/verify`).pipe(
       map(this.handleResponse),
       catchError(error => this.handleError(error, false)),
+    );
+  }
+
+  public getUser(id: number, isShowBigError: boolean = false): Observable<User> {
+    return this.httpClient.get<{ user: User }>(`${this.apiUrl}/user/${id}`).pipe(
+      map((value: { user: User }) => value.user),
+      catchError(error => this.handleError(error, isShowBigError)),
     );
   }
 

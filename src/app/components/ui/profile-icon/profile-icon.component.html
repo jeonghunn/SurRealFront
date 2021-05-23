@@ -1,1 +1,13 @@
-<div matRipple class="icon"></div>
+<div
+  *ngIf="isClickable else notClickable"
+  matRipple
+  [style]="style"
+  class="icon"
+></div>
+<ng-template #notClickable>
+  <div
+    [style]="style"
+    class="icon"
+  ></div>
+</ng-template>
+

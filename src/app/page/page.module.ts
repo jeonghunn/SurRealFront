@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,10 +14,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from '@ngx-translate/core';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { UiModule } from 'src/ui/ui.module';
+import { ComponentsModule } from '../components/components.module';
 import { AboutComponent } from './about/about.component';
 import { GroupCreateComponent } from './group/group-create/group-create.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { LandingComponent } from './landing/landing.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SettingComponent } from './setting/setting.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -30,6 +33,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     SignUpComponent,
     LandingComponent,
     GroupCreateComponent,
+    ProfilePageComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +50,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatIconModule,
     ReactiveFormsModule,
     UiModule,
+    MatCardModule,
+    ComponentsModule,
   ],
 })
 export class PageModule { }

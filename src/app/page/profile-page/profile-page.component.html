@@ -1,0 +1,13 @@
+<app-one-container>
+  <app-spinner *ngIf="isLoading"></app-spinner>
+  <mat-card
+    *ngIf="!isLoading"
+    class="profile"
+  >
+    <app-profile-icon
+      [isClickable]="false"
+      [length]="128"
+    ></app-profile-icon>
+    <h1>{{ user?.name }}</h1>
+  </mat-card>
+</app-one-container>

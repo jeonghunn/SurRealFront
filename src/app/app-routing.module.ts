@@ -9,6 +9,7 @@ import { MainComponent } from './main/main.component';
 import { AboutComponent } from './page/about/about.component';
 import { GroupCreateComponent } from './page/group/group-create/group-create.component';
 import { LandingComponent } from './page/landing/landing.component';
+import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { SettingComponent } from './page/setting/setting.component';
 import { SignInComponent } from './page/sign-in/sign-in.component';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'main',
     component: MainComponent,
+    canActivate: [ Guard ],
+  },
+  {
+    path: 'user/:id',
+    component: ProfilePageComponent,
     canActivate: [ Guard ],
   },
   { path: 'intro', component: LandingComponent },

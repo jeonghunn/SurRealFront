@@ -76,6 +76,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('setting').then(null);
   }
 
+  public goMyProfile(): void {
+    this.router.navigateByUrl(`user/${this.identityService.id}`).then(null);
+  }
+
   public onSideNavToggleClick(): void {
     this.toggleSidNav.emit();
   }
