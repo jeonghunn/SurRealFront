@@ -65,6 +65,10 @@ export class DataService {
     return value;
   }
 
+  public cancelHttpError(): void {
+    this.httpErrorCode.next(null);
+  }
+
   private handleError(error: HttpErrorResponse, isBig: boolean = true): Observable<any> {
     let isBigError: boolean = false;
 
