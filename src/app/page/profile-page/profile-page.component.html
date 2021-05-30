@@ -9,5 +9,10 @@
       [length]="128"
     ></app-profile-icon>
     <h1>{{ user?.name }}</h1>
+    <button
+      *ngIf="user.id !== myUserId"
+      mat-raised-button
+      color="primary"
+    >{{ 'PROFILE.ADD_FRIEND' | translate }}</button>
   </mat-card>
 </app-one-container>

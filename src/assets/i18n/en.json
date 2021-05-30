@@ -59,5 +59,8 @@
     "WRONG_PASSWORD": "Password must be at least 8 characters long.",
     "HIDE_PASSWORD": "Hide Password",
     "DUPLICATED": "This email address is already registered. Please try another one."
+  },
+  "PROFILE": {
+    "ADD_FRIEND": "Add Friend"
   }
 }

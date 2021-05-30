@@ -68,5 +68,8 @@
     "WRONG_PASSWORD": "비밀번호는 최소 8자 이상이어야 합니다.",
     "HIDE_PASSWORD": "비밀번호 숨기기",
     "DUPLICATED": "이미 사용중인 이메일 주소입니다."
+  },
+  "PROFILE": {
+    "ADD_FRIEND": "친구 추가"
   }
 }

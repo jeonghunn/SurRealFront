@@ -41,6 +41,10 @@ export class ProfilePageComponent implements OnDestroy {
 
   }
 
+  public get myUserId(): number {
+    return this.identityService.id;
+  }
+
   public ngOnDestroy(): void {
     Util.unsubscribe(...this.subscriptions);
   }
