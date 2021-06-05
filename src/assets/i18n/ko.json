@@ -69,7 +69,10 @@
     "HIDE_PASSWORD": "비밀번호 숨기기",
     "DUPLICATED": "이미 사용중인 이메일 주소입니다."
   },
-  "PROFILE": {
-    "ADD_FRIEND": "친구 추가"
+  "FRIEND_BUTTON": {
+    "ADD_FRIEND": "친구 추가",
+    "ACCEPT_FRIEND_REQUEST": "친구 요청 수락",
+    "CANCEL_REQUEST": "친구 요청 취소",
+    "UNFRIEND": "친구 목록에서 삭제"
   }
 }

@@ -20,6 +20,27 @@ export class User {
   public email_name: string;
   public name: string;
   public last_name: string;
+  public relation?: Relation;
+}
+
+export class Relation {
+  public id: number;
+  public category: RelationCategory;
+  public status: RelationStatus;
+  public user_id: number;
+  public target_id: number;
+}
+
+export enum RelationCategory {
+  FRIEND,
+  BLOCKED,
+}
+
+export enum RelationStatus {
+  NORMAL,
+  REMOVED,
+  PENDING,
+  REQUEST_RECEIVED,
 }
 
 export class ResponseSet {

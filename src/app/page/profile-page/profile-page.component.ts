@@ -8,7 +8,10 @@ import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
 import { IdentityService } from 'src/app/core/identity.service';
 import { Util } from 'src/app/core/util';
-import { User } from 'src/app/model/type';
+import {
+  Relation,
+  User,
+} from 'src/app/model/type';
 
 @Component({
   selector: 'app-profile-page',
@@ -17,8 +20,9 @@ import { User } from 'src/app/model/type';
 })
 export class ProfilePageComponent implements OnDestroy {
 
-  public user: User = null;
+  public user: User;
   public isLoading: boolean = true;
+  public relation: Relation;
 
   private subscriptions: Subscription[] = [];
 
@@ -30,19 +34,17 @@ export class ProfilePageComponent implements OnDestroy {
   ) {
 
     const userId: number = this.route.snapshot.params.id;
-
-    this.subscriptions.push(
-      this.dataService.getUser(userId, true).subscribe((user: User) => {
-        this.user = user;
-        this.isLoading = false;
-        this.changeDetectorRef.detectChanges();
-      }),
-    );
+    this.fetch(userId);
 
   }
 
-  public get myUserId(): number {
-    return this.identityService.id;
+  public fetch(id: number): void {
+    this.dataService.getUser(id, true).subscribe((user: User) => {
+      this.user = user;
+      this.relation = user.relation;
+      this.isLoading = false;
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   public ngOnDestroy(): void {

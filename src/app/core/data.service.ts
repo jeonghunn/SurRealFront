@@ -43,6 +43,20 @@ export class DataService {
     );
   }
 
+  public addFriend(userId: number): Observable<any> {
+    return this.httpClient.post<any>(`${this.apiUrl}/user/${userId}/friend`, {}).pipe(
+      map(this.handleResponse),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
+  public deleteFriend(userId: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.apiUrl}/user/${userId}/friend`, {}).pipe(
+      map(this.handleResponse),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
   public signIn(formData: FormData): Observable<UserSimpleSet> {
     return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/user/signin`, formData);
   }

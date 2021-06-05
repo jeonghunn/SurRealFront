@@ -60,7 +60,10 @@
     "HIDE_PASSWORD": "Hide Password",
     "DUPLICATED": "This email address is already registered. Please try another one."
   },
-  "PROFILE": {
-    "ADD_FRIEND": "Add Friend"
+  "FRIEND_BUTTON": {
+    "ADD_FRIEND": "Add Friend",
+    "ACCEPT_FRIEND_REQUEST": "Accept a Friend Request",
+    "CANCEL_REQUEST": "Cancel Request",
+    "UNFRIEND": "Unfriend"
   }
 }

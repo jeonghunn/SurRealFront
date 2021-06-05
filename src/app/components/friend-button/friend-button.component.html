@@ -1,0 +1,28 @@
+
+<button
+  *ngIf="isFriendRequested else isFriendAddable"
+  (click)="deleteFriend()"
+  mat-stroked-button
+>{{ 'FRIEND_BUTTON.CANCEL_REQUEST' | translate }}</button>
+
+<button
+  mat-button
+  *ngIf="isFriend"
+  [matMenuTriggerFor]="menu"
+>
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="deleteFriend()">{{ 'FRIEND_BUTTON.UNFRIEND' | translate }}</button>
+</mat-menu>
+
+<ng-template #isFriendAddable>
+  <button
+    *ngIf="user.id !== myUserId && !isFriend"
+    [disabled]="isRequestingFriend"
+    (click)="addFriend()"
+    mat-raised-button
+    color="primary"
+  >{{ (isFriendRequestReceived ? 'FRIEND_BUTTON.ACCEPT_FRIEND_REQUEST' : 'FRIEND_BUTTON.ADD_FRIEND') | translate }}</button>
+</ng-template>
+
