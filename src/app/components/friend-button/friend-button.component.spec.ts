@@ -8,7 +8,7 @@ describe('FriendButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FriendButtonComponent ]
+      declarations: [ FriendButtonComponent ],
     })
     .compileComponents();
   });
