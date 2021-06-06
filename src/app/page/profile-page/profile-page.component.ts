@@ -32,7 +32,14 @@ export class ProfilePageComponent implements OnDestroy {
     private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
+    this.subscriptions.push(
+      this.route.params.subscribe(() => {
+        this.init();
+      }),
+    );
+  }
 
+  public init(): void {
     const userId: number = this.route.snapshot.params.id;
     this.fetch(userId);
 
