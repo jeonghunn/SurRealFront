@@ -49,7 +49,7 @@ export class IdentityService {
   }
 
   public remove(): void {
-    this.cookieService.delete('Authorization');
+    this.cookieService.delete('Authorization', '/');
   }
 
 }

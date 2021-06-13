@@ -86,7 +86,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public signOut(): void {
     this.identityService.remove();
-    window.location.reload();
+    window.location.href = '/signin';
   }
 
 }
