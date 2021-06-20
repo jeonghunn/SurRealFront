@@ -10,10 +10,10 @@
   *ngIf="isFriend"
   [matMenuTriggerFor]="menu"
 >
-  <mat-icon>menu</mat-icon>
+  <mat-icon>{{ iconName }}</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="deleteFriend()">{{ 'FRIEND_BUTTON.UNFRIEND' | translate }}</button>
+  <app-friend-menu (onDeleteFriend)="deleteFriend()"></app-friend-menu>
 </mat-menu>
 
 <ng-template #isFriendAddable>

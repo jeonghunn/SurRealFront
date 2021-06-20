@@ -1,0 +1,35 @@
+<div class="user">
+  <div class="profile">
+    <app-profile-icon
+      [length]="64"
+      (click)="onProfileClick()"
+    ></app-profile-icon>
+
+    <div
+      class="content"
+      mat-ripple
+      (click)="onProfileClick()"
+    >
+      <span class="name">{{ user?.name }}</span>
+    </div>
+  </div>
+
+
+  <div class="actions">
+    <button mat-button>
+      <mat-icon>chat_bubble</mat-icon>
+    </button>
+
+    <button
+      mat-button
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <app-friend-menu (deleteFriend)="deleteFriend()"></app-friend-menu>
+    </mat-menu>
+  </div>
+
+</div>
+

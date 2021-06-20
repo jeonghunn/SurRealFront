@@ -29,6 +29,9 @@ export class FriendButtonComponent implements OnChanges {
   @Output()
   public readonly change: EventEmitter<null> = new EventEmitter<null>();
 
+  @Input()
+  public iconName: string = 'menu';
+
   public relation: Relation;
   public isRequestingFriend: boolean = false;
 

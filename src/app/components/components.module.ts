@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +13,10 @@ import { FooterComponent } from 'src/app/layout/footer/footer.component';
 import { UiModule } from 'src/ui/ui.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FriendButtonComponent } from './friend-button/friend-button.component';
+import { FriendMenuComponent } from './friend-button/friend-menu/friend-menu.component';
+import { FriendListComponent } from './friend-list/friend-list.component';
 import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +24,16 @@ import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
     ErrorPageComponent,
     ProfileIconComponent,
     FriendButtonComponent,
+    FriendListComponent,
+    UserProfileComponent,
+    FriendMenuComponent,
   ],
   exports: [
     FooterComponent,
     ErrorPageComponent,
     ProfileIconComponent,
     FriendButtonComponent,
+    FriendListComponent,
   ],
   imports: [
     UiModule,
@@ -38,6 +46,7 @@ import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
     CommonModule,
     MatRippleModule,
     MatIconModule,
+    MatListModule,
   ],
 })
 export class ComponentsModule { }

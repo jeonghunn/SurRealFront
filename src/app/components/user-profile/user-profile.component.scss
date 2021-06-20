@@ -1,0 +1,27 @@
+.user {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  min-height: 80px;
+
+  .profile {
+    display: flex;
+    .content {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 16px;
+      cursor: pointer;
+
+      .name {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+  }
+  
+}

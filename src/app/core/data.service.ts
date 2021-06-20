@@ -16,6 +16,7 @@ import {
   map,
 } from 'rxjs/operators';
 import {
+  Relation,
   User,
   UserSimpleSet,
 } from 'src/app/model/type';
@@ -39,6 +40,13 @@ export class DataService {
   public signUp(formData: FormData): Observable<UserSimpleSet> {
     return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/user`, formData).pipe(
       map(this.handleResponse),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
+  public getFriendList(): Observable<Relation[]> {
+    return this.httpClient.get<{ relations: Relation[] }>(`${this.apiUrl}/user/friends`, {}).pipe(
+      map((result: { relations: Relation[] }) => result.relations),
       catchError(error => this.handleError(error)),
     );
   }

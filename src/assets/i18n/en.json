@@ -65,5 +65,12 @@
     "ACCEPT_FRIEND_REQUEST": "Accept a Friend Request",
     "CANCEL_REQUEST": "Cancel Request",
     "UNFRIEND": "Unfriend"
+  },
+  "GROUP_CREATE": {
+    "FRIENDS": "Friends",
+    "CREATE_A_GROUP": "Create a Group"
+  },
+  "FRIEND_LIST": {
+    "EMPTY": "Add a friend to start conversation."
   }
 }

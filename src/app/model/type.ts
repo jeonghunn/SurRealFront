@@ -27,6 +27,7 @@ export class Relation {
   public id: number;
   public category: RelationCategory;
   public status: RelationStatus;
+  public target?: User;
   public user_id: number;
   public target_id: number;
 }

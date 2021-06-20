@@ -1,0 +1,21 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div
+  *ngIf="!isLoading"
+  class="list"
+>
+  <div
+    *ngIf="!friends || friends.length === 0 else isFriendExist"
+    class="empty"
+  >
+    <mat-icon>people</mat-icon>
+    <br>
+    <span>{{ 'FRIEND_LIST.EMPTY' | translate }}</span>
+  </div>
+  <ng-template #isFriendExist>
+    <app-user-profile
+      *ngFor="let relation of friends"
+      [user]="relation?.target"
+      (change)="fetch()"
+    ></app-user-profile>
+  </ng-template>
+</div>
