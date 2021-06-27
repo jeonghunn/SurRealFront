@@ -7,7 +7,10 @@ import {
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
-import { User } from 'src/app/model/type';
+import {
+  Group,
+  User,
+} from 'src/app/model/type';
 
 @Component({
   selector: 'app-user-profile',
@@ -35,6 +38,12 @@ export class UserProfileComponent {
   public deleteFriend(): void {
     this.dataService.deleteFriend(this.user.id).pipe(take(1)).subscribe(() => {
       this.change.emit();
+    });
+  }
+
+  public onMessageClick(): void {
+    this.dataService.startChat(this.user.id).pipe(take(1)).subscribe((group: Group | null) => {
+      this.router.navigateByUrl(`/group/${group.id}`);
     });
   }
 

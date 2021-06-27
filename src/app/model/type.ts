@@ -32,6 +32,12 @@ export class Relation {
   public target_id: number;
 }
 
+export class Group {
+  public id: number;
+  public user_id: number;
+  public target_id: number;
+}
+
 export enum RelationCategory {
   FRIEND,
   BLOCKED,

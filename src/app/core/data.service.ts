@@ -16,6 +16,7 @@ import {
   map,
 } from 'rxjs/operators';
 import {
+  Group,
   Relation,
   User,
   UserSimpleSet,
@@ -47,6 +48,13 @@ export class DataService {
   public getFriendList(): Observable<Relation[]> {
     return this.httpClient.get<{ relations: Relation[] }>(`${this.apiUrl}/user/friends`, {}).pipe(
       map((result: { relations: Relation[] }) => result.relations),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
+  public startChat(userId: number): Observable<any> {
+    return this.httpClient.post<any>(`${this.apiUrl}/user/${userId}/chat`, {}).pipe(
+      map((result: { group: Group }) => result.group),
       catchError(error => this.handleError(error)),
     );
   }
