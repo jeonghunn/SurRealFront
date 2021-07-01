@@ -1,10 +1,10 @@
 <div class="sidebar">
-  <app-profile-icon></app-profile-icon>
-  <app-profile-icon></app-profile-icon>
-  <app-profile-icon></app-profile-icon>
-  <app-profile-icon></app-profile-icon>
-  <app-profile-icon></app-profile-icon>
-  <app-profile-icon></app-profile-icon>
+  <app-profile-icon
+    *ngFor="let group of groups"
+    [matTooltip]="group?.target?.name || group?.name"
+    [matTooltipPosition]="'right'"
+    (click)="onGroupClick(group.id)"
+  ></app-profile-icon>
   <div
     matRipple
     (click)="go('group/create')"

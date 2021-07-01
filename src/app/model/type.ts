@@ -34,8 +34,10 @@ export class Relation {
 
 export class Group {
   public id: number;
+  public name: string;
   public user_id: number;
   public target_id: number;
+  public target?: User;
 }
 
 export enum RelationCategory {

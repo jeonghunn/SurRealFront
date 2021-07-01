@@ -7,6 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule } from '../components/components.module';
 import { GroupListComponent } from '../components/group-list/group-list.component';
@@ -30,6 +31,7 @@ import { OneContainerComponent } from './one-container/one-container.component';
     TranslateModule,
     MatMenuModule,
     ComponentsModule,
+    MatTooltipModule,
   ],
   exports: [
     GroupListComponent,

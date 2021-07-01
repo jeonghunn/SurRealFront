@@ -52,6 +52,13 @@ export class DataService {
     );
   }
 
+  public getGroupList(): Observable<Group[]> {
+    return this.httpClient.get<{ groups: Group[] }>(`${this.apiUrl}/group/`, {}).pipe(
+      map((result: { groups: Group[] }) => result.groups),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
   public startChat(userId: number): Observable<any> {
     return this.httpClient.post<any>(`${this.apiUrl}/user/${userId}/chat`, {}).pipe(
       map((result: { group: Group }) => result.group),
