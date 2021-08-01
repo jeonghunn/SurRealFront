@@ -46,6 +46,11 @@ export class SignInComponent implements OnInit {
     }
   }
 
+  public onHidePasswordClick(event: MouseEvent): void {
+    event.preventDefault();
+    this.isHidePassword = !this.isHidePassword;
+  }
+
   public goMain(): void {
     this.router.navigateByUrl('/').then(null);
   }
