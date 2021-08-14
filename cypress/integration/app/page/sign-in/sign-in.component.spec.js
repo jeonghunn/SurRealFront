@@ -8,7 +8,7 @@ context('Sign In', () => {
 
     it('View - Sign In With Wrong Email', () => {
       cy.signin('unknown');
-      cy.get('mat-error').should('be.exist');
+      cy.get('mat-error', {timeout: 8000}).should('be.exist');
     });
 
   it('View - Sign In', () => {
