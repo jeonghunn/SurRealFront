@@ -3,7 +3,7 @@
 html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
 
   .mat-card {
     border-radius: 16px;
@@ -11,6 +11,10 @@ body {
 
   .mat-tab-label {
     font-weight: bold;
+  }
+
+  .mat-drawer-container{
+    background-color: #FFFFFF;
   }
 
 
