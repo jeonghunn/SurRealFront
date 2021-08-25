@@ -1,8 +1,11 @@
 {
   "/api": {
-    "target": "https://surreal.unopenedbox.com",
+    "target": "http://localhost:3000",
     "logLevel": "debug",
-    "secure": true,
-    "changeOrigin": true
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": "/"
+    }
   }
 }
