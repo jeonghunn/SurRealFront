@@ -114,7 +114,9 @@ export class DataService {
         isBigError = isBig;
         break;
       case 401:
-        this.router.navigateByUrl(`/intro?return=${window.location.pathname}`);
+        if (!window.location.pathname?.includes('sign')) {
+          this.router.navigateByUrl(`/signin?return=${window.location.pathname}`);
+        }
         break;
       case 403:
         this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.403_FORBIDDEN.DESCRIPTION'));
