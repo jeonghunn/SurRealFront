@@ -41,7 +41,7 @@ export class GroupListComponent implements OnInit {
   }
 
   public onGroupClick(id: number): void {
-    this.router.navigateByUrl(`/group/${id}`);
+    this.router.navigateByUrl(`/chat/${id}`);
   }
 
 }

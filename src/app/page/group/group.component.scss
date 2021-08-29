@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 16px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+
+  .profile {
+    display: flex;
+    vertical-align: center;
+
+    .name {
+      margin-left: 8px;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+  }
+
+}
+
+.content {
+  display: flex;
+  height: 100%;
+
+  .room {
+    background-color: #46a35e;
+    height: 100%;
+    width: 200px;
+  }
+
+}
+
+
+
+
+
+@media screen and (max-width: 700px) {
+
+  .content {
+    .room {
+      width: 100%;
+    }
+  }
+
+
+}

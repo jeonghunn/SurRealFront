@@ -17,6 +17,7 @@ import { UiModule } from 'src/ui/ui.module';
 import { ComponentsModule } from '../components/components.module';
 import { AboutComponent } from './about/about.component';
 import { GroupCreateComponent } from './group/group-create/group-create.component';
+import { GroupComponent } from './group/group.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { LandingComponent } from './landing/landing.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
@@ -34,6 +35,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     LandingComponent,
     GroupCreateComponent,
     ProfilePageComponent,
+    GroupComponent,
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ import { Guard } from './core/guard/guard';
 import { MainComponent } from './main/main.component';
 import { AboutComponent } from './page/about/about.component';
 import { GroupCreateComponent } from './page/group/group-create/group-create.component';
+import { GroupComponent } from './page/group/group.component';
 import { LandingComponent } from './page/landing/landing.component';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { SettingComponent } from './page/setting/setting.component';
@@ -21,10 +22,11 @@ const routes: Routes = [
     canActivate: [ Guard ],
   },
   {
-    path: 'group',
+    path: 'chat',
     canActivate: [ Guard ],
     children: [
       { path: 'create', component: GroupCreateComponent },
+      { path: ':id', component: GroupComponent },
     ],
   },
   {
