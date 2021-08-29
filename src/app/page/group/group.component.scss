@@ -1,3 +1,5 @@
+@import "src/assets/style/attrs";
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -19,6 +21,12 @@
 
   }
 
+  .menu {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 8px;
+  }
+
 }
 
 .content {
@@ -37,7 +45,7 @@
 
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: $SHORT_WIDTH) {
 
   .content {
     .room {

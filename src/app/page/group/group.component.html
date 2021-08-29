@@ -4,8 +4,12 @@
     <span class="name">Junghoon Lee</span>
   </div>
   <div class="menu">
-    <button mat-button>
-      <mat-icon>holiday_village</mat-icon>
+    <button
+      mat-button
+      *ngIf="isShortWidth"
+      (click)="isRoomPanelOpen = !isRoomPanelOpen"
+    >
+      <mat-icon>grid_view</mat-icon>
     </button>
   </div>
 
@@ -13,10 +17,13 @@
 </div>
 
 <div class="content">
-  <div class="room">
+  <div
+    *ngIf="!isShortWidth || isRoomPanelOpen"
+    class="room"
+  >
     Hello i'm side.
   </div>
-  <div>
+  <div *ngIf="!isShortWidth || !isRoomPanelOpen">
     Hello
   </div>
 

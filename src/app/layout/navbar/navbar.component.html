@@ -1,5 +1,6 @@
 <mat-toolbar>
   <span
+    *ngIf="!isSmallWidth"
     (click)="goMain()"
     class="main"
   >SurReal (Preview)</span>
