@@ -2,7 +2,7 @@
 
 context('Navigation Bar Component', () => {
     beforeEach(() => {
-      cy.goto('main')
+      cy.goto('intro')
     });
 
 
