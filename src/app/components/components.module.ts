@@ -15,10 +15,10 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { FriendButtonComponent } from './friend-button/friend-button.component';
 import { FriendMenuComponent } from './friend-button/friend-menu/friend-menu.component';
 import { FriendListComponent } from './friend-list/friend-list.component';
+import { RoomItemComponent } from './room-list/room-item/room-item.component';
+import { RoomListComponent } from './room-list/room-list.component';
 import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { RoomListComponent } from './room-list/room-list.component';
-import { RoomItemComponent } from './room-list/room-item/room-item.component';
 
 @NgModule({
   declarations: [
@@ -32,14 +32,14 @@ import { RoomItemComponent } from './room-list/room-item/room-item.component';
     RoomListComponent,
     RoomItemComponent,
   ],
-    exports: [
-        FooterComponent,
-        ErrorPageComponent,
-        ProfileIconComponent,
-        FriendButtonComponent,
-        FriendListComponent,
-        RoomListComponent,
-    ],
+  exports: [
+    FooterComponent,
+    ErrorPageComponent,
+    ProfileIconComponent,
+    FriendButtonComponent,
+    FriendListComponent,
+    RoomListComponent,
+  ],
   imports: [
     UiModule,
     TranslateModule,

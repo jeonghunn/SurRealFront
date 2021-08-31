@@ -15,7 +15,9 @@
       [formGroup]="signInForm"
       (ngSubmit)="onSubmit()"
     >
-      <mat-form-field appearance="fill">
+      <mat-form-field
+        appearance="fill"
+      >
         <mat-label>{{ 'SIGN_IN.EMAIL' | translate }}</mat-label>
         <input
           matInput
