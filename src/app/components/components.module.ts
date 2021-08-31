@@ -17,6 +17,8 @@ import { FriendMenuComponent } from './friend-button/friend-menu/friend-menu.com
 import { FriendListComponent } from './friend-list/friend-list.component';
 import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { RoomListComponent } from './room-list/room-list.component';
+import { RoomItemComponent } from './room-list/room-item/room-item.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +29,17 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FriendListComponent,
     UserProfileComponent,
     FriendMenuComponent,
+    RoomListComponent,
+    RoomItemComponent,
   ],
-  exports: [
-    FooterComponent,
-    ErrorPageComponent,
-    ProfileIconComponent,
-    FriendButtonComponent,
-    FriendListComponent,
-  ],
+    exports: [
+        FooterComponent,
+        ErrorPageComponent,
+        ProfileIconComponent,
+        FriendButtonComponent,
+        FriendListComponent,
+        RoomListComponent,
+    ],
   imports: [
     UiModule,
     TranslateModule,

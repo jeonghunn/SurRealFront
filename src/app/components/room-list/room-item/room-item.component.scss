@@ -1,0 +1,30 @@
+.item {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+
+
+  .image {
+    border-radius: 4px;
+    background-color: #EAEAEA;
+    width: 80%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .text {
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      color: #757575;
+    }
+  }
+
+
+
+}
+
