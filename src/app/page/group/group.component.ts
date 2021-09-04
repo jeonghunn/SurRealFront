@@ -15,6 +15,7 @@ export class GroupComponent implements OnDestroy {
 
   public isRoomPanelOpen: boolean = false;
   public isShortWidth: boolean = false;
+  public isShowDetailView: boolean = true;
 
   private subscriptions: Subscription[] = [];
 

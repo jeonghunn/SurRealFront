@@ -16,6 +16,8 @@ import { LayoutModule } from 'src/app/layout/layout.module';
 import { UiModule } from 'src/ui/ui.module';
 import { ComponentsModule } from '../components/components.module';
 import { AboutComponent } from './about/about.component';
+import { ChatComponent } from './group/chat/chat.component';
+import { DetailViewComponent } from './group/detail-view/detail-view.component';
 import { GroupCreateComponent } from './group/group-create/group-create.component';
 import { GroupComponent } from './group/group.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
@@ -36,6 +38,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     GroupCreateComponent,
     ProfilePageComponent,
     GroupComponent,
+    ChatComponent,
+    DetailViewComponent,
   ],
   imports: [
     CommonModule,
