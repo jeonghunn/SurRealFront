@@ -9,7 +9,7 @@
     [opened]="(isSideNavOpen || !isSmallWidth) && isSignedIn"
     class="drawer"
   >
-    <app-group-list></app-group-list>
+    <app-group-list *ngIf="shouldSideNavOpen"></app-group-list>
   </mat-drawer>
   <mat-drawer-content>
     <app-navbar

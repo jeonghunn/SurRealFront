@@ -57,23 +57,22 @@ export class SignInComponent implements OnInit {
 
   public onSubmit(): void {
     this.isLoading = true;
-    this.dataService.signIn(this.signInForm.value)
-      .pipe(
-        take(1),
-        catchError(error => {
-          this.isLoading = false;
 
-          if (error.status === 403) {
-            this.hasAuthError = true;
-          }
-
-          return throwError(error);
-        }),
-      )
-      .subscribe((result: UserSimpleSet) => {
+    this.identityService.signIn(this.signInForm).pipe(
+      catchError(error => {
         this.isLoading = false;
-        this.goMain();
-      });
+
+        if (error.status === 403) {
+          this.hasAuthError = true;
+        }
+
+        return throwError(error);
+      }),
+    ).subscribe((result: UserSimpleSet) => {
+      this.isLoading = false;
+      this.goMain();
+    });
+
   }
 
 }

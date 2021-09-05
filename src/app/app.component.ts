@@ -44,6 +44,10 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.identityService.isSignedIn;
   }
 
+  public shouldSideNavOpen(): boolean {
+    return (this.isSideNavOpen || !this.isSmallWidth) && this.isSignedIn;
+  }
+
   public ngOnInit(): void {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
     this.isSideNavOpen = this.isSmallWidth;

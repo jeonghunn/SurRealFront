@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { User } from '../model/type';
+import {
+  take,
+  tap,
+} from 'rxjs/operators';
+import {
+  User,
+  UserSimpleSet,
+} from 'src/app/model/type';
 import { DataService } from './data.service';
 
 @Injectable({
@@ -46,6 +53,12 @@ export class IdentityService {
     return this.dataService.verify().pipe(
       tap((result: any) => this.user$.next(result.user)),
     );
+  }
+
+  public signIn(form: FormGroup): Observable<UserSimpleSet> {
+    return this.dataService.signIn(form.value).pipe(
+        take(1),
+      );
   }
 
   public remove(): void {
