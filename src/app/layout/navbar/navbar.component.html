@@ -1,9 +1,4 @@
 <mat-toolbar>
-  <span
-    *ngIf="!isSmallWidth"
-    (click)="goMain()"
-    class="main"
-  >SurReal (Preview)</span>
   <button
     mat-button
     *ngIf="isSignedIn && isSmallWidth"
@@ -11,16 +6,6 @@
   >
     <mat-icon>people_alt_outlined</mat-icon>
   </button>
-  <button mat-button [matMenuTriggerFor]="moreMenu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #moreMenu="matMenu" yPosition="above">
-    <button mat-menu-item (click)="goAbout()">About</button>
-  </mat-menu>
-
-
-
-  <span class="space"></span>
 
   <ng-container *ngIf="!isSignedIn else signedIn">
     <button

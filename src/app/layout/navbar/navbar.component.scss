@@ -1,3 +1,12 @@
+@import "src/assets/style/attrs";
+
+:host {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 2;
+}
+
 .space {
   /* This fills the remaining space, by using flexbox.
      Every toolbar row uses a flexbox row layout. */

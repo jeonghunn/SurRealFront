@@ -1,3 +1,5 @@
+@import "src/assets/style/attrs";
+
 .drawer-container {
   height: 100%;
 
@@ -5,11 +7,19 @@
     width: 80px;
     margin-right: auto;
     margin-left: auto;
+
+    .logo {
+      background-color: #1976d2;
+      width: inherit;
+      height: 64px;
+      text-align: center;
+    }
   }
 
   .container {
+    margin-top: $NAV_HEIGHT;
     display: block;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 64px);
   }
 }
