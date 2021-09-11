@@ -3,29 +3,38 @@
     <app-profile-icon [length]="48"></app-profile-icon>
     <span class="name">Junghoon Lee</span>
   </div>
-  <div class="menu">
-    <button
-      mat-button
-      *ngIf="isShortWidth"
-      (click)="isRoomPanelOpen = !isRoomPanelOpen"
-    >
-      <mat-icon>grid_view</mat-icon>
-    </button>
-  </div>
-
-
 </div>
-
+<nav
+  *ngIf="isShortWidth"
+  mat-tab-nav-bar
+  class="tabs"
+>
+  <a
+    mat-tab-link
+    [active]="isShowRoomPanel"
+    (click)="openRoomList()"
+  >Rooms</a>
+  <a
+    mat-tab-link
+    [active]="isChatViewOpen"
+    (click)="openChat()"
+  >Chat</a>
+  <a
+    mat-tab-link
+    [active]="isLiveViewOpen"
+    (click)="openLive()"
+  >Indoor</a>
+</nav>
 <div class="content">
   <div
-    *ngIf="!isShortWidth || isRoomPanelOpen"
+    *ngIf="isShowRoomPanel"
     class="room"
   >
     <app-room-list></app-room-list>
   </div>
-  <div *ngIf="!isShortWidth || !isRoomPanelOpen">
-    <app-chat></app-chat>
-    <app-detail-view></app-detail-view>
+  <div *ngIf="!isShortWidth || !isShowRoomPanel">
+    <app-chat *ngIf="isChatViewOpen"></app-chat>
+    <app-detail-view *ngIf="isLiveViewOpen"></app-detail-view>
   </div>
 
 </div>

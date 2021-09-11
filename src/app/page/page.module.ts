@@ -26,6 +26,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SettingComponent } from './setting/setting.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { MessageComponent } from './group/chat/message/message.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     GroupComponent,
     ChatComponent,
     DetailViewComponent,
+    MessageComponent,
   ],
   imports: [
     CommonModule,

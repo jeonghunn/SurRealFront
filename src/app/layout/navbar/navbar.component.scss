@@ -1,6 +1,7 @@
 @import "src/assets/style/attrs";
 
 :host {
+    background-color: inherit;
     position: fixed;
     top: 0;
     right: 0;

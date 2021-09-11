@@ -4,6 +4,12 @@ export enum Gender {
   FEMALE,
 }
 
+export enum ChatSpaceCategory {
+  ROOM,
+  CHAT,
+  LIVE,
+}
+
 export enum ResponseResult {
   SUCCESS = 'success',
   ERROR = 'error',

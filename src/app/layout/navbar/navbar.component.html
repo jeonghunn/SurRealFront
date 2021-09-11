@@ -4,7 +4,7 @@
     *ngIf="isSignedIn && isSmallWidth"
     (click)="onSideNavToggleClick()"
   >
-    <mat-icon>people_alt_outlined</mat-icon>
+    <mat-icon>more_vert</mat-icon>
   </button>
 
   <ng-container *ngIf="!isSignedIn else signedIn">
@@ -24,7 +24,10 @@
     <button
       mat-button
       [matMenuTriggerFor]="profileMenu"
-    ><mat-icon>account_circle</mat-icon> {{ userFirstName }}</button>
+    >
+      <mat-icon>account_circle</mat-icon>
+      <span *ngIf="!isSmallWidth">{{ userFirstName }}</span>
+    </button>
     <mat-menu #profileMenu="matMenu" yPosition="above">
       <button mat-menu-item (click)="goMyProfile()">{{ 'NAV_BAR.MY_PROFILE' | translate }}</button>
       <button mat-menu-item (click)="goSetting()">{{ 'NAV_BAR.SETTING' | translate }}</button>

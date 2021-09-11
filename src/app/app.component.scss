@@ -11,7 +11,7 @@
     .logo {
       background-color: #1976d2;
       width: inherit;
-      height: 64px;
+      height: $NAV_HEIGHT;
       text-align: center;
     }
   }
@@ -20,6 +20,24 @@
     margin-top: $NAV_HEIGHT;
     display: block;
     width: 100%;
-    height: calc(100% - 64px);
+    height: calc(100% - #{$NAV_HEIGHT});
   }
+}
+
+
+@media screen and (max-width: $SHORT_WINDOW_WIDTH) {
+
+  .drawer-container {
+    .drawer {
+      .logo {
+        height: $NAV_MOBILE_HEIGHT;
+      }
+    }
+  }
+
+  .container {
+    margin-top: $NAV_MOBILE_HEIGHT;
+    height: calc(100% - #{$NAV_MOBILE_HEIGHT});
+  }
+
 }
