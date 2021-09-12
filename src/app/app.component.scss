@@ -1,4 +1,5 @@
 @import "src/assets/style/attrs";
+@import "src/assets/style/palette";
 
 .drawer-container {
   height: 100%;
@@ -9,7 +10,7 @@
     margin-left: auto;
 
     .logo {
-      background-color: #1976d2;
+      background-color: $PRIMARY_COLOR;
       width: inherit;
       height: $NAV_HEIGHT;
       text-align: center;

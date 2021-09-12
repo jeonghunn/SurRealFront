@@ -56,10 +56,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     Util.unsubscribe(...this.subscriptions);
   }
 
-  public goMain(): void {
-    this.router.navigateByUrl('/').then(null);
-  }
-
   public goAbout(): void {
     this.router.navigateByUrl('about').then(null);
   }

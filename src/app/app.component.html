@@ -9,7 +9,11 @@
     [opened]="(isSideNavOpen || !isSmallWidth) && isSignedIn"
     class="drawer"
   >
-    <div class="logo">
+    <div
+      mat-ripple
+      class="logo"
+      (click)="goMain()"
+    >
       Surreal (Alpha)
     </div>
     <app-group-list *ngIf="shouldSideNavOpen"></app-group-list>

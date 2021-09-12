@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DataService } from './core/data.service';
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public dataService: DataService,
     public elementRef: ElementRef,
     public identityService: IdentityService,
+    private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
     translateService.setDefaultLang(translateService.getBrowserLang());
@@ -55,6 +57,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public onWindowResize(event: any): void {
     this.isSmallWidth = event.target.innerWidth < this.MOBILE_WIDTH;
+  }
+
+  public goMain(): void {
+    this.router.navigateByUrl('/').then(null);
   }
 
   public toggleSideNav(): void {

@@ -17,6 +17,7 @@ import { UiModule } from 'src/ui/ui.module';
 import { ComponentsModule } from '../components/components.module';
 import { AboutComponent } from './about/about.component';
 import { ChatComponent } from './group/chat/chat.component';
+import { MessageComponent } from './group/chat/message/message.component';
 import { DetailViewComponent } from './group/detail-view/detail-view.component';
 import { GroupCreateComponent } from './group/group-create/group-create.component';
 import { GroupComponent } from './group/group.component';
@@ -26,7 +27,6 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SettingComponent } from './setting/setting.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { MessageComponent } from './group/chat/message/message.component';
 
 @NgModule({
   declarations: [
