@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { version } from 'package.json';
+import packageInfo from 'package.json';
 
 @Component({
   selector: 'app-about',
@@ -17,7 +17,7 @@ export class AboutComponent implements OnInit {
   public constructor() { }
 
   public ngOnInit(): void {
-    this.appVersion = version;
+    this.appVersion = packageInfo.version;
   }
 
 }
