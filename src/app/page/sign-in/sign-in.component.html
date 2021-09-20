@@ -27,7 +27,10 @@
         >
         <mat-error>{{ 'SIGN_UP.WRONG_EMAIL' | translate }}</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field
+        appearance="fill"
+        (keyup.enter)="onSubmit()"
+      >
         <mat-label>{{ 'SIGN_IN.PASSWORD' | translate }}</mat-label>
         <input
           matInput

@@ -57,6 +57,7 @@ export class SignInComponent implements OnInit {
 
   public onSubmit(): void {
     this.isLoading = true;
+    this.isHidePassword = true;
 
     this.identityService.signIn(this.signInForm).pipe(
       catchError(error => {
