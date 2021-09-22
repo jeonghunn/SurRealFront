@@ -41,6 +41,17 @@
     width: 200px;
   }
 
+  .chat {
+    margin-left: 8px;
+    height: calc(100% - #{$CHAT_FOOTER_HEIGHT});
+    width: 400px;
+    overflow: auto;
+  }
+
+  .live {
+    height: 100%;
+  }
+
 }
 
 

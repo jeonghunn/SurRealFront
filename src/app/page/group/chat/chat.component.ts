@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class ChatComponent {
 
+  public counter(i: number): any[] {
+    return new Array(i);
+  }
+
 }

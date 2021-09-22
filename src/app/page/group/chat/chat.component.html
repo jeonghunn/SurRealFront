@@ -1,1 +1,22 @@
-<p>chat works!</p>
+<app-message
+  *ngFor="let item of counter(30);"
+  [name]="'Junghoon Lee'"
+  [message]="'This is a test message.'"
+></app-message>
+
+
+<div class="footer">
+  <mat-form-field appearance="outline">
+    <mat-label>Message</mat-label>
+    <input
+      matInput
+      placeholder="Placeholder"
+      type="text"
+      autocomplete="off"
+    >
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>입력 중...</mat-hint>
+  </mat-form-field>
+</div>
+
