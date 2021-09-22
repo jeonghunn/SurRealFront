@@ -3,7 +3,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ResponsiveService } from 'src/app/core/responsive.service';
+import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
 import { ChatSpaceCategory } from 'src/app/model/type';
 
@@ -21,12 +21,12 @@ export class GroupComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
   public constructor(
-    private responsiveService: ResponsiveService,
+    private layoutService: LayoutService,
   ) {
 
     this.subscriptions = [
-      this.responsiveService.windowResize$.subscribe(window => {
-        this.isShortWidth = this.responsiveService.isShortWidth();
+      this.layoutService.windowResize$.subscribe(window => {
+        this.isShortWidth = this.layoutService.isShortWidth();
       }),
     ];
   }
