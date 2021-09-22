@@ -10,7 +10,9 @@
     margin-left: auto;
 
     .logo {
+      background-position: center;
       background-color: $PRIMARY_COLOR;
+      background-image: url("/assets/img/nav_logo.png");
       width: inherit;
       height: $NAV_HEIGHT;
       text-align: center;
