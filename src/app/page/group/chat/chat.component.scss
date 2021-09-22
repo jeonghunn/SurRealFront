@@ -1,3 +1,5 @@
+@import "src/assets/style/attrs";
+
 .footer {
   width: 400px;
   position: fixed;
@@ -9,4 +11,20 @@
   mat-form-field {
     width: inherit;
   }
+}
+
+
+@media screen and (max-width: $SHORT_WINDOW_WIDTH) {
+
+.footer {
+  width: calc(100% - #{$SIDENAV_WIDTH} - 16px);
+  right: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
 }
