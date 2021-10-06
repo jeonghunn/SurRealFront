@@ -3,12 +3,17 @@ import {
   Component,
   OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
 import { IdentityService } from 'src/app/core/identity.service';
 import { Util } from 'src/app/core/util';
 import {
+  Group,
   Relation,
   User,
 } from 'src/app/model/type';
@@ -31,6 +36,7 @@ export class ProfilePageComponent implements OnDestroy {
     private dataService: DataService,
     private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
   ) {
     this.subscriptions.push(
       this.route.params.subscribe(() => {
@@ -51,6 +57,12 @@ export class ProfilePageComponent implements OnDestroy {
       this.relation = user.relation;
       this.isLoading = false;
       this.changeDetectorRef.detectChanges();
+    });
+  }
+
+  public onMessageClick(): void {
+    this.dataService.startChat(this.user.id).pipe(take(1)).subscribe((group: Group | null) => {
+      this.router.navigateByUrl(`/chat/${group.id}`);
     });
   }
 

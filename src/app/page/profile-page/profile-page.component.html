@@ -9,6 +9,12 @@
       [length]="128"
     ></app-profile-icon>
     <h1>{{ user?.name }}</h1>
+    <button
+      mat-button
+      (click)="onMessageClick()"
+    >
+      <mat-icon>message</mat-icon>
+    </button>
     <app-friend-button
       [user]="user"
       (change)="fetch(user.id)"
