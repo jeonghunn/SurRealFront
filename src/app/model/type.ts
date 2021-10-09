@@ -46,6 +46,18 @@ export class Group {
   public target?: User;
 }
 
+export class Room {
+  public id: number;
+  public name: string;
+  public description: string;
+  public user?: User;
+  public group: Group;
+  public online_count: number;
+  public limit: number;
+  public status: number;
+
+}
+
 export enum RelationCategory {
   FRIEND,
   BLOCKED,
