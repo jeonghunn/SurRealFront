@@ -45,6 +45,10 @@ export class ProfilePageComponent implements OnDestroy {
     );
   }
 
+  public get isMe(): boolean {
+    return this.user.id === this.identityService.id;
+  }
+
   public init(): void {
     const userId: number = this.route.snapshot.params.id;
     this.fetch(userId);

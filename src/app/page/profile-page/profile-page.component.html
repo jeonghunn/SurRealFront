@@ -11,6 +11,7 @@
     <h1>{{ user?.name }}</h1>
     <button
       mat-button
+      *ngIf="!isMe"
       (click)="onMessageClick()"
     >
       <mat-icon>message</mat-icon>
