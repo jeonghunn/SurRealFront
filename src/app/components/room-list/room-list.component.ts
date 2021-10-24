@@ -37,4 +37,8 @@ export class RoomListComponent implements OnChanges {
     });
   }
 
+  public getDescription(): string {
+    return '설명';
+  }
+
 }

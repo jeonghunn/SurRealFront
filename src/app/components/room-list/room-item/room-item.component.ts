@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
 } from '@angular/core';
 
 @Component({
@@ -8,5 +9,11 @@ import {
   styleUrls: [ './room-item.component.scss' ],
 })
 export class RoomItemComponent {
+
+  @Input()
+  public name: string;
+
+  @Input()
+  public description: string;
 
 }

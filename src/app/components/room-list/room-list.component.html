@@ -4,7 +4,11 @@
     class="creation"
   >
   </div>
-  <app-room-item *ngFor="let room of rooms"></app-room-item>
+  <app-room-item
+    *ngFor="let room of rooms"
+    [name]="room.name"
+    [description]="room.name"
+  ></app-room-item>
 
 </div>
 
