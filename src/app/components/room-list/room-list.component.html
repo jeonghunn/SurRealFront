@@ -1,12 +1,10 @@
 <div class="room-list">
-  <app-room-item></app-room-item>
-  <app-room-item></app-room-item>
-  <app-room-item></app-room-item>
-  <app-room-item></app-room-item>
-  <app-room-item></app-room-item>
-  <app-room-item></app-room-item>
-  <app-room-item></app-room-item>
-  <app-room-item></app-room-item>
+  <div
+    matRipple
+    class="creation"
+  >
+  </div>
+  <app-room-item *ngFor="let room of rooms"></app-room-item>
 
 </div>
 

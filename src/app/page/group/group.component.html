@@ -30,7 +30,7 @@
     *ngIf="isShowRoomPanel"
     class="room"
   >
-    <app-room-list></app-room-list>
+    <app-room-list [groupId]="groupId"></app-room-list>
   </div>
   <ng-container
     *ngIf="!isShortWidth || !isShowRoomPanel"

@@ -18,6 +18,7 @@ import {
 import {
   Group,
   Relation,
+  Room,
   User,
   UserSimpleSet,
 } from 'src/app/model/type';
@@ -55,6 +56,13 @@ export class DataService {
   public getGroupList(): Observable<Group[]> {
     return this.httpClient.get<{ groups: Group[] }>(`${this.apiUrl}/group/`, {}).pipe(
       map((result: { groups: Group[] }) => result.groups),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
+  public getRooms(groupId: number, offset: number = 0, limit: number = 15): Observable<Room[]> {
+    return this.httpClient.get<{ rooms: Room[] }>(`${this.apiUrl}/group/${groupId}/room?offset=${offset}&limit=${limit}`, {}).pipe(
+      map((result: { rooms: Room[] }) => result.rooms),
       catchError(error => this.handleError(error)),
     );
   }

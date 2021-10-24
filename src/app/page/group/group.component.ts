@@ -2,7 +2,12 @@ import {
   Component,
   OnDestroy,
 } from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+} from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/core/data.service';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
 import { ChatSpaceCategory } from 'src/app/model/type';
@@ -17,14 +22,20 @@ export class GroupComponent implements OnDestroy {
   public category: ChatSpaceCategory = ChatSpaceCategory.CHAT;
   public isShortWidth: boolean = false;
   public isShowDetailView: boolean = true;
+  public groupId: number;
 
   private subscriptions: Subscription[] = [];
 
   public constructor(
     private layoutService: LayoutService,
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService,
   ) {
 
     this.subscriptions = [
+      this.activatedRoute.params.subscribe((params: Params) => {
+        this.groupId = params?.id;
+      }),
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
       }),
