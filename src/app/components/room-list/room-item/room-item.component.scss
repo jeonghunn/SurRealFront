@@ -1,8 +1,21 @@
+@import "src/assets/style/attrs";
+@import "src/assets/style/palette";
+
 .item {
   display: block;
-  margin-top: 16px;
+  margin-top: 8px;
   text-align: center;
+  padding-top: 8px;
+  padding-bottom: 4px ;
 
+
+  &:hover {
+    background-color: $LIST_ITEM_HOVER;
+  }
+
+  &:active {
+    background-color: $LIST_ITEM_HOVER;
+  }
 
   .image {
     border-radius: 4px;
