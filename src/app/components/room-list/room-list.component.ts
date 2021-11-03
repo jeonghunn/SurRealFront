@@ -21,6 +21,10 @@ export class RoomListComponent implements OnChanges {
 
   public rooms: Room[] = [];
 
+  public isLoading: boolean = true;
+  public offset: number = 0;
+  public isFullyLoad: boolean = false;
+
   public constructor(
     private dataService: DataService,
   ) {
@@ -31,10 +35,28 @@ export class RoomListComponent implements OnChanges {
   }
 
   public init(): void {
+    this.fetch(this.offset);
+  }
 
-    this.dataService.getRooms(this.groupId).pipe(take(1)).subscribe((rooms) => {
-      this.rooms = rooms;
+  public fetch(offset: number): void {
+    this.isLoading = true;
+    this.dataService.getRooms(this.groupId, offset).pipe(take(1)).subscribe((rooms) => {
+      this.rooms = this.rooms.concat(rooms);
+      console.log(this.rooms.length);
+      this.isLoading = false;
+      this.isFullyLoad = rooms.length === 0;
     });
+  }
+
+  public onScroll(event: any): void {
+    if (
+      !this.isLoading &&
+      !this.isFullyLoad &&
+      event.target.scrollHeight - 200 < event.target.scrollTop + event.target.offsetHeight
+    ) {
+      this.offset += 15;
+      this.fetch(this.offset);
+    }
   }
 
   public getDescription(): string {

@@ -1,4 +1,7 @@
-<div class="room-list">
+<div
+  (scroll)="onScroll($event)"
+  class="room-list"
+>
   <div
     matRipple
     class="creation"
@@ -9,6 +12,14 @@
     [name]="room.name"
     [description]="room.name"
   ></app-room-item>
+
+  <div
+    *ngIf="isLoading"
+    class="spinner"
+  >
+    <app-spinner></app-spinner>
+  </div>
+
 
 </div>
 

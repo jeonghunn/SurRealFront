@@ -1,8 +1,25 @@
-.room-list {
-  overflow: auto;
+@import "src/assets/style/attrs";
+@import "src/assets/style/palette";
 
+:host {
+  height: inherit;
+}
+
+.room-list {
+  height: inherit;
+  overflow: auto;
   .creation {
     border-radius: 4px;
 
+  }
+
+  .spinner {
+    background-color: $LIST_BACKGROUND_DARK;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
 }
