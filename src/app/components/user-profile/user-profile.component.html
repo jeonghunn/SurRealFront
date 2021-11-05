@@ -18,6 +18,7 @@
   <div class="actions">
     <button
       mat-button
+      *ngIf="!isMe"
       (click)="onMessageClick()"
     >
       <mat-icon>chat_bubble</mat-icon>

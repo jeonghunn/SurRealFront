@@ -11,6 +11,7 @@ import {
   Group,
   User,
 } from 'src/app/model/type';
+import { IdentityService } from 'src/app/core/identity.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,7 +29,12 @@ export class UserProfileComponent {
   public constructor(
     private router: Router,
     private dataService: DataService,
+    private identityService: IdentityService,
   ) {
+  }
+
+  public get isMe(): boolean {
+    return this.user.id === this.identityService.id;
   }
 
   public onProfileClick(): void {
