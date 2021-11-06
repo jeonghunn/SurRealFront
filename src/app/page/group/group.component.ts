@@ -8,9 +8,13 @@ import {
 } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
+import { GroupService } from 'src/app/core/group.service';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
-import { ChatSpaceCategory } from 'src/app/model/type';
+import {
+  ChatSpaceCategory,
+  Room,
+} from 'src/app/model/type';
 
 @Component({
   selector: 'app-group',
@@ -30,6 +34,7 @@ export class GroupComponent implements OnDestroy {
     private layoutService: LayoutService,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
+    private groupService: GroupService,
   ) {
 
     this.subscriptions = [
@@ -68,6 +73,10 @@ export class GroupComponent implements OnDestroy {
 
   public openLive(): void {
     this.category = ChatSpaceCategory.LIVE;
+  }
+
+  public openRoom(room: Room): void {
+    this.groupService.openedRoom$.next(room);
   }
 
   public ngOnDestroy(): void {

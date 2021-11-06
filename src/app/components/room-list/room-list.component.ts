@@ -1,33 +1,50 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
-  OnInit,
+  OnDestroy,
+  Output,
   SimpleChanges,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
+import { GroupService } from 'src/app/core/group.service';
 import { Room } from 'src/app/model/type';
+import { Util } from 'src/app/core/util';
 
 @Component({
   selector: 'app-room-list',
   templateUrl: './room-list.component.html',
   styleUrls: [ './room-list.component.scss' ],
 })
-export class RoomListComponent implements OnChanges {
+export class RoomListComponent implements OnChanges, OnDestroy {
 
   @Input()
   public groupId: number;
+
+  @Output()
+  public readonly select: EventEmitter<Room> = new EventEmitter();
 
   public rooms: Room[] = [];
 
   public isLoading: boolean = true;
   public offset: number = 0;
   public isFullyLoad: boolean = false;
+  public selectedRoomId: number = 0;
+
+  private subscriptions: Subscription[] = [];
 
   public constructor(
     private dataService: DataService,
+    private groupService: GroupService,
   ) {
+    this.subscriptions = [
+      this.groupService.openedRoom$.subscribe((room: Room) => {
+        this.selectedRoomId = room?.id;
+      }),
+    ];
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -63,6 +80,14 @@ export class RoomListComponent implements OnChanges {
 
   public getDescription(): string {
     return '설명';
+  }
+
+  public onClick(room: Room): void {
+    this.select.emit(room);
+  }
+
+  public ngOnDestroy(): void {
+    Util.unsubscribe(...this.subscriptions);
   }
 
 }

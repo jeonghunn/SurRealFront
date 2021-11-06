@@ -1,4 +1,7 @@
-<div class="item">
+<div
+  class="item"
+  [ngClass]="isSelected ? 'selected' : null"
+>
   <div class="image"></div>
   <div class="text">
     <span class="title">{{ name || '-' }}</span>

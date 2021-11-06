@@ -30,7 +30,10 @@
     *ngIf="isShowRoomPanel"
     class="room"
   >
-    <app-room-list [groupId]="groupId"></app-room-list>
+    <app-room-list
+      [groupId]="groupId"
+      (select)="openRoom($event)"
+    ></app-room-list>
   </div>
   <ng-container
     *ngIf="!isShortWidth || !isShowRoomPanel"

@@ -5,6 +5,7 @@ import {
 import { take } from 'rxjs/operators';
 import {
   Group,
+  Room,
 } from 'src/app/model/type';
 import { DataService } from './data.service';
 
@@ -14,6 +15,7 @@ import { DataService } from './data.service';
 export class GroupService {
 
   public groups$: BehaviorSubject<Group[]> = new BehaviorSubject<Group[]>(undefined);
+  public openedRoom$: BehaviorSubject<Room> = new BehaviorSubject<Room>(undefined);
 
   public constructor(
     public dataService: DataService,

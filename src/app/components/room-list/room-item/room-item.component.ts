@@ -16,4 +16,7 @@ export class RoomItemComponent {
   @Input()
   public description: string;
 
+  @Input()
+  public isSelected: boolean;
+
 }

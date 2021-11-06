@@ -41,3 +41,11 @@
 
 }
 
+.selected {
+  background-color: $LIST_ITEM_HOVER;
+
+  &:hover {
+    background-color: $LIST_ITEM_HOVER;
+  }
+}
+
