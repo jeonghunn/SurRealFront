@@ -5,7 +5,6 @@ import {
 import { take } from 'rxjs/operators';
 import {
   Group,
-  User,
 } from 'src/app/model/type';
 import { DataService } from './data.service';
 

@@ -49,10 +49,12 @@ export class RoomListComponent implements OnChanges {
   }
 
   public onScroll(event: any): void {
+    const scrollTop: number = parseInt(event.target.scrollTop);
+    const offsetHeight: number = parseInt(event.target.offsetHeight);
     if (
       !this.isLoading &&
       !this.isFullyLoad &&
-      event.target.scrollHeight - 200 < event.target.scrollTop + event.target.offsetHeight
+      event.target.scrollHeight - 200 < scrollTop + offsetHeight
     ) {
       this.offset += 15;
       this.fetch(this.offset);
