@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
 import { GroupService } from 'src/app/core/group.service';
-import { Room } from 'src/app/model/type';
 import { Util } from 'src/app/core/util';
+import { Room } from 'src/app/model/type';
 
 @Component({
   selector: 'app-room-list',
