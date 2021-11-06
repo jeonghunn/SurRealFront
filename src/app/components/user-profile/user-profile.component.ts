@@ -7,11 +7,11 @@ import {
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
+import { IdentityService } from 'src/app/core/identity.service';
 import {
   Group,
   User,
 } from 'src/app/model/type';
-import { IdentityService } from 'src/app/core/identity.service';
 
 @Component({
   selector: 'app-user-profile',
