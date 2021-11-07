@@ -13,6 +13,7 @@ import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
 import {
   ChatSpaceCategory,
+  Group,
   Room,
 } from 'src/app/model/type';
 
@@ -27,6 +28,7 @@ export class GroupComponent implements OnDestroy {
   public isShortWidth: boolean = false;
   public isShowDetailView: boolean = true;
   public groupId: number;
+  public group: Group;
 
   private subscriptions: Subscription[] = [];
 
@@ -38,8 +40,12 @@ export class GroupComponent implements OnDestroy {
   ) {
 
     this.subscriptions = [
+      this.groupService.openedGroup$.subscribe((group: Group) => {
+        this.group = group;
+      }),
       this.activatedRoute.params.subscribe((params: Params) => {
         this.groupId = params?.id;
+        this.groupService.openGroup(this.groupId);
       }),
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();

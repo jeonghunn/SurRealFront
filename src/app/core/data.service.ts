@@ -60,6 +60,13 @@ export class DataService {
     );
   }
 
+  public getGroup(id: number): Observable<Group> {
+    return this.httpClient.get<{ group: Group }>(`${this.apiUrl}/group/${id}`, {}).pipe(
+      map((result: { group: Group }) => result.group),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
   public getRooms(groupId: number, offset: number = 0, limit: number = 15): Observable<Room[]> {
     return this.httpClient.get<{ rooms: Room[] }>(`${this.apiUrl}/group/${groupId}/room?offset=${offset}&limit=${limit}`, {}).pipe(
       map((result: { rooms: Room[] }) => result.rooms),

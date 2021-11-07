@@ -1,7 +1,7 @@
 <div class="header">
   <div class="profile">
     <app-profile-icon [length]="48"></app-profile-icon>
-    <span class="name">Junghoon Lee</span>
+    <span class="name">{{ group?.name || group?.target?.name }}</span>
   </div>
 </div>
 <nav

@@ -15,6 +15,7 @@ import { DataService } from './data.service';
 export class GroupService {
 
   public groups$: BehaviorSubject<Group[]> = new BehaviorSubject<Group[]>(undefined);
+  public openedGroup$: BehaviorSubject<Group> = new BehaviorSubject<Group>(undefined);
   public openedRoom$: BehaviorSubject<Room> = new BehaviorSubject<Room>(undefined);
 
   public constructor(
@@ -24,6 +25,12 @@ export class GroupService {
   public fetchGroupList(): void {
     this.dataService.getGroupList().pipe(take(1)).subscribe((groups: Group[]) => {
       this.groups$.next(groups);
+    });
+  }
+
+  public openGroup(id: number): void {
+    this.dataService.getGroup(id).pipe(take(1)).subscribe((group: Group) => {
+      this.openedGroup$.next(group);
     });
   }
 
