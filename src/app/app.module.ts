@@ -10,7 +10,11 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatRippleModule } from '@angular/material/core';
+import {
+  MatRippleModule,
+  MAT_RIPPLE_GLOBAL_OPTIONS,
+  RippleGlobalOptions,
+} from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -34,6 +38,14 @@ import { PageModule } from './page/page.module';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
+};
+
+const globalRippleConfig: RippleGlobalOptions = {
+  disabled: false,
+  animation: {
+    enterDuration: 150,
+    exitDuration: 0,
+  },
 };
 
 @NgModule({
@@ -79,7 +91,12 @@ const HttpLoaderFactory = (http: HttpClient) => {
       useClass: AuthInterceptor,
       multi   : true,
     },
+    {
+      provide: MAT_RIPPLE_GLOBAL_OPTIONS,
+      useValue: globalRippleConfig,
+    },
   ],
   bootstrap: [ AppComponent ],
 })
+
 export class AppModule { }
