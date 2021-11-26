@@ -1,7 +1,7 @@
 <div class="sidebar">
   <app-profile-icon
     *ngFor="let group of groups"
-    [matTooltip]="group?.target?.name || group?.name"
+    [matTooltip]="getTitle(group)"
     [matTooltipPosition]="'right'"
     (click)="onGroupClick(group.id)"
   ></app-profile-icon>

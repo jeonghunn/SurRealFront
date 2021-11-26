@@ -9,12 +9,14 @@ import {
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
 import { GroupService } from 'src/app/core/group.service';
+import { IdentityService } from 'src/app/core/identity.service';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
 import {
   ChatSpaceCategory,
   Group,
   Room,
+  User,
 } from 'src/app/model/type';
 
 @Component({
@@ -37,6 +39,7 @@ export class GroupComponent implements OnDestroy {
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private groupService: GroupService,
+    private identityService: IdentityService,
   ) {
 
     this.subscriptions = [
@@ -63,6 +66,18 @@ export class GroupComponent implements OnDestroy {
 
   public get isLiveViewOpen(): boolean {
     return !this.isShortWidth || this.category === ChatSpaceCategory.LIVE;
+  }
+
+  public get userId(): number {
+    return this.identityService.id;
+  }
+
+  public get name(): string {
+    if (this.group.target_id === null || this.group.target_id === this.userId) {
+      return this.group.name;
+    }
+
+    return  this.group.target?.name;
   }
 
   public openChatView(): void {

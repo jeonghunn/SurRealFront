@@ -50,6 +50,14 @@ export class GroupListComponent implements OnDestroy {
 
   }
 
+  public getTitle(group: Group): string {
+    if (group.target_id === null || group.target_id === this.identityService.id) {
+      return group.name;
+    }
+
+    return  group.target?.name;
+  }
+
   public ngOnDestroy(): void {
     Util.unsubscribe(...this.subscriptions);
   }
