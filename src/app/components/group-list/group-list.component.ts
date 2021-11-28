@@ -55,7 +55,7 @@ export class GroupListComponent implements OnDestroy {
       return group.name;
     }
 
-    return  group.target?.name;
+    return group.target?.name;
   }
 
   public ngOnDestroy(): void {

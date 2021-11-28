@@ -77,7 +77,7 @@ export class GroupComponent implements OnDestroy {
       return this.group.name;
     }
 
-    return  this.group.target?.name;
+    return this.group.target?.name;
   }
 
   public openChatView(): void {
