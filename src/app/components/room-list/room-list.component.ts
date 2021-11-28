@@ -52,6 +52,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   }
 
   public init(): void {
+    this.rooms = [];
     this.fetch(this.offset);
   }
 
