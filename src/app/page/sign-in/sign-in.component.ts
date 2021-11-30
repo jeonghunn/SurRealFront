@@ -47,7 +47,7 @@ export class SignInComponent implements OnInit {
   }
 
   public onHidePasswordClick(event: MouseEvent): void {
-    event.preventDefault();
+    event.stopPropagation();
     this.isHidePassword = !this.isHidePassword;
   }
 
