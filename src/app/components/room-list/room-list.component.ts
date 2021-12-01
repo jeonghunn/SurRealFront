@@ -25,7 +25,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   public groupId: number;
 
   @Output()
-  public readonly select: EventEmitter<Room> = new EventEmitter();
+  public readonly itemSelect: EventEmitter<Room> = new EventEmitter();
 
   public rooms: Room[] = [];
 
@@ -84,7 +84,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   }
 
   public onClick(room: Room): void {
-    this.select.emit(room);
+    this.itemSelect.emit(room);
   }
 
   public ngOnDestroy(): void {

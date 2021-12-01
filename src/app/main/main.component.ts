@@ -9,7 +9,7 @@ import { IdentityService } from 'src/app/core/identity.service';
   templateUrl: './main.component.html',
   styleUrls: [ './main.component.scss' ],
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
 
   public isGuest: boolean = true;
 
@@ -19,10 +19,6 @@ export class MainComponent implements OnInit {
     if (identityService.isSignedIn) {
       this.isGuest = false;
     }
-  }
-
-  // tslint:disable-next-line:no-empty
-  public ngOnInit(): void {
   }
 
   public openDiscordServer(): void {

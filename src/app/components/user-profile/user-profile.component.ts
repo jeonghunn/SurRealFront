@@ -24,7 +24,7 @@ export class UserProfileComponent {
   public user: User = null;
 
   @Output()
-  public readonly change: EventEmitter<null> = new EventEmitter<null>();
+  public readonly update: EventEmitter<null> = new EventEmitter<null>();
 
   public constructor(
     private router: Router,
@@ -43,7 +43,7 @@ export class UserProfileComponent {
 
   public deleteFriend(): void {
     this.dataService.deleteFriend(this.user.id).pipe(take(1)).subscribe(() => {
-      this.change.emit();
+      this.update.emit();
     });
   }
 

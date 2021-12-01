@@ -15,7 +15,7 @@
     <app-user-profile
       *ngFor="let relation of friends"
       [user]="relation?.target"
-      (change)="fetch()"
+      (update)="fetch()"
     ></app-user-profile>
   </ng-template>
 </div>

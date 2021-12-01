@@ -27,7 +27,7 @@ export class FriendButtonComponent implements OnChanges {
   public user: User;
 
   @Output()
-  public readonly change: EventEmitter<null> = new EventEmitter<null>();
+  public readonly update: EventEmitter<null> = new EventEmitter<null>();
 
   @Input()
   public iconName: string = 'menu';
@@ -64,7 +64,7 @@ export class FriendButtonComponent implements OnChanges {
     this.isRequestingFriend = true;
     this.dataService.addFriend(this.user.id).pipe(take(1)).subscribe(() => {
       this.isRequestingFriend = false;
-      this.change.emit();
+      this.update.emit();
     });
   }
 
@@ -72,7 +72,7 @@ export class FriendButtonComponent implements OnChanges {
     this.isRequestingFriend = true;
     this.dataService.deleteFriend(this.user.id).pipe(take(1)).subscribe(() => {
       this.isRequestingFriend = false;
-      this.change.emit();
+      this.update.emit();
     });
   }
 }

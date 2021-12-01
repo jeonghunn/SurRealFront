@@ -9,7 +9,7 @@ import {
   templateUrl: './bigerror.component.html',
   styleUrls: [ './bigerror.component.scss' ],
 })
-export class BigerrorComponent implements OnInit {
+export class BigerrorComponent {
 
   @Input()
   public imageUrl: string;
@@ -19,12 +19,5 @@ export class BigerrorComponent implements OnInit {
 
   @Input()
   public description: string;
-
-  // tslint:disable-next-line:no-empty
-  public constructor() { }
-
-  // tslint:disable-next-line:no-empty
-  public ngOnInit(): void {
-  }
 
 }
