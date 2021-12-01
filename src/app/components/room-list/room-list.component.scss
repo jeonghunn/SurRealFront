@@ -9,8 +9,21 @@
   height: inherit;
   overflow: auto;
   .creation {
-    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    border-bottom: 1px solid $LIST_BACKGROUND_DARK;
+    align-items: center;
+    font-weight: bold;
+    height: 56px;
 
+    mat-icon {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: $LIST_BACKGROUND_DARK;
+    }
   }
 
   .spinner {

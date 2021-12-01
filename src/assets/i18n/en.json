@@ -72,5 +72,10 @@
   },
   "FRIEND_LIST": {
     "EMPTY": "Add a friend to start conversation."
+  },
+  "GROUP": {
+    "ROOM": {
+      "CREATE": "Create new room"
+    }
   }
 }
