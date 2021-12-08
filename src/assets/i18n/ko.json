@@ -77,14 +77,21 @@
   },
   "GROUP_CREATE": {
     "FRIENDS": "친구",
-    "CREATE_A_GROUP": "그룹 생성"
+    "CREATE_A_GROUP": "그룹 생성",
   },
   "FRIEND_LIST": {
     "EMPTY": "친구를 추가하여 대화를 시작해보세요."
   },
   "GROUP": {
     "ROOM": {
-      "CREATE": "새로운 방 생성"
+      "CREATE": "새로운 방 생성",
+      "CREATE_DIALOG": {
+        "TITLE": "제목",
+        "ADVANCED": "고급 설정",
+        "CANCEL": "취소",
+        "CONFIRM": "생성",
+        "TITLE_PLACEHOLDER": "점심 정하기 회의"
+      }
     }
   }
 }

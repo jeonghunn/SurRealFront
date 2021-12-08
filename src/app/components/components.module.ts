@@ -4,7 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,8 +17,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { FriendButtonComponent } from './friend-button/friend-button.component';
 import { FriendMenuComponent } from './friend-button/friend-menu/friend-menu.component';
 import { FriendListComponent } from './friend-list/friend-list.component';
-import { RoomItemComponent } from './room-list/room-item/room-item.component';
-import { RoomListComponent } from './room-list/room-list.component';
+import { RoomCreateComponent } from './room/room-create/room-create.component';
+import { RoomItemComponent } from './room/room-list/room-item/room-item.component';
+import { RoomListComponent } from './room/room-list/room-list.component';
 import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
@@ -31,6 +34,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FriendMenuComponent,
     RoomListComponent,
     RoomItemComponent,
+    RoomCreateComponent,
   ],
   exports: [
     FooterComponent,
@@ -52,6 +56,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatRippleModule,
     MatIconModule,
     MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
 })
 export class ComponentsModule { }

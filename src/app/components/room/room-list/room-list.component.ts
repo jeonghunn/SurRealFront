@@ -7,12 +7,14 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
 import { GroupService } from 'src/app/core/group.service';
 import { Util } from 'src/app/core/util';
 import { Room } from 'src/app/model/type';
+import { RoomCreateComponent } from 'src/app/components/room/room-create/room-create.component';
 
 @Component({
   selector: 'app-room-list',
@@ -39,6 +41,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   public constructor(
     private dataService: DataService,
     private groupService: GroupService,
+    public matDialog: MatDialog,
   ) {
     this.subscriptions = [
       this.groupService.openedRoom$.subscribe((room: Room) => {
@@ -77,6 +80,13 @@ export class RoomListComponent implements OnChanges, OnDestroy {
       this.offset += 15;
       this.fetch(this.offset);
     }
+  }
+
+  public openDialog(): void {
+    this.matDialog.open(RoomCreateComponent, {
+      maxWidth: '400px',
+      minWidth: '280px',
+    });
   }
 
   public getDescription(): string {

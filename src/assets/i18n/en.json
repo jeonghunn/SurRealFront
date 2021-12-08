@@ -68,14 +68,21 @@
   },
   "GROUP_CREATE": {
     "FRIENDS": "Friends",
-    "CREATE_A_GROUP": "Create a Group"
+    "CREATE_A_GROUP": "Create a Group",
   },
   "FRIEND_LIST": {
     "EMPTY": "Add a friend to start conversation."
   },
   "GROUP": {
     "ROOM": {
-      "CREATE": "Create new room"
+      "CREATE": "Create new room",
+      "CREATE_DIALOG": {
+        "TITLE": "Title",
+        "ADVANCED": "Advanced",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel",
+        "TITLE_PLACEHOLDER": "Pizza Meeting"
+      }
     }
   }
 }
