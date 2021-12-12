@@ -13,6 +13,9 @@
     *ngIf="!isShowAdvanced"
     (click)="isShowAdvanced = !isShowAdvanced"
   >{{ 'GROUP.ROOM.CREATE_DIALOG.ADVANCED' | translate }}</button>
-  <button mat-button>{{ 'GROUP.ROOM.CREATE_DIALOG.CANCEL' | translate }}</button>
+  <button
+    mat-button
+    (click)="dialogRef.close()"
+  >{{ 'GROUP.ROOM.CREATE_DIALOG.CANCEL' | translate }}</button>
   <button mat-button>{{ 'GROUP.ROOM.CREATE_DIALOG.CONFIRM' | translate }}</button>
 </mat-dialog-actions>
