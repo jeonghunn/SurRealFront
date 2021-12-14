@@ -42,3 +42,11 @@ jobs:
         with:
           start: npm start
           wait-on: 'http://localhost:4200'
+      - name: Artifacts
+        uses: cypress-io/github-action@v2
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
