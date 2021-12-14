@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Service Dependencies Ready
@@ -43,7 +43,6 @@ jobs:
           start: npm start
           wait-on: 'http://localhost:4200'
       - name: Artifacts
-        uses: cypress-io/github-action@v2
         uses: actions/upload-artifact@v2
         if: failure()
         with:
