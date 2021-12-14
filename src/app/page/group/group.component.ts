@@ -73,11 +73,11 @@ export class GroupComponent implements OnDestroy {
   }
 
   public get name(): string {
-    if (this.group.target_id === null || this.group.target_id === this.userId) {
+    if (this.group?.target_id === null || this.group?.target_id === this.userId) {
       return this.group.name;
     }
 
-    return this.group.target?.name;
+    return this.group?.target?.name;
   }
 
   public openChatView(): void {
