@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
-    translateService.setDefaultLang(translateService.getBrowserLang());
+    translateService.setDefaultLang(translateService.getBrowserLang() || 'en');
     this.subscriptions.push(
       this.dataService.httpErrorCode.subscribe((code: number) => {
         this.pageErrorCode = code;
