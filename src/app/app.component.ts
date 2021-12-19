@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
-    translateService.setDefaultLang(translateService.getBrowserLang() || 'en');
+    translateService.setDefaultLang(this.getLanguageCode());
     this.subscriptions.push(
       this.dataService.httpErrorCode.subscribe((code: number) => {
         this.pageErrorCode = code;
@@ -75,6 +75,19 @@ export class AppComponent implements OnInit, OnDestroy {
   public toggleSideNav(): void {
     this.isSideNavOpen = !this.isSideNavOpen;
     this.changeDetectorRef.markForCheck();
+  }
+
+  public getLanguageCode(): string {
+    const languageCode: string = this.translateService.getBrowserLang();
+    const supportedLangs: string[] = [ 'en', 'ko' ];
+
+    if (supportedLangs.some(v => {
+      return languageCode.includes(v);
+    })) {
+      return languageCode;
+    }
+
+    return 'en';
   }
 
   public ngOnDestroy(): void {
