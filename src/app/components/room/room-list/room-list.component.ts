@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -45,6 +46,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   public constructor(
     private dataService: DataService,
     private groupService: GroupService,
+    private changeDetectorRef: ChangeDetectorRef,
     public matDialog: MatDialog,
   ) {
     this.subscriptions = [
@@ -60,6 +62,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
 
   public init(): void {
     this.rooms = [];
+    this.offset = 0;
     this.fetch(this.offset);
   }
 
@@ -69,6 +72,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
       this.rooms = this.rooms.concat(rooms);
       this.isLoading = false;
       this.isFullyLoad = rooms.length === 0;
+      this.changeDetectorRef.markForCheck();
     });
   }
 
