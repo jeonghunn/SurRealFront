@@ -67,7 +67,6 @@ export class RoomListComponent implements OnChanges, OnDestroy {
     this.isLoading = true;
     this.dataService.getRooms(this.groupId, offset).pipe(take(1)).subscribe((rooms) => {
       this.rooms = this.rooms.concat(rooms);
-      console.log(this.rooms.length);
       this.isLoading = false;
       this.isFullyLoad = rooms.length === 0;
     });
