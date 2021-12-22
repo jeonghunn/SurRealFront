@@ -7,14 +7,17 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { RoomCreateComponent } from 'src/app/components/room/room-create/room-create.component';
 import { DataService } from 'src/app/core/data.service';
 import { GroupService } from 'src/app/core/group.service';
 import { Util } from 'src/app/core/util';
 import { Room } from 'src/app/model/type';
-import { RoomCreateComponent } from 'src/app/components/room/room-create/room-create.component';
 
 @Component({
   selector: 'app-room-list',
@@ -35,6 +38,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   public offset: number = 0;
   public isFullyLoad: boolean = false;
   public selectedRoomId: number = 0;
+  public roomCreateDialogRef: MatDialogRef<RoomCreateComponent>;
 
   private subscriptions: Subscription[] = [];
 
@@ -83,14 +87,17 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   }
 
   public openDialog(): void {
-    this.matDialog.open(RoomCreateComponent, {
+    this.roomCreateDialogRef = this.matDialog.open(RoomCreateComponent, {
       maxWidth: '400px',
       minWidth: '280px',
+      data: {
+        groupId: this.groupId,
+      },
     });
-  }
 
-  public getDescription(): string {
-    return '설명';
+    this.roomCreateDialogRef.afterClosed().pipe(take(1)).subscribe(() => {
+      this.init();
+    });
   }
 
   public onClick(room: Room): void {

@@ -74,6 +74,13 @@ export class DataService {
     );
   }
 
+  public createRoom(groupId: number, data: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.apiUrl}/group/${groupId}/room`, data).pipe(
+      map((result: { group: Group }) => result.group),
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
   public startChat(userId: number): Observable<any> {
     return this.httpClient.post<any>(`${this.apiUrl}/user/${userId}/chat`, {}).pipe(
       map((result: { group: Group }) => result.group),
