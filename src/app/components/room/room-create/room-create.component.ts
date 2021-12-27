@@ -52,11 +52,14 @@ export class RoomCreateComponent implements OnInit {
     });
   }
 
-  public close(): void {
+  public close(event: Event): void {
+    event.preventDefault();
     this.dialogRef.close();
   }
 
-  public submit(): void {
+  public submit(event: Event): void {
+    event.preventDefault();
+
     this.isLoading = true;
     console.log(this.form.value);
     this.dataService.createRoom(this.groupId, this.form.value).pipe(take(1)).subscribe((result) => {

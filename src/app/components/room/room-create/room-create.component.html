@@ -3,6 +3,7 @@
 <form
   *ngIf="!isLoading"
   [formGroup]="form"
+  (ngSubmit)="submit($event)"
 >
 
   <mat-form-field class="example-full-width" appearance="fill">
@@ -22,11 +23,11 @@
     >{{ 'GROUP.ROOM.CREATE_DIALOG.ADVANCED' | translate }}</button>
     <button
       mat-button
-      (click)="close()"
+      (click)="close($event)"
     >{{ 'GROUP.ROOM.CREATE_DIALOG.CANCEL' | translate }}</button>
     <button
       mat-button
-      (click)="submit()"
+      type="submit"
     >{{ 'GROUP.ROOM.CREATE_DIALOG.CONFIRM' | translate }}</button>
   </mat-dialog-actions>
 </form>
