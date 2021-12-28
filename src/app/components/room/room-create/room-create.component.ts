@@ -14,7 +14,13 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { take } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
+import { throwError } from 'rxjs';
+import {
+  catchError,
+  take,
+} from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
 
 @Component({
@@ -36,6 +42,8 @@ export class RoomCreateComponent implements OnInit {
   public form: FormGroup;
 
   public constructor(
+    private translateService: TranslateService,
+    private matSnakeBar: MatSnackBar,
     public dialogRef: MatDialogRef<RoomCreateComponent>,
     public dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -62,11 +70,19 @@ export class RoomCreateComponent implements OnInit {
 
     this.isLoading = true;
     console.log(this.form.value);
-    this.dataService.createRoom(this.groupId, this.form.value).pipe(take(1)).subscribe((result) => {
-      this.dialogRef.close();
-      this.isLoading = false;
-      this.save.emit();
-    });
+    this.dataService.createRoom(this.groupId, this.form.value).pipe(
+      take(1),
+      catchError(error => {
+        this.isLoading = false;
+        this.matSnakeBar.open(this.translateService.instant('ERROR.UNKNOWN'));
+
+        return throwError(error);
+      }),
+      ).subscribe((result) => {
+        this.dialogRef.close();
+        this.isLoading = false;
+        this.save.emit();
+      });
   }
 
 }
