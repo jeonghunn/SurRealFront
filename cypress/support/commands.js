@@ -1,10 +1,16 @@
 Cypress.Commands.add('goto', (url) => {
+  cy.server();
+  cy.route('GET', '**/en.json').as('getLangFile');
+
   cy.visit("http://localhost:4200/" + url, {
     timeout: 15000,
     onBeforeLoad: (_contentWindow) => {
       Object.defineProperty(_contentWindow.navigator, 'language', {value: 'en-US'})
     }
   });
+
+  cy.wait('@getLangFile');
+
 });
 
 Cypress.Commands.add('signin', (user) => {
