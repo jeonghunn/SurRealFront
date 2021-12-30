@@ -69,6 +69,7 @@
   "GROUP_CREATE": {
     "FRIENDS": "Friends",
     "CREATE_A_GROUP": "Create a Group",
+    "SEARCH": "Search"
   },
   "FRIEND_LIST": {
     "EMPTY": "Add a friend to start conversation."

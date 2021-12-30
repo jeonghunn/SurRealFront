@@ -78,6 +78,7 @@
   "GROUP_CREATE": {
     "FRIENDS": "친구",
     "CREATE_A_GROUP": "그룹 생성",
+    "SEARCH": "검색"
   },
   "FRIEND_LIST": {
     "EMPTY": "친구를 추가하여 대화를 시작해보세요."
