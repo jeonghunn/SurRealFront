@@ -47,7 +47,7 @@ export class SignInComponent implements OnInit {
   }
 
   public onHidePasswordClick(event: MouseEvent): void {
-    event.stopPropagation();
+    event.preventDefault();
     this.isHidePassword = !this.isHidePassword;
   }
 
@@ -55,7 +55,9 @@ export class SignInComponent implements OnInit {
     this.router.navigateByUrl('/').then(null);
   }
 
-  public onSubmit(): void {
+  public onSubmit(event: Event): void {
+    event.stopPropagation();
+
     this.isLoading = true;
     this.isHidePassword = true;
 

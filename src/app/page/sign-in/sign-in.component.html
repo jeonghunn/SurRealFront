@@ -13,7 +13,7 @@
     </div>
     <form
       [formGroup]="signInForm"
-      (ngSubmit)="onSubmit()"
+      (ngSubmit)="onSubmit($event)"
     >
       <mat-form-field
         appearance="fill"
@@ -36,6 +36,7 @@
           required
           [formControlName]="'password'"
           [type]="isHidePassword ? 'password' : 'text'"
+          (keydown.enter)="onSubmit($event)"
         >
         <button
           mat-icon-button
