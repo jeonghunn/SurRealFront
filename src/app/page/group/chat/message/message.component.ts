@@ -4,6 +4,8 @@ import {
   OnInit,
 } from '@angular/core';
 
+import { DateTime } from 'luxon';
+
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -12,8 +14,24 @@ import {
 export class MessageComponent {
 
   @Input()
+  public user_id: number;
+
+  @Input()
+  public color: string = '#46a35e';
+
+  @Input()
   public name: string;
 
   @Input()
   public message: string;
+
+  @Input()
+  public date: DateTime;
+
+  @Input()
+  public isShowTime: boolean;
+
+  public get getFormattedDate(): string {
+    return this.date?.toLocaleString(DateTime.TIME_SIMPLE);
+  }
 }

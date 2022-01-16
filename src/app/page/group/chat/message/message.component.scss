@@ -1,15 +1,30 @@
-:host {
-  display: flex;
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
+@import "src/assets/style/attrs";
+@import "src/assets/style/palette";
 
-.profile {
-  background-color: #46a35e;
-  color: #FFFFFF;
-  border-radius: 4px;
-  font-size: 16px;
-  padding-left: 2px;
-  padding-right: 2px;
-  margin-right: 8px;
+.message {
+  display: flex;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  justify-content: space-between;
+
+  .chat {
+    display: flex;
+    
+    .profile {
+      color: #FFFFFF;
+      border-radius: 4px;
+      font-size: 16px;
+      padding-left: 2px;
+      padding-right: 2px;
+      margin-right: 8px;
+    }
+  
+  }
+
+  &:hover {
+    background-color: $LIST_ITEM_HOVER;
+  }
+
+
+  
 }

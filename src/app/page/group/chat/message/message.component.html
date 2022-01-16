@@ -1,2 +1,11 @@
-<div class="profile">{{ name }}</div>
-<span>{{ message }}</span>
+<div class="message">
+    <div class="chat">
+        <div
+            class="profile"
+            [style.backgroundColor]="color"
+        >{{ name }}</div>
+        <span>{{ message }}</span>
+    </div>
+    <span *ngIf="isShowTime">{{ getFormattedDate }}</span>
+</div>
+

@@ -6,6 +6,7 @@ import {
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-chat',
@@ -52,6 +53,10 @@ export class ChatComponent implements OnDestroy {
 
   public ngOnDestroy(): void {
     Util.unsubscribe(...this.subscriptions);
+  }
+
+  public getDate(): Date {
+    return DateTime.now(); 
   }
 
 }
