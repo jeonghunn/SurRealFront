@@ -3,10 +3,10 @@ import {
   Component,
   OnDestroy,
 } from '@angular/core';
+import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
-import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-chat',
@@ -56,7 +56,7 @@ export class ChatComponent implements OnDestroy {
   }
 
   public getDate(): Date {
-    return DateTime.now(); 
+    return DateTime.now();
   }
 
 }
