@@ -53,7 +53,8 @@ export class SignUpComponent implements OnInit {
     this.router.navigateByUrl('/').then(null);
   }
 
-  public onSubmit(): void {
+  public onSubmit(event: MouseEvent): void {
+
     this.isLoading = true;
     this.dataService.signUp(this.signUpForm.value)
       .pipe(
@@ -71,5 +72,10 @@ export class SignUpComponent implements OnInit {
         this.isLoading = false;
         this.goMain();
       });
+  }
+
+  public onClickPasswordHide(event: MouseEvent): void {
+    event.preventDefault();
+    this.isHidePassword = !this.isHidePassword;
   }
 }

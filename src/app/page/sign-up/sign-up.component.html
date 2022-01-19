@@ -34,7 +34,7 @@
         <button
           mat-icon-button
           matSuffix
-          (click)="isHidePassword = !isHidePassword"
+          (click)="onClickPasswordHide($event)"
           [attr.aria-label]="'SIGN_UP.HIDE_PASSWORD' | translate"
           [attr.aria-pressed]="isHidePassword"
         >
