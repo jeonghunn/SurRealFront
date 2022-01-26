@@ -5,8 +5,14 @@ import {
 } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
+import {
+  webSocket,
+  WebSocketSubject,
+} from 'rxjs/webSocket';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
+import { Chat } from 'src/app/model/type';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -19,12 +25,18 @@ export class ChatComponent implements OnDestroy {
 
   public isShortWidth: boolean = false;
 
+  public chats: Chat[] = [];
+  public message: string;
+  public webSocketSubject: WebSocketSubject<any> = null;
+
   private readonly subscriptions: Subscription[] = [];
 
   public constructor(
     private layoutService: LayoutService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
+    this.webSocketSubject = webSocket(environment.socketServerUrl);
+
     this.subscriptions = [
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
@@ -32,6 +44,14 @@ export class ChatComponent implements OnDestroy {
       this.layoutService.isSideNavOpen$.subscribe(isOpen => {
         this.changeDetectorRef.markForCheck();
       }),
+      this.webSocketSubject.subscribe(
+        (msg) => {
+          console.log( msg);
+          this.chats.push(msg as Chat);
+        },
+        err => console.log(err),
+        () => console.log('complete'),
+      ),
     ];
   }
 
@@ -57,6 +77,10 @@ export class ChatComponent implements OnDestroy {
 
   public getDate(): Date {
     return DateTime.now();
+  }
+
+  public sendMessage(text: string): void {
+    this.webSocketSubject.next({ content: text });
   }
 
 }

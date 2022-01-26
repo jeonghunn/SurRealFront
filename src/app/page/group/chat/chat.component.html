@@ -1,7 +1,7 @@
 <app-message
-  *ngFor="let item of counter(30);"
-  [name]="'Junghoon Lee'"
-  [message]="'This is a test message.'"
+  *ngFor="let chat of chats"
+  [name]="chat.user?.name"
+  [message]="chat.content"
   [date]="getDate()"
   [isShowTime]="true"
 ></app-message>
@@ -15,6 +15,7 @@
     <mat-label>Message</mat-label>
     <input
       matInput
+      [(ngModel)]="message"
       placeholder="Placeholder"
       type="text"
       autocomplete="off"
@@ -31,7 +32,10 @@
       matSuffix
       [attr.aria-label]="'SIGN_IN.HIDE_PASSWORD' | translate"
     >
-      <mat-icon matSuffix>send</mat-icon>
+      <mat-icon
+        matSuffix
+        (click)="sendMessage(message)"
+      >send</mat-icon>
     </button>
   </mat-form-field>
 </div>

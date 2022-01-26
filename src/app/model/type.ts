@@ -38,6 +38,12 @@ export class Relation {
   public target_id: number;
 }
 
+export class Chat {
+  public id: number;
+  public content: string;
+  public user: User;
+}
+
 export class Group {
   public id: number;
   public name: string;
