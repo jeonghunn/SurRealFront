@@ -83,6 +83,12 @@
         "CONFIRM": "Confirm",
         "CANCEL": "Cancel",
         "TITLE_PLACEHOLDER": "Pizza Meeting"
+      },
+      "CHAT": {
+        "MESSAGE": "Message",
+        "WRITE_A_MESSAGE": "Write a message...",
+        "EMOJI": "Emoji",
+        "SEND": "Send"
       }
     }
   }

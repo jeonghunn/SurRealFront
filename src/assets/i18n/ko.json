@@ -92,6 +92,12 @@
         "CANCEL": "취소",
         "CONFIRM": "생성",
         "TITLE_PLACEHOLDER": "점심 정하기 회의"
+      },
+      "CHAT": {
+        "MESSAGE": "대화 작성하기",
+        "WRITE_A_MESSAGE": "메시지를 입력하세요...",
+        "EMOJI": "이모티콘",
+        "SEND": "보내기"
       }
     }
   }
