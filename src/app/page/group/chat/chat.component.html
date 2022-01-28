@@ -17,6 +17,7 @@
       matInput
       [(ngModel)]="message"
       [placeholder]="'GROUP.ROOM.CHAT.WRITE_A_MESSAGE' | translate"
+      (keydown.enter)="sendMessage(message)"
       type="text"
       autocomplete="off"
     >

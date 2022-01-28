@@ -80,6 +80,7 @@ export class ChatComponent implements OnDestroy {
   }
 
   public sendMessage(text: string): void {
+    this.message = '';
     this.webSocketSubject.next({ content: text });
   }
 
