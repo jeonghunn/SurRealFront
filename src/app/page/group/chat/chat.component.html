@@ -15,9 +15,12 @@
     <mat-label>{{ 'GROUP.ROOM.CHAT.MESSAGE' | translate }}</mat-label>
     <input
       matInput
+      #message_input
       [(ngModel)]="message"
+      [disabled]="isMessageInputDisabled"
       [placeholder]="'GROUP.ROOM.CHAT.WRITE_A_MESSAGE' | translate"
-      (keydown.enter)="sendMessage(message)"
+      (keyup.enter)="sendMessage(message)"
+      id="chat_message_input"
       type="text"
       autocomplete="off"
     >
@@ -29,13 +32,14 @@
       <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
     </button>
     <button
+      #send_button
       mat-icon-button
       matSuffix
+      (click)="sendMessage(message)"
       [attr.aria-label]="'GROUP.ROOM.CHAT.SEND' | translate"
     >
       <mat-icon
         matSuffix
-        (click)="sendMessage(message)"
       >send</mat-icon>
     </button>
   </mat-form-field>

@@ -24,6 +24,7 @@ export class ChatComponent implements OnDestroy {
   public DEFAULT_FOOTER_WIDTH: number = 400;
 
   public isShortWidth: boolean = false;
+  public isMessageInputDisabled: boolean = false;
 
   public chats: Chat[] = [];
   public message: string;
@@ -80,8 +81,14 @@ export class ChatComponent implements OnDestroy {
   }
 
   public sendMessage(text: string): void {
+    if (text?.length === 0) {
+      return;
+    }
+
+    this.isMessageInputDisabled = true;
     this.message = '';
     this.webSocketSubject.next({ content: text });
+    this.isMessageInputDisabled = false;
   }
 
 }
