@@ -1,18 +1,16 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
+  Input,
   OnDestroy,
+  Output,
 } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
-import {
-  webSocket,
-  WebSocketSubject,
-} from 'rxjs/webSocket';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
 import { Chat } from 'src/app/model/type';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -21,14 +19,17 @@ import { environment } from 'src/environments/environment';
 })
 export class ChatComponent implements OnDestroy {
 
+  @Input()
+  public chats: Chat[];
+
   public DEFAULT_FOOTER_WIDTH: number = 400;
 
   public isShortWidth: boolean = false;
   public isMessageInputDisabled: boolean = false;
-
-  public chats: Chat[] = [];
   public message: string;
-  public webSocketSubject: WebSocketSubject<any> = null;
+
+  @Output()
+  public readonly chatSend: EventEmitter<Chat> = new EventEmitter();
 
   private readonly subscriptions: Subscription[] = [];
 
@@ -36,7 +37,6 @@ export class ChatComponent implements OnDestroy {
     private layoutService: LayoutService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
-    this.webSocketSubject = webSocket(environment.socketServerUrl);
 
     this.subscriptions = [
       this.layoutService.windowResize$.subscribe(window => {
@@ -45,14 +45,6 @@ export class ChatComponent implements OnDestroy {
       this.layoutService.isSideNavOpen$.subscribe(isOpen => {
         this.changeDetectorRef.markForCheck();
       }),
-      this.webSocketSubject.subscribe(
-        (msg) => {
-          console.log( msg);
-          this.chats.push(msg as Chat);
-        },
-        err => console.log(err),
-        () => console.log('complete'),
-      ),
     ];
   }
 
@@ -87,7 +79,7 @@ export class ChatComponent implements OnDestroy {
 
     this.isMessageInputDisabled = true;
     this.message = '';
-    this.webSocketSubject.next({ content: text });
+    this.chatSend.emit({ content: text });
     this.isMessageInputDisabled = false;
   }
 

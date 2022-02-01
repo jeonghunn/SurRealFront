@@ -1,5 +1,7 @@
 <app-chat
   *ngIf="isChatViewOpen"
+  [chats]="chats"
+  (chatSend)="sendMessage($event)"
   class="chat"
 ></app-chat>
 <app-detail-view

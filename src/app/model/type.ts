@@ -39,9 +39,9 @@ export class Relation {
 }
 
 export class Chat {
-  public id: number;
+  public id?: number;
   public content: string;
-  public user: User;
+  public user?: User;
 }
 
 export class Group {
