@@ -38,14 +38,11 @@
   <ng-container
     *ngIf="!isShortWidth || !isShowRoomPanel"
   >
-    <app-chat
-      *ngIf="isChatViewOpen"
-      class="chat"
-    ></app-chat>
-    <app-detail-view
-      *ngIf="isLiveViewOpen"
-      class="live"
-    ></app-detail-view>
+    <app-room
+      [isChatViewOpen]="isChatViewOpen"
+      [isLiveViewOpen]="isLiveViewOpen"
+    >
+    </app-room>
   </ng-container>
 
 </div>

@@ -41,17 +41,6 @@
     width: 200px;
   }
 
-  .chat {
-    padding-left: 8px;
-    padding-right: 8px;
-    height: calc(100% - #{$CHAT_FOOTER_HEIGHT});
-    width: 400px;
-    overflow: auto;
-  }
-
-  .live {
-    height: 100%;
-  }
 
 }
 
