@@ -10,7 +10,10 @@ import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
-import { Chat } from 'src/app/model/type';
+import {
+  Chat,
+  CommunicationType,
+} from 'src/app/model/type';
 
 @Component({
   selector: 'app-chat',
@@ -79,7 +82,14 @@ export class ChatComponent implements OnDestroy {
 
     this.isMessageInputDisabled = true;
     this.message = '';
-    this.chatSend.emit({ content: text });
+    this.chatSend.emit({
+      T: CommunicationType.CHAT,
+      user: {
+        id: 1,
+        name: 'Junghoon',
+      },
+      content: text,
+    });
     this.isMessageInputDisabled = false;
   }
 

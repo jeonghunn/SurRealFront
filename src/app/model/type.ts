@@ -10,6 +10,11 @@ export enum ChatSpaceCategory {
   LIVE,
 }
 
+export enum CommunicationType {
+  CHAT,
+  LIVE
+}
+
 export enum ResponseResult {
   SUCCESS = 'success',
   ERROR = 'error',
@@ -22,10 +27,10 @@ export class UserSimpleSet {
 
 export class User {
   public id: number;
-  public email_host: string;
-  public email_name: string;
-  public name: string;
-  public last_name: string;
+  public email_host?: string;
+  public email_name?: string;
+  public name?: string;
+  public last_name?: string;
   public relation?: Relation;
 }
 
@@ -38,10 +43,18 @@ export class Relation {
   public target_id: number;
 }
 
-export class Chat {
+export class Communication {
+  public T: CommunicationType;
+}
+
+export class Chat extends Communication {
   public id?: number;
   public content: string;
   public user?: User;
+}
+
+export class Live extends Communication {
+  public B: any;
 }
 
 export class Group {
