@@ -2,7 +2,7 @@
   *ngFor="let chat of chats"
   [name]="chat.user?.name"
   [message]="chat.content"
-  [date]="getDate()"
+  [date]="chat?.createdAt"
   [isShowTime]="true"
 ></app-message>
 

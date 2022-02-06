@@ -37,8 +37,13 @@ export class RoomComponent {
     this.subscriptions = [
       this.webSocketSubject.subscribe(
         (msg) => {
-          console.log( msg);
-          this.chats.push(msg as Chat);
+          const chat: Chat = new Chat(
+            msg.id,
+            msg.content,
+            msg.createdAt,
+            msg.user,
+          );
+          this.chats.push(chat);
         },
         err => console.log(err),
         () => console.log('complete'),
