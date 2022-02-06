@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 export enum Gender {
   ALL,
   MALE ,
@@ -45,12 +47,35 @@ export class Relation {
 
 export class Communication {
   public T: CommunicationType;
+  public createdAt?: DateTime;
+
+  public constructor(
+    type: CommunicationType,
+    createdAt: string,
+  ) {
+    this.T = type;
+    this.createdAt = DateTime.fromISO(createdAt);
+  }
 }
 
 export class Chat extends Communication {
+
   public id?: number;
   public content: string;
   public user?: User;
+
+  public constructor(
+    id: number,
+    content: string,
+    createdAt: string,
+    user: User,
+  ) {
+    super(CommunicationType.CHAT, createdAt);
+    this.id = id;
+    this.content = content;
+    this.user = user;
+  }
+
 }
 
 export class Live extends Communication {
