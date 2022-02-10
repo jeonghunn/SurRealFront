@@ -13,8 +13,9 @@ export enum ChatSpaceCategory {
 }
 
 export enum CommunicationType {
+  AUTH,
   CHAT,
-  LIVE
+  LIVE,
 }
 
 export enum ResponseResult {
@@ -76,6 +77,17 @@ export class Chat extends Communication {
     this.user = user;
   }
 
+}
+
+export class AuthMessage extends Communication {
+
+  public token?: string;
+  public constructor(
+    token: string,
+  ) {
+    super(CommunicationType.AUTH, null);
+    this.token = token;
+  }
 }
 
 export class Live extends Communication {

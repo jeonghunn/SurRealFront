@@ -7,7 +7,11 @@ import {
   webSocket,
   WebSocketSubject,
 } from 'rxjs/webSocket';
-import { Chat } from 'src/app/model/type';
+import { IdentityService } from 'src/app/core/identity.service';
+import {
+  AuthMessage,
+  Chat,
+} from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -28,10 +32,18 @@ export class RoomComponent {
 
   public subscriptions: Subscription[] = [];
 
-  public constructor() {
+  public constructor(
+    private identityService: IdentityService,
+  ) {
 
     this.webSocketSubject = webSocket({
       url: environment.socketServerUrl,
+      openObserver: {
+        next: value => {
+          console.log(value);
+          this.sendAuthMessage();
+        },
+      },
     });
 
     this.subscriptions = [
@@ -50,6 +62,11 @@ export class RoomComponent {
       ),
     ];
 
+  }
+
+  public sendAuthMessage(): void {
+    const auth: AuthMessage = new AuthMessage(this.identityService.auth);
+    this.webSocketSubject.next(auth);
   }
 
   public sendMessage(chat: Chat): void {
