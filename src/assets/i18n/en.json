@@ -89,6 +89,12 @@
         "WRITE_A_MESSAGE": "Write a message...",
         "EMOJI": "Emoji",
         "SEND": "Send"
+      },
+      "ERROR": {
+        "CONNECTION": {
+          "DESC": "Trying to Reconnect... ",
+          "RETRY": "Retry"
+        }
       }
     }
   }

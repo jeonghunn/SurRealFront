@@ -98,6 +98,12 @@
         "WRITE_A_MESSAGE": "메시지를 입력하세요...",
         "EMOJI": "이모티콘",
         "SEND": "보내기"
+      },
+      "ERROR": {
+        "CONNECTION": {
+          "DESC": "재연결 시도 중...",
+          "RETRY": "다시 시도"
+        }
       }
     }
   }
