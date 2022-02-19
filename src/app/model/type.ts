@@ -59,6 +59,24 @@ export class Communication {
   }
 }
 
+export class CommunicationResult extends Communication {
+
+  public result?: boolean;
+  public message?: string;
+
+  public constructor(
+    type: CommunicationType,
+    isSuccess: boolean,
+    message: string,
+    date: DateTime,
+  ) {
+    super(type, date);
+    this.result = isSuccess;
+    this.message = message;
+  }
+
+}
+
 export class Chat extends Communication {
 
   public id?: number;

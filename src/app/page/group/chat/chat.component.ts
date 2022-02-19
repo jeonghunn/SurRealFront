@@ -25,10 +25,12 @@ export class ChatComponent implements OnDestroy {
   @Input()
   public chats: Chat[];
 
+  @Input()
+  public isDisabled: boolean = false;
+
   public DEFAULT_FOOTER_WIDTH: number = 400;
 
   public isShortWidth: boolean = false;
-  public isMessageInputDisabled: boolean = false;
   public message: string;
 
   @Output()
@@ -80,7 +82,7 @@ export class ChatComponent implements OnDestroy {
       return;
     }
 
-    this.isMessageInputDisabled = true;
+    this.isDisabled = true;
     this.message = '';
     this.chatSend.emit({
       T: CommunicationType.CHAT,
@@ -90,7 +92,7 @@ export class ChatComponent implements OnDestroy {
       },
       content: text,
     });
-    this.isMessageInputDisabled = false;
+    this.isDisabled = false;
   }
 
 }

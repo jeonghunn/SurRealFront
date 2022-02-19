@@ -8,6 +8,7 @@ import {
   MatSnackBarRef,
 } from '@angular/material/snack-bar';
 import { TextOnlySnackBar } from '@angular/material/snack-bar/simple-snack-bar';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Subscription,
@@ -24,12 +25,14 @@ import {
   WebSocketSubject,
 } from 'rxjs/webSocket';
 import { IdentityService } from 'src/app/core/identity.service';
+import { Util } from 'src/app/core/util';
 import {
   AuthMessage,
   Chat,
+  CommunicationResult,
+  CommunicationType,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
-import { Util } from 'src/app/core/util';
 
 @Component({
   selector: 'app-room',
@@ -48,6 +51,7 @@ export class RoomComponent implements OnDestroy {
   public isLiveViewOpen: boolean;
 
   public isConnected: boolean = false;
+  public isAuthenticated: boolean = false;
   public reconnectDelay: number = 1000;
 
   public subscriptions: Subscription[] = [];
@@ -56,6 +60,7 @@ export class RoomComponent implements OnDestroy {
     private identityService: IdentityService,
     private matSnackBar: MatSnackBar,
     private translateService: TranslateService,
+    private router: Router,
   ) {
 
     this.webSocketSubject = webSocket({
@@ -86,19 +91,44 @@ export class RoomComponent implements OnDestroy {
           ),
         ),
       ).subscribe(
-        (msg) => {
-          const chat: Chat = new Chat(
-            msg.id,
-            msg.content,
-            msg.createdAt,
-            msg.user,
-          );
-          this.chats.push(chat);
-        },
+        (msg: any) => this.onMessageReceived(msg),
         (err) => this.onConnectionError(),
         () => console.log('complete'),
       ),
     );
+  }
+
+  public onMessageReceived(msg: any): void {
+
+    switch (msg.T) {
+      case CommunicationType.CHAT:
+        const chat: Chat = new Chat(
+          msg.id,
+          msg.content,
+          msg.createdAt,
+          msg.user,
+        );
+        this.chats.push(chat);
+
+        break;
+      case CommunicationType.AUTH:
+        const authResult: CommunicationResult = msg as CommunicationResult;
+        this.onAuthResultReceived(authResult.result);
+
+        break;
+    }
+  }
+
+  public onAuthResultReceived(isSuccess: boolean): void {
+    if (isSuccess) {
+      this.isAuthenticated = true;
+      return;
+    }
+
+    this.matSnackBar.open(
+      this.translateService.instant('GROUP.ROOM.ERROR.AUTH'),
+    );
+    this.router.navigateByUrl('signin').then(null);
   }
 
   public onConnectionError(): void {

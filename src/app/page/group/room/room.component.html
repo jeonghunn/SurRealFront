@@ -1,6 +1,7 @@
 <app-chat
   *ngIf="isChatViewOpen"
   [chats]="chats"
+  [isDisabled]="!isAuthenticated"
   (chatSend)="sendMessage($event)"
   class="chat"
 ></app-chat>

@@ -94,7 +94,8 @@
         "CONNECTION": {
           "DESC": "Trying to Reconnect... ",
           "RETRY": "Retry"
-        }
+        },
+        "AUTH": "Please sign in again."
       }
     }
   }

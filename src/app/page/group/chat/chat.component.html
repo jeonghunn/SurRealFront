@@ -17,7 +17,7 @@
       matInput
       #message_input
       [(ngModel)]="message"
-      [disabled]="isMessageInputDisabled"
+      [disabled]="isDisabled"
       [placeholder]="'GROUP.ROOM.CHAT.WRITE_A_MESSAGE' | translate"
       (keyup.enter)="sendMessage(message)"
       id="chat_message_input"
