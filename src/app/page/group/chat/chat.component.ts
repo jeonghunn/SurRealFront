@@ -82,7 +82,6 @@ export class ChatComponent implements OnDestroy {
       return;
     }
 
-    this.isDisabled = true;
     this.message = '';
     this.chatSend.emit({
       T: CommunicationType.CHAT,
@@ -92,7 +91,8 @@ export class ChatComponent implements OnDestroy {
       },
       content: text,
     });
-    this.isDisabled = false;
+    this.message = '';
+
   }
 
 }
