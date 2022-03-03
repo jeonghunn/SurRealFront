@@ -24,6 +24,7 @@ import {
   webSocket,
   WebSocketSubject,
 } from 'rxjs/webSocket';
+import { GroupService } from 'src/app/core/group.service';
 import { IdentityService } from 'src/app/core/identity.service';
 import { Util } from 'src/app/core/util';
 import {
@@ -31,6 +32,7 @@ import {
   Chat,
   CommunicationResult,
   CommunicationType,
+  Room,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
 
@@ -50,6 +52,8 @@ export class RoomComponent implements OnDestroy {
   @Input()
   public isLiveViewOpen: boolean;
 
+  public room: Room;
+
   public isConnected: boolean = false;
   public isAuthenticated: boolean = false;
   public reconnectDelay: number = 1000;
@@ -58,13 +62,31 @@ export class RoomComponent implements OnDestroy {
 
   public constructor(
     private identityService: IdentityService,
+    private groupService: GroupService,
     private matSnackBar: MatSnackBar,
     private translateService: TranslateService,
     private router: Router,
   ) {
 
+    this.initSubscriptions();
+  }
+
+  public initSubscriptions(): void {
+    this.subscriptions.push(
+      this.groupService.openedRoom$.subscribe((room: Room) => {
+        this.room = room;
+        this.initWebSocket();
+      }),
+    );
+  }
+
+  public initWebSocket(): void {
+
+    this.webSocketSubject?.complete();
+    this.webSocketSubject?.unsubscribe();
+
     this.webSocketSubject = webSocket({
-      url: environment.socketServerUrl,
+      url: `${environment.socketServerUrl}${this.room?.id}`,
       openObserver: {
         next: value => {
           this.isConnected = true;
@@ -77,11 +99,6 @@ export class RoomComponent implements OnDestroy {
       },
     });
 
-    this.initSubscriptions();
-
-  }
-
-  public initSubscriptions(): void {
     this.subscriptions.push(
       this.webSocketSubject.pipe(
         retryWhen(errors =>
