@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Room } from 'src/app/model/type';
 
 @Component({
   selector: 'app-detail-view',
@@ -6,5 +10,8 @@ import { Component } from '@angular/core';
   styleUrls: [ './detail-view.component.scss' ],
 })
 export class DetailViewComponent {
+
+  @Input()
+  public room: Room;
 
 }

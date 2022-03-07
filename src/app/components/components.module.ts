@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FooterComponent } from 'src/app/layout/footer/footer.component';
 import { UiModule } from 'src/ui/ui.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -60,6 +61,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    NgxSkeletonLoaderModule,
   ],
 })
 export class ComponentsModule { }

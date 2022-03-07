@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { UiModule } from 'src/ui/ui.module';
 import { ComponentsModule } from '../components/components.module';
@@ -48,24 +49,25 @@ import { RoomComponent } from './group/room/room.component';
     MessageComponent,
     RoomComponent,
   ],
-  imports: [
-      CommonModule,
-      LayoutModule,
-      MatExpansionModule,
-      MatStepperModule,
-      MatFormFieldModule,
-      MatButtonModule,
-      MatInputModule,
-      MatProgressSpinnerModule,
-      MatTabsModule,
-      TranslateModule,
-      MatListModule,
-      MatIconModule,
-      ReactiveFormsModule,
-      UiModule,
-      MatCardModule,
-      ComponentsModule,
-      FormsModule,
+    imports: [
+        CommonModule,
+        LayoutModule,
+        MatExpansionModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        MatTabsModule,
+        TranslateModule,
+        MatListModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        UiModule,
+        MatCardModule,
+        ComponentsModule,
+        FormsModule,
+        NgxSkeletonLoaderModule,
     ],
 })
 export class PageModule { }

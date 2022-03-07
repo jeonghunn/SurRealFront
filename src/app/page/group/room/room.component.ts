@@ -74,6 +74,11 @@ export class RoomComponent implements OnDestroy {
   public initSubscriptions(): void {
     this.subscriptions.push(
       this.groupService.openedRoom$.subscribe((room: Room) => {
+
+        if (!room) {
+          return;
+        }
+
         this.room = room;
         this.initWebSocket();
       }),

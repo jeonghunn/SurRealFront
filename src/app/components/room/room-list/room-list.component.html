@@ -20,9 +20,15 @@
 
   <div
     *ngIf="isLoading"
-    class="spinner"
+    class="loader"
   >
-    <app-spinner></app-spinner>
+    <ngx-skeleton-loader
+      count="6"
+      [theme]="{
+      'height.px': 100,
+      'width': '80%'
+    }"
+    ></ngx-skeleton-loader>
   </div>
 
 

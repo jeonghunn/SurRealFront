@@ -27,13 +27,8 @@
     }
   }
 
-  .spinner {
-    background-color: $LIST_BACKGROUND_DARK;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+  .loader {
+    margin-top: 16px;
+    text-align: center;
   }
 }

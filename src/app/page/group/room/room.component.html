@@ -1,11 +1,13 @@
 <app-chat
   *ngIf="isChatViewOpen"
   [chats]="chats"
+  [room]="room"
   [isDisabled]="!isAuthenticated"
   (chatSend)="sendMessage($event)"
   class="chat"
 ></app-chat>
 <app-detail-view
   *ngIf="isLiveViewOpen"
+  [room]="room"
   class="live"
 ></app-detail-view>

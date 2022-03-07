@@ -2,6 +2,7 @@
 
 :host {
   display: flex;
+  width: 100%;
   height: 100%;
 }
 
@@ -9,10 +10,11 @@
   padding-left: 8px;
   padding-right: 8px;
   height: calc(100% - #{$CHAT_FOOTER_HEIGHT});
-  width: 400px;
+  min-width: 400px;
   overflow: auto;
 }
 
 .live {
+  width: 100%;
   height: 100%;
 }

@@ -27,6 +27,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
@@ -69,6 +70,11 @@ const globalRippleConfig: RippleGlobalOptions = {
     MatSidenavModule,
     MatSnackBarModule,
     HttpClientModule,
+    NgxSkeletonLoaderModule.forRoot(
+      {
+        animation: 'progress',
+      },
+    ),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

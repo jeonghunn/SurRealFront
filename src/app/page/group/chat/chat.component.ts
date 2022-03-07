@@ -13,6 +13,7 @@ import { Util } from 'src/app/core/util';
 import {
   Chat,
   CommunicationType,
+  Room,
 } from 'src/app/model/type';
 
 @Component({
@@ -21,6 +22,9 @@ import {
   styleUrls: [ './chat.component.scss' ],
 })
 export class ChatComponent implements OnDestroy {
+
+  @Input()
+  public room: Room;
 
   @Input()
   public chats: Chat[];
