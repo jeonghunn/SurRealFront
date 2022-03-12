@@ -6,7 +6,10 @@
   [isShowTime]="true"
 ></app-message>
 
-<div class="loader">
+<div
+  *ngIf="!room"
+  class="loader"
+>
   <ngx-skeleton-loader
     count="10"
   ></ngx-skeleton-loader>
@@ -20,7 +23,6 @@
     <mat-label>{{ 'GROUP.ROOM.CHAT.MESSAGE' | translate }}</mat-label>
     <input
       matInput
-      #message_input
       [(ngModel)]="message"
       [disabled]="isDisabled"
       [placeholder]="'GROUP.ROOM.CHAT.WRITE_A_MESSAGE' | translate"

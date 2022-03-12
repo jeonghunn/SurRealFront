@@ -52,6 +52,9 @@ export class RoomComponent implements OnDestroy {
   @Input()
   public isLiveViewOpen: boolean;
 
+  @Input()
+  public groupId: number;
+
   public room: Room;
 
   public isConnected: boolean = false;

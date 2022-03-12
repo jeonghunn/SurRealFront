@@ -30,8 +30,21 @@ export class GroupService {
 
   public openGroup(id: number): void {
     this.dataService.getGroup(id).pipe(take(1)).subscribe((group: Group) => {
+      const roomId: number = parseInt(localStorage.getItem(`group_${id}_room_id`), 10);
       this.openedGroup$.next(group);
+      this.openRoom(id, roomId);
     });
+  }
+
+  public openRoom(groupId: number, id: number): void {
+    this.dataService.getRoom(groupId, id).pipe(take(1)).subscribe((room: Room) => {
+      this.openedRoom$.next(room);
+      localStorage.setItem(`group_${room.group_id}_room_id`, room.id.toString());
+    });
+  }
+
+  public getLastOpenedRoom(groupId: number): number {
+    return parseInt(localStorage.getItem(`group_${groupId}_room_id`), 10);
   }
 
 }

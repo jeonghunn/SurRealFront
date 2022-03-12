@@ -126,6 +126,7 @@ export class Room {
   public description: string;
   public user?: User;
   public group: Group;
+  public group_id?: number;
   public online_count: number;
   public limit: number;
   public status: number;

@@ -97,7 +97,7 @@ export class GroupComponent implements OnDestroy {
   }
 
   public openRoom(room: Room): void {
-    this.groupService.openedRoom$.next(room);
+    this.groupService.openRoom(room?.group_id, room?.id);
   }
 
   public ngOnDestroy(): void {

@@ -67,6 +67,13 @@ export class DataService {
     );
   }
 
+  public getRoom(groupId: number, id: number): Observable<Room> {
+    return this.httpClient.get<{ room: Room }>(`${this.apiUrl}/group/${groupId}/room/${id}`, {}).pipe(
+      map((result: { room: Room }) => result.room),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
   public getRooms(groupId: number, offset: number = 0, limit: number = 15): Observable<Room[]> {
     return this.httpClient.get<{ rooms: Room[] }>(`${this.apiUrl}/group/${groupId}/room?offset=${offset}&limit=${limit}`, {}).pipe(
       map((result: { rooms: Room[] }) => result.rooms),
