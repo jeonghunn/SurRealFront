@@ -6,6 +6,10 @@ export enum Gender {
   FEMALE,
 }
 
+export enum WindowSizeWidth {
+  MOBILE = 700,
+}
+
 export enum ChatSpaceCategory {
   ROOM,
   CHAT,

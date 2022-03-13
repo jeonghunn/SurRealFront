@@ -5,6 +5,7 @@ import {
   Observable,
   Subject,
 } from 'rxjs';
+import { WindowSizeWidth } from 'src/app/model/type';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +43,7 @@ export class LayoutService {
   }
 
   public onResize(target: Window): void {
-    this._isShortWidth = window.innerWidth <= 700;
+    this._isShortWidth = window.innerWidth <= WindowSizeWidth.MOBILE;
     this.windowSize$.next(target.innerWidth);
   }
 }

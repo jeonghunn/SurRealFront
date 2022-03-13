@@ -12,6 +12,7 @@ import { DataService } from './core/data.service';
 import { IdentityService } from './core/identity.service';
 import { LayoutService } from './core/layout.service';
 import { Util } from './core/util';
+import { WindowSizeWidth } from './model/type';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public pageErrorCode: number;
   public isSmallWidth: boolean = false;
 
-  private MOBILE_WIDTH: number = 600;
+  private MOBILE_WIDTH: number = WindowSizeWidth.MOBILE;
   private subscriptions: Subscription[] = [];
 
   public constructor(
@@ -61,7 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
-    this.isSideNavOpen = this.isSmallWidth;
+    this.isSideNavOpen = !this.isSmallWidth;
   }
 
   public onWindowResize(event: any): void {
