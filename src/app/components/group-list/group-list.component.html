@@ -1,10 +1,14 @@
 <div class="sidebar">
-  <app-profile-icon
+  <div
     *ngFor="let group of groups"
-    [matTooltip]="getTitle(group)"
-    [matTooltipPosition]="'right'"
-    (click)="onGroupClick(group.id)"
-  ></app-profile-icon>
+    class="profile"
+  >
+    <app-profile-icon
+      [matTooltip]="getTitle(group)"
+      [matTooltipPosition]="'right'"
+      (click)="onGroupClick(group.id)"
+    ></app-profile-icon>
+  </div>
   <div
     matRipple
     (click)="go('chat/create')"

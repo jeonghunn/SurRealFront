@@ -1,3 +1,8 @@
+:host {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .icon{
   width: 64px;
   height: 64px;
@@ -9,7 +14,8 @@
   -moz-background-clip: padding;
   border-radius: 60px;
   background-clip: padding-box;
-  margin: 8px auto 0 auto;
   background-size: cover;
   background-position: center center;
+  margin-left: auto;
+  margin-right: auto;
 }
