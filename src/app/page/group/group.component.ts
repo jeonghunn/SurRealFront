@@ -16,7 +16,6 @@ import {
   ChatSpaceCategory,
   Group,
   Room,
-  User,
 } from 'src/app/model/type';
 
 @Component({
@@ -31,6 +30,8 @@ export class GroupComponent implements OnDestroy {
   public isShowDetailView: boolean = true;
   public groupId: number;
   public group: Group;
+
+  public readonly chatSpaceCategory: typeof ChatSpaceCategory = ChatSpaceCategory;
 
   private subscriptions: Subscription[] = [];
 
@@ -56,18 +57,6 @@ export class GroupComponent implements OnDestroy {
     ];
   }
 
-  public get isShowRoomPanel(): boolean {
-    return !this.isShortWidth || this.category === ChatSpaceCategory.ROOM;
-  }
-
-  public get isChatViewOpen(): boolean {
-    return !this.isShortWidth || this.category === ChatSpaceCategory.CHAT;
-  }
-
-  public get isLiveViewOpen(): boolean {
-    return !this.isShortWidth || this.category === ChatSpaceCategory.LIVE;
-  }
-
   public get userId(): number {
     return this.identityService.id;
   }
@@ -80,20 +69,12 @@ export class GroupComponent implements OnDestroy {
     return this.group?.target?.name;
   }
 
-  public openChatView(): void {
-    this.category = ChatSpaceCategory.CHAT;
+  public isViewActive(category: ChatSpaceCategory): boolean {
+    return !this.isShortWidth || this.category === category;
   }
 
-  public openRoomList(): void {
-    this.category = ChatSpaceCategory.ROOM;
-  }
-
-  public openChat(): void {
-    this.category = ChatSpaceCategory.CHAT;
-  }
-
-  public openLive(): void {
-    this.category = ChatSpaceCategory.LIVE;
+  public open(category: ChatSpaceCategory): void {
+    this.category = category;
   }
 
   public openRoom(room: Room): void {

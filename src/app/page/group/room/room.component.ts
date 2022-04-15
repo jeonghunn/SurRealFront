@@ -53,6 +53,9 @@ export class RoomComponent implements OnDestroy {
   public isLiveViewOpen: boolean;
 
   @Input()
+  public isInfoViewOpen: boolean;
+
+  @Input()
   public groupId: number;
 
   public room: Room;

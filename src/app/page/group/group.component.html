@@ -1,5 +1,9 @@
 <div class="header">
-  <div class="profile" mat-ripple>
+  <div
+    mat-ripple
+    class="profile"
+    (click)="open(chatSpaceCategory.INFO)"
+  >
     <app-profile-icon [length]="48"></app-profile-icon>
     <span class="name">{{ name }}</span>
   </div>
@@ -11,23 +15,28 @@
 >
   <a
     mat-tab-link
-    [active]="isShowRoomPanel"
-    (click)="openRoomList()"
+    [active]="isViewActive(chatSpaceCategory.ROOM)"
+    (click)="open(chatSpaceCategory.ROOM)"
   >Rooms</a>
   <a
     mat-tab-link
-    [active]="isChatViewOpen"
-    (click)="openChat()"
+    [active]="isViewActive(chatSpaceCategory.CHAT) && category !== chatSpaceCategory.INFO"
+    (click)="open(chatSpaceCategory.CHAT)"
   >Chat</a>
   <a
     mat-tab-link
-    [active]="isLiveViewOpen"
-    (click)="openLive()"
+    [active]="isViewActive(chatSpaceCategory.LIVE) && category !== chatSpaceCategory.INFO"
+    (click)="open(chatSpaceCategory.LIVE)"
   >Indoor</a>
+  <a
+    mat-tab-link
+    [active]="isViewActive(chatSpaceCategory.INFO)"
+    (click)="open(chatSpaceCategory.INFO)"
+  >Info</a>
 </nav>
 <div class="content">
   <div
-    *ngIf="isShowRoomPanel"
+    *ngIf="isViewActive(chatSpaceCategory.ROOM)"
     class="room"
   >
     <app-room-list
@@ -36,11 +45,12 @@
     ></app-room-list>
   </div>
   <ng-container
-    *ngIf="!isShortWidth || !isShowRoomPanel"
+    *ngIf="!isShortWidth || !isViewActive(chatSpaceCategory.ROOM)"
   >
     <app-room
-      [isChatViewOpen]="isChatViewOpen"
-      [isLiveViewOpen]="isLiveViewOpen"
+      [isChatViewOpen]="isViewActive(chatSpaceCategory.CHAT) && category !== chatSpaceCategory.INFO"
+      [isLiveViewOpen]="isViewActive(chatSpaceCategory.LIVE) && category !== chatSpaceCategory.INFO"
+      [isInfoViewOpen]="category === chatSpaceCategory.INFO"
       [groupId]="groupId"
     >
     </app-room>

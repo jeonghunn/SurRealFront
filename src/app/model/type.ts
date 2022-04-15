@@ -14,6 +14,7 @@ export enum ChatSpaceCategory {
   ROOM,
   CHAT,
   LIVE,
+  INFO,
 }
 
 export enum CommunicationType {

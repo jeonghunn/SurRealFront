@@ -11,3 +11,8 @@
   [room]="room"
   class="live"
 ></app-detail-view>
+<app-room-info
+  *ngIf="isInfoViewOpen"
+  [room]="room"
+>
+</app-room-info>
