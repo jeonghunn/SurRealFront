@@ -10,14 +10,9 @@ import { Room } from 'src/app/model/type';
   templateUrl: './group-info.component.html',
   styleUrls: [ './group-info.component.scss' ],
 })
-export class GroupInfoComponent implements OnInit {
+export class GroupInfoComponent {
 
   @Input()
   public room: Room;
-
-  public constructor() { }
-
-  public ngOnInit(): void {
-  }
 
 }
