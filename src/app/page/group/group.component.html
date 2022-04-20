@@ -41,6 +41,7 @@
   >
     <app-room-list
       [groupId]="groupId"
+      [isRoomActive]="category !== chatSpaceCategory.INFO"
       (itemSelect)="openRoom($event)"
     ></app-room-list>
   </div>

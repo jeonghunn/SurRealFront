@@ -30,6 +30,9 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   @Input()
   public groupId: number;
 
+  @Input()
+  public isRoomActive: boolean = true;
+
   @Output()
   public readonly itemSelect: EventEmitter<Room> = new EventEmitter();
 
