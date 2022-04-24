@@ -72,7 +72,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
   public fetch(offset: number): void {
     this.isLoading = true;
     this.dataService.getRooms(this.groupId, offset).pipe(take(1)).subscribe((rooms) => {
-      this.rooms = this.rooms.concat(rooms);
+      this.rooms = offset === 0 ? rooms : this.rooms.concat(rooms);
       this.isLoading = false;
       this.isFullyLoad = rooms.length === 0;
       this.changeDetectorRef.markForCheck();
