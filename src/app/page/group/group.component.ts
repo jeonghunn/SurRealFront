@@ -47,6 +47,9 @@ export class GroupComponent implements OnDestroy {
       this.groupService.openedGroup$.subscribe((group: Group) => {
         this.group = group;
       }),
+      this.groupService.openedRoom$.subscribe((room: Room | null) => {
+        this.category = room ? ChatSpaceCategory.CHAT : ChatSpaceCategory.INFO;
+      }),
       this.activatedRoute.params.subscribe((params: Params) => {
         this.groupId = params?.id;
         this.groupService.openGroup(this.groupId);

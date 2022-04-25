@@ -36,10 +36,18 @@ export class GroupService {
     });
   }
 
-  public openRoom(groupId: number, id: number): void {
+  public openRoom(groupId: number, id: number | null): void {
+    if (!groupId || !id) {
+      this.openedRoom$.next(null);
+    }
+
     this.dataService.getRoom(groupId, id).pipe(take(1)).subscribe((room: Room) => {
       this.openedRoom$.next(room);
-      localStorage.setItem(`group_${room.group_id}_room_id`, room.id.toString());
+
+      if (room) {
+        localStorage.setItem(`group_${room.group_id}_room_id`, room.id.toString());
+      }
+
     });
   }
 
