@@ -3,7 +3,8 @@
 context('Chat Component', () => {
     beforeEach(() => {
       cy.signin('test');
-      cy.goto('chat/2')
+      cy.goto('chat/2');
+      cy.get(':nth-child(2) > .item').click();
     });
 
 
