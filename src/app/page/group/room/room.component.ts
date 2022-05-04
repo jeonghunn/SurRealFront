@@ -35,6 +35,7 @@ import {
   Room,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
+import { DataService } from 'src/app/core/data.service';
 
 @Component({
   selector: 'app-room',
@@ -67,6 +68,7 @@ export class RoomComponent implements OnDestroy {
   public subscriptions: Subscription[] = [];
 
   public constructor(
+    private dataService: DataService,
     private identityService: IdentityService,
     private groupService: GroupService,
     private matSnackBar: MatSnackBar,
@@ -87,6 +89,7 @@ export class RoomComponent implements OnDestroy {
 
         this.room = room;
         this.initWebSocket();
+        this.fetchChats();
       }),
     );
   }
@@ -173,6 +176,19 @@ export class RoomComponent implements OnDestroy {
       this.initSubscriptions();
     });
 
+  }
+
+  public fetchChats(): void {
+    const before: Date = new Date();
+    this.dataService.getChats(
+      this.room?.group_id,
+      this.room?.id,
+      before,
+      0,
+      30,
+    ).pipe(take(1)).subscribe((chats: Chat[]) => {
+      this.chats = chats;
+    });
   }
 
   public sendAuthMessage(): void {

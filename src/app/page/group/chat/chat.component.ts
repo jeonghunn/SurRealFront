@@ -87,14 +87,7 @@ export class ChatComponent implements OnDestroy {
     }
 
     this.message = '';
-    this.chatSend.emit({
-      T: CommunicationType.CHAT,
-      user: {
-        id: 1,
-        name: 'Junghoon',
-      },
-      content: text,
-    });
+    this.chatSend.emit(new Chat(null, text, null, null));
     this.message = '';
 
   }

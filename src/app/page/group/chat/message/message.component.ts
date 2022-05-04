@@ -26,12 +26,12 @@ export class MessageComponent {
   public message: string;
 
   @Input()
-  public date: DateTime;
+  public date: string;
 
   @Input()
   public isShowTime: boolean;
 
   public get getFormattedDate(): string {
-    return this.date?.toLocaleString(DateTime.TIME_SIMPLE);
+    return DateTime.fromISO(this.date).toLocaleString(DateTime.TIME_SIMPLE);
   }
 }

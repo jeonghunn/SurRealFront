@@ -16,6 +16,7 @@ import {
   map,
 } from 'rxjs/operators';
 import {
+  Chat,
   Group,
   Relation,
   Room,
@@ -85,6 +86,18 @@ export class DataService {
     return this.httpClient.post<any>(`${this.apiUrl}/group/${groupId}/room`, data).pipe(
       map((result: { group: Group }) => result.group),
       catchError(error => this.handleError(error, false)),
+    );
+  }
+
+  public getChats(groupId: number, roomId: number, before: Date, offset: number = 0, limit: number = 30): Observable<Chat[]> {
+    const beforeTimestamp: number = before.getTime() / 1000;
+
+    return this.httpClient.get<{ chats: Chat[] }>(
+      `${this.apiUrl}/group/${groupId}/room/${roomId}/chat?offset=${offset}&limit=${limit}&before=${beforeTimestamp}`,
+      {},
+      ).pipe(
+      map((result: { chats: Chat[] }) => result.chats as Chat[]),
+      catchError(error => this.handleError(error)),
     );
   }
 

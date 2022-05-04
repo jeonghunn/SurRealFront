@@ -53,14 +53,14 @@ export class Relation {
 
 export class Communication {
   public T: CommunicationType;
-  public createdAt?: DateTime;
+  public createdAt?: string;
 
   public constructor(
     type: CommunicationType,
     createdAt: string,
   ) {
     this.T = type;
-    this.createdAt = DateTime.fromISO(createdAt);
+    this.createdAt = createdAt;
   }
 }
 
