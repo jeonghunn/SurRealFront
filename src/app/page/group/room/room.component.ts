@@ -1,7 +1,9 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import {
   MatSnackBar,
@@ -24,6 +26,7 @@ import {
   webSocket,
   WebSocketSubject,
 } from 'rxjs/webSocket';
+import { DataService } from 'src/app/core/data.service';
 import { GroupService } from 'src/app/core/group.service';
 import { IdentityService } from 'src/app/core/identity.service';
 import { Util } from 'src/app/core/util';
@@ -35,7 +38,7 @@ import {
   Room,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
-import { DataService } from 'src/app/core/data.service';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-room',
@@ -67,12 +70,16 @@ export class RoomComponent implements OnDestroy {
 
   public subscriptions: Subscription[] = [];
 
+  @ViewChild('chatComponent')
+  private chatComponent: ChatComponent;
+
   public constructor(
     private dataService: DataService,
     private identityService: IdentityService,
     private groupService: GroupService,
     private matSnackBar: MatSnackBar,
     private translateService: TranslateService,
+    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
   ) {
 

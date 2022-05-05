@@ -1,10 +1,20 @@
-<app-message
-  *ngFor="let chat of chats"
-  [name]="chat.user?.name"
-  [message]="chat.content"
-  [date]="chat?.createdAt"
-  [isShowTime]="true"
-></app-message>
+<div
+  #chatContainer
+  (scroll)="onScroll($event)"
+  (mouseover)="isManualScroll = true"
+  (touchstart)="isManualScroll = true"
+  class="chats"
+>
+  <app-message
+    #messageComponent
+    *ngFor="let chat of chats"
+    [name]="chat.user?.name"
+    [message]="chat.content"
+    [date]="chat?.createdAt"
+    [isShowTime]="true"
+  ></app-message>
+</div>
+
 
 <div
   *ngIf="!room"
