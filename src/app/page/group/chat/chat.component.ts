@@ -36,7 +36,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked {
   public isDisabled: boolean = false;
 
   public readonly DEFAULT_FOOTER_WIDTH: number = 400;
-  public readonly CHAT_AUTO_SCROLL_ALLOW_THRESHOLD = 16;
+  public readonly CHAT_AUTO_SCROLL_ALLOW_THRESHOLD: number = 16;
 
   public isShortWidth: boolean = false;
   public message: string;
