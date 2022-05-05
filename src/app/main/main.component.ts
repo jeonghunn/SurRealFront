@@ -1,7 +1,7 @@
 import {
   Component,
-  OnInit,
 } from '@angular/core';
+import * as packageInfo from 'package.json';
 import { IdentityService } from 'src/app/core/identity.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { IdentityService } from 'src/app/core/identity.service';
 export class MainComponent {
 
   public isGuest: boolean = true;
+  public readonly version: string = 'v0.2.0';
 
   public constructor(
     private identityService: IdentityService,
