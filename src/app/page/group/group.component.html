@@ -19,11 +19,13 @@
     (click)="open(chatSpaceCategory.ROOM)"
   >Rooms</a>
   <a
+    *ngIf="room"
     mat-tab-link
     [active]="isViewActive(chatSpaceCategory.CHAT) && category !== chatSpaceCategory.INFO"
     (click)="open(chatSpaceCategory.CHAT)"
   >Chat</a>
   <a
+    *ngIf="room"
     mat-tab-link
     [active]="isViewActive(chatSpaceCategory.LIVE) && category !== chatSpaceCategory.INFO"
     (click)="open(chatSpaceCategory.LIVE)"
