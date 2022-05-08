@@ -3,6 +3,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { DateTime } from 'luxon';
 
@@ -31,7 +32,16 @@ export class MessageComponent {
   @Input()
   public isShowTime: boolean;
 
+  public constructor(
+    private router: Router,
+  ) {
+  }
+
   public get getFormattedDate(): string {
     return DateTime.fromISO(this.date).toLocaleString(DateTime.TIME_SIMPLE);
+  }
+
+  public onProfileClick(): void {
+    this.router.navigateByUrl(`/user/${this.user_id}`);
   }
 }

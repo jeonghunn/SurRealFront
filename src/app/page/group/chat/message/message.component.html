@@ -2,6 +2,7 @@
     <div class="chat">
         <div
             class="profile"
+            (click)="onProfileClick()"
             [style.backgroundColor]="color"
         >{{ name }}</div>
         <span>{{ message }}</span>
