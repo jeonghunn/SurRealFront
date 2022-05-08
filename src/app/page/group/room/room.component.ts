@@ -49,6 +49,7 @@ export class RoomComponent implements OnDestroy {
 
   public webSocketSubject: WebSocketSubject<any> = null;
   public chats: Chat[] = [];
+  public dateCriteria: Date;
 
   @Input()
   public isChatViewOpen: boolean;
@@ -66,9 +67,14 @@ export class RoomComponent implements OnDestroy {
 
   public isConnected: boolean = false;
   public isAuthenticated: boolean = false;
+  public isChatLoading: boolean = false;
+  public isChatFullyLoad: boolean = false;
   public reconnectDelay: number = 1000;
+  public offset: number = 0;
 
   public subscriptions: Subscription[] = [];
+
+  private readonly CHAT_FETCH_COUNT: number = 30;
 
   @ViewChild('chatComponent')
   private chatComponent: ChatComponent;
@@ -83,10 +89,10 @@ export class RoomComponent implements OnDestroy {
     private router: Router,
   ) {
 
-    this.initSubscriptions();
+    this.init();
   }
 
-  public initSubscriptions(): void {
+  public init(): void {
     this.subscriptions.push(
       this.groupService.openedRoom$.subscribe((room: Room) => {
 
@@ -94,9 +100,13 @@ export class RoomComponent implements OnDestroy {
           return;
         }
 
+        this.dateCriteria = new Date();
         this.room = room;
+        this.isChatFullyLoad = false;
+        this.chats = [];
+        this.offset = 0;
         this.initWebSocket();
-        this.fetchChats();
+        this.fetchChats(this.offset);
       }),
     );
   }
@@ -180,21 +190,30 @@ export class RoomComponent implements OnDestroy {
 
     snackBarRef.onAction().pipe(take(1)).subscribe(() => {
       Util.unsubscribe(...this.subscriptions);
-      this.initSubscriptions();
+      this.init();
     });
 
   }
 
-  public fetchChats(): void {
-    const before: Date = new Date();
+  public fetchPreviousChats(): void {
+    this.isChatLoading = true;
+    this.offset += this.CHAT_FETCH_COUNT;
+    console.log("load offset", this.offset);
+    this.fetchChats(this.offset);
+  }
+
+  public fetchChats(offset: number): void {
     this.dataService.getChats(
       this.room?.group_id,
       this.room?.id,
-      before,
-      0,
-      30,
+      this.dateCriteria,
+      offset,
+      this.CHAT_FETCH_COUNT,
     ).pipe(take(1)).subscribe((chats: Chat[]) => {
-      this.chats = chats;
+      this.isChatLoading = false;
+      this.chats = [ ...chats, ...this.chats ];
+
+      this.isChatFullyLoad = chats?.length === 0;
     });
   }
 

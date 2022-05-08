@@ -5,9 +5,10 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
-  OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { DateTime } from 'luxon';
@@ -24,7 +25,7 @@ import {
   templateUrl: './chat.component.html',
   styleUrls: [ './chat.component.scss' ],
 })
-export class ChatComponent implements OnDestroy, AfterViewChecked {
+export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   @Input()
   public room: Room;
@@ -35,17 +36,27 @@ export class ChatComponent implements OnDestroy, AfterViewChecked {
   @Input()
   public isDisabled: boolean = false;
 
+  @Input()
+  public isLoading: boolean = false;
+
+  @Input()
+  public isFullyLoad: boolean = false;
+
   public readonly DEFAULT_FOOTER_WIDTH: number = 400;
   public readonly CHAT_AUTO_SCROLL_ALLOW_THRESHOLD: number = 16;
+  public readonly CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD: number = 30;
 
   public isShortWidth: boolean = false;
   public message: string;
-  public isAutoScroll: boolean = true;
+  public isAutoScrollActive: boolean = true;
   public isManualScroll: boolean = true;
   public lastChatLength: number = 0;
 
   @Output()
   public readonly chatSend: EventEmitter<Chat> = new EventEmitter();
+
+  @Output()
+  public readonly loadPreviousChats: EventEmitter<null> = new EventEmitter<null>();
 
   @ViewChild('chatContainer')
   private chatContainer: ElementRef;
@@ -83,6 +94,17 @@ export class ChatComponent implements OnDestroy, AfterViewChecked {
     return new Array(i);
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes?.chats &&
+      this.chatContainer?.nativeElement?.scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
+      !this.isFullyLoad
+    ) {
+      this.chatContainer.nativeElement.scrollTop = this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD + 10;
+    }
+
+  }
+
   public ngOnDestroy(): void {
     Util.unsubscribe(...this.subscriptions);
   }
@@ -92,7 +114,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked {
   }
 
   public ngAfterViewChecked(): void {
-    if (this.lastChatLength !== this.chats?.length && this.isAutoScroll) {
+    if (this.lastChatLength !== this.chats?.length && this.isAutoScrollActive) {
       this.lastChatLength = this.chats?.length;
       this.scrollToBottom(true);
     }
@@ -100,16 +122,26 @@ export class ChatComponent implements OnDestroy, AfterViewChecked {
   }
 
   public onScroll(event: any): void {
+    const scrollTop: number = event?.target?.scrollTop;
+    const shouldAutoScrollActive: boolean = scrollTop >
+      event?.target?.scrollHeight - event?.target?.offsetHeight - this.CHAT_AUTO_SCROLL_ALLOW_THRESHOLD;
+    console.log(this.isManualScroll);
     if (!this.isManualScroll) {
+      if (shouldAutoScrollActive) {
+        this.isManualScroll = true;
+      }
       return;
     }
 
-    this.isAutoScroll = event?.target?.scrollTop >
-      event?.target?.scrollHeight - event?.target?.offsetHeight - this.CHAT_AUTO_SCROLL_ALLOW_THRESHOLD;
+    if (scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD) {
+      this.loadPreviousChats.emit();
+    }
+
+    this.isAutoScrollActive = shouldAutoScrollActive;
   }
 
   public scrollToBottom(isNotForced: boolean = false): void {
-    if (this.chatContainer.nativeElement && (!isNotForced || this.isAutoScroll)) {
+    if (this.chatContainer.nativeElement && (!isNotForced || this.isAutoScrollActive)) {
       this.isManualScroll = false;
       this.chatContainer.nativeElement.scrollTop =
         this.chatContainer.nativeElement.scrollHeight - this.chatContainer.nativeElement.offsetHeight;
@@ -121,7 +153,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked {
       return;
     }
 
-    this.isAutoScroll = true;
+    this.isAutoScrollActive = true;
     this.message = '';
     this.chatSend.emit(new Chat(null, text, null, null));
     this.message = '';

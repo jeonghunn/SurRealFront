@@ -4,7 +4,10 @@
   [chats]="chats"
   [room]="room"
   [isDisabled]="!isAuthenticated"
+  [isLoading]="isChatLoading"
+  [isFullyLoad]="isChatFullyLoad"
   (chatSend)="sendMessage($event)"
+  (loadPreviousChats)="fetchPreviousChats()"
   class="chat"
 ></app-chat>
 <app-detail-view
