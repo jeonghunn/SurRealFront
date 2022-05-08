@@ -29,6 +29,7 @@ export class GroupComponent implements OnDestroy {
   public isShortWidth: boolean = false;
   public isShowDetailView: boolean = true;
   public groupId: number;
+  public room: Room;
   public group: Group;
 
   public readonly chatSpaceCategory: typeof ChatSpaceCategory = ChatSpaceCategory;
@@ -48,6 +49,7 @@ export class GroupComponent implements OnDestroy {
         this.group = group;
       }),
       this.groupService.openedRoom$.subscribe((room: Room | null) => {
+        this.room = room;
         this.category = room ? ChatSpaceCategory.CHAT : ChatSpaceCategory.INFO;
       }),
       this.activatedRoute.params.subscribe((params: Params) => {
