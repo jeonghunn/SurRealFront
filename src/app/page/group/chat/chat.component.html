@@ -5,10 +5,15 @@
   (touchstart)="isManualScroll = true"
   class="chats"
 >
+  <ngx-skeleton-loader
+    *ngIf="isLoading"
+    count="6"
+  ></ngx-skeleton-loader>
   <app-message
     #messageComponent
     *ngFor="let chat of chats"
     [name]="chat.user?.name"
+    [user_id]="chat.user?.id"
     [message]="chat.content"
     [date]="chat?.createdAt"
     [isShowTime]="true"
