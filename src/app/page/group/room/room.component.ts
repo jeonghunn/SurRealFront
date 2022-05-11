@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -42,6 +43,7 @@ import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-room',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './room.component.html',
   styleUrls: [ './room.component.scss' ],
 })
@@ -214,6 +216,7 @@ export class RoomComponent implements OnDestroy {
       this.chats = [ ...chats, ...this.chats ];
 
       this.isChatFullyLoad = chats?.length === 0;
+      this.changeDetectorRef.markForCheck();
     });
   }
 
