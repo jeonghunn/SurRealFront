@@ -14,10 +14,13 @@ import { TextOnlySnackBar } from '@angular/material/snack-bar/simple-snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
+  Observable,
+  Subject,
   Subscription,
   timer,
 } from 'rxjs';
 import {
+  concatMap,
   delayWhen,
   retryWhen,
   take,
@@ -52,6 +55,7 @@ export class RoomComponent implements OnDestroy {
   public webSocketSubject: WebSocketSubject<any> = null;
   public chats: Chat[] = [];
   public dateCriteria: Date;
+  public chatQueue$: Subject<number> = new Subject();
 
   @Input()
   public isChatViewOpen: boolean;
@@ -91,6 +95,20 @@ export class RoomComponent implements OnDestroy {
     private router: Router,
   ) {
 
+    this.subscriptions = [
+      this.chatQueue$.pipe(
+        concatMap(i => this.fetchChats(i)),
+      )
+        .subscribe((chats: Chat[]) => {
+          this.isChatLoading = false;
+          this.chats = [ ...chats, ...this.chats ];
+
+          this.isChatFullyLoad = chats?.length === 0;
+          this.changeDetectorRef.markForCheck();
+        }),
+    ];
+
+
     this.init();
   }
 
@@ -98,7 +116,7 @@ export class RoomComponent implements OnDestroy {
     this.subscriptions.push(
       this.groupService.openedRoom$.subscribe((room: Room) => {
 
-        if (!room) {
+        if (!room || this.room?.id === room?.id) {
           return;
         }
 
@@ -108,7 +126,7 @@ export class RoomComponent implements OnDestroy {
         this.chats = [];
         this.offset = 0;
         this.initWebSocket();
-        this.fetchChats(this.offset);
+        this.chatQueue$.next(this.offset);
       }),
     );
   }
@@ -200,24 +218,17 @@ export class RoomComponent implements OnDestroy {
   public fetchPreviousChats(): void {
     this.isChatLoading = true;
     this.offset += this.CHAT_FETCH_COUNT;
-    console.log("load offset", this.offset);
-    this.fetchChats(this.offset);
+    this.chatQueue$.next(this.offset);
   }
 
-  public fetchChats(offset: number): void {
-    this.dataService.getChats(
+  public fetchChats(offset: number): Observable<any> {
+    return this.dataService.getChats(
       this.room?.group_id,
       this.room?.id,
       this.dateCriteria,
       offset,
       this.CHAT_FETCH_COUNT,
-    ).pipe(take(1)).subscribe((chats: Chat[]) => {
-      this.isChatLoading = false;
-      this.chats = [ ...chats, ...this.chats ];
-
-      this.isChatFullyLoad = chats?.length === 0;
-      this.changeDetectorRef.markForCheck();
-    });
+    ).pipe(take(1));
   }
 
   public sendAuthMessage(): void {
@@ -230,6 +241,7 @@ export class RoomComponent implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.webSocketSubject?.unsubscribe();
     Util.unsubscribe(...this.subscriptions);
   }
 
