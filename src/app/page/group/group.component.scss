@@ -7,6 +7,11 @@
   top: 0;
   width: 100%;
   height: $NAV_HEIGHT;
+  backdrop-filter: blur(5px);
+  z-index: $FLOAT_ZINDEX;
+
+  .info {
+  }
 
   .profile {
     display: flex;
@@ -62,7 +67,9 @@
   }
 
   .tabs {
-    background-color: $DEFAULT_BACKGROUND_COLOR;
+    backdrop-filter: blur(10px);
+    z-index: $FLOAT_ZINDEX;
+    top: $NAV_MOBILE_HEIGHT;
 
     position: fixed;
     width: 100%;
