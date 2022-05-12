@@ -94,21 +94,6 @@ export class RoomComponent implements OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
   ) {
-
-    this.subscriptions = [
-      this.chatQueue$.pipe(
-        concatMap(i => this.fetchChats(i)),
-      )
-        .subscribe((chats: Chat[]) => {
-          this.isChatLoading = false;
-          this.chats = [ ...chats, ...this.chats ];
-
-          this.isChatFullyLoad = chats?.length === 0;
-          this.changeDetectorRef.markForCheck();
-        }),
-    ];
-
-
     this.init();
   }
 
@@ -128,6 +113,19 @@ export class RoomComponent implements OnDestroy {
         this.initWebSocket();
         this.chatQueue$.next(this.offset);
       }),
+    );
+
+    this.subscriptions.push(
+      this.chatQueue$.pipe(
+        concatMap(i => this.fetchChats(i)),
+      )
+        .subscribe((chats: Chat[]) => {
+          this.isChatLoading = false;
+          this.chats = [ ...chats, ...this.chats ];
+
+          this.isChatFullyLoad = chats?.length === 0;
+          this.changeDetectorRef.markForCheck();
+        }),
     );
   }
 
