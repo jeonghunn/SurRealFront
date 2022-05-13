@@ -95,7 +95,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    const scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
+    let scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
+
+    if (changes?.room) {
+      this.isManualScroll = true;
+      this.isAutoScrollActive = true;
+      this.lastChatLength = 0;
+      scrollTop = 0;
+    }
+
     if (
       changes?.chats &&
       scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
@@ -106,7 +114,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
         this.loadPreviousChats.emit();
       }
 
-      this.chatContainer.nativeElement.scrollTop = this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD + 10;
+      if (this.chatContainer) {
+        this.chatContainer.nativeElement.scrollTop = this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD + 10;
+      }
+
     }
 
   }
