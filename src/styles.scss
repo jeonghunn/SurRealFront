@@ -4,6 +4,7 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: "Helvetica Neue", sans-serif;
+  overflow: hidden;
 
   .mat-card {
     border-radius: 16px;

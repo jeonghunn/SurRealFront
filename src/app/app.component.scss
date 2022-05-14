@@ -22,6 +22,7 @@
     margin-top: $NAV_HEIGHT;
     display: block;
     width: 100%;
+    overflow: hidden;
     height: calc(100% - #{$NAV_HEIGHT});
   }
 }
