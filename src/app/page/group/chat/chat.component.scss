@@ -27,6 +27,10 @@
 
 @media screen and (max-width: $SHORT_WINDOW_WIDTH) {
 
+  .chats {
+    height: calc(100% - #{$CHAT_FOOTER_HEIGHT});
+  }
+
 .footer {
   width: calc(100% - #{$SIDENAV_WIDTH} - 16px);
   right: 0;
