@@ -53,7 +53,7 @@ import { ChatComponent } from '../chat/chat.component';
 export class RoomComponent implements OnDestroy {
 
   public webSocketSubject: WebSocketSubject<any> = null;
-  public chats: Chat[] = [];
+  public chats: Chat[] = null;
   public dateCriteria: Date;
   public chatQueue$: Subject<number> = new Subject();
 
@@ -105,15 +105,25 @@ export class RoomComponent implements OnDestroy {
           return;
         }
 
-        this.dateCriteria = new Date();
-        this.room = room;
-        this.isChatFullyLoad = false;
-        this.chats = [];
-        this.offset = 0;
-        this.initWebSocket();
-        this.chatQueue$.next(this.offset);
+        this.resetRoom();
+        this.initRoom(room);
       }),
     );
+
+  }
+
+  public resetRoom(): void {
+    this.chatQueue$?.unsubscribe();
+    this.dateCriteria = new Date();
+    this.isChatFullyLoad = false;
+    this.chats = null;
+    this.offset = 0;
+  }
+
+  public initRoom(room: Room): void {
+    this.room = room;
+
+    this.chatQueue$ = new Subject<number>();
 
     this.subscriptions.push(
       this.chatQueue$.pipe(
@@ -127,6 +137,10 @@ export class RoomComponent implements OnDestroy {
           this.changeDetectorRef.markForCheck();
         }),
     );
+
+    this.initWebSocket();
+    this.chats = [];
+    this.chatQueue$.next(this.offset);
   }
 
   public initWebSocket(): void {
