@@ -88,6 +88,7 @@ export class GroupComponent implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.groupService.openedRoom$.next(null);
     Util.unsubscribe(...this.subscriptions);
   }
 }

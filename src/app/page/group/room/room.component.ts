@@ -253,7 +253,6 @@ export class RoomComponent implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.groupService.openedRoom$.next(null);
     this.webSocketSubject?.unsubscribe();
     Util.unsubscribe(...this.subscriptions);
   }
