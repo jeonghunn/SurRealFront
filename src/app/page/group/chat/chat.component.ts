@@ -166,7 +166,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public sendMessage(text: string): void {
-    if (text?.length === 0) {
+    if (!text || text?.length === 0) {
       return;
     }
 
