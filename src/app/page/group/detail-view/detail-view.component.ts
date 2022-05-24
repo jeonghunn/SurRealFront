@@ -1,8 +1,13 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
 } from '@angular/core';
-import { Room } from 'src/app/model/type';
+import { ThemePalette } from '@angular/material/core';
+import {
+  LiveCategory,
+  Room,
+} from 'src/app/model/type';
 
 @Component({
   selector: 'app-detail-view',
@@ -13,5 +18,23 @@ export class DetailViewComponent {
 
   @Input()
   public room: Room;
+
+  public readonly liveCategoryType: typeof LiveCategory = LiveCategory;
+
+  public category: LiveCategory = LiveCategory.NOW;
+
+  public constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {
+  }
+
+  public getColor(category: LiveCategory): ThemePalette {
+    return this.category === category ? 'primary' : null;
+  }
+
+  public onClick(category: LiveCategory): void {
+    this.category = category;
+    //this.changeDetectorRef.markForCheck();
+  }
 
 }

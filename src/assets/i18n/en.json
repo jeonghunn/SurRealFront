@@ -90,6 +90,14 @@
         "EMOJI": "Emoji",
         "SEND": "Send"
       },
+      "LIVE": {
+        "CATEGORY": {
+          "MAP": "Map",
+          "NOW": "Now",
+          "ATTENDEE": "Attendees",
+          "ATTACH": "Files"
+        }
+      },
       "ERROR": {
         "CONNECTION": {
           "DESC": "Trying to Reconnect... ",

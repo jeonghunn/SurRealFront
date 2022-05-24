@@ -99,6 +99,14 @@
         "EMOJI": "이모티콘",
         "SEND": "보내기"
       },
+      "LIVE": {
+        "CATEGORY": {
+          "MAP": "맵",
+          "NOW": "Now",
+          "ATTENDEE": "참여자",
+          "ATTACH": "파일"
+        }
+      },
       "ERROR": {
         "CONNECTION": {
           "DESC": "재연결 시도 중...",

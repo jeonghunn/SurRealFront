@@ -17,6 +17,13 @@ export enum ChatSpaceCategory {
   INFO,
 }
 
+export enum LiveCategory {
+  NOW,
+  MAP,
+  ATTENDEE,
+  ATTACH,
+}
+
 export enum CommunicationType {
   AUTH,
   CHAT,

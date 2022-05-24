@@ -20,4 +20,24 @@
     }"
     ></ngx-skeleton-loader>
   </div>
+  <div *ngIf="room">
+    <mat-chip-list aria-label="Fish selection">
+      <mat-chip
+        (click)="onClick(liveCategoryType.NOW)"
+        [selected]="category === liveCategoryType.NOW"
+      >{{ 'GROUP.ROOM.LIVE.CATEGORY.NOW' | translate }}</mat-chip>
+      <mat-chip
+        (click)="onClick(liveCategoryType.MAP)"
+        [selected]="category === liveCategoryType.MAP"
+      >{{ 'GROUP.ROOM.LIVE.CATEGORY.MAP' | translate }}</mat-chip>
+      <mat-chip
+        (click)="onClick(liveCategoryType.ATTENDEE)"
+        [selected]="category === liveCategoryType.ATTENDEE"
+      >{{ 'GROUP.ROOM.LIVE.CATEGORY.ATTENDEE' | translate }}</mat-chip>
+      <mat-chip
+        (click)="onClick(liveCategoryType.ATTACH)"
+        [selected]="category === liveCategoryType.ATTACH"
+      >{{ 'GROUP.ROOM.LIVE.CATEGORY.ATTACH' | translate }}</mat-chip>
+    </mat-chip-list>
+  </div>
 </div>
