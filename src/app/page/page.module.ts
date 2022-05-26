@@ -35,6 +35,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { RoomComponent } from './group/room/room.component';
 import { GroupInfoComponent } from './group/group-info/group-info.component';
+import { MapComponent } from './group/detail-view/map/map.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { GroupInfoComponent } from './group/group-info/group-info.component';
     MessageComponent,
     RoomComponent,
     GroupInfoComponent,
+    MapComponent,
   ],
     imports: [
         CommonModule,
