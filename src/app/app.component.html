@@ -1,3 +1,10 @@
+<div
+  mat-ripple
+  class="logo"
+  (click)="goMain()"
+>
+</div>
+
 <mat-drawer-container
   class="drawer-container"
   (window:resize)="onWindowResize($event)"
@@ -7,14 +14,10 @@
     #drawer
     [mode]="'side'"
     [opened]="(isSideNavOpen || !isSmallWidth) && isSignedIn"
+    (focusout)="isSideNavOpen = false"
     class="drawer"
   >
-    <div
-      mat-ripple
-      class="logo"
-      (click)="goMain()"
-    >
-    </div>
+
     <app-group-list *ngIf="shouldSideNavOpen"></app-group-list>
   </mat-drawer>
   <mat-drawer-content>

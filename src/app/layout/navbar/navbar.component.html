@@ -1,12 +1,4 @@
 <mat-toolbar>
-  <button
-    mat-button
-    *ngIf="isSignedIn && isSmallWidth"
-    (click)="onSideNavToggleClick()"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-
   <ng-container *ngIf="!isSignedIn else signedIn">
     <button
       mat-button

@@ -1,6 +1,17 @@
 @import "src/assets/style/attrs";
 @import "src/assets/style/palette";
 
+.logo {
+  position: absolute;
+  background-position: center;
+  background-image: url("/assets/img/nav_logo.png");
+  width: 80px;
+  height: $NAV_HEIGHT;
+  text-align: center;
+  z-index: 30;
+}
+
+
 .drawer-container {
   height: 100%;
 
@@ -8,14 +19,7 @@
     width: 80px;
     margin-right: auto;
     margin-left: auto;
-
-    .logo {
-      background-position: center;
-      background-image: url("/assets/img/nav_logo.png");
-      width: inherit;
-      height: $NAV_HEIGHT;
-      text-align: center;
-    }
+    padding-top: $NAV_HEIGHT;
   }
 
   .container {
@@ -30,12 +34,8 @@
 
 @media screen and (max-width: $SHORT_WINDOW_WIDTH) {
 
-  .drawer-container {
-    .drawer {
-      .logo {
-        height: $NAV_MOBILE_HEIGHT;
-      }
-    }
+  .logo {
+    height: $NAV_MOBILE_HEIGHT;
   }
 
   .container {

@@ -1,4 +1,7 @@
-<div class="header">
+<div
+  class="header"
+  [ngStyle]="!isSideNavOpen && isShortWidth ? headerStyle : {}"
+>
   <div
     mat-ripple
     class="profile"

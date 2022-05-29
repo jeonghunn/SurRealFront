@@ -62,7 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
-    this.isSideNavOpen = !this.isSmallWidth;
   }
 
   public onWindowResize(event: any): void {
@@ -71,6 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public goMain(): void {
     this.router.navigateByUrl('/').then(null);
+    this.isSideNavOpen = true;
   }
 
   public toggleSideNav(): void {

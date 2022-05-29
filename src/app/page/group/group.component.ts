@@ -27,10 +27,16 @@ export class GroupComponent implements OnDestroy {
 
   public category: ChatSpaceCategory = ChatSpaceCategory.CHAT;
   public isShortWidth: boolean = false;
+  public isSideNavOpen: boolean = false;
   public isShowDetailView: boolean = true;
   public groupId: number;
   public room: Room;
   public group: Group;
+
+  public headerStyle: any = {
+    'margin-left': '80px',
+    'border-left': 'solid 1px rgba(0, 0, 0, 0.12)',
+  };
 
   public readonly chatSpaceCategory: typeof ChatSpaceCategory = ChatSpaceCategory;
 
@@ -58,6 +64,9 @@ export class GroupComponent implements OnDestroy {
       }),
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
+      }),
+      this.layoutService.isSideNavOpen$.subscribe((isSideNavOpen: boolean) => {
+        this.isSideNavOpen = isSideNavOpen;
       }),
     ];
   }
