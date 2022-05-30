@@ -20,7 +20,7 @@ import { WindowSizeWidth } from './model/type';
   styleUrls: [ './app.component.scss' ],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public title: string = 'SurRealClient';
+  public title: string = 'SurReal';
   public pageErrorCode: number;
   public isSmallWidth: boolean = false;
 
