@@ -93,7 +93,6 @@ export class GroupComponent implements OnDestroy {
 
   public openRoom(room: Room): void {
     this.groupService.openRoom(room?.group_id, room?.id);
-    this.open(ChatSpaceCategory.CHAT);
   }
 
   public ngOnDestroy(): void {
