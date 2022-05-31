@@ -21,7 +21,7 @@
     ></ngx-skeleton-loader>
   </div>
   <ng-container *ngIf="room">
-    <mat-chip-list aria-label="Fish selection">
+    <mat-chip-list class="chip_list">
       <mat-chip
         (click)="onClick(liveCategoryType.NOW)"
         [selected]="category === liveCategoryType.NOW"
