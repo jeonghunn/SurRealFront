@@ -189,7 +189,8 @@ export class RoomComponent implements OnDestroy {
           msg.user,
         );
         this.chats.push(chat);
-
+        this.changeDetectorRef.markForCheck();
+        
         break;
       case CommunicationType.AUTH:
         const authResult: CommunicationResult = msg as CommunicationResult;
