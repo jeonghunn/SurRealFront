@@ -1,1 +1,6 @@
-<canvas #canvasElement></canvas>
+<canvas
+  (window:resize)="onResize($event)"
+  [width]="canvasWidth"
+  [height]="canvasWidth"
+  #canvasElement
+></canvas>

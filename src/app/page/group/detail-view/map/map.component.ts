@@ -1,30 +1,50 @@
 import {
-  AfterViewInit,
+  AfterViewInit, ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, OnInit,
   ViewChild,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: [ './map.component.scss' ],
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('canvasElement') public canvasElement: ElementRef;
+  @ViewChild('canvasElement')
+  public canvasElement: ElementRef;
+
+  public canvasWidth: number = 0;
+
+  private subscriptions: Subscription[] = [];
 
   /** Canvas 2d context */
   private context: CanvasRenderingContext2D;
 
   public constructor(
     private elementRef: ElementRef,
-  ) { }
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {
+  }
+
+  public ngOnInit(): void {
+    this.updateCanvasWidth();
+  }
 
   public ngAfterViewInit(): void {
     this.context = (this.canvasElement.nativeElement as HTMLCanvasElement).getContext('2d');
 
     this.draw();
+  }
+
+  public updateCanvasWidth(): void {
+    this.canvasWidth = this.elementRef.nativeElement.parentElement.offsetWidth;
+  }
+
+  public onResize(event: any): void {
+    this.updateCanvasWidth();
   }
 
   private draw(): void {
