@@ -18,6 +18,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   public canvasWidth: number = 0;
 
+  private characterX: number = 0;
+  private characterY: number = 0;
+  private speed: number = 10;
+
   private subscriptions: Subscription[] = [];
 
   /** Canvas 2d context */
@@ -47,17 +51,44 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.updateCanvasWidth();
   }
 
+  public onKeyDown(event: any): void {
+
+    switch (event?.keyCode) {
+      case 87:
+        this.characterY -= this.speed;
+        break;
+      case 83:
+        this.characterY += this.speed;
+        break;
+      case 65:
+        this.characterX -= this.speed;
+        break;
+      case 68:
+        this.characterX += this.speed;
+        break;
+    }
+
+    this.draw();
+  }
+
   private draw(): void {
-    this.context.font = '30px Arial';
-    this.context.textBaseline = 'middle';
-    this.context.textAlign = 'center';
+    this.context.clearRect(0, 0, this.canvasWidth, this.canvasWidth);
+    this.context.font = '24px Arial';
+    this.context.textBaseline = 'top';
+    this.context.textAlign = 'left';
 
     // this.context.canvas.width = this.elementRef.nativeElement?.width;
     // this.context.canvas.height = this.elementRef.nativeElement?.height;
 
-    const x = (this.canvasElement.nativeElement as HTMLCanvasElement).width / 2;
-    const y = (this.canvasElement.nativeElement as HTMLCanvasElement).height / 2;
-    this.context.fillText('Working on progress...', x, y);
+
+    this.context.fillText('Working on progress...', 0, 0, 100);
+
+    this.context.beginPath();
+    this.context.arc(this.characterX, this.characterY, 8, 0, Math.PI * 2, true); // Outer circle
+    this.context.moveTo(110, 75);
+    this.context.fillStyle='rgba(250,0,0,0.4)';
+    this.context.fill();
+    this.context.stroke();
   }
 
 }

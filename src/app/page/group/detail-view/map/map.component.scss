@@ -4,4 +4,7 @@ canvas {
   background-size: 150%;
   background-position: 45% 0;
   background-repeat: no-repeat;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+
 }
