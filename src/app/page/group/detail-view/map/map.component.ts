@@ -54,15 +54,19 @@ export class MapComponent implements OnInit, AfterViewInit {
   public onKeyDown(event: any): void {
 
     switch (event?.keyCode) {
+      case 38:
       case 87:
         this.characterY -= this.speed;
         break;
+      case 40:
       case 83:
         this.characterY += this.speed;
         break;
+      case 37:
       case 65:
         this.characterX -= this.speed;
         break;
+      case 39:
       case 68:
         this.characterX += this.speed;
         break;
