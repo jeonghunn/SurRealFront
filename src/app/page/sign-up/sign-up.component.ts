@@ -3,8 +3,8 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -28,10 +28,10 @@ export class SignUpComponent implements OnInit {
   public isHidePassword: boolean = true;
   public isLoading: boolean = false;
 
-  public signUpForm: FormGroup = new FormGroup({
-    email: new FormControl('', Validators.email),
-    password: new FormControl('', Validators.minLength(8)),
-    name: new FormControl(''),
+  public signUpForm: UntypedFormGroup = new UntypedFormGroup({
+    email: new UntypedFormControl('', Validators.email),
+    password: new UntypedFormControl('', Validators.minLength(8)),
+    name: new UntypedFormControl(''),
   });
 
   public constructor(

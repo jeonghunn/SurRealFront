@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {
   BehaviorSubject,
@@ -55,7 +55,7 @@ export class IdentityService {
     );
   }
 
-  public signIn(form: FormGroup): Observable<UserSimpleSet> {
+  public signIn(form: UntypedFormGroup): Observable<UserSimpleSet> {
     return this.dataService.signIn(form.value).pipe(
         take(1),
       );

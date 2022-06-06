@@ -7,8 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
 } from '@angular/forms';
 import {
   MatDialogRef,
@@ -39,7 +39,7 @@ export class RoomCreateComponent implements OnInit {
   public isShowAdvanced: boolean = false;
   public isLoading: boolean = false;
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   public constructor(
     private translateService: TranslateService,
@@ -55,8 +55,8 @@ export class RoomCreateComponent implements OnInit {
       this.groupId = this.dialogData.groupId;
     }
 
-    this.form = new FormGroup({
-      name: new FormControl(),
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl(),
     });
   }
 

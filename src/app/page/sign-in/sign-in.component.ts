@@ -3,8 +3,8 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,9 +28,9 @@ export class SignInComponent implements OnInit {
   public isLoading: boolean = false;
   public hasAuthError: boolean = false;
 
-  public signInForm: FormGroup = new FormGroup({
-    email: new FormControl('', Validators.email),
-    password: new FormControl('', Validators.minLength(8)),
+  public signInForm: UntypedFormGroup = new UntypedFormGroup({
+    email: new UntypedFormControl('', Validators.email),
+    password: new UntypedFormControl('', Validators.minLength(8)),
   });
 
   public constructor(
