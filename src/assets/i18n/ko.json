@@ -78,7 +78,7 @@
   "GROUP_CREATE": {
     "FRIENDS": "친구",
     "CREATE_A_GROUP": "그룹 생성",
-    "SEARCH": "검색"
+    "SEARCH": "찾기"
   },
   "FRIEND_LIST": {
     "EMPTY": "친구를 추가하여 대화를 시작해보세요."
@@ -95,6 +95,7 @@
       },
       "CHAT": {
         "MESSAGE": "대화 작성하기",
+        "DISABLED": "대화가 활성화되지 않음",
         "WRITE_A_MESSAGE": "메시지를 입력하세요...",
         "EMOJI": "이모티콘",
         "SEND": "보내기"

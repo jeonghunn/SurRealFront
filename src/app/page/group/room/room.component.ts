@@ -117,6 +117,7 @@ export class RoomComponent implements OnDestroy {
     this.chatQueue$?.unsubscribe();
     this.dateCriteria = new Date();
     this.isChatFullyLoad = false;
+    this.isChatDisabled = false;
     this.chats = null;
     this.offset = 0;
   }

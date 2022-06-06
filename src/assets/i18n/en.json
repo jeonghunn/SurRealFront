@@ -86,6 +86,7 @@
       },
       "CHAT": {
         "MESSAGE": "Message",
+        "DISABLED": "Chat Disabled",
         "WRITE_A_MESSAGE": "Write a message...",
         "EMOJI": "Emoji",
         "SEND": "Send"
