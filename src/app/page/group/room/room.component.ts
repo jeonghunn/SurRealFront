@@ -9,8 +9,8 @@ import {
 import {
   MatSnackBar,
   MatSnackBarRef,
+  TextOnlySnackBar,
 } from '@angular/material/snack-bar';
-import { TextOnlySnackBar } from '@angular/material/snack-bar/simple-snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
