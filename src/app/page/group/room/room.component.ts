@@ -73,6 +73,7 @@ export class RoomComponent implements OnDestroy {
 
   public isConnected: boolean = false;
   public isAuthenticated: boolean = false;
+  public isChatDisabled: boolean = false;
   public isChatLoading: boolean = false;
   public isChatFullyLoad: boolean = false;
   public reconnectDelay: number = 1000;
@@ -153,11 +154,12 @@ export class RoomComponent implements OnDestroy {
       openObserver: {
         next: value => {
           this.isConnected = true;
+          this.isChatDisabled = false;
           this.reconnectDelay = 1000;
           this.sendAuthMessage();
         },
         error: value => {
-          this.onConnectionError();
+          this.onConnectionError(value);
         },
       },
     });
@@ -166,16 +168,22 @@ export class RoomComponent implements OnDestroy {
       this.webSocketSubject.pipe(
         retryWhen(errors =>
           errors.pipe(
-            tap(val => this.onConnectionError()),
+            tap(val => this.onConnectionError(val)),
             delayWhen(val => timer(this.reconnectDelay)),
           ),
         ),
       ).subscribe(
         (msg: any) => this.onMessageReceived(msg),
-        (err) => this.onConnectionError(),
-        () => console.log('complete'),
+        (err) => this.onConnectionError(err),
+        () => this.onConnectionComplete(),
       ),
     );
+  }
+
+  public onConnectionComplete(): void {
+    console.log('complete');
+    this.isChatDisabled = true;
+    this.changeDetectorRef.markForCheck();
   }
 
   public onMessageReceived(msg: any): void {
@@ -212,7 +220,8 @@ export class RoomComponent implements OnDestroy {
     this.router.navigateByUrl('signin').then(null);
   }
 
-  public onConnectionError(): void {
+  public onConnectionError(error: any = null): void {
+    console.log('ConnectionError', error);
     this.isConnected = false;
     this.reconnectDelay = this.reconnectDelay * 1.5;
     const snackBarRef: MatSnackBarRef<TextOnlySnackBar> = this.matSnackBar.open(

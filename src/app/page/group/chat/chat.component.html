@@ -35,7 +35,7 @@
   [style.width]="footerWidth"
 >
   <mat-form-field appearance="outline">
-    <mat-label>{{ 'GROUP.ROOM.CHAT.MESSAGE' | translate }}</mat-label>
+    <mat-label>{{ (isDisabled ? 'GROUP.ROOM.CHAT.DISABLED' : 'GROUP.ROOM.CHAT.MESSAGE') | translate }}</mat-label>
     <input
       matInput
       [(ngModel)]="message"
