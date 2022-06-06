@@ -18,6 +18,7 @@ import {
 import {
   Chat,
   Group,
+  LiveMessage,
   Relation,
   Room,
   User,
@@ -39,6 +40,16 @@ export class DataService {
     private matSnackBar: MatSnackBar,
     private translateService: TranslateService,
   ) { }
+
+  public deserializeSocketMessage(message: any): any {
+
+    switch (typeof message.data) {
+      case 'string':
+        return JSON.parse(message?.data);
+      case 'object':
+        return new LiveMessage(message);
+    }
+  }
 
   public signUp(formData: FormData): Observable<UserSimpleSet> {
     return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/user`, formData).pipe(

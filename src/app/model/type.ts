@@ -120,8 +120,19 @@ export class AuthMessage extends Communication {
   }
 }
 
-export class Live extends Communication {
+export class LiveMessage extends Communication {
+
+  public content?: any;
+
   public B: any;
+
+  public constructor(
+    content: any,
+    user_id: number = null,
+  ) {
+    super(CommunicationType.LIVE, null);
+    this.content = content;
+  }
 }
 
 export class Group {

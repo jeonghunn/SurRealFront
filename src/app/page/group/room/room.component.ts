@@ -151,6 +151,7 @@ export class RoomComponent implements OnDestroy {
 
     this.webSocketSubject = webSocket({
       url: `${environment.socketServerUrl}${this.room?.id}`,
+      deserializer: message => this.dataService.deserializeSocketMessage(message),
       openObserver: {
         next: value => {
           this.isConnected = true;
