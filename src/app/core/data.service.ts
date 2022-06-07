@@ -47,7 +47,7 @@ export class DataService {
       case 'string':
         return JSON.parse(message?.data);
       case 'object':
-        return new LiveMessage(message);
+        return new LiveMessage(message?.data);
     }
   }
 
