@@ -7,12 +7,23 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {
+  MatTooltipDefaultOptions,
+  MatTooltipModule,
+  MAT_TOOLTIP_DEFAULT_OPTIONS,
+} from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ComponentsModule } from '../components/components.module';
 import { GroupListComponent } from '../components/group-list/group-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OneContainerComponent } from './one-container/one-container.component';
+
+export const matTooltipCustomConfig: MatTooltipDefaultOptions = {
+  showDelay: 5,
+  hideDelay: 5,
+  touchendHideDelay: 5,
+  touchGestures: 'off',
+};
 
 @NgModule({
   declarations: [
@@ -37,6 +48,9 @@ import { OneContainerComponent } from './one-container/one-container.component';
     GroupListComponent,
     NavbarComponent,
     OneContainerComponent,
+  ],
+  providers: [
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: matTooltipCustomConfig },
   ],
 })
 export class LayoutModule { }
