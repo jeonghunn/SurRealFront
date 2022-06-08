@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { WebSocketSubject } from 'rxjs/webSocket';
+import { BehaviorSubject } from 'rxjs';
+import { Group } from '../model/type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomService {
 
-  public webSocketSubject: WebSocketSubject<any> = null;
+  public liveRoomContent$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
 
-  public constructor() { }
+  public setLiveRoomContent(data: any): void {
+    this.liveRoomContent$.next(data);
+  }
 }

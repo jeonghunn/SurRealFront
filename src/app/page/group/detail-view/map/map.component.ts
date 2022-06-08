@@ -5,6 +5,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { RoomService } from 'core/room.service';
 
 @Component({
   selector: 'app-map',
@@ -30,7 +31,19 @@ export class MapComponent implements OnInit, AfterViewInit {
   public constructor(
     private elementRef: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
+    private roomService: RoomService,
   ) {
+    this.subscriptions = [
+      this.roomService.liveRoomContent$.subscribe((data: any) => {
+        this.characterX = (data[0].x + 9) * 80;
+        this.characterY = (data[0].y + 9) * 80;
+
+        if (this.context) {
+          this.draw();
+        }
+
+      }),
+    ];
   }
 
   public ngOnInit(): void {

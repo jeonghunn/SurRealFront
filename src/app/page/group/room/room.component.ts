@@ -39,9 +39,11 @@ import {
   Chat,
   CommunicationResult,
   CommunicationType,
+  LiveMessage,
   Room,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
+import { RoomService } from 'src/app/core/room.service';
 import { ChatComponent } from '../chat/chat.component';
 
 @Component({
@@ -94,6 +96,7 @@ export class RoomComponent implements OnDestroy {
     private translateService: TranslateService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
+    private roomService: RoomService,
   ) {
     this.init();
   }
@@ -205,6 +208,21 @@ export class RoomComponent implements OnDestroy {
       case CommunicationType.AUTH:
         const authResult: CommunicationResult = msg as CommunicationResult;
         this.onAuthResultReceived(authResult.result);
+      case CommunicationType.LIVE:
+        const liveMessage: LiveMessage = (msg as LiveMessage);
+
+        new Response(liveMessage?.content).arrayBuffer()
+          .then((result: ArrayBuffer) => {
+            const data = new Float32Array(result);
+            this.roomService.setLiveRoomContent(
+              [
+                {
+                  x: data[0],
+                  y: data[2],
+                },
+              ],
+            );
+          });
 
         break;
     }
