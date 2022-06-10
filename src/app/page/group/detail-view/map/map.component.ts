@@ -57,7 +57,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   public updateCanvasWidth(): void {
-    this.canvasWidth = this.elementRef.nativeElement.parentElement.offsetWidth;
+    this.canvasWidth = Math.min(
+      this.elementRef.nativeElement.parentElement.offsetWidth,
+      this.elementRef.nativeElement.parentElement.offsetHeight,
+      ) ;
   }
 
   public onResize(event: any): void {
