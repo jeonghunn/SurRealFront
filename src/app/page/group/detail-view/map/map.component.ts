@@ -5,7 +5,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { RoomService } from 'core/room.service';
+import { RoomService } from 'src/app/core/room.service';
 
 @Component({
   selector: 'app-map',
