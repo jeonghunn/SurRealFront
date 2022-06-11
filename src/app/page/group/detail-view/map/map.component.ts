@@ -109,6 +109,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   public onResize(event: any): void {
+    this.canvasWidth = 100;
+    this.changeDetectorRef.detectChanges();
     this.updateCanvasWidth();
   }
 
