@@ -21,6 +21,25 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   private characterX: number = 0;
   private characterY: number = 0;
+
+  private canvasBoundary: any = {
+    xMin: 12,
+    xMax: 90,
+    yMin: 4,
+    yMax: 79,
+    width: 78,
+    height: 75,
+  };
+
+  private mapBoundary: any = {
+    xMax: 9.28,
+    xMin: -8.62,
+    yMin: -12.89,
+    yMax: 4.5,
+    width: 17.9,
+    height : 17.39,
+  };
+
   private speed: number = 10;
 
   private subscriptions: Subscription[] = [];
@@ -54,6 +73,33 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.context = (this.canvasElement.nativeElement as HTMLCanvasElement).getContext('2d');
 
     this.draw();
+  }
+
+  public updateObjectPositions(x: number, y: number): void {
+    this.characterX = this.getPosition(
+      x,
+      this.mapBoundary.xMin,
+      this.mapBoundary.width,
+      this.canvasBoundary.xMin,
+      this.canvasBoundary.width,
+      );
+    this.characterY = this.getPosition(
+      y,
+      this.mapBoundary.yMin,
+      this.mapBoundary.height,
+      this.canvasBoundary.yMin,
+      this.canvasBoundary.height,
+    );
+  }
+
+  public getPosition(
+    source: number,
+    min: number,
+    length: number,
+    targetMin: number,
+    targetLength: number,
+    ): number {
+    return (this.canvasWidth * (targetMin / 100)) + (this.canvasWidth * (targetLength / 100) * ((source - min) / length));
   }
 
   public updateCanvasWidth(): void {
@@ -100,8 +146,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     // this.context.canvas.width = this.elementRef.nativeElement?.width;
     // this.context.canvas.height = this.elementRef.nativeElement?.height;
 
-
-    this.context.fillText('Working on progress...', 0, 0, 100);
+    this.context.fillText(`X : ${Math.round(this.characterX * 100) / 100}, Y : ${Math.round(this.characterY * 100) / 100}`, 0, 0, 100);
 
     this.context.beginPath();
     this.context.arc(this.characterX, this.characterY, 8, 0, Math.PI * 2, true); // Outer circle
