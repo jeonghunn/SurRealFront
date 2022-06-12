@@ -17,6 +17,7 @@ import {
 } from 'rxjs/operators';
 import {
   Chat,
+  Communication,
   Group,
   LiveMessage,
   Relation,
@@ -49,6 +50,15 @@ export class DataService {
       case 'object':
         return new LiveMessage(message?.data);
     }
+  }
+
+  public serializeSocketMessage(message: any | Communication): any {
+
+    if (message instanceof Communication) {
+      return JSON.stringify(message);
+    }
+
+    return message;
   }
 
   public signUp(formData: FormData): Observable<UserSimpleSet> {
