@@ -4,7 +4,8 @@
 .logo {
   position: absolute;
   background-position: center;
-  background-image: url("/assets/img/logo.svg");
+  mask: url("/assets/img/logo.svg") no-repeat center;
+  background-color: #b085f5;
   width: 80px;
   height: $NAV_HEIGHT;
   text-align: center;
