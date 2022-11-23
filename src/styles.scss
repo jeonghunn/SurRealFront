@@ -9,11 +9,45 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+
+$surreal-palette: (
+  50: #f2eafd,
+  100: #ddccfa,
+  200: #c7aaf8,
+  300: #b085f5,
+  400: #9d67f1,
+  500: #8a4ce9,
+  600: #7f46e2,
+  700: #703dd8,
+  800: #6437d0,
+  900: #4f2ac1,
+  A100: #d1c4e9,
+  A200: #b39ddb,
+  A400: #7e57c2,
+  A700: #512da8,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: white,
+    A700: white,
+  )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$SurRealClient-primary: mat.define-palette(mat.$indigo-palette);
-$SurRealClient-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$SurRealClient-primary: mat.define-palette($surreal-palette);
+$SurRealClient-accent: mat.define-palette($surreal-palette);
 
 // The warn palette is optional (defaults to red).
 $SurRealClient-warn: mat.define-palette(mat.$red-palette);
@@ -29,8 +63,8 @@ $SurRealClient-theme: mat.define-light-theme((
 ));
 
 // Define a dark theme
-$dark-primary: mat.define-palette(mat.$purple-palette);
-$dark-accent: mat.define-palette(mat.$blue-grey-palette);
+$dark-primary: mat.define-palette($surreal-palette);
+$dark-accent: mat.define-palette($surreal-palette);
 $dark-theme: mat.define-dark-theme((
   color: (
     primary: $dark-primary,
@@ -43,11 +77,10 @@ $dark-theme: mat.define-dark-theme((
 // that you are using.
 @include mat.all-component-themes($dark-theme);
 
-.light-theme {
+
+@media (prefers-color-scheme: light) {
   @include mat.all-component-themes($SurRealClient-theme);
 }
-
-
 
 
 
