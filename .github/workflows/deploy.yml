@@ -9,7 +9,6 @@ on:
 
 jobs:
   deployment:
-    needs: build
     runs-on: ubuntu-latest
     environment: production
     steps:
