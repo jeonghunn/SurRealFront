@@ -28,6 +28,11 @@ jobs:
     - run: npm install
     - run: npm run lint
     - run: npm run build --if-present
+    - name: Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Dist
+          path: dist 
   cypress-run:
     runs-on: ubuntu-latest
     steps:
@@ -43,7 +48,7 @@ jobs:
           start: npm start
           wait-on: 'http://localhost:4200'
       - name: Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
