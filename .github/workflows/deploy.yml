@@ -17,7 +17,7 @@ jobs:
         with:
           name: Dist
       - name: deploy
-        uses: mdallasanta/ssh-scp-deploy@{version}
+        uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
           local: './Dist'
           remote: '~/surreal/front/dist'
