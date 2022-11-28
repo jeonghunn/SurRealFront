@@ -10,11 +10,11 @@
 
 
   &:hover {
-    background-color: $LIST_ITEM_HOVER;
+    background-color: var(--list-item-hover);
   }
 
   &:active {
-    background-color: $LIST_ITEM_HOVER;
+    background-color: var(--list-item-hover);
   }
 
   .image {
@@ -42,10 +42,10 @@
 }
 
 .selected {
-  background-color: $LIST_ITEM_HOVER;
+  background-color: var(--list-item-hover);
 
   &:hover {
-    background-color: $LIST_ITEM_HOVER;
+    background-color: var(--list-item-hover);
   }
 }
 

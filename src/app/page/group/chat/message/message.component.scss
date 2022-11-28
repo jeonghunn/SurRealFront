@@ -23,7 +23,7 @@
   }
 
   &:hover {
-    background-color: $LIST_ITEM_HOVER;
+    background-color: var(--list-item-hover);
   }
 
 

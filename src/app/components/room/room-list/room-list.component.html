@@ -22,13 +22,11 @@
     *ngIf="isLoading"
     class="loader"
   >
-    <ngx-skeleton-loader
+    <app-skeleton-loader
       count="6"
-      [theme]="{
-      'height.px': 100,
-      'width': '80%'
-    }"
-    ></ngx-skeleton-loader>
+      height="100px"
+      width="80%"
+    ></app-skeleton-loader>
   </div>
 
 

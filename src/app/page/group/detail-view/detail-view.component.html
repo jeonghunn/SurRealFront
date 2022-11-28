@@ -1,24 +1,18 @@
 <div class="view">
   <div *ngIf="!room">
-    <ngx-skeleton-loader
+    <app-skeleton-loader
       count="1"
-      [theme]="{
-      'height.px': 360
-    }"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader
+      height="360px"
+    ></app-skeleton-loader>
+    <app-skeleton-loader
       count="1"
-      [theme]="{
-      'height.px': 48,
-      'width': '80%'
-    }"
-    ></ngx-skeleton-loader>
-    <ngx-skeleton-loader
+      height="48px"
+      width="80px"
+    ></app-skeleton-loader>
+    <app-skeleton-loader
       count="1"
-      [theme]="{
-      'width': '50%'
-    }"
-    ></ngx-skeleton-loader>
+      width="50%"
+    ></app-skeleton-loader>
   </div>
   <ng-container *ngIf="room">
     <mat-chip-list class="chip_list">

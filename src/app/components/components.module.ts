@@ -24,6 +24,7 @@ import { RoomItemComponent } from './room/room-list/room-item/room-item.componen
 import { RoomListComponent } from './room/room-list/room-list.component';
 import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.component';
 
 @NgModule({
   declarations: [
@@ -37,15 +38,17 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     RoomListComponent,
     RoomItemComponent,
     RoomCreateComponent,
+    SkeletonLoaderComponent,
   ],
-  exports: [
-    FooterComponent,
-    ErrorPageComponent,
-    ProfileIconComponent,
-    FriendButtonComponent,
-    FriendListComponent,
-    RoomListComponent,
-  ],
+    exports: [
+        FooterComponent,
+        ErrorPageComponent,
+        ProfileIconComponent,
+        FriendButtonComponent,
+        FriendListComponent,
+        RoomListComponent,
+        SkeletonLoaderComponent,
+    ],
   imports: [
     UiModule,
     TranslateModule,

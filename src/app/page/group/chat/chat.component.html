@@ -5,10 +5,9 @@
   (touchstart)="isManualScroll = true"
   class="chats"
 >
-  <ngx-skeleton-loader
-    *ngIf="isLoading && !isFullyLoad"
+  <app-skeleton-loader
     count="6"
-  ></ngx-skeleton-loader>
+  ></app-skeleton-loader>
   <app-message
     #messageComponent
     *ngFor="let chat of chats"
@@ -25,9 +24,9 @@
   *ngIf="!room"
   class="loader"
 >
-  <ngx-skeleton-loader
+  <app-skeleton-loader
     count="10"
-  ></ngx-skeleton-loader>
+  ></app-skeleton-loader>
 </div>
 
 <div

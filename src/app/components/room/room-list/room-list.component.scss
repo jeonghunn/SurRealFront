@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     vertical-align: middle;
-    border-bottom: 1px solid $LIST_BACKGROUND_DARK;
+    border-bottom: 1px solid var(--list-background-dark);
     align-items: center;
     font-weight: bold;
     height: 56px;
@@ -23,7 +23,7 @@
     }
 
     &:hover {
-      background-color: $LIST_BACKGROUND_DARK;
+      background-color: var(--list-background-dark);
     }
   }
 
