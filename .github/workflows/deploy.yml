@@ -5,6 +5,7 @@ concurrency: production
 on:
   workflow_run:
     workflows: ["Node.js CI"]
+    branches: main
     types:
       - completed
 
@@ -12,7 +13,6 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     environment: production
-    if: github.ref == 'refs/heads/main'
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v3
