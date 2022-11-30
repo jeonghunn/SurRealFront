@@ -53,4 +53,25 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-
+  deployment:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: build
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: Dist
+      - name: deploy
+        uses: mdallasanta/ssh-scp-deploy@v1.2.0
+       with:
+          local: './Dist'
+          remote: '~/surreal/front/dist'
+          host: ${{secrets.HOST}}
+          port: ${{secrets.PORT}}
+          user: ${{secrets.USERNAME}}
+          key: ${{secrets.PRIVATE_KEY}}
+          pre_upload: echo "This will be executed before the upload!"
+          post_upload: echo "This will be executed after the upload!"
+          ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+          scp_options: -v
