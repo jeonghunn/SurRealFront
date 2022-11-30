@@ -64,7 +64,7 @@ jobs:
           name: Dist
       - name: deploy
         uses: mdallasanta/ssh-scp-deploy@v1.2.0
-       with:
+        with:
           local: './Dist'
           remote: '~/surreal/front/dist'
           host: ${{secrets.HOST}}
