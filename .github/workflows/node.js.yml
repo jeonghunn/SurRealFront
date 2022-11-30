@@ -57,6 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: build
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v3
@@ -65,7 +66,7 @@ jobs:
       - name: deploy
         uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: './Dist'
+          local: '~/work/SurRealFront/SurRealFront'
           remote: '~/surreal/front/dist'
           host: ${{secrets.HOST}}
           port: ${{secrets.PORT}}
