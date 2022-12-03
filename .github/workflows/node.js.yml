@@ -67,12 +67,12 @@ jobs:
         uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
           local: '/home/runner/work/SurRealFront/SurRealFront/'
-          remote: '~/surreal/front/dist'
+          remote: '~/surreal/front/'
           host: ${{secrets.HOST}}
           port: ${{secrets.PORT}}
           user: ${{secrets.USERNAME}}
           key: ${{secrets.PRIVATE_KEY}}
           pre_upload: echo "This will be executed before the upload!"
-          post_upload: echo "This will be executed after the upload!"
+          post_upload: mv workspace dist 
           ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
           scp_options: -v
