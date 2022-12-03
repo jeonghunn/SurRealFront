@@ -6,6 +6,7 @@
   class="chats"
 >
   <app-skeleton-loader
+    *ngIf="isLoading && !isFullyLoad"
     count="6"
   ></app-skeleton-loader>
   <app-message
