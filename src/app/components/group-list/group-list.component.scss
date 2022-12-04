@@ -1,3 +1,5 @@
+@import "src/assets/style/palette";
+
 .sidebar {
   display: block;
   margin-left: auto;
@@ -24,7 +26,7 @@
   .creation {
     width: 64px;
     height: 64px;
-    background-color: #EAEAEA;
+    background-color: var(--list-background-dark);
     -webkit-border-radius: 60px;
     -webkit-background-clip: padding-box;
     -moz-border-radius: 60px;
