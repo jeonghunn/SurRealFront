@@ -9,9 +9,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+  MatLegacyDialog as MatDialog,
+  MatLegacyDialogRef as MatDialogRef,
+} from '@angular/material/legacy-dialog';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RoomCreateComponent } from 'src/app/components/room/room-create/room-create.component';
