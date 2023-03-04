@@ -5,7 +5,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterEvent,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DataService } from './core/data.service';
@@ -23,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'SurReal';
   public pageErrorCode: number;
   public isSmallWidth: boolean = false;
+  public isSideNavEnlarged: boolean = true;
 
   private MOBILE_WIDTH: number = WindowSizeWidth.MOBILE;
   private subscriptions: Subscription[] = [];
@@ -42,6 +47,14 @@ export class AppComponent implements OnInit, OnDestroy {
         this.pageErrorCode = code;
       }),
     );
+    this.subscriptions.push(
+      this.router.events.subscribe((event: RouterEvent) => {
+        if ( event instanceof NavigationEnd ) {
+          this.isSideNavEnlarged = event?.url === '/' || event?.url === '/main';
+          this.changeDetectorRef.detectChanges();
+        }
+      }),
+    )
   }
 
   public get isSignedIn(): boolean {

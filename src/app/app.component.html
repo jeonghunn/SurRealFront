@@ -14,13 +14,18 @@
     #drawer
     [mode]="'side'"
     [opened]="(isSideNavOpen || !isSmallWidth) && isSignedIn"
+    [ngClass]="isSideNavEnlarged ? 'drawer-enlarge' : 'drawer'"
     (focusout)="isSideNavOpen = false"
-    class="drawer"
   >
 
-    <app-group-list *ngIf="shouldSideNavOpen"></app-group-list>
+    <app-group-list
+      *ngIf="shouldSideNavOpen"
+      [isLarge]="isSideNavEnlarged"
+    ></app-group-list>
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content
+    [ngClass]="isSideNavEnlarged ? 'drawer-container-large' : 'drawer-container'"
+  >
     <app-navbar
       (toggleSidNav)="toggleSideNav()"
       [isSmallWidth]="isSmallWidth"

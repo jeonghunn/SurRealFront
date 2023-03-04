@@ -20,7 +20,19 @@
   }
 
   .profile {
-    margin: 8px auto 0 auto;
+    margin: 8px auto 0 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+
+    .name {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 8px;
+      font-weight: bold;
+      font-size: 24px;
+      text-overflow:ellipsis;
+    }
   }
 
   .creation {

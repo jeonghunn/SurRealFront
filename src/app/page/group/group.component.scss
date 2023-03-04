@@ -59,6 +59,9 @@
   .header {
     height: $NAV_MOBILE_HEIGHT;
     .profile {
+      margin-left: auto;
+      margin-right: auto;
+
       .name {
         font-size: 18px;
       }

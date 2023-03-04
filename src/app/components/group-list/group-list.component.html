@@ -1,13 +1,19 @@
 <div class="sidebar">
   <div
+    matRipple
     *ngFor="let group of groups"
     class="profile"
+    [matRippleDisabled]="!isLarge"
+    (click)="onGroupClick(group.id)"
   >
     <app-profile-icon
-      [matTooltip]="getTitle(group)"
+      [matTooltip]="!isLarge ? getTitle(group) : null"
       [matTooltipPosition]="'right'"
-      (click)="onGroupClick(group.id)"
     ></app-profile-icon>
+    <span
+      *ngIf="isLarge"
+      class="name"
+    >{{ getTitle(group) }}</span>
   </div>
   <div
     matRipple
