@@ -16,6 +16,11 @@
 .drawer-container {
   height: 100%;
 
+  .hide {
+    margin-left: 0 !important;
+  }
+
+
   .drawer-container {
     margin-left: $SIDENAV_WIDTH !important;
   }

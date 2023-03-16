@@ -24,7 +24,7 @@
     ></app-group-list>
   </mat-drawer>
   <mat-drawer-content
-    [ngClass]="isSideNavEnlarged ? 'drawer-container-large' : 'drawer-container'"
+    [ngClass]="getDrawerContainerClass()"
   >
     <app-navbar
       (toggleSidNav)="toggleSideNav()"

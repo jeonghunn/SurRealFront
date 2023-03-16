@@ -73,6 +73,18 @@ export class AppComponent implements OnInit, OnDestroy {
     return (this.isSideNavOpen || !this.isSmallWidth) && this.isSignedIn;
   }
 
+  public getDrawerContainerClass(): string {
+    if (this.isSideNavEnlarged) {
+      return 'drawer-container-large';
+    }
+
+    if (this.isSideNavOpen) {
+      return 'drawer-container'
+    }
+
+    return 'hide';
+  }
+
   public ngOnInit(): void {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
   }
