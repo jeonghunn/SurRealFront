@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
       return 'drawer-container-large';
     }
 
-    if (this.isSideNavOpen) {
+    if (this.isSideNavOpen || !this.isSmallWidth) {
       return 'drawer-container'
     }
 
