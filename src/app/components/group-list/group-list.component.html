@@ -1,5 +1,12 @@
 <div class="sidebar">
   <div
+  matRipple
+  (click)="go('chat/create')"
+  class="creation"
+  >
+  <mat-icon>add</mat-icon>
+  </div>
+  <div
     matRipple
     *ngFor="let group of groups"
     class="profile"
@@ -14,12 +21,5 @@
       *ngIf="isLarge"
       class="name"
     >{{ getTitle(group) }}</span>
-  </div>
-  <div
-    matRipple
-    (click)="go('chat/create')"
-    class="creation"
-  >
-    <mat-icon>add</mat-icon>
   </div>
 </div>
