@@ -66,6 +66,9 @@
     "CANCEL_REQUEST": "Cancel Request",
     "UNFRIEND": "Unfriend"
   },
+  "GROUP_LIST": {
+    "ADD": "Add Friends or Create a group"
+  },
   "GROUP_CREATE": {
     "FRIENDS": "Friends",
     "CREATE_A_GROUP": "Create a Group",

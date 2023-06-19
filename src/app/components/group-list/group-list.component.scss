@@ -58,5 +58,24 @@
     }
   }
 
+  .creation-large {
+    width: 90%;
+    height: 64px;
+    -webkit-border-radius: 8px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 8px;
+    -moz-background-clip: padding;
+    border-radius: 8px;
+    margin: 8px auto 0 auto;
+    background-color: var(--list-background-dark);
+    cursor: pointer;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    align-items: center;
+  }
+
 
 }

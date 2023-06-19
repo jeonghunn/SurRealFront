@@ -2,9 +2,10 @@
   <div
   matRipple
   (click)="go('chat/create')"
-  class="creation"
+  [ngClass]="isLarge ? 'creation-large' : 'creation'"
   >
   <mat-icon>add</mat-icon>
+  <span *ngIf="isLarge">{{ 'GROUP_LIST.ADD' | translate }}</span>
   </div>
   <div
     matRipple

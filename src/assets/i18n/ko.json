@@ -75,6 +75,9 @@
     "CANCEL_REQUEST": "친구 요청 취소",
     "UNFRIEND": "친구 목록에서 삭제"
   },
+  "GROUP_LIST": {
+    "ADD": "새로 추가하기"
+  },
   "GROUP_CREATE": {
     "FRIENDS": "친구",
     "CREATE_A_GROUP": "그룹 생성",
