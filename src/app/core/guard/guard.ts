@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import {
   Observable,
   of,
@@ -16,7 +11,7 @@ import {
 import { IdentityService } from '../identity.service';
 
 @Injectable()
-export class Guard implements CanActivate {
+export class Guard  {
   public constructor(
         private router: Router,
         private identityService: IdentityService,
