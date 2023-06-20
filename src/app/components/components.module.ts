@@ -25,6 +25,8 @@ import { RoomListComponent } from './room/room-list/room-list.component';
 import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.component';
+import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.co
     MatInputModule,
     ReactiveFormsModule,
     NgxSkeletonLoaderModule,
+    PickerComponent,
+    EmojiPickerComponent,
   ],
 })
 export class ComponentsModule { }

@@ -7,6 +7,17 @@
   (ngSubmit)="submit($event)"
 >
 
+
+<div class="title">
+
+
+  <button
+    mat-raised-button
+    type="button"
+    class="letter"
+    (click)="isShowEmojiPicker = !isShowEmojiPicker"
+  >{{ this.form.get('letter').value }}</button>
+
   <mat-form-field  appearance="fill">
     <mat-label>{{ 'GROUP.ROOM.CREATE_DIALOG.TITLE' | translate }}</mat-label>
     <input matInput
@@ -15,6 +26,17 @@
            [placeholder]="'GROUP.ROOM.CREATE_DIALOG.TITLE_PLACEHOLDER' | translate"
     >
   </mat-form-field>
+
+</div>
+
+<app-emoji-picker
+  *ngIf="isShowEmojiPicker"
+  (select)="form.controls['letter'].setValue($event.native)"
+></app-emoji-picker>
+
+
+
+
 
   <mat-dialog-actions>
     <button

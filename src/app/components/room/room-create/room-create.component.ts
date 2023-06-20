@@ -22,6 +22,7 @@ import {
   take,
 } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
+import { EmojiPickerComponent } from 'src/app/components/emoji-picker/emoji-picker.component';
 
 @Component({
   selector: 'app-room-create',
@@ -38,6 +39,7 @@ export class RoomCreateComponent implements OnInit {
 
   public isShowAdvanced: boolean = false;
   public isLoading: boolean = false;
+  public isShowEmojiPicker: boolean = false;
 
   public form: UntypedFormGroup;
 
@@ -57,12 +59,17 @@ export class RoomCreateComponent implements OnInit {
 
     this.form = new UntypedFormGroup({
       name: new UntypedFormControl(),
+      letter: new UntypedFormControl('💬'),
     });
   }
 
   public close(event: Event): void {
     event.preventDefault();
     this.dialogRef.close();
+  }
+
+  public onLetterClick() {
+    
   }
 
   public submit(event: Event): void {

@@ -94,7 +94,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
 
   public openDialog(): void {
     this.roomCreateDialogRef = this.matDialog.open(RoomCreateComponent, {
-      maxWidth: '400px',
+      maxWidth: '600px',
       minWidth: '280px',
       data: {
         groupId: this.groupId,

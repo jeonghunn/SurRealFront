@@ -14,6 +14,7 @@
     *ngFor="let room of rooms"
     [room]="room.letter"
     [name]="room.name"
+    [letter]="room.letter"
     [description]="room.name"
     [isSelected]="room.id === selectedRoomId && isRoomActive"
     (click)="onClick(room)"
