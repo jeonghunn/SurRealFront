@@ -2,11 +2,12 @@
 <app-spinner *ngIf="isLoading"></app-spinner>
 <form
   *ngIf="!isLoading"
+  class="content"
   [formGroup]="form"
   (ngSubmit)="submit($event)"
 >
 
-  <mat-form-field class="example-full-width" appearance="fill">
+  <mat-form-field  appearance="fill">
     <mat-label>{{ 'GROUP.ROOM.CREATE_DIALOG.TITLE' | translate }}</mat-label>
     <input matInput
            name="name"
