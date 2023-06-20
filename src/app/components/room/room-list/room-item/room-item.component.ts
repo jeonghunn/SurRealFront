@@ -11,6 +11,9 @@ import {
 export class RoomItemComponent {
 
   @Input()
+  public letter: string;
+
+  @Input()
   public name: string;
 
   @Input()

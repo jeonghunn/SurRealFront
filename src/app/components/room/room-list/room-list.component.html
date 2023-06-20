@@ -12,6 +12,7 @@
   </div>
   <app-room-item
     *ngFor="let room of rooms"
+    [room]="room.letter"
     [name]="room.name"
     [description]="room.name"
     [isSelected]="room.id === selectedRoomId && isRoomActive"
