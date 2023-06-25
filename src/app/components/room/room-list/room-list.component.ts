@@ -99,6 +99,7 @@ export class RoomListComponent implements OnChanges, OnDestroy {
       data: {
         groupId: this.groupId,
       },
+      maxHeight: '90vh',
     });
 
     this.roomCreateDialogRef.afterClosed().pipe(take(1)).subscribe(() => {
