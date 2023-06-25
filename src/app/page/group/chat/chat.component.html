@@ -34,7 +34,12 @@
   class="footer"
   [style.width]="footerWidth"
 >
-
+<input
+  #fileInput
+  type="file"
+  style="opacity: 0"
+  (change)="onFileSelected($event)"
+/>
 <div
 *ngIf="files?.length > 0"
 class="attachment"
@@ -63,6 +68,7 @@ class="attachment"
       mat-icon-button
       matSuffix
       [attr.aria-label]="'GROUP.ROOM.CHAT.ATTACH_A_FILE' | translate"
+      (click)="onFileButtonClick()"
     >
       <mat-icon matSuffix>attach_file</mat-icon>
     </button>

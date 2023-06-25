@@ -66,6 +66,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   @ViewChild('chatContainer')
   private chatContainer: ElementRef;
 
+  @ViewChild('fileInput')
+  private fileInput: ElementRef;
+
   private readonly subscriptions: Subscription[] = [];
 
   public constructor(
@@ -73,6 +76,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     private changeDetectorRef: ChangeDetectorRef,
     private roomService: RoomService,
     private sanitizer: DomSanitizer,
+    private elementRef: ElementRef,
   ) {
 
     this.subscriptions = [
@@ -104,6 +108,19 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public counter(i: number): any[] {
     return new Array(i);
+  }
+
+  public onFileButtonClick(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  public onFileSelected(event: any): void {
+    const file: any = {
+      file: event.target.files[0],
+      url: window.URL.createObjectURL(event.target.files[0]),
+    };
+
+    this.roomService.addFiles([ file ]);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
