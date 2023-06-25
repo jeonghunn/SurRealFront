@@ -18,6 +18,7 @@ import {
   Room,
 } from 'src/app/model/type';
 import { FileHandle } from 'src/app/core/directive/drag-drop.directive';
+import { RoomService } from 'src/app/core/room.service';
 
 @Component({
   selector: 'app-group',
@@ -50,6 +51,7 @@ export class GroupComponent implements OnDestroy {
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private groupService: GroupService,
+    private roomService: RoomService, 
     private identityService: IdentityService,
   ) {
 
@@ -86,8 +88,8 @@ export class GroupComponent implements OnDestroy {
     return this.group?.target?.name;
   }
 
-  public onDrop(event: any): void {
-    console.log(event);
+  public onFileDrop(files: File[]): void {
+    this.roomService.addFiles(files);
   }
 
   public isViewActive(category: ChatSpaceCategory): boolean {

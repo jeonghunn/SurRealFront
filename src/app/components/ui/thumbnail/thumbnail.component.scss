@@ -1,0 +1,33 @@
+
+@import "src/assets/style/palette";
+
+.icon{
+  width: 64px;
+  height: 64px;
+  cursor: pointer ;
+  background-color: var(--list-background-dark);
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+  background-size: cover;
+  background-position: center center;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  vertical-align: middle;
+
+
+}
+
+:hover {
+  -webkit-filter: brightness(90%);
+  filter: brightness(90%);
+}
+
+:active {
+  -webkit-filter: brightness(70%);
+  filter: brightness(70%);
+}

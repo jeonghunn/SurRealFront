@@ -8,12 +8,15 @@ import {
   OnChanges,
   OnDestroy,
   Output,
+  SecurityContext,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/core/layout.service';
+import { RoomService } from 'src/app/core/room.service';
 import { Util } from 'src/app/core/util';
 import {
   Chat,
@@ -52,6 +55,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isManualScroll: boolean = true;
   public lastChatLength: number = 0;
 
+  public files: File[] = [];
+
   @Output()
   public readonly chatSend: EventEmitter<Chat> = new EventEmitter();
 
@@ -66,6 +71,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public constructor(
     private layoutService: LayoutService,
     private changeDetectorRef: ChangeDetectorRef,
+    private roomService: RoomService,
+    private sanitizer: DomSanitizer,
   ) {
 
     this.subscriptions = [
@@ -75,6 +82,11 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       this.layoutService.isSideNavOpen$.subscribe(isOpen => {
         this.changeDetectorRef.markForCheck();
       }),
+      this.roomService.uploadFiles$.subscribe((files: File[]) => {
+        this.files = files;
+        this.changeDetectorRef.markForCheck();
+      }),
+    
     ];
   }
 
@@ -128,6 +140,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public getDate(): Date {
     return DateTime.now();
+  }
+
+
+  public getSrcText(file: any) {
+    if(file.file?.type.includes('image')) {
+      return this.sanitizer.sanitize(SecurityContext.URL, file.url);
+    }
+
+    return file.file?.name.split('.').pop().toUpperCase();
   }
 
   public ngAfterViewChecked(): void {

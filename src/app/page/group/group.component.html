@@ -43,7 +43,7 @@
 <mat-tab-nav-panel #tabPanel>
 </mat-tab-nav-panel>
 
-<div appDrag class="content" (files)="onDrop($event)">
+<div appDrag class="content" (files)="onFileDrop($event)">
   <div
     *ngIf="isViewActive(chatSpaceCategory.ROOM)"
     class="room"

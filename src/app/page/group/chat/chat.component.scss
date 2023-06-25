@@ -16,10 +16,22 @@
   position: fixed;
   padding-bottom: 8px;
   bottom: 0;
-  height: 56px;
 
   mat-form-field {
     width: inherit;
+    height: 56px;
+  }
+
+  .attachment {
+    display: flex;
+    width: inherit;
+    overflow-x: auto;
+    margin-bottom: 16px;
+
+    app-thumbnail {
+      margin-right: 8px;
+    }
+
   }
 }
 

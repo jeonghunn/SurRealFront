@@ -34,6 +34,18 @@
   class="footer"
   [style.width]="footerWidth"
 >
+
+<div
+*ngIf="files?.length > 0"
+class="attachment"
+>
+  <app-thumbnail
+    *ngFor="let file of files"
+    [isClickable]="true"
+    [src]="getSrcText(file)"
+  ></app-thumbnail>
+</div>
+
   <mat-form-field appearance="outline">
     <mat-label>{{ (isDisabled ? 'GROUP.ROOM.CHAT.DISABLED' : 'GROUP.ROOM.CHAT.MESSAGE') | translate }}</mat-label>
     <input
