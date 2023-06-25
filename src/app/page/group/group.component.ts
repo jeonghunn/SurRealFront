@@ -58,6 +58,7 @@ export class GroupComponent implements OnDestroy {
     this.subscriptions = [
       this.groupService.openedGroup$.subscribe((group: Group) => {
         this.group = group;
+        this.roomService.clearFiles();
       }),
       this.groupService.openedRoom$.subscribe((room: Room | null) => {
         this.room = room;

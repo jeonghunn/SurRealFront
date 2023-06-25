@@ -22,4 +22,8 @@ export class RoomService {
     this.uploadFiles$.next(currentFiles.concat(files));
   }
 
+  public clearFiles(): void {
+    this.uploadFiles$.next([]);
+  }
+
 }
