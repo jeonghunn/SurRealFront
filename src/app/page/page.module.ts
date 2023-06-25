@@ -36,6 +36,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { RoomComponent } from './group/room/room.component';
 import { GroupInfoComponent } from './group/group-info/group-info.component';
 import { MapComponent } from './group/detail-view/map/map.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { DragDirective } from '../core/directive/drag-drop.directive';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,7 @@ import { MapComponent } from './group/detail-view/map/map.component';
         NgxSkeletonLoaderModule,
         MatRippleModule,
         MatChipsModule,
+        CoreModule,
     ],
 })
 export class PageModule { }

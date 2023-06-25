@@ -17,6 +17,7 @@ import {
   Group,
   Room,
 } from 'src/app/model/type';
+import { FileHandle } from 'src/app/core/directive/drag-drop.directive';
 
 @Component({
   selector: 'app-group',
@@ -32,6 +33,8 @@ export class GroupComponent implements OnDestroy {
   public groupId: number;
   public room: Room;
   public group: Group;
+
+  files: FileHandle[] = [];
 
   public headerStyle: any = {
     'margin-left': '80px',
@@ -81,6 +84,10 @@ export class GroupComponent implements OnDestroy {
     }
 
     return this.group?.target?.name;
+  }
+
+  public onDrop(event: any): void {
+    console.log(event);
   }
 
   public isViewActive(category: ChatSpaceCategory): boolean {
