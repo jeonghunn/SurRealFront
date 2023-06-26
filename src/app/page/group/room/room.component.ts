@@ -45,6 +45,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { RoomService } from 'src/app/core/room.service';
 import { ChatComponent } from '../chat/chat.component';
+import { LayoutService } from 'src/app/core/layout.service';
 
 @Component({
   selector: 'app-room',
@@ -80,6 +81,14 @@ export class RoomComponent implements OnDestroy {
   public isChatFullyLoad: boolean = false;
   public reconnectDelay: number = 1000;
   public offset: number = 0;
+  public isShortWidth: boolean = false;
+
+  public readonly DEFAULT_CHAT_MARGIN: number = 64;
+  public readonly FILE_ATTACH_HEIGHT: number = 88;
+
+  public chatStyle: any = {
+    height: null,
+  };
 
   public subscriptions: Subscription[] = [];
 
@@ -97,6 +106,7 @@ export class RoomComponent implements OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private roomService: RoomService,
+    private layoutService: LayoutService,
   ) {
     this.init();
   }
@@ -111,6 +121,12 @@ export class RoomComponent implements OnDestroy {
 
         this.resetRoom();
         this.initRoom(room);
+      }),
+      this.roomService.uploadFiles$.subscribe((files: File[]) => {
+        this.initChatHeight(files?.length > 0);
+      }),
+      this.layoutService.windowResize$.subscribe(window => {
+        this.isShortWidth = this.layoutService.isShortWidth();
       }),
     );
 
@@ -257,6 +273,19 @@ export class RoomComponent implements OnDestroy {
     });
 
   }
+
+  public initChatHeight(isExpand: boolean = false): void {
+    let margin: number = this.DEFAULT_CHAT_MARGIN;
+
+
+    if (isExpand) {
+      margin += this.FILE_ATTACH_HEIGHT;
+    }
+
+    this.chatStyle.height = `calc(100% - ${margin}px)`;
+    this.changeDetectorRef.markForCheck();
+  }
+
 
   public fetchPreviousChats(): void {
     this.isChatLoading = true;
