@@ -175,6 +175,7 @@ export class DataService {
     switch (error.status) {
       case 400:
         isBigError = isBig;
+        this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.400_BAD_REQUEST.DESCRIPTION'));
         break;
       case 401:
         if (!window.location.pathname?.includes('sign')) {
