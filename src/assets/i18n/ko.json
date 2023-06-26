@@ -6,7 +6,7 @@
     "BACK": "뒤로가기",
     "400_BAD_REQUEST": {
       "TITLE": "잘못된 요청",
-      "DESCRIPTION": "잘못 입력된 주소이거나 정상적이지 않은 경로로 접근했습니다."
+      "DESCRIPTION": "잘못된 요청입니다. 잘 입력했는지 확인 후 다시 시도해 주세요."
     },
     "403_FORBIDDEN": {
       "TITLE": "403 Forbidden",

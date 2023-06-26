@@ -6,7 +6,7 @@
     "BACK": "Go Back",
     "400_BAD_REQUEST": {
       "TITLE": "400 Bad Request",
-      "DESCRIPTION":"You entered wrong URL or probably this is not correct way to access."
+      "DESCRIPTION":"Sorry. Your request is invalid."
     },
     "403_FORBIDDEN": {
       "TITLE": "403 Forbidden",
