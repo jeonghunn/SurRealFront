@@ -261,6 +261,11 @@ export class RoomComponent implements OnDestroy {
     console.log('ConnectionError', error);
     this.isConnected = false;
     this.reconnectDelay = this.reconnectDelay * 1.5;
+
+    if(this.reconnectDelay < 3000) {
+      return;
+    }
+
     const snackBarRef: MatSnackBarRef<TextOnlySnackBar> = this.matSnackBar.open(
       this.translateService.instant('GROUP.ROOM.ERROR.CONNECTION.DESC'),
       this.translateService.instant('GROUP.ROOM.ERROR.CONNECTION.RETRY'),
