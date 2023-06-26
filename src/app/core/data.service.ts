@@ -1,6 +1,7 @@
 import {
   HttpClient,
   HttpErrorResponse,
+  HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -109,6 +110,24 @@ export class DataService {
       catchError(error => this.handleError(error, false)),
     );
   }
+
+  public postAttach(
+    roomId: number,
+    file: File,
+): Observable<any> {
+    const options = {
+        headers: new HttpHeaders(),
+    };
+    options.headers.append('Content-Type', 'multipart/form-data');
+    options.headers.append('Accept', 'application/json');
+
+    const data = new FormData();
+    data.append('attachment', file);
+
+    return this.httpClient.post<any>(`${this.apiUrl}/attach?room_id=${roomId}`, data, options).pipe(
+        catchError(error => this.handleError(error, false)),
+    );
+}
 
   public getChats(groupId: number, roomId: number, before: Date, offset: number = 0, limit: number = 30): Observable<Chat[]> {
     const beforeTimestamp: number = before.getTime() / 1000;

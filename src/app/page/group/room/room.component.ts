@@ -39,6 +39,7 @@ import {
   Chat,
   CommunicationResult,
   CommunicationType,
+  FileContainer,
   LiveMessage,
   Room,
 } from 'src/app/model/type';
@@ -83,7 +84,7 @@ export class RoomComponent implements OnDestroy {
   public offset: number = 0;
   public isShortWidth: boolean = false;
 
-  public readonly DEFAULT_CHAT_MARGIN: number = 64;
+  public readonly DEFAULT_CHAT_MARGIN: number = 72;
   public readonly FILE_ATTACH_HEIGHT: number = 88;
 
   public chatStyle: any = {
@@ -122,7 +123,7 @@ export class RoomComponent implements OnDestroy {
         this.resetRoom();
         this.initRoom(room);
       }),
-      this.roomService.uploadFiles$.subscribe((files: File[]) => {
+      this.roomService.uploadFiles$.subscribe((files: FileContainer[]) => {
         this.initChatHeight(files?.length > 0);
       }),
       this.layoutService.windowResize$.subscribe(window => {

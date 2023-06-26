@@ -14,6 +14,7 @@ import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
 import {
   ChatSpaceCategory,
+  FileContainer,
   Group,
   Room,
 } from 'src/app/model/type';
@@ -89,7 +90,7 @@ export class GroupComponent implements OnDestroy {
     return this.group?.target?.name;
   }
 
-  public onFileDrop(files: File[]): void {
+  public onFileDrop(files: FileContainer[]): void {
     this.roomService.addFiles(files);
   }
 

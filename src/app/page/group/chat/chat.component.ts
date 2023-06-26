@@ -14,12 +14,14 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DateTime } from 'luxon';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError, of } from 'rxjs';
+import { DataService } from 'src/app/core/data.service';
 import { LayoutService } from 'src/app/core/layout.service';
 import { RoomService } from 'src/app/core/room.service';
 import { Util } from 'src/app/core/util';
 import {
   Chat,
+  FileContainer,
   Room,
 } from 'src/app/model/type';
 
@@ -54,8 +56,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isAutoScrollActive: boolean = true;
   public isManualScroll: boolean = true;
   public lastChatLength: number = 0;
+  public uploadingFiles: number = 0;
 
-  public files: File[] = [];
+  public files: FileContainer[] = [];
 
   @Output()
   public readonly chatSend: EventEmitter<Chat> = new EventEmitter();
@@ -77,6 +80,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     private roomService: RoomService,
     private sanitizer: DomSanitizer,
     private elementRef: ElementRef,
+    private dataService: DataService,
   ) {
 
     this.subscriptions = [
@@ -86,7 +90,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       this.layoutService.isSideNavOpen$.subscribe(isOpen => {
         this.changeDetectorRef.markForCheck();
       }),
-      this.roomService.uploadFiles$.subscribe((files: File[]) => {
+      this.roomService.uploadFiles$.subscribe((files: FileContainer[]) => {
         this.files = files;
         this.changeDetectorRef.markForCheck();
       }),
@@ -115,7 +119,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onFileSelected(event: any): void {
-    const file: any = {
+    const file: FileContainer = {
       file: event.target.files[0],
       url: window.URL.createObjectURL(event.target.files[0]),
     };
@@ -204,8 +208,27 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public sendMessage(text: string): void {
-    if (!text || text?.length === 0) {
+    if ((!text || text?.length === 0) && this.files?.length === 0) {
       return;
+    }
+
+    if(this.files?.length > 0) {
+
+      this.files.forEach(file => {
+        this.uploadingFiles++;
+        this.dataService.postAttach(this.room?.id, file?.file).pipe(
+          catchError((err: any) => {
+            this.uploadingFiles = 0;
+            return of(err);
+          }),
+        ).subscribe((res: any) => {
+          this.uploadingFiles--;
+
+          if (this.uploadingFiles === 0) {
+            this.roomService.clearFiles();
+          }
+        });
+      });
     }
 
     this.isAutoScrollActive = true;

@@ -157,6 +157,11 @@ export class Room {
 
 }
 
+export class FileContainer {
+  public file: File;
+  public url: any;
+}
+
 export enum RelationCategory {
   FRIEND,
   BLOCKED,
