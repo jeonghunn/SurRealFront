@@ -14,7 +14,12 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DateTime } from 'luxon';
-import { Subscription, catchError, of } from 'rxjs';
+import {
+  Subscription,
+  catchError,
+  of,
+  take,
+} from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
 import { LayoutService } from 'src/app/core/layout.service';
 import { RoomService } from 'src/app/core/room.service';
@@ -79,7 +84,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     private changeDetectorRef: ChangeDetectorRef,
     private roomService: RoomService,
     private sanitizer: DomSanitizer,
-    private elementRef: ElementRef,
     private dataService: DataService,
   ) {
 
@@ -207,33 +211,52 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
   }
 
-  public sendMessage(text: string): void {
+  public onSendClick(text: string): void {
     if ((!text || text?.length === 0) && this.files?.length === 0) {
       return;
     }
 
     if(this.files?.length > 0) {
+      const attaches: string[] = [];
 
       this.files.forEach(file => {
         this.uploadingFiles++;
         this.dataService.postAttach(this.room?.id, file?.file).pipe(
+          take(1),
           catchError((err: any) => {
             this.uploadingFiles = 0;
             return of(err);
           }),
         ).subscribe((res: any) => {
+          attaches.push(res?.binary_name);
+
           this.uploadingFiles--;
 
           if (this.uploadingFiles === 0) {
+            this.sendMessage(
+              text,
+              {
+                attaches,
+              }
+              );
             this.roomService.clearFiles();
           }
         });
       });
+
+      return;
     }
 
+    this.sendMessage(text);
+  }
+
+  public sendMessage(
+    text: string,
+    meta: any = null,
+    ): void {
     this.isAutoScrollActive = true;
     this.message = '';
-    this.chatSend.emit(new Chat(null, text, null, null));
+    this.chatSend.emit(new Chat(null, text, null, null, meta));
     this.message = '';
 
   }

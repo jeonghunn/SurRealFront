@@ -2,10 +2,13 @@ import {
   Component,
   Input,
   OnInit,
+  SecurityContext,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { DateTime } from 'luxon';
+import { Attach } from 'src/app/model/type';
 
 @Component({
   selector: 'app-message',
@@ -32,8 +35,12 @@ export class MessageComponent {
   @Input()
   public isShowTime: boolean;
 
+  @Input()
+  public attaches: Attach[] = [];
+
   public constructor(
     private router: Router,
+    private sanitizer: DomSanitizer,
   ) {
   }
 
@@ -43,5 +50,13 @@ export class MessageComponent {
 
   public onProfileClick(): void {
     this.router.navigateByUrl(`/user/${this.user_id}`);
+  }
+
+  public getSrcText(file: any) {
+    if(file.file?.type.includes('image')) {
+      return this.sanitizer.sanitize(SecurityContext.URL, file.url);
+    }
+
+    return file.file?.name.split('.').pop().toUpperCase();
   }
 }

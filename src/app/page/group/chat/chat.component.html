@@ -16,6 +16,7 @@
     [user_id]="chat.user?.id"
     [message]="chat.content"
     [date]="chat?.createdAt"
+    [attaches]="chat?.meta?.attaches"
     [isShowTime]="true"
   ></app-message>
 </div>
@@ -84,7 +85,7 @@ class="attachment"
       #send_button
       mat-icon-button
       matSuffix
-      (click)="sendMessage(message)"
+      (click)="onSendClick(message)"
       [attr.aria-label]="'GROUP.ROOM.CHAT.SEND' | translate"
     >
       <mat-icon

@@ -218,6 +218,7 @@ export class RoomComponent implements OnDestroy {
           msg.content,
           msg.createdAt,
           msg.user,
+          msg.meta,
         );
         this.chats.push(chat);
         this.changeDetectorRef.markForCheck();
