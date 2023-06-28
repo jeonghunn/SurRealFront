@@ -45,7 +45,7 @@ export class MessageComponent {
   public constructor(
     private router: Router,
     private sanitizer: DomSanitizer,
-    private chnageDetectorRef: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -64,7 +64,7 @@ export class MessageComponent {
   public onThumbnailClick(file: any): void {
     this.selectedAttach = file;
     this.isViewerOpen = true;
-    this.chnageDetectorRef.markForCheck();
+    this.changeDetectorRef.markForCheck();
   }
 
 }
