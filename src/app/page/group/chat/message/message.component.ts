@@ -53,10 +53,6 @@ export class MessageComponent {
   }
 
   public getSrcText(file: any) {
-    if(file.file?.type.includes('image')) {
-      return this.sanitizer.sanitize(SecurityContext.URL, file.url);
-    }
-
-    return file.file?.name.split('.').pop().toUpperCase();
+     return this.sanitizer.sanitize(SecurityContext.URL, `${file.url}?width=160&height=160`);
   }
 }

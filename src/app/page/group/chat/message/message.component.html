@@ -18,7 +18,7 @@
     <app-thumbnail
         *ngFor="let file of attaches"
         [isClickable]="true"
-        [src]="file.url"
+        [src]="getSrcText(file)"
     ></app-thumbnail>
     </div>
 </div>

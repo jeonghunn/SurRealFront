@@ -39,15 +39,38 @@ export class ThumbnailComponent implements OnChanges {
       this.isPlaceHolder = true;
     }
 
+
+    this.initStyle();
+    
+    if (!this.isPlaceHolder) {
+      let delay: number = 0;
+      const image = new Image();
+      image.src = this.src;
+      image.onload = () => {
+        this.initStyle(`url(${this.src})`);
+        this.changeDetectorRef.markForCheck();
+      }
+
+      image.onerror = () => {
+          setTimeout(() => {
+            image.src = this.src;
+            delay += 500;
+          }, delay);
+      }
+    }
+
+    this.changeDetectorRef.markForCheck();
+  }
+
+  public initStyle(backgroundImage: string = null): void {
     this.style = {
       height: `${this.length}px`,
       width: `${this.length}px`,
       borderRadius: `8px`,
+      backgroundImage,
       cursor: this.isClickable ? 'pointer' : 'unset',
-      backgroundImage: this.isPlaceHolder ? null : `url(${this.src})`,
       lineHeight: `${this.length}px`,
     };
-    this.changeDetectorRef.markForCheck();
   }
 
 }
