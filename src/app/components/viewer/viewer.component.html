@@ -1,0 +1,31 @@
+<div
+    class="container"
+    (click)="onCloseClick($event)"
+>
+    <div class="header">
+        <button
+            mat-icon-button
+            aria-label="Download"
+            (click)="onDownloadClick($event, attach);"
+        >
+            <mat-icon
+                color="accent"
+            >download</mat-icon>
+          </button>
+        <button
+            mat-icon-button
+            aria-label="Close"
+            (click)="onCloseClick($event)"
+        >
+            <mat-icon
+                color="accent"
+            >close</mat-icon>
+          </button>
+    </div>
+
+    <img
+        class="image"
+        [src]="attach?.url"
+    />
+
+</div>

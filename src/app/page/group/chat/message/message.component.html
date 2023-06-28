@@ -19,7 +19,12 @@
         *ngFor="let file of attaches"
         [isClickable]="true"
         [src]="getSrcText(file)"
+        (click)="onThumbnailClick(file)"
     ></app-thumbnail>
     </div>
 </div>
-
+<app-viewer
+    *ngIf="isViewerOpen"
+    (viewerClose)="isViewerOpen = false"
+    [attach]="selectedAttach"
+></app-viewer>

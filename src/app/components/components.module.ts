@@ -28,6 +28,7 @@ import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.co
 import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
+import { ViewerComponent } from './viewer/viewer.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
     RoomCreateComponent,
     SkeletonLoaderComponent,
     ThumbnailComponent,
+    ViewerComponent,
   ],
     exports: [
         FooterComponent,
@@ -53,6 +55,7 @@ import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
         RoomListComponent,
         SkeletonLoaderComponent,
         ThumbnailComponent,
+        ViewerComponent,
     ],
   imports: [
     UiModule,

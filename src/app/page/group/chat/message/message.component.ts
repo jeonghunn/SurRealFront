@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -38,9 +39,13 @@ export class MessageComponent {
   @Input()
   public attaches: Attach[] = [];
 
+  public isViewerOpen: boolean = false;
+  public selectedAttach: Attach;
+
   public constructor(
     private router: Router,
     private sanitizer: DomSanitizer,
+    private chnageDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -55,4 +60,11 @@ export class MessageComponent {
   public getSrcText(file: any) {
      return this.sanitizer.sanitize(SecurityContext.URL, `${file.url}?width=160&height=160`);
   }
+
+  public onThumbnailClick(file: any): void {
+    this.selectedAttach = file;
+    this.isViewerOpen = true;
+    this.chnageDetectorRef.markForCheck();
+  }
+
 }
