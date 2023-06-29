@@ -51,14 +51,16 @@ class="attachment"
     [src]="getSrcText(file)"
   ></app-thumbnail>
 </div>
-
+  <mat-progress-bar
+    *ngIf="uploadingFiles > 0"
+    mode="indeterminate"
+  ></mat-progress-bar>
   <mat-form-field appearance="outline">
-    <mat-label>{{ (isDisabled ? 'GROUP.ROOM.CHAT.DISABLED' : 'GROUP.ROOM.CHAT.MESSAGE') | translate }}</mat-label>
     <input
       matInput
       [(ngModel)]="message"
-      [disabled]="isDisabled"
-      [placeholder]="'GROUP.ROOM.CHAT.WRITE_A_MESSAGE' | translate"
+      [disabled]="isDisabled || uploadingFiles > 0"
+      [placeholder]=" (isDisabled ? 'GROUP.ROOM.CHAT.DISABLED' : 'GROUP.ROOM.CHAT.WRITE_A_MESSAGE') | translate"
       (keyup.enter)="onSendClick(message)"
       id="chat_message_input"
       type="text"
