@@ -21,4 +21,29 @@
     .image {
         max-width: 80%;
     }
+
+    .info {
+        margin-top: 64px;
+        margin-bottom: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+        border-radius: 8px;
+        border-color: white;
+
+        .icon {
+            transform: scale(4);
+            width: 100%;
+            margin-bottom: 48px;
+         }
+         
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 16px;
+        }
+    }
 }

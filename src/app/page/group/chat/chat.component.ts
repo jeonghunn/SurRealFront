@@ -217,7 +217,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
 
     if(this.files?.length > 0) {
-      const attaches: string[] = [];
+      const attaches: any[] = [];
 
       this.files.forEach(file => {
         this.uploadingFiles++;
@@ -228,7 +228,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
             return of(err);
           }),
         ).subscribe((res: any) => {
-          attaches.push(res?.binary_name);
+          attaches.push({
+            binary_name: res?.binary_name,
+            type: res?.type,
+            name: res?.name,
+            extension: res?.extension,
+            size: res?.size,
+          });
 
           this.uploadingFiles--;
 

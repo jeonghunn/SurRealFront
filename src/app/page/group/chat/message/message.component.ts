@@ -2,14 +2,16 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit,
   SecurityContext,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { DateTime } from 'luxon';
-import { Attach } from 'src/app/model/type';
+import {
+  Attach,
+  AttachType,
+} from 'src/app/model/type';
 
 @Component({
   selector: 'app-message',
@@ -57,8 +59,12 @@ export class MessageComponent {
     this.router.navigateByUrl(`/user/${this.user_id}`);
   }
 
-  public getSrcText(file: any) {
-     return this.sanitizer.sanitize(SecurityContext.URL, `${file.url}?width=160&height=160`);
+  public getSrcText(attach: Attach) {
+    if(attach.type === AttachType.IMAGE) {
+      return this.sanitizer.sanitize(SecurityContext.URL, `${attach.url}?width=160&height=160`);
+    }
+
+     return attach.extension?.toUpperCase();
   }
 
   public onThumbnailClick(file: any): void {

@@ -5,7 +5,10 @@ import {
   OnChanges,
   Output,
 } from '@angular/core';
-import { Attach } from 'src/app/model/type';
+import {
+  Attach,
+  AttachType,
+} from 'src/app/model/type';
 
 @Component({
   selector: 'app-viewer',
@@ -19,6 +22,8 @@ export class ViewerComponent implements OnChanges {
 
   @Output()
   public readonly viewerClose: EventEmitter<null> = new EventEmitter<null>();
+
+  public attachType: typeof AttachType = AttachType;
 
   public onCloseClick(event: MouseEvent): void {
     this.viewerClose.emit();

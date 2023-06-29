@@ -24,8 +24,18 @@
     </div>
 
     <img
+        *ngIf="attach?.type === attachType.IMAGE"
         class="image"
         [src]="attach?.url"
     />
+
+    <div
+        *ngIf="attach?.type !== attachType.IMAGE"
+        class="info"
+    >
+        <mat-icon class="icon">insert_drive_file</mat-icon>
+        <span class="title">{{ attach.name }}{{ attach.extension }}</span>
+        <p>{{ attach.size | filesize }}</p>
+    </div>
 
 </div>

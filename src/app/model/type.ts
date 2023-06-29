@@ -177,6 +177,11 @@ export enum RelationStatus {
   REQUEST_RECEIVED,
 }
 
+export enum AttachType {
+  BINARY,
+  IMAGE,
+}
+
 export class ResponseSet {
   public category: ResponseResult;
   public message: string;
