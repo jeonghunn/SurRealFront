@@ -16,6 +16,10 @@
       "TITLE": "404 Not Found",
       "DESCRIPTION":"Sorry. The contents you looking for doesn't exist."
     },
+    "413_PAYLOAD_TOO_LARGE": {
+      "TITLE": "413 Payload Too Large",
+      "DESCRIPTION":"Sorry. The file you are trying to upload is too large."
+    },
     "500_INTERNAL_SERVER_ERROR": {
       "TITLE": "Sorry, Something went wrong.",
       "DESCRIPTION":"We will fix this problem soon."

@@ -51,6 +51,9 @@ class="attachment"
     [src]="getSrcText(file)"
   ></app-thumbnail>
 </div>
+  <mat-error *ngIf="chatErrorMessage">
+    {{ chatErrorMessage | translate }}
+  </mat-error>
   <mat-progress-bar
     *ngIf="uploadingFiles > 0"
     mode="indeterminate"

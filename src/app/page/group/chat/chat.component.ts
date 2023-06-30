@@ -62,6 +62,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isManualScroll: boolean = true;
   public lastChatLength: number = 0;
   public uploadingFiles: number = 0;
+  public chatErrorMessage: string = null;
 
   public files: FileContainer[] = [];
 
@@ -212,6 +213,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onSendClick(text: string): void {
+    this.chatErrorMessage = null;
+
     if ((!text || text?.length === 0) && this.files?.length === 0) {
       return;
     }
@@ -225,6 +228,19 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
           take(1),
           catchError((err: any) => {
             this.uploadingFiles = 0;
+            console.log('[ERROR] File Upload : ', err);
+
+            switch (err?.status) {
+              case 413:
+                this.chatErrorMessage = 'HTTP_ERROR.413_PAYLOAD_TOO_LARGE.DESCRIPTION';
+                break;
+              default:
+                this.chatErrorMessage = 'ERROR.UNKNOWN';
+                break;
+            }
+
+            this.changeDetectorRef.markForCheck();
+
             return of(err);
           }),
         ).subscribe((res: any) => {
