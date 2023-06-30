@@ -44,6 +44,7 @@ export class ThumbnailComponent implements OnChanges {
     
     if (!this.isPlaceHolder) {
       let delay: number = 0;
+      let retry: number = 0;
       const image = new Image();
       image.src = this.src;
       image.onload = () => {
@@ -52,10 +53,14 @@ export class ThumbnailComponent implements OnChanges {
       }
 
       image.onerror = () => {
+
+        if (retry++ < 10) {
           setTimeout(() => {
             image.src = this.src;
             delay += 500;
           }, delay);
+        }
+
       }
     }
 
