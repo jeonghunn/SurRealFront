@@ -4,6 +4,7 @@
     "REFRESH": "Refresh",
     "FEEDBACK": "Feedback",
     "BACK": "Go Back",
+    "MAIN": "Go home",
     "400_BAD_REQUEST": {
       "TITLE": "400 Bad Request",
       "DESCRIPTION":"Sorry. Your request is invalid."
@@ -119,7 +120,7 @@
           "DESC": "Trying to Reconnect... ",
           "RETRY": "Retry"
         },
-        "AUTH": "Please sign in again."
+        "AUTH": "You are not authorized to access."
       }
     }
   }

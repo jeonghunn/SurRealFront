@@ -51,4 +51,8 @@ export class ErrorPageComponent {
     window.history.back();
   }
 
+  public goMain(): void {
+    this.router.navigateByUrl('/').then(null);
+  }
+
 }

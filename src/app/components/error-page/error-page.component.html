@@ -19,3 +19,12 @@
 >
   <button mat-stroked-button (click)="goBack()">{{ 'HTTP_ERROR.BACK' | translate }}</button>
 </app-bigerror>
+<app-bigerror
+  *ngIf="errorCode === 403"
+  [title]="'HTTP_ERROR.403_FORBIDDEN.TITLE' | translate"
+  [description]="'HTTP_ERROR.403_FORBIDDEN.DESCRIPTION' | translate"
+>
+<button mat-stroked-button (click)="refresh()">{{ 'HTTP_ERROR.REFRESH' | translate }}</button>
+  <button mat-stroked-button (click)="goBack()">{{ 'HTTP_ERROR.BACK' | translate }}</button>
+  <button mat-stroked-button (click)="goMain()">{{ 'HTTP_ERROR.MAIN' | translate }}</button>
+</app-bigerror>

@@ -83,10 +83,10 @@ export class DataService {
     );
   }
 
-  public getGroup(id: number): Observable<Group> {
+  public getGroup(id: number, bigError: boolean = true): Observable<Group> {
     return this.httpClient.get<{ group: Group }>(`${this.apiUrl}/group/${id}`, {}).pipe(
       map((result: { group: Group }) => result.group),
-      catchError(error => this.handleError(error)),
+      catchError(error => this.handleError(error, bigError)),
     );
   }
 
@@ -202,6 +202,7 @@ export class DataService {
         }
         break;
       case 403:
+        isBigError = isBig;
         this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.403_FORBIDDEN.DESCRIPTION'));
         break;
       case 404:
