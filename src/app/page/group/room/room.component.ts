@@ -81,6 +81,7 @@ export class RoomComponent implements OnDestroy {
   public isChatLoading: boolean = false;
   public isChatFullyLoad: boolean = false;
   public reconnectDelay: number = 1000;
+  public reAuthDelay: number = 100;
   public offset: number = 0;
   public isShortWidth: boolean = false;
 
@@ -253,10 +254,11 @@ export class RoomComponent implements OnDestroy {
       return;
     }
 
-    this.matSnackBar.open(
-      this.translateService.instant('GROUP.ROOM.ERROR.AUTH'),
-    );
-    this.router.navigateByUrl('signin').then(null);
+    setTimeout(() => {
+      console.log('[Auth] Retry to send auth message.');
+      this.sendAuthMessage();
+      this.reAuthDelay = this.reAuthDelay * 2;
+    }, this.reAuthDelay);
   }
 
   public onConnectionError(error: any = null): void {
