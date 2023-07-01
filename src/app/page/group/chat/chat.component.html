@@ -47,6 +47,7 @@ class="attachment"
 >
   <app-thumbnail
     *ngFor="let file of files"
+    (click)="openAttachDeleteDialog(file)"
     [isClickable]="true"
     [src]="getSrcText(file)"
   ></app-thumbnail>

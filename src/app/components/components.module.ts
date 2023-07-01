@@ -30,6 +30,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
 import { ViewerComponent } from './viewer/viewer.component';
 import { NgxFilesizeModule } from 'ngx-filesize';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { NgxFilesizeModule } from 'ngx-filesize';
     SkeletonLoaderComponent,
     ThumbnailComponent,
     ViewerComponent,
+    ConfirmComponent,
   ],
     exports: [
         FooterComponent,
@@ -57,6 +59,7 @@ import { NgxFilesizeModule } from 'ngx-filesize';
         SkeletonLoaderComponent,
         ThumbnailComponent,
         ViewerComponent,
+        ConfirmComponent,
     ],
   imports: [
     UiModule,

@@ -12,7 +12,12 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import {
   Subscription,
@@ -20,6 +25,7 @@ import {
   of,
   take,
 } from 'rxjs';
+import { ConfirmComponent } from 'src/app/components/confirm/confirm.component';
 import { DataService } from 'src/app/core/data.service';
 import { LayoutService } from 'src/app/core/layout.service';
 import { RoomService } from 'src/app/core/room.service';
@@ -63,6 +69,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public lastChatLength: number = 0;
   public uploadingFiles: number = 0;
   public chatErrorMessage: string = null;
+  public attachDeleteDialogRef: MatDialogRef<ConfirmComponent>;
 
   public files: FileContainer[] = [];
 
@@ -86,6 +93,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     private roomService: RoomService,
     private sanitizer: DomSanitizer,
     private dataService: DataService,
+    private matDialog: MatDialog,
+    private translateService: TranslateService,
   ) {
 
     this.subscriptions = [
@@ -182,6 +191,31 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       this.lastChatLength = this.chats?.length;
       this.scrollToBottom(true);
     }
+
+  }
+
+  public openAttachDeleteDialog(file: any): void {
+    this.attachDeleteDialogRef = this.matDialog.open(ConfirmComponent, {
+      maxWidth: '600px',
+      minWidth: '280px',
+      data: {
+        title: file.file.name,
+        src: this.getSrcText(file),
+        message: this.translateService.instant('ATTACH.DELETE.DESCRIPTION'),
+        positiveText: this.translateService.instant('ATTACH.DELETE.YES'),
+        negativeText: this.translateService.instant('ATTACH.DELETE.CANCEL'),
+        returnValue: file.url,
+      },
+      maxHeight: '90vh',
+    });
+
+    this.attachDeleteDialogRef.afterClosed().subscribe((result: any) => {
+      if (result?.option) {
+        this.roomService.deleteAttachByUrl(result?.data);
+      }
+
+      this.attachDeleteDialogRef = null;
+    });
 
   }
 

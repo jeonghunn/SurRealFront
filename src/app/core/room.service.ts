@@ -27,4 +27,10 @@ export class RoomService {
     this.uploadFiles$.next([]);
   }
 
+  public deleteAttachByUrl(url: string): void {
+    const currentFiles: FileContainer[] = this.uploadFiles$.getValue();
+    const files: FileContainer[] = currentFiles.filter((file: FileContainer) => file.url !== url);
+    this.uploadFiles$.next(files);
+  }
+
 }

@@ -81,6 +81,14 @@
   "FRIEND_LIST": {
     "EMPTY": "Add a friend to start conversation."
   },
+  "ATTACH": {
+    "DELETE": {
+      "TITLE": "Delete File",
+      "DESCRIPTION": "Are you sure you want to delete this file from upload list?",
+      "CANCEL": "Cancel",
+      "YES": "Delete"
+    }
+  },
   "GROUP": {
     "ROOM": {
       "CREATE": "Create new room",

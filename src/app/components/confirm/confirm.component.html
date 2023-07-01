@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>{{ dialogData?.title }}</h1>
+<div
+mat-dialog-content
+class="content"
+>
+{{ dialogData?.message }}
+</div>
+
+<app-thumbnail
+    *ngIf="dialogData?.src"
+    [src]="dialogData?.src"
+    [isClickable]="false"
+    [length]="128"
+    class="thumbnail"
+>
+</app-thumbnail>
+
+<div
+mat-dialog-actions
+class="footer"
+>
+  <button
+    mat-button
+    mat-dialog-close
+    (click)="onButtonClick($event, false)"
+    >
+    {{ dialogData?.negativeText }}
+    </button>
+  <button
+    mat-button
+    mat-dialog-close
+    cdkFocusInitial
+    (click)="onButtonClick($event, true)"
+    >
+    {{ dialogData?.positiveText }}
+    </button>
+</div>
