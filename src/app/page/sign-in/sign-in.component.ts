@@ -7,7 +7,10 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { throwError } from 'rxjs';
 import {
   catchError,
@@ -27,6 +30,7 @@ export class SignInComponent implements OnInit {
   public isHidePassword: boolean = true;
   public isLoading: boolean = false;
   public hasAuthError: boolean = false;
+  public returnPath: string = '/';
 
   public signInForm: UntypedFormGroup = new UntypedFormGroup({
     email: new UntypedFormControl('', Validators.email),
@@ -35,14 +39,17 @@ export class SignInComponent implements OnInit {
 
   public constructor(
     private dataService: DataService,
+    private activatedRoute: ActivatedRoute,
     private identityService: IdentityService,
     public router: Router,
   ) {
   }
 
   public ngOnInit(): void {
+    this.returnPath = this.activatedRoute.snapshot.queryParams?.return || '/';
+
     if (this.identityService.isSignedIn) {
-      this.goMain();
+      this.router.navigateByUrl(this.returnPath).then(null);
     }
   }
 
@@ -73,7 +80,7 @@ export class SignInComponent implements OnInit {
       }),
     ).subscribe((result: UserSimpleSet) => {
       this.isLoading = false;
-      this.goMain();
+      this.router.navigateByUrl(this.returnPath).then(null);
     });
 
   }

@@ -8,7 +8,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   catchError,
@@ -27,6 +30,7 @@ export class SignUpComponent implements OnInit {
 
   public isHidePassword: boolean = true;
   public isLoading: boolean = false;
+  public returnPath: string = '/';
 
   public signUpForm: UntypedFormGroup = new UntypedFormGroup({
     email: new UntypedFormControl('', Validators.email),
@@ -39,13 +43,16 @@ export class SignUpComponent implements OnInit {
     private matSnackBar: MatSnackBar,
     private translateService: TranslateService,
     private identityService: IdentityService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {
   }
 
   public ngOnInit(): void {
+    this.returnPath = this.activatedRoute.snapshot.queryParams?.return || '/';
+
     if (this.identityService.isSignedIn) {
-      this.router.navigateByUrl('/').then(null);
+      this.router.navigateByUrl(this.returnPath).then(null);
     }
   }
 
@@ -70,7 +77,7 @@ export class SignUpComponent implements OnInit {
         )
       .subscribe((result: UserSimpleSet) => {
         this.isLoading = false;
-        this.goMain();
+        this.router.navigateByUrl(this.returnPath).then(null);
       });
   }
 

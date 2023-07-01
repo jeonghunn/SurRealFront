@@ -25,6 +25,12 @@ import { RoomListComponent } from './room/room-list/room-list.component';
 import { ProfileIconComponent } from './ui/profile-icon/profile-icon.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.component';
+import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
+import { ViewerComponent } from './viewer/viewer.component';
+import { NgxFilesizeModule } from 'ngx-filesize';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +45,9 @@ import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.co
     RoomItemComponent,
     RoomCreateComponent,
     SkeletonLoaderComponent,
+    ThumbnailComponent,
+    ViewerComponent,
+    ConfirmComponent,
   ],
     exports: [
         FooterComponent,
@@ -48,6 +57,9 @@ import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.co
         FriendListComponent,
         RoomListComponent,
         SkeletonLoaderComponent,
+        ThumbnailComponent,
+        ViewerComponent,
+        ConfirmComponent,
     ],
   imports: [
     UiModule,
@@ -65,6 +77,9 @@ import { SkeletonLoaderComponent } from './ui/skeleton-loader/skeleton-loader.co
     MatInputModule,
     ReactiveFormsModule,
     NgxSkeletonLoaderModule,
+    PickerComponent,
+    EmojiPickerComponent,
+    NgxFilesizeModule,
   ],
 })
 export class ComponentsModule { }

@@ -1,12 +1,30 @@
 <div class="message">
-    <div class="chat">
-        <div
-            class="profile"
-            (click)="onProfileClick()"
-            [style.backgroundColor]="color"
-        >{{ name }}</div>
-        <span>{{ message }}</span>
+    <div class="row">
+        <div class="chat">
+            <div
+                class="profile"
+                (click)="onProfileClick()"
+                [style.backgroundColor]="color"
+            >{{ name }}</div>
+            <span>{{ message }}</span>
+        </div>
+        <span *ngIf="isShowTime">{{ getFormattedDate }}</span>
+    
     </div>
-    <span *ngIf="isShowTime">{{ getFormattedDate }}</span>
+    <div
+        class="attachment"
+        *ngIf="attaches?.length > 0"
+    >
+    <app-thumbnail
+        *ngFor="let file of attaches"
+        [isClickable]="true"
+        [src]="getSrcText(file)"
+        (click)="onThumbnailClick(file)"
+    ></app-thumbnail>
+    </div>
 </div>
-
+<app-viewer
+    *ngIf="isViewerOpen"
+    (viewerClose)="isViewerOpen = false"
+    [attach]="selectedAttach"
+></app-viewer>

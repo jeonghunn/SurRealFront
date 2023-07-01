@@ -1,0 +1,41 @@
+<div
+    class="container"
+    (click)="onCloseClick($event)"
+>
+    <div class="header">
+        <button
+            mat-icon-button
+            aria-label="Download"
+            (click)="onDownloadClick($event, attach);"
+        >
+            <mat-icon
+                color="accent"
+            >download</mat-icon>
+          </button>
+        <button
+            mat-icon-button
+            aria-label="Close"
+            (click)="onCloseClick($event)"
+        >
+            <mat-icon
+                color="accent"
+            >close</mat-icon>
+          </button>
+    </div>
+
+    <img
+        *ngIf="attach?.type === attachType.IMAGE"
+        class="image"
+        [src]="attach?.url"
+    />
+
+    <div
+        *ngIf="attach?.type !== attachType.IMAGE"
+        class="info"
+    >
+        <mat-icon class="icon">insert_drive_file</mat-icon>
+        <span class="title">{{ attach.name }}{{ attach.extension }}</span>
+        <p>{{ attach.size | filesize }}</p>
+    </div>
+
+</div>

@@ -60,7 +60,7 @@
     <div class="additional_buttons">
       <button
         mat-stroked-button
-        (click)="router.navigateByUrl('signup')"
+        (click)="router.navigateByUrl('signup?return=' + returnPath)"
       >{{ 'SIGN_IN.SIGN_UP' | translate }}</button>
     </div>
   </div>

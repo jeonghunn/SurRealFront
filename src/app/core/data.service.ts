@@ -1,6 +1,7 @@
 import {
   HttpClient,
   HttpErrorResponse,
+  HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -82,10 +83,10 @@ export class DataService {
     );
   }
 
-  public getGroup(id: number): Observable<Group> {
+  public getGroup(id: number, bigError: boolean = true): Observable<Group> {
     return this.httpClient.get<{ group: Group }>(`${this.apiUrl}/group/${id}`, {}).pipe(
       map((result: { group: Group }) => result.group),
-      catchError(error => this.handleError(error)),
+      catchError(error => this.handleError(error, bigError)),
     );
   }
 
@@ -109,6 +110,24 @@ export class DataService {
       catchError(error => this.handleError(error, false)),
     );
   }
+
+  public postAttach(
+    roomId: number,
+    file: File,
+): Observable<any> {
+    const options = {
+        headers: new HttpHeaders(),
+    };
+    options.headers.append('Content-Type', 'multipart/form-data');
+    options.headers.append('Accept', 'application/json');
+
+    const data = new FormData();
+    data.append('attachment', file);
+
+    return this.httpClient.post<any>(`${this.apiUrl}/attach?room_id=${roomId}`, data, options).pipe(
+        catchError(error => this.handleError(error, false)),
+    );
+}
 
   public getChats(groupId: number, roomId: number, before: Date, offset: number = 0, limit: number = 30): Observable<Chat[]> {
     const beforeTimestamp: number = before.getTime() / 1000;
@@ -175,6 +194,7 @@ export class DataService {
     switch (error.status) {
       case 400:
         isBigError = isBig;
+        this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.400_BAD_REQUEST.DESCRIPTION'));
         break;
       case 401:
         if (!window.location.pathname?.includes('sign')) {
@@ -182,6 +202,7 @@ export class DataService {
         }
         break;
       case 403:
+        isBigError = isBig;
         this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.403_FORBIDDEN.DESCRIPTION'));
         break;
       case 404:

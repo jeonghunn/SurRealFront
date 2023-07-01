@@ -14,6 +14,7 @@
 <nav
   *ngIf="isShortWidth"
   mat-tab-nav-bar
+  [tabPanel]="tabPanel"
   class="tabs"
 >
   <a
@@ -39,7 +40,10 @@
     (click)="open(chatSpaceCategory.INFO)"
   >Info</a>
 </nav>
-<div class="content">
+<mat-tab-nav-panel #tabPanel>
+</mat-tab-nav-panel>
+
+<div appDrag class="content" (files)="onFileDrop($event)">
   <div
     *ngIf="isViewActive(chatSpaceCategory.ROOM)"
     class="room"

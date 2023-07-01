@@ -16,12 +16,36 @@
 .drawer-container {
   height: 100%;
 
+  .hide {
+    margin-left: 0 !important;
+  }
+
+
+  .drawer-container {
+    margin-left: $SIDENAV_WIDTH !important;
+  }
+
+  .drawer-container-large {
+    margin-left: $SIDENAV_WIDTH_LARGE !important;
+  }
+
+
   .drawer {
-    width: 80px;
+    width: $SIDENAV_WIDTH;
     margin-right: auto;
     margin-left: auto;
     padding-top: $NAV_HEIGHT;
   }
+
+
+  .drawer-enlarge {
+    @extend .drawer;
+    width: $SIDENAV_WIDTH_LARGE;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: $NAV_HEIGHT;
+  }
+
 
   .container {
     margin-top: $NAV_HEIGHT;

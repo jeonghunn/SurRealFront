@@ -1,7 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
-  EventEmitter,
+  EventEmitter, Input,
   OnDestroy,
   Output,
 } from '@angular/core';
@@ -25,6 +25,9 @@ export class GroupListComponent implements OnDestroy {
 
   @Output()
   public readonly toggleSidNav: EventEmitter<null> = new EventEmitter();
+
+  @Input()
+  public isLarge: boolean = false;
 
   public groups: Group[] = [];
 
@@ -69,7 +72,7 @@ export class GroupListComponent implements OnDestroy {
   }
 
   public onGroupClick(id: number): void {
-    this.router.navigateByUrl(`/chat/${id}`);
+    this.router.navigateByUrl(`/group/${id}`);
   }
 
 }

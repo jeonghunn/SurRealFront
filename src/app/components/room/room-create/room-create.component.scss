@@ -1,0 +1,19 @@
+.content {
+    margin-left: 24px;
+
+    .title {
+        display: flex;
+        margin-right: 16px;
+        .letter {
+            font-size: 32px;
+            height: 56px;
+            margin-right: 4px;
+        }
+    }
+
+    app-emoji-picker {
+        margin-right: 24px;
+    }
+
+
+}

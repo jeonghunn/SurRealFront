@@ -12,7 +12,7 @@ import { IdentityService } from 'src/app/core/identity.service';
 export class MainComponent {
 
   public isGuest: boolean = true;
-  public readonly version: string = 'v0.2.3';
+  public readonly version: string = '2023 July Update';
 
   public constructor(
     private identityService: IdentityService,

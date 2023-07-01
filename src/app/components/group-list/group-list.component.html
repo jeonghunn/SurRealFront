@@ -1,19 +1,26 @@
 <div class="sidebar">
   <div
-    *ngFor="let group of groups"
-    class="profile"
+  matRipple
+  (click)="go('group/create')"
+  [ngClass]="isLarge ? 'creation-large' : 'creation'"
   >
-    <app-profile-icon
-      [matTooltip]="getTitle(group)"
-      [matTooltipPosition]="'right'"
-      (click)="onGroupClick(group.id)"
-    ></app-profile-icon>
+  <mat-icon>add</mat-icon>
+  <span *ngIf="isLarge">{{ 'GROUP_LIST.ADD' | translate }}</span>
   </div>
   <div
     matRipple
-    (click)="go('chat/create')"
-    class="creation"
+    *ngFor="let group of groups"
+    class="profile"
+    [matRippleDisabled]="!isLarge"
+    (click)="onGroupClick(group.id)"
   >
-    <mat-icon>add</mat-icon>
+    <app-profile-icon
+      [matTooltip]="!isLarge ? getTitle(group) : null"
+      [matTooltipPosition]="'right'"
+    ></app-profile-icon>
+    <span
+      *ngIf="isLarge"
+      class="name"
+    >{{ getTitle(group) }}</span>
   </div>
 </div>

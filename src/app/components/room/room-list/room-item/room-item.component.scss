@@ -2,7 +2,7 @@
 @import "src/assets/style/palette";
 
 .item {
-  display: block;
+  display: flex;
   margin-top: 8px;
   text-align: center;
   padding-top: 8px;
@@ -17,6 +17,14 @@
     background-color: var(--list-item-hover);
   }
 
+  .emoji {
+    font-size: 32px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
   .image {
     border-radius: 4px;
     background-color: #EAEAEA;
@@ -27,6 +35,9 @@
   }
 
   .text {
+    display: grid;
+    text-align: left;
+
     .title {
       font-size: 16px;
       font-weight: bold;

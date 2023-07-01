@@ -2,24 +2,44 @@
 @import "src/assets/style/palette";
 
 .message {
-  display: flex;
   padding-top: 4px;
   padding-bottom: 4px;
-  justify-content: space-between;
+  padding-left: 4px;
+  padding-right: 4px;
 
-  .chat {
+
+  .row {
     display: flex;
-    
-    .profile {
-      color: #FFFFFF;
-      border-radius: 4px;
-      font-size: 16px;
-      padding-left: 2px;
-      padding-right: 2px;
-      margin-right: 8px;
-      cursor: pointer;
+    justify-content: space-between;
+    width: inherit;
+
+    .chat {
+      display: flex;
+
+      .profile {
+        color: #FFFFFF;
+        border-radius: 4px;
+        font-size: 16px;
+        padding-left: 2px;
+        padding-right: 2px;
+        margin-right: 8px;
+        cursor: pointer;
+      }
     }
+    
   
+  }
+
+  .attachment {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+
+    app-thumbnail {
+      margin-right: 8px;
+    }
   }
 
   &:hover {

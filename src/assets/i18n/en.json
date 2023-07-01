@@ -4,9 +4,10 @@
     "REFRESH": "Refresh",
     "FEEDBACK": "Feedback",
     "BACK": "Go Back",
+    "MAIN": "Go home",
     "400_BAD_REQUEST": {
       "TITLE": "400 Bad Request",
-      "DESCRIPTION":"You entered wrong URL or probably this is not correct way to access."
+      "DESCRIPTION":"Sorry. Your request is invalid."
     },
     "403_FORBIDDEN": {
       "TITLE": "403 Forbidden",
@@ -15,6 +16,10 @@
     "404_NOT_FOUND": {
       "TITLE": "404 Not Found",
       "DESCRIPTION":"Sorry. The contents you looking for doesn't exist."
+    },
+    "413_PAYLOAD_TOO_LARGE": {
+      "TITLE": "413 Payload Too Large",
+      "DESCRIPTION":"Sorry. The file you are trying to upload is too large."
     },
     "500_INTERNAL_SERVER_ERROR": {
       "TITLE": "Sorry, Something went wrong.",
@@ -66,6 +71,9 @@
     "CANCEL_REQUEST": "Cancel Request",
     "UNFRIEND": "Unfriend"
   },
+  "GROUP_LIST": {
+    "ADD": "Add Friends or Create a group"
+  },
   "GROUP_CREATE": {
     "FRIENDS": "Friends",
     "CREATE_A_GROUP": "Create a Group",
@@ -73,6 +81,14 @@
   },
   "FRIEND_LIST": {
     "EMPTY": "Add a friend to start conversation."
+  },
+  "ATTACH": {
+    "DELETE": {
+      "TITLE": "Delete File",
+      "DESCRIPTION": "Are you sure you want to delete this file from upload list?",
+      "CANCEL": "Cancel",
+      "YES": "Delete"
+    }
   },
   "GROUP": {
     "ROOM": {
@@ -104,7 +120,7 @@
           "DESC": "Trying to Reconnect... ",
           "RETRY": "Retry"
         },
-        "AUTH": "Please sign in again."
+        "AUTH": "You are not authorized to access."
       }
     }
   }

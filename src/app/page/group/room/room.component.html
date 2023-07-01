@@ -10,6 +10,7 @@
   (chatSend)="sendMessage($event)"
   (loadPreviousChats)="fetchPreviousChats()"
   class="chat"
+  [ngStyle]="chatStyle"
 ></app-chat>
 <app-detail-view
   *ngIf="isLiveViewOpen"

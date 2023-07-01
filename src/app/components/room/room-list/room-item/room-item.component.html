@@ -2,10 +2,10 @@
   class="item"
   [ngClass]="isSelected ? 'selected' : null"
 >
-  <div class="image"></div>
+  <div class="emoji">{{ letter || '💬' }}</div>
   <div class="text">
     <span class="title">{{ name || '-' }}</span>
-    <p class="subtitle">{{ description || '-' }}</p>
+    <span class="subtitle">{{ description || '-' }}</span>
   </div>
 </div>
 

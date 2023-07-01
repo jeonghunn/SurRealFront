@@ -5,6 +5,7 @@ import {
 import {
   ActivatedRoute,
   Params,
+  Router,
 } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
@@ -14,9 +15,12 @@ import { LayoutService } from 'src/app/core/layout.service';
 import { Util } from 'src/app/core/util';
 import {
   ChatSpaceCategory,
+  FileContainer,
   Group,
   Room,
 } from 'src/app/model/type';
+import { FileHandle } from 'src/app/core/directive/drag-drop.directive';
+import { RoomService } from 'src/app/core/room.service';
 
 @Component({
   selector: 'app-group',
@@ -33,6 +37,8 @@ export class GroupComponent implements OnDestroy {
   public room: Room;
   public group: Group;
 
+  files: FileHandle[] = [];
+
   public headerStyle: any = {
     'margin-left': '80px',
     'border-left': 'solid 1px rgba(0, 0, 0, 0.12)',
@@ -47,12 +53,15 @@ export class GroupComponent implements OnDestroy {
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private groupService: GroupService,
+    private roomService: RoomService, 
+    private router: Router,
     private identityService: IdentityService,
   ) {
 
     this.subscriptions = [
       this.groupService.openedGroup$.subscribe((group: Group) => {
         this.group = group;
+        this.roomService.clearFiles();
       }),
       this.groupService.openedRoom$.subscribe((room: Room | null) => {
         this.room = room;
@@ -60,7 +69,7 @@ export class GroupComponent implements OnDestroy {
       }),
       this.activatedRoute.params.subscribe((params: Params) => {
         this.groupId = params?.id;
-        this.groupService.openGroup(this.groupId);
+        this.groupService.open(this.groupId, params?.room_id);
       }),
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
@@ -83,6 +92,10 @@ export class GroupComponent implements OnDestroy {
     return this.group?.target?.name;
   }
 
+  public onFileDrop(files: FileContainer[]): void {
+    this.roomService.addFiles(files);
+  }
+
   public isViewActive(category: ChatSpaceCategory): boolean {
     return !this.isShortWidth || this.category === category;
   }
@@ -92,7 +105,7 @@ export class GroupComponent implements OnDestroy {
   }
 
   public openRoom(room: Room): void {
-    this.groupService.openRoom(room?.group_id, room?.id);
+    this.router.navigateByUrl(`/group/${this.groupId}/room/${room?.id}`).then(null);
   }
 
   public ngOnDestroy(): void {

@@ -22,11 +22,12 @@ const routes: Routes = [
     canActivate: [ Guard ],
   },
   {
-    path: 'chat',
+    path: 'group',
     canActivate: [ Guard ],
     children: [
       { path: 'create', component: GroupCreateComponent },
       { path: ':id', component: GroupComponent },
+      { path: ':id/room/:room_id', component: GroupComponent },
     ],
   },
   {

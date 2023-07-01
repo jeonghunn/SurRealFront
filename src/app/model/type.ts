@@ -94,17 +94,20 @@ export class Chat extends Communication {
   public id?: number;
   public content: string;
   public user?: User;
+  public meta?: any;
 
   public constructor(
     id: number,
     content: string,
     createdAt: string,
     user: User,
+    meta: any = null,
   ) {
     super(CommunicationType.CHAT, createdAt);
     this.id = id;
     this.content = content;
     this.user = user;
+    this.meta = meta;
   }
 
 }
@@ -150,10 +153,16 @@ export class Room {
   public user?: User;
   public group: Group;
   public group_id?: number;
+  public letter: string;
   public online_count: number;
   public limit: number;
   public status: number;
 
+}
+
+export class FileContainer {
+  public file: File;
+  public url: any;
 }
 
 export enum RelationCategory {
@@ -168,8 +177,24 @@ export enum RelationStatus {
   REQUEST_RECEIVED,
 }
 
+export enum AttachType {
+  BINARY,
+  IMAGE,
+}
+
 export class ResponseSet {
   public category: ResponseResult;
   public message: string;
   public description: string;
+}
+
+export class Attach {
+  id: number;
+  name: string;
+  extension: string;
+  binary_name: string;
+  mimetype: string;
+  type: number;
+  size: number;
+  url: string;
 }

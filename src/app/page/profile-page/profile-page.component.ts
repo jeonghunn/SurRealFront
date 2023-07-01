@@ -66,7 +66,7 @@ export class ProfilePageComponent implements OnDestroy {
 
   public onMessageClick(): void {
     this.dataService.startChat(this.user.id).pipe(take(1)).subscribe((group: Group | null) => {
-      this.router.navigateByUrl(`/chat/${group.id}`);
+      this.router.navigateByUrl(`/group/${group.id}`);
     });
   }
 
