@@ -72,7 +72,7 @@ export class GroupListComponent implements OnDestroy {
   }
 
   public onGroupClick(id: number): void {
-    this.router.navigateByUrl(`/chat/${id}`);
+    this.router.navigateByUrl(`/group/${id}`);
   }
 
 }

@@ -5,6 +5,7 @@ import {
 import {
   ActivatedRoute,
   Params,
+  Router,
 } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
@@ -53,6 +54,7 @@ export class GroupComponent implements OnDestroy {
     private dataService: DataService,
     private groupService: GroupService,
     private roomService: RoomService, 
+    private router: Router,
     private identityService: IdentityService,
   ) {
 
@@ -67,7 +69,7 @@ export class GroupComponent implements OnDestroy {
       }),
       this.activatedRoute.params.subscribe((params: Params) => {
         this.groupId = params?.id;
-        this.groupService.openGroup(this.groupId);
+        this.groupService.open(this.groupId, params?.room_id);
       }),
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
@@ -103,7 +105,7 @@ export class GroupComponent implements OnDestroy {
   }
 
   public openRoom(room: Room): void {
-    this.groupService.openRoom(room?.group_id, room?.id);
+    this.router.navigateByUrl(`/group/${this.groupId}/room/${room?.id}`).then(null);
   }
 
   public ngOnDestroy(): void {

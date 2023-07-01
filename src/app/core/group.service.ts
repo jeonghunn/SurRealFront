@@ -28,11 +28,11 @@ export class GroupService {
     });
   }
 
-  public openGroup(id: number): void {
+  public open(id: number, roomId: number = null): void {
     this.dataService.getGroup(id).pipe(take(1)).subscribe((group: Group) => {
-      const roomId: number = parseInt(localStorage.getItem(`group_${id}_room_id`), 10);
+      const defaultRoomId: number = parseInt(localStorage.getItem(`group_${id}_room_id`), 10);
       this.openedGroup$.next(group);
-      this.openRoom(id, roomId);
+      this.openRoom(id, roomId || defaultRoomId);
     });
   }
 
