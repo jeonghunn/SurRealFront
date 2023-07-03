@@ -36,5 +36,8 @@
         <app-error-page [errorCode]="pageErrorCode"></app-error-page>
       </ng-template>
     </div>
+    <app-viewer
+    *ngIf="isViewerOpen"
+    ></app-viewer>
   </mat-drawer-content>
 </mat-drawer-container>

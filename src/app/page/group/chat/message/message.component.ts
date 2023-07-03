@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { DateTime } from 'luxon';
+import { ViewerService } from 'src/app/core/viewer.service';
 import {
   Attach,
   AttachType,
@@ -41,13 +42,11 @@ export class MessageComponent {
   @Input()
   public attaches: Attach[] = [];
 
-  public isViewerOpen: boolean = false;
-  public selectedAttach: Attach;
-
   public constructor(
     private router: Router,
     private sanitizer: DomSanitizer,
     private changeDetectorRef: ChangeDetectorRef,
+    private viewerService: ViewerService,
   ) {
   }
 
@@ -67,9 +66,9 @@ export class MessageComponent {
      return attach.extension?.toUpperCase();
   }
 
-  public onThumbnailClick(file: any): void {
-    this.selectedAttach = file;
-    this.isViewerOpen = true;
+  public onThumbnailClick(file: Attach): void {
+    this.viewerService.open(file);
+
     this.changeDetectorRef.markForCheck();
   }
 
