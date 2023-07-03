@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import * as packageInfo from 'package.json';
 import { IdentityService } from 'src/app/core/identity.service';
+import { LayoutService } from 'src/app/core/layout.service';
 
 @Component({
   selector: 'app-main',
@@ -16,10 +17,14 @@ export class MainComponent {
 
   public constructor(
     private identityService: IdentityService,
+    private layoutService: LayoutService,
   ) {
     if (identityService.isSignedIn) {
       this.isGuest = false;
     }
+
+    layoutService.isSideNavOpen = true;
+
   }
 
   public openDiscordServer(): void {

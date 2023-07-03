@@ -15,7 +15,7 @@ export class LayoutService {
   public _windowResize$: Observable<Event> = fromEvent(window, 'resize');
   public windowResize$: BehaviorSubject<Window> = new BehaviorSubject<Window>(window);
   public windowSize$: Subject<number> = new Subject<number>();
-  public isSideNavOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  public isSideNavOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isShortWidth: boolean;
   private _isSideNavOpen: boolean;
 
