@@ -16,7 +16,11 @@ import { DataService } from './core/data.service';
 import { IdentityService } from './core/identity.service';
 import { LayoutService } from './core/layout.service';
 import { Util } from './core/util';
-import { WindowSizeWidth } from './model/type';
+import {
+  Attach,
+  WindowSizeWidth,
+} from './model/type';
+import { ViewerService } from './core/viewer.service';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public pageErrorCode: number;
   public isSmallWidth: boolean = false;
   public isSideNavEnlarged: boolean = true;
+  public isViewerOpen: boolean = true;
 
   private MOBILE_WIDTH: number = WindowSizeWidth.MOBILE;
   private subscriptions: Subscription[] = [];
@@ -37,6 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public dataService: DataService,
     public elementRef: ElementRef,
     public identityService: IdentityService,
+    private viewerService: ViewerService,
     private layoutService: LayoutService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
@@ -54,7 +60,12 @@ export class AppComponent implements OnInit, OnDestroy {
           this.changeDetectorRef.detectChanges();
         }
       }),
-    )
+    );
+    this.subscriptions.push(
+      this.viewerService.attach$.subscribe((attach: Attach) => {
+        this.isViewerOpen = attach !== undefined;
+      }),
+    );
   }
 
   public get isSignedIn(): boolean {

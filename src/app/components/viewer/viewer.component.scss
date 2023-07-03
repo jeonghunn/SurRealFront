@@ -1,5 +1,7 @@
+@import "src/assets/style/attrs";
+
 :host {
-    z-index: 10000000;
+    z-index: $VIEWER_OVERLAY_ZINDEX;
     position: absolute;
     top: 0;
     left: 0;
