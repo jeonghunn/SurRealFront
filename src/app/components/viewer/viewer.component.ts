@@ -1,10 +1,8 @@
 import {
+  ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
   OnChanges,
   OnDestroy,
-  Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Util } from 'src/app/core/util';
@@ -24,10 +22,15 @@ export class ViewerComponent implements OnChanges, OnDestroy {
   public attachType: typeof AttachType = AttachType;
   private subscriptions: Subscription[] = [];
   public attach: Attach;
+  public imageStyle: any = {
+    maxHeight: '80%',
+  };
+  public isImageExpanded: boolean = false;
 
 
   public constructor(
     private viewerService: ViewerService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.subscriptions = [
       this.viewerService.attach$.subscribe((attach: Attach) => {
@@ -42,6 +45,16 @@ export class ViewerComponent implements OnChanges, OnDestroy {
 
   public onCloseClick(event: MouseEvent): void {
     this.viewerService.close();
+  }
+
+  public onImageClick(event: MouseEvent): void {
+    event.stopPropagation();
+
+    this.isImageExpanded = !this.isImageExpanded;
+    this.imageStyle = !this.isImageExpanded ? {
+      maxHeight: '80%',
+    } : {};
+    this.changeDetectorRef.markForCheck();
   }
 
   public onDownloadClick(event: MouseEvent, attach: Attach): boolean {

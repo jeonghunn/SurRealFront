@@ -27,6 +27,8 @@
         *ngIf="attach?.type === attachType.IMAGE"
         class="image"
         [src]="attach?.url"
+        [ngStyle]="imageStyle"
+        (click)="onImageClick($event)"
     />
 
     <div
