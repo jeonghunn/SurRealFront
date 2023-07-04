@@ -1,9 +1,11 @@
+@import "src/assets/style/palette";
+
 
 .icon{
   width: 64px;
   height: 64px;
   cursor: pointer ;
-  background-color: red;
+  background-color: var(--list-background-dark);
   -webkit-border-radius: 60px;
   -webkit-background-clip: padding-box;
   -moz-border-radius: 60px;
@@ -14,4 +16,8 @@
   background-position: center center;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
