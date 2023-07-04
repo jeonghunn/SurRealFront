@@ -19,6 +19,7 @@ import {
   Observable,
   Subject,
   Subscription,
+  of,
   timer,
 } from 'rxjs';
 import {
@@ -323,7 +324,11 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.chatQueue$.next(this.offset);
   }
 
-  public fetchChats(offset: number, isNew: boolean): Observable<any> {
+  public fetchChats(offset: number, isFuture: boolean): Observable<any> {
+    if(!isFuture && this.isChatFullyLoad) {
+      return of([]);
+    }
+
     return this.dataService.getChats(
       this.room?.group_id,
       this.room?.id,
