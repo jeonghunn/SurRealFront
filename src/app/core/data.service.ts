@@ -137,7 +137,7 @@ export class DataService {
       {},
       ).pipe(
       map((result: { chats: Chat[] }) => result.chats as Chat[]),
-      catchError(error => this.handleError(error)),
+      catchError(error => this.handleError(error, false)),
     );
   }
 
@@ -216,6 +216,7 @@ export class DataService {
         isBigError = isBig;
         break;
       default:
+        this.matSnackBar.open(this.translateService.instant('ERROR.NETWORK.DESCRIPTION'));
         break;
     }
 

@@ -27,7 +27,11 @@
     }
   },
   "ERROR": {
-    "UNKNOWN": "Sorry, Something went wrong. Please try again."
+    "UNKNOWN": "Sorry, Something went wrong. Please try again.",
+    "NETWORK": {
+      "TITLE": "Network Error",
+      "DESCRIPTION": "Please check your network connection."
+    }
   },
   "NAV_BAR": {
     "SIGN_IN": "Sign in",

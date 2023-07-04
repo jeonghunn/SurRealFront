@@ -3,7 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnChanges,
   OnDestroy,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import {
@@ -22,8 +24,10 @@ import {
 import {
   concatMap,
   delayWhen,
+  repeat,
   retryWhen,
   take,
+  takeUntil,
   tap,
 } from 'rxjs/operators';
 import {
@@ -54,12 +58,13 @@ import { LayoutService } from 'src/app/core/layout.service';
   templateUrl: './room.component.html',
   styleUrls: [ './room.component.scss' ],
 })
-export class RoomComponent implements OnDestroy {
+export class RoomComponent implements OnDestroy, OnChanges {
 
   public webSocketSubject: WebSocketSubject<any> = null;
   public chats: Chat[] = null;
   public dateCriteria: Date;
   public chatQueue$: Subject<number> = new Subject();
+  public cancelDelay$: Subject<any> = new Subject();
 
   @Input()
   public isChatViewOpen: boolean;
@@ -111,6 +116,13 @@ export class RoomComponent implements OnDestroy {
     private layoutService: LayoutService,
   ) {
     this.init();
+  }
+  
+  public ngOnChanges(changes: SimpleChanges): void {
+    // console.log('onchanges called');
+    // if (!this.isConnected) {
+    //   this.reInit();
+    // }
   }
 
   public init(): void {
@@ -194,6 +206,7 @@ export class RoomComponent implements OnDestroy {
           errors.pipe(
             tap(val => this.onConnectionError(val)),
             delayWhen(val => timer(this.reconnectDelay)),
+            takeUntil(this.cancelDelay$),
           ),
         ),
       ).subscribe(
@@ -208,6 +221,10 @@ export class RoomComponent implements OnDestroy {
     console.log('complete');
     this.isChatDisabled = true;
     this.changeDetectorRef.markForCheck();
+
+    if (!this.isConnected) {
+      this.reInit();
+    }
   }
 
   public onMessageReceived(msg: any): void {
@@ -277,10 +294,14 @@ export class RoomComponent implements OnDestroy {
     );
 
     snackBarRef.onAction().pipe(take(1)).subscribe(() => {
-      Util.unsubscribe(...this.subscriptions);
-      this.init();
+      this.cancelDelay$.next(null);
     });
 
+  }
+
+  public reInit(): void {
+    this.initWebSocket();
+    
   }
 
   public initChatHeight(isExpand: boolean = false): void {
@@ -302,14 +323,23 @@ export class RoomComponent implements OnDestroy {
     this.chatQueue$.next(this.offset);
   }
 
-  public fetchChats(offset: number): Observable<any> {
+  public fetchChats(offset: number, isNew: boolean): Observable<any> {
     return this.dataService.getChats(
       this.room?.group_id,
       this.room?.id,
       this.dateCriteria,
       offset,
       this.CHAT_FETCH_COUNT,
-    ).pipe(take(1));
+    ).pipe(
+      take(1),
+      retryWhen(errors =>
+        errors.pipe(
+          repeat({ delay: 500 }),
+          tap(val => this.onConnectionError(val)),
+          delayWhen(val => timer(this.reconnectDelay)),
+        ),
+      ),
+      );
   }
 
   public sendAuthMessage(): void {
