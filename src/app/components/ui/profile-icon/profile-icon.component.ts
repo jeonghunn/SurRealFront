@@ -3,7 +3,6 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
 } from '@angular/core';
 
 @Component({
@@ -11,7 +10,7 @@ import {
   templateUrl: './profile-icon.component.html',
   styleUrls: [ './profile-icon.component.scss' ],
 })
-export class ProfileIconComponent implements OnChanges, OnInit {
+export class ProfileIconComponent implements OnChanges {
 
   @Input()
   public length: number = 64;
@@ -23,7 +22,6 @@ export class ProfileIconComponent implements OnChanges, OnInit {
   public name: string;
 
   public monogram: string;
-  public personalColor: string;
 
   public style: any = {
     height: 64,
@@ -35,20 +33,16 @@ export class ProfileIconComponent implements OnChanges, OnInit {
   ) {
   }
 
-  public ngOnInit(): void {
-    this.personalColor = `#${Math.floor(Math.random()*16777215).toString(16)}}`;
-  }
-
   public ngOnChanges(): void {
-    this.personalColor = `#${Math.floor(Math.random()*16777215).toString(16)}}`;
+
+
     this.style = {
       height: `${this.length}px`,
       width: `${this.length}px`,
       borderRadius: `${this.length}px`,
       cursor: this.isClickable ? 'pointer' : 'unset',
       lineHeight: `${this.length}px`,
-      fontSize: `${this.length / 2}px`,
-      backgroundColor: this.personalColor,
+      fontSize: `${this.length / 2 - 4}px`,
     };
     this.monogram = this.getMonogram(this.name);
     this.changeDetectorRef.markForCheck();
