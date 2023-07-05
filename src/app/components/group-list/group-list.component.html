@@ -17,6 +17,8 @@
     <app-profile-icon
       [matTooltip]="!isLarge ? getTitle(group) : null"
       [matTooltipPosition]="'right'"
+      [length]="64"
+      [name]="getTitle(group)"
     ></app-profile-icon>
     <span
       *ngIf="isLarge"

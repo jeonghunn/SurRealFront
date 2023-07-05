@@ -18,6 +18,11 @@ export class ProfileIconComponent implements OnChanges {
   @Input()
   public isClickable: boolean = true;
 
+  @Input()
+  public name: string;
+
+  public monogram: string;
+
   public style: any = {
     height: 64,
     width: 64,
@@ -29,13 +34,39 @@ export class ProfileIconComponent implements OnChanges {
   }
 
   public ngOnChanges(): void {
+
+
     this.style = {
       height: `${this.length}px`,
       width: `${this.length}px`,
       borderRadius: `${this.length}px`,
       cursor: this.isClickable ? 'pointer' : 'unset',
+      lineHeight: `${this.length}px`,
+      fontSize: `${this.length / 2 - 4}px`,
     };
+    this.monogram = this.getMonogram(this.name);
     this.changeDetectorRef.markForCheck();
   }
+
+
+  public getMonogram(name: string): string {
+    if (!name) {
+      return '';
+    }
+
+    const tokens: string[] = name?.split(' ');
+
+    if (name.length <= 2) {
+      return name;
+    } else if (tokens.length === 2) {
+      return tokens[0][0] + tokens[1][0];
+    } else if (name.length === 3) {
+      return name.slice(1, 3);
+    }
+    
+    return tokens[0][0];
+  }
+
+
 
 }

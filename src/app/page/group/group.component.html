@@ -7,7 +7,10 @@
     class="profile"
     (click)="open(chatSpaceCategory.INFO)"
   >
-    <app-profile-icon [length]="48"></app-profile-icon>
+    <app-profile-icon
+      [length]="48"
+      [name]="name"
+    ></app-profile-icon>
     <span class="name">{{ name }}</span>
   </div>
 </div>

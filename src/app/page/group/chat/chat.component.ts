@@ -223,7 +223,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     const scrollTop: number = event?.target?.scrollTop;
     const shouldAutoScrollActive: boolean = scrollTop >
       event?.target?.scrollHeight - event?.target?.offsetHeight - this.CHAT_AUTO_SCROLL_ALLOW_THRESHOLD;
-    console.log(this.isManualScroll);
+
     if (!this.isManualScroll) {
       if (shouldAutoScrollActive) {
         this.isManualScroll = true;
