@@ -129,14 +129,32 @@ export class DataService {
     );
 }
 
-  public getChats(groupId: number, roomId: number, before: Date, offset: number = 0, limit: number = 30): Observable<Chat[]> {
-    const beforeTimestamp: number = before.getTime() / 1000;
+  public getChats(
+    groupId: number,
+    roomId: number,
+    date: Date,
+    offset: number = 0,
+    isFuture: boolean = false,
+    limit: number = 30,
+    ): Observable<{
+      isFuture: boolean,
+      chats: Chat[],
+    }> {
+    const dateTimestamp: number = date.getTime() / 1000;
+
+    const result: any = {
+      isFuture: isFuture as boolean,
+      chats: null,
+    }
 
     return this.httpClient.get<{ chats: Chat[] }>(
-      `${this.apiUrl}/group/${groupId}/room/${roomId}/chat?offset=${offset}&limit=${limit}&before=${beforeTimestamp}`,
+      `${this.apiUrl}/group/${groupId}/room/${roomId}/chat?offset=${offset}&limit=${limit}&date=${dateTimestamp}&future=${isFuture ? 1 : 0}`,
       {},
       ).pipe(
-      map((result: { chats: Chat[] }) => result.chats as Chat[]),
+      map((value: { chats: Chat[] }) => {
+        result.chats = value.chats;
+        return result;
+      }),
       catchError(error => this.handleError(error, false)),
     );
   }

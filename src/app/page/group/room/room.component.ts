@@ -64,7 +64,8 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public webSocketSubject: WebSocketSubject<any> = null;
   public chats: Chat[] = null;
   public dateCriteria: Date;
-  public chatQueue$: Subject<number> = new Subject();
+  public futureDateCriteria: Date;
+  public chatQueue$: Subject<{ offset: number, isFuture: boolean }> = new Subject();
   public cancelDelay$: Subject<any> = new Subject();
 
   @Input()
@@ -82,6 +83,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public room: Room;
 
   public isConnected: boolean = false;
+  public connectCount: number = 0;
   public isAuthenticated: boolean = false;
   public isChatDisabled: boolean = false;
   public isChatLoading: boolean = false;
@@ -89,6 +91,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public reconnectDelay: number = 1000;
   public reAuthDelay: number = 100;
   public offset: number = 0;
+  public futureOffset: number = 0;
   public isShortWidth: boolean = false;
 
   public readonly DEFAULT_CHAT_MARGIN: number = 72;
@@ -150,6 +153,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public resetRoom(): void {
     this.chatQueue$?.unsubscribe();
     this.dateCriteria = new Date();
+    this.futureDateCriteria = new Date();
     this.isChatFullyLoad = false;
     this.isChatDisabled = false;
     this.chats = null;
@@ -159,24 +163,39 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public initRoom(room: Room): void {
     this.room = room;
 
-    this.chatQueue$ = new Subject<number>();
+    this.chatQueue$ = new Subject<{ offset: number, isFuture: boolean }>();
 
     this.subscriptions.push(
       this.chatQueue$.pipe(
-        concatMap(i => this.fetchChats(i)),
-      )
-        .subscribe((chats: Chat[]) => {
+        concatMap(i => this.fetchChats(i.offset, i.isFuture)),
+      ).subscribe((result: { isFuture: boolean, chats: Chat[] }) => {
           this.isChatLoading = false;
-          this.chats = [ ...chats, ...this.chats ];
+          console.log('init', result, this.offset);
+          if (result?.isFuture) {
+            this.chats = [ ...this.chats, ...result?.chats ];
 
-          this.isChatFullyLoad = chats?.length === 0;
+            if (result?.chats?.length > 0) {
+              this.fetchFutureChats();
+            } else {
+              this.resetFutureCriteria();
+              this.sendAuthMessage();
+            }
+          } else {
+            this.chats = [ ...result?.chats, ...this.chats ];
+            this.isChatFullyLoad = result?.chats?.length === 0;
+          }
+
+          
           this.changeDetectorRef.markForCheck();
         }),
     );
 
     this.initWebSocket();
     this.chats = [];
-    this.chatQueue$.next(this.offset);
+    this.chatQueue$.next({
+      offset: this.offset,
+      isFuture: false,
+    });
   }
 
   public initWebSocket(): void {
@@ -186,14 +205,24 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
     this.webSocketSubject = webSocket({
       url: `${environment.socketServerUrl}${this.room?.id}`,
-      deserializer: message => this.dataService.deserializeSocketMessage(message),
+      deserializer: (message) => {
+        this.resetFutureCriteria();
+        return this.dataService.deserializeSocketMessage(message);
+      },
       serializer: message => this.dataService.serializeSocketMessage(message),
       openObserver: {
         next: value => {
+          if (!this.isConnected && this.offset > 0 && this.connectCount > 0) {
+            console.log('its about time to load future chats');
+            this.fetchFutureChats();
+          } else {
+            this.sendAuthMessage();
+          }
+
           this.isConnected = true;
           this.isChatDisabled = false;
+          this.connectCount++;
           this.reconnectDelay = 1000;
-          this.sendAuthMessage();
         },
         error: value => {
           this.onConnectionError(value);
@@ -228,7 +257,14 @@ export class RoomComponent implements OnDestroy, OnChanges {
     }
   }
 
+  public resetFutureCriteria(): void {
+    this.futureDateCriteria = new Date();
+    this.futureOffset = 0;
+  }
+
   public onMessageReceived(msg: any): void {
+
+    console.log('message receiv', msg) ;
 
     switch (msg.T) {
       case CommunicationType.CHAT:
@@ -321,19 +357,39 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public fetchPreviousChats(): void {
     this.isChatLoading = true;
     this.offset += this.CHAT_FETCH_COUNT;
-    this.chatQueue$.next(this.offset);
+    this.chatQueue$.next({
+      offset: this.offset,
+      isFuture: false,
+    });
   }
 
-  public fetchChats(offset: number, isFuture: boolean): Observable<any> {
+  public fetchFutureChats(): void {
+    this.chatQueue$.next({
+      offset: this.futureOffset,
+      isFuture: true,
+    });
+    this.futureOffset += this.CHAT_FETCH_COUNT;
+  }
+
+  public fetchChats(offset: number, isFuture: boolean): Observable<{
+    isFuture: Boolean,
+    chats: Chat[],
+  }> {
+
     if(!isFuture && this.isChatFullyLoad) {
-      return of([]);
+      return of({
+        isFuture: false,
+        chats: [],
+      });
     }
+
 
     return this.dataService.getChats(
       this.room?.group_id,
       this.room?.id,
-      this.dateCriteria,
+      isFuture ? this.futureDateCriteria : this.dateCriteria,
       offset,
+      isFuture,
       this.CHAT_FETCH_COUNT,
     ).pipe(
       take(1),
