@@ -52,6 +52,7 @@ import { environment } from 'src/environments/environment';
 import { RoomService } from 'src/app/core/room.service';
 import { ChatComponent } from '../chat/chat.component';
 import { LayoutService } from 'src/app/core/layout.service';
+import { NetworkService } from 'src/app/core/network.service';
 
 @Component({
   selector: 'app-room',
@@ -118,6 +119,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     private router: Router,
     private roomService: RoomService,
     private layoutService: LayoutService,
+    private networkService: NetworkService,
   ) {
     this.init();
   }
@@ -146,6 +148,15 @@ export class RoomComponent implements OnDestroy, OnChanges {
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
       }),
+      this.networkService.isConnected$.subscribe((isConnected: boolean) => {
+
+        if (!isConnected) {
+          this.webSocketSubject?.complete();
+          this.webSocketSubject?.unsubscribe();
+        } else {
+          this.initWebSocket();
+        }
+      }),
     );
 
   }
@@ -158,6 +169,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.isChatDisabled = false;
     this.chats = null;
     this.offset = 0;
+    this.changeDetectorRef.markForCheck();
   }
 
   public initRoom(room: Room): void {
@@ -223,6 +235,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
           this.isChatDisabled = false;
           this.connectCount++;
           this.reconnectDelay = 1000;
+          this.changeDetectorRef.markForCheck();
         },
         error: value => {
           this.onConnectionError(value);
