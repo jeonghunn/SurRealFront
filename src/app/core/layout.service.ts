@@ -15,6 +15,7 @@ export class LayoutService {
   public _windowResize$: Observable<Event> = fromEvent(window, 'resize');
   public windowResize$: BehaviorSubject<Window> = new BehaviorSubject<Window>(window);
   public windowSize$: Subject<number> = new Subject<number>();
+  public windowFocus$: Subject<null> = new Subject<null>();
   public isSideNavOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isShortWidth: boolean;
   private _isSideNavOpen: boolean;
@@ -45,5 +46,9 @@ export class LayoutService {
   public onResize(target: Window): void {
     this._isShortWidth = window.innerWidth <= WindowSizeWidth.MOBILE;
     this.windowSize$.next(target.innerWidth);
+  }
+
+  public onWindowFocus(): void {
+    this.windowFocus$.next(null);
   }
 }

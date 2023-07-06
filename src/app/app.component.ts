@@ -21,6 +21,12 @@ import {
   WindowSizeWidth,
 } from './model/type';
 import { ViewerService } from './core/viewer.service';
+import { NetworkService } from './core/network.service';
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  TextOnlySnackBar,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +52,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
+    private networkService: NetworkService,
+    private matSnackBar: MatSnackBar,
   ) {
     translateService.setDefaultLang(this.getLanguageCode());
     this.subscriptions.push(
@@ -64,8 +72,24 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.viewerService.attach$.subscribe((attach: Attach) => {
         this.isViewerOpen = attach !== undefined;
-      }),
+    }),
+    this.networkService.isConnected$.subscribe((isConnected: boolean) => {
+
+      if (!isConnected) {
+        const snackBarRef: MatSnackBarRef<TextOnlySnackBar> = this.matSnackBar.open(
+          this.translateService.instant('ERROR.NETWORK.DESCRIPTION'),
+          null, 
+          { duration: 0 },
+        );
+      } else {
+        this.matSnackBar.dismiss(); 
+      }
+    }),
+
+      
     );
+
+    this.networkService.startService();
   }
 
   public get isSignedIn(): boolean {
