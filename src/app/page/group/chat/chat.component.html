@@ -81,6 +81,7 @@ class="attachment"
     </button>
 
     <button
+      *ngIf="!isShortWidth"
       mat-icon-button
       matSuffix
       [attr.aria-label]="'GROUP.ROOM.CHAT.EMOJI' | translate"
