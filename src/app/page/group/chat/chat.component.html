@@ -11,12 +11,13 @@
   ></app-skeleton-loader>
   <app-message
     #messageComponent
-    *ngFor="let chat of chats"
+    *ngFor="let chat of chats; let i = index"
     [name]="chat.user?.name"
     [user_id]="chat.user?.id"
     [message]="chat.content"
     [date]="chat?.createdAt"
     [attaches]="chat?.meta?.attaches"
+    [isHideProfile]="i !== 0 && chat.user?.id === chats[i - 1]?.user?.id"
     [color]="chat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>
