@@ -28,6 +28,9 @@ export class MessageComponent {
   public color: string = '#46a35e';
 
   @Input()
+  public isHideProfile: boolean = false;
+
+  @Input()
   public name: string;
 
   @Input()

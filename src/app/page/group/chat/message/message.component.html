@@ -2,6 +2,7 @@
     <div class="row">
         <div class="chat">
             <div
+                *ngIf="!isHideProfile"
                 class="profile"
                 (click)="onProfileClick()"
                 [style.backgroundColor]="color"

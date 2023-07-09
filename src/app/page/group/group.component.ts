@@ -92,6 +92,14 @@ export class GroupComponent implements OnDestroy {
     return this.group?.target?.name;
   }
 
+  public get color(): string {
+    if (this.group?.target_id === null || this.group?.target_id === this.userId) {
+      return null;
+    }
+
+    return this.group?.target?.color;
+  }
+
   public onFileDrop(files: FileContainer[]): void {
     this.roomService.addFiles(files);
   }

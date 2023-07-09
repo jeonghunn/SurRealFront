@@ -61,6 +61,14 @@ export class GroupListComponent implements OnDestroy {
     return group.target?.name;
   }
 
+  public getColor(group: Group): string {
+    if (group.target_id === null || group.target_id === this.identityService.id) {
+      return null;
+    }
+
+    return group.target?.color;
+  }
+
   public ngOnDestroy(): void {
     Util.unsubscribe(...this.subscriptions);
   }
