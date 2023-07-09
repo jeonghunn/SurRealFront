@@ -17,6 +17,7 @@
     [message]="chat.content"
     [date]="chat?.createdAt"
     [attaches]="chat?.meta?.attaches"
+    [color]="chat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>
 </div>

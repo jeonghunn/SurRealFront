@@ -45,6 +45,7 @@ export class User {
   public email_host?: string;
   public email_name?: string;
   public name?: string;
+  public color?: string;
   public last_name?: string;
   public relation?: Relation;
 }

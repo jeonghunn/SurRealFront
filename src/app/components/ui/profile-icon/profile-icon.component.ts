@@ -21,6 +21,9 @@ export class ProfileIconComponent implements OnChanges {
   @Input()
   public name: string;
 
+  @Input()
+  public color: string = null;
+
   public monogram: string;
 
   public style: any = {
@@ -43,6 +46,7 @@ export class ProfileIconComponent implements OnChanges {
       cursor: this.isClickable ? 'pointer' : 'unset',
       lineHeight: `${this.length}px`,
       fontSize: `${this.length / 2 - 4}px`,
+      backgroundColor: this.color,
     };
     this.monogram = this.getMonogram(this.name);
     this.changeDetectorRef.markForCheck();
