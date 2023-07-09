@@ -15,6 +15,7 @@
     [mode]="'side'"
     [opened]="(isSideNavOpen || !isSmallWidth) && isSignedIn"
     [ngClass]="isSideNavEnlarged ? 'drawer-enlarge' : 'drawer'"
+    [disableClose]="true"
     (focusout)="isSideNavOpen = false"
   >
 
