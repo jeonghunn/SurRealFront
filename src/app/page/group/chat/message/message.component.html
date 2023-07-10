@@ -9,7 +9,10 @@
             >{{ name }}</div>
             <span class="text">{{ message }}</span>
         </div>
-        <span *ngIf="isShowTime">{{ getFormattedDate }}</span>
+        <span
+            *ngIf="isShowTime"
+            class="date-time"
+        >{{ getFormattedDate }}</span>
     
     </div>
     <div
