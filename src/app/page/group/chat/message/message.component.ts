@@ -45,6 +45,8 @@ export class MessageComponent {
   @Input()
   public attaches: Attach[] = [];
 
+  public withEmojis: RegExp = /\p{Extended_Pictographic}/u
+
   public constructor(
     private router: Router,
     private sanitizer: DomSanitizer,
@@ -55,6 +57,10 @@ export class MessageComponent {
 
   public get getFormattedDate(): string {
     return DateTime.fromISO(this.date).toLocaleString(DateTime.TIME_SIMPLE);
+  }
+
+  public get fontSize(): string {
+    return this.withEmojis.test(this.message) && this.message?.length < 10 ? '3rem' : null;
   }
 
   public onProfileClick(): void {

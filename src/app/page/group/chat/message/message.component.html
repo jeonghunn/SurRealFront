@@ -7,9 +7,15 @@
                 (click)="onProfileClick()"
                 [style.backgroundColor]="color"
             >{{ name }}</div>
-            <span class="text">{{ message }}</span>
+            <span
+                class="text"
+                [style.fontSize]="fontSize"
+            >{{ message }}</span>
         </div>
-        <span *ngIf="isShowTime">{{ getFormattedDate }}</span>
+        <span
+            *ngIf="isShowTime"
+            class="date-time"
+        >{{ getFormattedDate }}</span>
     
     </div>
     <div
