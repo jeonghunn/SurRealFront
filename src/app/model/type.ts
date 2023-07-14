@@ -181,6 +181,13 @@ export enum RelationStatus {
 export enum AttachType {
   BINARY,
   IMAGE,
+  VIDEO,
+}
+
+export enum AttachStatus {
+  NORMAL,
+  PROCESSING,
+  REMOVED,
 }
 
 export class ResponseSet {
@@ -198,4 +205,5 @@ export class Attach {
   type: number;
   size: number;
   url: string;
+  status: AttachStatus;
 }

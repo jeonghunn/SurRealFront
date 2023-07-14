@@ -84,6 +84,11 @@
     "CANCEL_REQUEST": "친구 요청 취소",
     "UNFRIEND": "친구 목록에서 삭제"
   },
+  "VIEWER": {
+    "VIDEO": {
+      "PROCESSING": "동영상 미리보기 준비 중... 몇분 정도 걸립니다."
+    }
+  },
   "GROUP_LIST": {
     "ADD": "새로 추가하기"
   },

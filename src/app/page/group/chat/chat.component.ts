@@ -289,6 +289,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
             type: res?.type,
             name: res?.name,
             extension: res?.extension,
+            mimetype: res?.mimetype,
             size: res?.size,
           });
 
