@@ -31,6 +31,8 @@ import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
 import { ViewerComponent } from './viewer/viewer.component';
 import { NgxFilesizeModule } from 'ngx-filesize';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { VideoViewerComponent } from './viewer/video-viewer/video-viewer.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
     ThumbnailComponent,
     ViewerComponent,
     ConfirmComponent,
+    VideoViewerComponent,
   ],
     exports: [
         FooterComponent,
@@ -80,6 +83,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
     PickerComponent,
     EmojiPickerComponent,
     NgxFilesizeModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class ComponentsModule { }

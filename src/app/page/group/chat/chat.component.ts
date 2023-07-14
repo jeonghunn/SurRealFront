@@ -132,6 +132,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.fileInput.nativeElement.click();
   }
 
+  public isHideName(chat: Chat, index: number): boolean {
+    return index !== 0 &&
+    chat.user?.id === this.chats[index - 1]?.user?.id &&
+    chat.content?.length > 0;
+  }
+
   public onFileSelected(event: any): void {
     const file: FileContainer = {
       file: event.target.files[0],
@@ -283,6 +289,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
             type: res?.type,
             name: res?.name,
             extension: res?.extension,
+            mimetype: res?.mimetype,
             size: res?.size,
           });
 

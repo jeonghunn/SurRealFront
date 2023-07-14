@@ -17,7 +17,7 @@
     [message]="chat.content"
     [date]="chat?.createdAt"
     [attaches]="chat?.meta?.attaches"
-    [isHideProfile]="i !== 0 && chat.user?.id === chats[i - 1]?.user?.id"
+    [isHideProfile]="isHideName(chat, i)"
     [color]="chat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>

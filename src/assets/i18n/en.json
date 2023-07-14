@@ -75,6 +75,11 @@
     "CANCEL_REQUEST": "Cancel Request",
     "UNFRIEND": "Unfriend"
   },
+  "VIEWER": {
+    "VIDEO": {
+      "PROCESSING": "Processing the Video Preview... It will take a few minutes."
+    }
+  },
   "GROUP_LIST": {
     "ADD": "Add Friends or Create a group"
   },

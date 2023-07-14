@@ -129,6 +129,12 @@ export class DataService {
     );
 }
 
+  public getAttachInfo(binaryName: string): Observable<User> {
+    return this.httpClient.get<{ user: User }>(`${this.apiUrl}/attach/${binaryName}/info`).pipe(
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
   public getChats(
     groupId: number,
     roomId: number,
