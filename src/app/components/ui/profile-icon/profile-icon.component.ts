@@ -47,6 +47,7 @@ export class ProfileIconComponent implements OnChanges {
       lineHeight: `${this.length}px`,
       fontSize: `${this.length / 2 - 4}px`,
       backgroundColor: this.color,
+      color: this.color ? 'white' : null,
     };
     this.monogram = this.getMonogram(this.name);
     this.changeDetectorRef.markForCheck();
