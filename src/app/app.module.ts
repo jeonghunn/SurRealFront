@@ -36,6 +36,7 @@ import { Guard } from './core/guard/guard';
 import { LayoutModule } from './layout/layout.module';
 import { MainComponent } from './main/main.component';
 import { PageModule } from './page/page.module';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
@@ -101,6 +102,12 @@ const globalRippleConfig: RippleGlobalOptions = {
       provide: MAT_RIPPLE_GLOBAL_OPTIONS,
       useValue: globalRippleConfig,
     },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic'
+      }
+    }
   ],
   bootstrap: [ AppComponent ],
 })
