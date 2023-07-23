@@ -1,5 +1,6 @@
 <div
   #chatContainer
+  [style.height]="chatContainerHeight"
   (scroll)="onScroll($event)"
   (mouseover)="isManualScroll = true"
   (touchstart)="isManualScroll = true"
@@ -61,17 +62,26 @@ class="attachment"
     *ngIf="uploadingFiles > 0"
     mode="indeterminate"
   ></mat-progress-bar>
-  <mat-form-field appearance="outline">
-    <input
+  <mat-form-field
+    (touchstart)="isMultiLineEnabled = true"
+    (mousedown)="this.message?.length === 0 ? isMultiLineEnabled = false : null"
+    appearance="outline"
+  >
+    <textarea
       matInput
+      appTextareaAutoResize
       [(ngModel)]="message"
       [disabled]="isDisabled || uploadingFiles > 0"
       [placeholder]=" (isDisabled ? 'GROUP.ROOM.CHAT.DISABLED' : 'GROUP.ROOM.CHAT.WRITE_A_MESSAGE') | translate"
-      (keyup.enter)="onSendClick(message)"
+      [multiline]="isMultiLineEnabled"
+      (keyup.enter)="onSendKeyPress(message)"
+      (keydown.control.enter)="makeNewLine($event)"
+      (heightUpdate)="onChatFieldResize($event)"
       id="chat_message_input"
       type="text"
       autocomplete="off"
-    >
+      
+    ></textarea>
 
     <button
       mat-icon-button
@@ -94,7 +104,7 @@ class="attachment"
       #send_button
       mat-icon-button
       matSuffix
-      (click)="onSendClick(message)"
+      (click)="onSendExecute(message)"
       [attr.aria-label]="'GROUP.ROOM.CHAT.SEND' | translate"
     >
       <mat-icon

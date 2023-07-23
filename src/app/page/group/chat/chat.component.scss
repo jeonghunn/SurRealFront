@@ -1,4 +1,5 @@
 @import "src/assets/style/attrs";
+@import "src/assets/style/palette";
 
 .loader {
   width: 90%;
@@ -19,7 +20,13 @@
 
   mat-form-field {
     width: inherit;
-    height: 56px;
+    min-height: 56px;
+    background-color: var(--body-background);
+
+    textarea {
+      resize: none;
+      max-height: 200px;
+    }
 
     ::ng-deep .mat-mdc-form-field-icon-suffix {
       display: flex;

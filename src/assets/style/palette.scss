@@ -1,5 +1,6 @@
 
 :host {
+  --body-background: #303030;
   --list-item-hover: #424242;
   --list-background-dark: #6d6d6d;
   --button-background: #EAEAEA;
@@ -9,6 +10,7 @@
 
 @media (prefers-color-scheme: light) {
   :host {
+    --body-background: #fafafa;
     --list-item-hover: #F5F5F5;
     --list-background-dark: #eeeeee;
     --button-background: #EAEAEA;

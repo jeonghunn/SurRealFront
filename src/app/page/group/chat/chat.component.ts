@@ -70,6 +70,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public uploadingFiles: number = 0;
   public chatErrorMessage: string = null;
   public attachDeleteDialogRef: MatDialogRef<ConfirmComponent>;
+  public chatContainerHeight: string = null;
+  public isMultiLineEnabled: boolean = false;
+  public isTouchMode: boolean = false;
 
   public files: FileContainer[] = [];
 
@@ -252,11 +255,31 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
   }
 
-  public onSendClick(text: string): void {
+  public makeNewLine(event: any): void {
+    this.message += '\n';
+    this.isMultiLineEnabled = true;
+    event.target.setSelectionRange(this.message.length, this.message.length);
+    this.changeDetectorRef.markForCheck();
+  }
+
+  public onSendKeyPress(text: string): void {
+    if (this.isMultiLineEnabled) {
+      return; 
+    }
+    
+    this.onSendExecute(text);
+  }
+
+  public initMultiLineSetting(): void {
+    this.isMultiLineEnabled = false;
+  }
+
+  public onSendExecute(text: string): boolean {
     this.chatErrorMessage = null;
+    this.initMultiLineSetting();
 
     if ((!text || text?.length === 0) && this.files?.length === 0) {
-      return;
+      return false;
     }
 
     if(this.files?.length > 0) {
@@ -307,7 +330,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
         });
       });
 
-      return;
+      return true;
     }
 
     this.sendMessage(text);
@@ -323,5 +346,16 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.message = '';
 
   }
+
+  public onChatFieldResize(height: number) {
+    const margin: number = this.isShortWidth ? 16 : -24;
+    const messageBoxHeight: number = (height > 200 ? 200 : height) + margin;
+
+    
+    this.chatContainerHeight = `calc(100% - ${ messageBoxHeight }px)`;
+    this.changeDetectorRef.markForCheck();
+
+  }
+
 
 }
