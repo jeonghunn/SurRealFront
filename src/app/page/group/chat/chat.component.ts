@@ -256,17 +256,26 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public makeNewLine(event: any): void {
+    if (event?.isComposing === true) {
+      return;
+    }
+
     this.message += '\n';
     this.isMultiLineEnabled = true;
     event.target.setSelectionRange(this.message.length, this.message.length);
     this.changeDetectorRef.markForCheck();
   }
 
-  public onSendKeyPress(text: string): void {
-    if (this.isMultiLineEnabled) {
+  public onSendKeyPress(event: any, text: string): void {
+    if (this.isMultiLineEnabled || event?.isComposing === true) {
       return; 
     }
-    
+
+    if (text === '\n') {
+      this.message = '';
+      return;
+    }
+
     this.onSendExecute(text);
   }
 
@@ -274,12 +283,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.isMultiLineEnabled = false;
   }
 
-  public onSendExecute(text: string): boolean {
+  public onSendExecute(text: string): void {
     this.chatErrorMessage = null;
     this.initMultiLineSetting();
 
     if ((!text || text?.length === 0) && this.files?.length === 0) {
-      return false;
+      return;
     }
 
     if(this.files?.length > 0) {
@@ -330,7 +339,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
         });
       });
 
-      return true;
+      return;
     }
 
     this.sendMessage(text);
