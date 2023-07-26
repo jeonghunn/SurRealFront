@@ -10,7 +10,8 @@
             <span
                 class="text"
                 [style.fontSize]="fontSize"
-            >{{ message }}</span>
+                [innerHTML]="message | formatText"
+            ></span>
         </div>
         <span
             *ngIf="isShowTime"

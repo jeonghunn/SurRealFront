@@ -107,10 +107,24 @@ body {
     font-weight: bold;
   }
 
-  //.mat-drawer-container{
-  //  background-color: #FFFFFF;
-  //}
-
+  a:link {
+    color: mat.get-color-from-palette($surreal-palette, 300);
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: mat.get-color-from-palette($surreal-palette, 700);
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: mat.get-color-from-palette($surreal-palette, 500);
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
 
 }
 
