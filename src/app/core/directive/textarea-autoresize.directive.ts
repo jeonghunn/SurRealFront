@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Directive,
   ElementRef,
   EventEmitter,
@@ -16,6 +17,9 @@ import {
 export class TextareaAutoResizeDirective implements OnInit, OnChanges {
 
   @Input()
+  public defaultHeight: number = 24;
+
+  @Input()
   public multiline: boolean = false;
 
   @Output()
@@ -25,6 +29,7 @@ export class TextareaAutoResizeDirective implements OnInit, OnChanges {
 
   constructor(
     private elementRef: ElementRef,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
 
   }
@@ -41,11 +46,20 @@ export class TextareaAutoResizeDirective implements OnInit, OnChanges {
     }
   }
 
-  @HostListener(':input')
-  public onInput() {
-    if (this.multiline) {
-      this.resize();
+  @HostListener(':input', ['$event'])
+  public onInput(event: any) {
+    if (!this.multiline && !event.data) {
+      this.reset();
+      return;
     }
+    
+    this.resize();
+  }
+
+  public reset() {
+    this.elementRef.nativeElement.style.height = this.defaultHeight + 'px';
+    this.heightUpdate.emit(this.defaultHeight);
+    this.height = this.defaultHeight;
   }
 
   public resize() {
