@@ -357,7 +357,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onChatFieldResize(height: number) {
-    const margin: number = this.isShortWidth ? 16 : -24;
+    const margin: number = this.isShortWidth ? 24 : -24;
     const messageBoxHeight: number = (height > 200 ? 200 : height) + margin;
 
     
