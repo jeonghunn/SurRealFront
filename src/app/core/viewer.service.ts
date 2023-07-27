@@ -11,6 +11,7 @@ export class ViewerService {
   constructor() { }
 
   public open(attach: any): void {
+    history.pushState(null, null, location.href);
     this.attach$.next(attach);
   }
 

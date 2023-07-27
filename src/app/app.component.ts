@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -102,6 +103,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public set isSideNavOpen(isOpen: boolean) {
     this.layoutService.isSideNavOpen = isOpen;
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  public onPopState(event: any) {
+    if(this.isViewerOpen) {
+      this.viewerService.close();
+    }
+
   }
 
   public shouldSideNavOpen(): boolean {
