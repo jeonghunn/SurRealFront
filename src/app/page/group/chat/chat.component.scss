@@ -8,6 +8,7 @@
 }
 
 .chats {
+  width: 400px;
   height: 100%;
   overflow: auto;
 }
@@ -57,11 +58,12 @@
 @media screen and (max-width: $SHORT_WINDOW_WIDTH) {
 
   .chats {
+    width: 100%;
     height: calc(100% - #{$CHAT_FOOTER_HEIGHT});
   }
 
 .footer {
-  width: 100%;
+  width: calc(100% - #{$SIDENAV_WIDTH} - 16px);
   right: 0;
   padding-left: 8px;
   padding-right: 8px;
