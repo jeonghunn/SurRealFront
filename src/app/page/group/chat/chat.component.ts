@@ -82,6 +82,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   @Output()
   public readonly loadPreviousChats: EventEmitter<null> = new EventEmitter<null>();
 
+  public readonly DEFAULT_FOOTER_HEIGHT: number = 24;
+
   @ViewChild('chatContainer')
   private chatContainer: ElementRef;
 
@@ -103,6 +105,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.subscriptions = [
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
+        this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
       }),
       this.layoutService.isSideNavOpen$.subscribe(isOpen => {
         this.changeDetectorRef.markForCheck();

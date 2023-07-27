@@ -275,6 +275,10 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.futureOffset = 0;
   }
 
+  public onWindowResize(): void {
+    this.initChatHeight(false);
+  }
+
   public onMessageReceived(msg: any): void {
 
     console.log('message receiv', msg) ;
