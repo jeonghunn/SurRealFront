@@ -66,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.router.events.subscribe((event: any) => {
         if ( event instanceof NavigationEnd ) {
           this.isSideNavEnlarged = event?.url === '/' || event?.url === '/main';
+          this.viewerService.close();
           this.changeDetectorRef.detectChanges();
         }
       }),
