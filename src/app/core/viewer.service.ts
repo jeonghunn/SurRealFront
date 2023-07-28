@@ -6,17 +6,24 @@ import { Attach } from 'src/app/model/type';
   providedIn: 'root'
 })
 export class ViewerService {
-  public attach$: BehaviorSubject<Attach> = new BehaviorSubject<Attach>(undefined);
+  public attaches$: BehaviorSubject<Attach[]> = new BehaviorSubject<Attach[]>(undefined);
+  public index$: BehaviorSubject<number> = new BehaviorSubject<number>(undefined);
 
   constructor() { }
 
-  public open(attach: any): void {
+  public open(attaches: any, index: number): void {
     history.pushState(null, null, location.href);
-    this.attach$.next(attach);
+    this.attaches$.next(attaches);
+    this.index$.next(index);
   }
 
   public close(): void {
-    this.attach$.next(undefined);
+    this.attaches$.next(undefined);
+    this.index$.next(undefined);
+  }
+
+  public setIndex(value: number): void {
+    this.index$.next(value);
   }
 
 

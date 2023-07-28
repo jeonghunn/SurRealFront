@@ -75,8 +75,8 @@ export class MessageComponent {
      return attach.extension?.toUpperCase();
   }
 
-  public onThumbnailClick(file: Attach): void {
-    this.viewerService.open(file);
+  public onThumbnailClick(index: number): void {
+    this.viewerService.open(this.attaches, index);
 
     this.changeDetectorRef.markForCheck();
   }

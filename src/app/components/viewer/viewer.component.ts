@@ -2,7 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  OnChanges,
+  HostListener,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -25,11 +25,13 @@ import {
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss']
 })
-export class ViewerComponent implements OnChanges, OnDestroy {
+export class ViewerComponent implements OnDestroy {
 
   public attachType: typeof AttachType = AttachType;
   private subscriptions: Subscription[] = [];
-  public attach: Attach;
+  public attaches: Attach[];
+  public currentAttach: Attach;
+  public currentIndex: number;
   public attachStatus: typeof AttachStatus = AttachStatus;
   public imageStyle: any = {
     maxHeight: '80%',
@@ -45,26 +47,39 @@ export class ViewerComponent implements OnChanges, OnDestroy {
     private elementRef: ElementRef,
   ) {
     this.subscriptions = [
-      this.viewerService.attach$.subscribe((attach: Attach) => {
-        this.attach = attach;
-
-        if ((attach?.type === AttachType.VIDEO && this.attachInfoRequestCount === 0) ||
-        attach?.status === AttachStatus.PROCESSING) {
-          this.dataService.getAttachInfo(attach.binary_name).pipe(
-            delay(this.attachInfoRequestCount === 0 ? 0 : 5000),
-            take(1),
-          ).subscribe((attach: Attach) => {
-            if (this.isClosed) {
-              return;
-            }
-
-            this.attachInfoRequestCount++;
-            this.viewerService.open(attach);
-          });
+      this.viewerService.attaches$.subscribe((attaches: Attach[]) => {
+        this.attaches = attaches;
+      }),
+      this.viewerService.index$.subscribe((index: number) => {
+        if (!this.attaches) {
+          return;
         }
+
+        const attach: Attach = this.attaches[index];
+        this.currentAttach = attach;
+        this.currentIndex = index;
+
+        console.log('currentAttach', this.currentAttach);
+
+        this.loadVideo(attach);
 
       }),
     ];
+  }
+
+  @HostListener('document:keydown.ArrowLeft', ['$event'])
+  public onLeftKeyDown(event: KeyboardEvent) {
+    this.onArrowClick(null, -1);
+  }
+
+  @HostListener('document:keydown.ArrowRight', ['$event'])
+  public onRightKeyDown(event: KeyboardEvent) {
+    this.onArrowClick(null, 1);
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  public onEscapeKeyDown(event: KeyboardEvent) {
+    this.viewerService.close();
   }
   
   public ngOnDestroy(): void {
@@ -75,9 +90,28 @@ export class ViewerComponent implements OnChanges, OnDestroy {
     this.isClosed = true;
     this.viewerService.close();
   }
+  
+  public loadVideo(attach: Attach): void {
+    if ((attach?.type === AttachType.VIDEO && this.attachInfoRequestCount === 0) ||
+    attach?.status === AttachStatus.PROCESSING) {
+      this.dataService.getAttachInfo(attach.binary_name).pipe(
+        delay(this.attachInfoRequestCount === 0 ? 0 : 5000),
+        take(1),
+      ).subscribe((videoAttach: Attach) => {
+        if (this.isClosed) {
+          return;
+        }
+
+        this.attachInfoRequestCount++;
+        this.currentAttach = videoAttach;
+        this.attaches[this.currentIndex] = videoAttach;
+        this.loadVideo(videoAttach);
+      });
+    }
+  }
 
   public onBackgroundClick(event: MouseEvent): void {
-    if(this.attach.type === AttachType.VIDEO) {
+    if(this.currentAttach.type === AttachType.VIDEO) {
       return;
     }
     this.onCloseClick(event);
@@ -101,10 +135,16 @@ export class ViewerComponent implements OnChanges, OnDestroy {
     return false;
   }
 
-  public ngOnChanges(): void {
-    console.log(this.attach);
+  public onArrowClick(event: MouseEvent, indexOffset: number): void {
+    event?.stopPropagation();
 
+    const index: number = this.currentIndex + indexOffset;
 
+    if (index < 0 || index > this.attaches?.length - 1) {
+      return;
+    }
+
+    this.viewerService.setIndex(index);
   }
 
 }

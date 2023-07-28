@@ -24,10 +24,10 @@
         *ngIf="attaches?.length > 0"
     >
     <app-thumbnail
-        *ngFor="let file of attaches"
+        *ngFor="let file of attaches; let i = index"
         [isClickable]="true"
         [src]="getSrcText(file)"
-        (click)="onThumbnailClick(file)"
+        (click)="onThumbnailClick(i)"
     ></app-thumbnail>
     </div>
 </div>

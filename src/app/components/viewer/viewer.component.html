@@ -1,12 +1,14 @@
 <div
     class="container"
     (click)="onBackgroundClick($event)"
+    (keydown.ArrowLeft)="onArrowClick(null, -1)"
+    (keydown.ArrowRight)="onArrowClick(null, 1)"
 >
     <div class="header">
         <button
             mat-icon-button
             aria-label="Download"
-            (click)="onDownloadClick($event, attach);"
+            (click)="onDownloadClick($event, currentAttach);"
         >
             <mat-icon
                 color="accent"
@@ -24,40 +26,65 @@
     </div>
 
     <app-video-viewer
-    *ngIf="attach?.type === attachType.VIDEO && attach?.status === attachStatus.NORMAL"
+    *ngIf="currentAttach?.type === attachType.VIDEO && currentAttach?.status === attachStatus.NORMAL"
     class="video-player"
-    [src]="attach?.url + '?prefer=video/mp4'"
-    [mimeType]="attach?.mimetype"
+    [src]="currentAttach?.url + '?prefer=video/mp4'"
+    [mimeType]="currentAttach?.mimetype"
     ></app-video-viewer>
 
     <img
-        *ngIf="attach?.type === attachType.IMAGE"
+        *ngIf="currentAttach?.type === attachType.IMAGE"
         class="image"
-        [src]="attach?.url"
+        [src]="currentAttach?.url"
         [ngStyle]="imageStyle"
         (click)="onImageClick($event)"
     />
 
     <div
-        *ngIf="attach?.type !== attachType.IMAGE"
+        *ngIf="currentAttach?.type !== attachType.IMAGE"
         class="info"
     >
         <mat-icon
-            *ngIf="attach?.type === attachType.BINARY"
+            *ngIf="currentAttach?.type === attachType.BINARY"
             class="icon"
         >insert_drive_file</mat-icon>
-        <span class="title">{{ attach.name }}{{ attach.extension }}</span>
-        <p>{{ attach.size | filesize }}</p>
+        <span class="title">{{ currentAttach.name }}{{ currentAttach.extension }}</span>
+        <p>{{ currentAttach.size | filesize }}</p>
     </div>
 
 
     <div
-        *ngIf="attach?.status === attachStatus.PROCESSING"
+        *ngIf="currentAttach?.status === attachStatus.PROCESSING"
         class="video-loader"
     >
         <app-spinner></app-spinner>
         {{ 'VIEWER.VIDEO.PROCESSING' | translate }}
     </div>
+
+
+    <button
+    *ngIf="currentIndex > 0"
+    mat-icon-button
+    class="arrow-button__left"
+    aria-label="Download"
+    (click)="onArrowClick($event, -1)"
+>
+    <mat-icon
+        class="arrow-icon"
+    >keyboard_arrow_left</mat-icon>
+  </button>
+
+  <button
+  *ngIf="currentIndex < attaches?.length - 1"
+  mat-icon-button
+  class="arrow-button__right"
+  aria-label="Download"
+  (click)="onArrowClick($event, 1)"
+>
+  <mat-icon
+      class="arrow-icon"
+  >keyboard_arrow_right</mat-icon>
+</button>
 
 
 
