@@ -145,12 +145,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onFileSelected(event: any): void {
-    const file: FileContainer = {
-      file: event.target.files[0],
-      url: window.URL.createObjectURL(event.target.files[0]),
-    };
+    const files: FileContainer[] = Array.from(event.target?.files).map((x: any) => {
+      return {
+        file: x,
+        url: window.URL.createObjectURL(x),
+      };
+    });
+   
 
-    this.roomService.addFiles([ file ]);
+    this.roomService.addFiles(files);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
