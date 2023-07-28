@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -65,6 +66,21 @@ export class ViewerComponent implements OnDestroy {
       }),
     ];
   }
+
+  @HostListener('document:keydown.ArrowLeft', ['$event'])
+  public onLeftKeyDown(event: KeyboardEvent) {
+    this.onArrowClick(null, -1);
+  }
+
+  @HostListener('document:keydown.ArrowRight', ['$event'])
+  public onRightKeyDown(event: KeyboardEvent) {
+    this.onArrowClick(null, 1);
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  public onEscapeKeyDown(event: KeyboardEvent) {
+    this.viewerService.close();
+  }
   
   public ngOnDestroy(): void {
     Util.unsubscribe(...this.subscriptions);
@@ -120,8 +136,15 @@ export class ViewerComponent implements OnDestroy {
   }
 
   public onArrowClick(event: MouseEvent, indexOffset: number): void {
-    event.stopPropagation();
-    this.viewerService.setIndex(this.currentIndex + indexOffset);
+    event?.stopPropagation();
+
+    const index: number = this.currentIndex + indexOffset;
+
+    if (index < 0 || index > this.attaches?.length - 1) {
+      return;
+    }
+
+    this.viewerService.setIndex(index);
   }
 
 }
