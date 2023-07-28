@@ -72,8 +72,8 @@ export class AppComponent implements OnInit, OnDestroy {
       }),
     );
     this.subscriptions.push(
-      this.viewerService.attach$.subscribe((attach: Attach) => {
-        this.isViewerOpen = attach !== undefined;
+      this.viewerService.attaches$.subscribe((attaches: Attach[]) => {
+        this.isViewerOpen = attaches !== undefined;
     }),
     this.networkService.isConnected$.subscribe((isConnected: boolean) => {
 

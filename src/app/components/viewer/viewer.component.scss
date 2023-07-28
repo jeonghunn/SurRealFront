@@ -65,4 +65,35 @@
             font-size: 16px;
         }
     }
+
+
+    .arrow-icon {
+        color:white;
+        transform: scale(2);
+
+
+    }
+
+    .arrow-button {
+
+        &__left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+        }
+
+        &__right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+        }
+
+
+    }
+
+
 }
