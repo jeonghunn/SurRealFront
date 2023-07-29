@@ -133,6 +133,7 @@
           "ATTACH": "파일"
         }
       },
+      "DEFAULT_NAME": "대화",
       "ERROR": {
         "CONNECTION": {
           "DESC": "재연결 시도 중...",

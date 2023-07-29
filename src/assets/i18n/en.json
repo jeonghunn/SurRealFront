@@ -124,6 +124,7 @@
           "ATTACH": "Files"
         }
       },
+      "DEFAULT_NAME": "Conversation",
       "ERROR": {
         "CONNECTION": {
           "DESC": "Trying to Reconnect... ",
