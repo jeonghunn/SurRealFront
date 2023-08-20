@@ -28,6 +28,13 @@ import {
   MatSnackBarRef,
   TextOnlySnackBar,
 } from '@angular/material/snack-bar';
+import {
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { CookieService } from 'ngx-cookie-service';
+import { LocalSettingService } from './core/local-setting.service';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public isSmallWidth: boolean = false;
   public isSideNavEnlarged: boolean = true;
   public isViewerOpen: boolean = true;
+  public notificationDialogRef: MatDialogRef<ConfirmComponent>;
 
   private MOBILE_WIDTH: number = WindowSizeWidth.MOBILE;
   private subscriptions: Subscription[] = [];
@@ -53,13 +61,20 @@ export class AppComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
+    private localSettingService: LocalSettingService,
     private networkService: NetworkService,
     private matSnackBar: MatSnackBar,
+    public matDialog: MatDialog,
   ) {
     translateService.setDefaultLang(this.getLanguageCode());
     this.subscriptions.push(
       this.dataService.httpErrorCode.subscribe((code: number) => {
         this.pageErrorCode = code;
+      }),
+    );
+    this.subscriptions.push(
+      this.translateService.get('HELLO_WORLD').subscribe((res: string) => {
+          this.openNotificationPermissionDialog();
       }),
     );
     this.subscriptions.push(
@@ -132,6 +147,34 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
+  }
+
+  public openNotificationPermissionDialog(): void {
+    if(!this.isSignedIn || Notification.permission !== 'default' || this.localSettingService.isUserDisallowedNotification) {
+      return;
+    }
+
+    this.notificationDialogRef = this.matDialog.open(ConfirmComponent, {
+      maxWidth: '600px',
+      minWidth: '280px',
+      data: {
+        title: this.translateService.instant('PERMISSION.NOTIFICATION.TITLE'),
+        message: this.translateService.instant('PERMISSION.NOTIFICATION.MESSAGE'),
+        positiveText: this.translateService.instant('PERMISSION.NOTIFICATION.ALLOW'),
+        negativeText: this.translateService.instant('PERMISSION.NOTIFICATION.CANCEL'),
+      },
+      maxHeight: '90vh',
+    });
+
+    this.notificationDialogRef.afterClosed().subscribe((result: any) => {
+      this.localSettingService.set('notification_permission', result?.option);
+
+      if(result?.option) {
+        this.localSettingService.requestNotificationPermission();
+      }
+
+    });
+
   }
 
   public onWindowResize(event: any): void {

@@ -40,6 +40,14 @@
     "SETTING": "Settings",
     "MY_PROFILE": "My Profile"
   },
+  "PERMISSION": {
+    "NOTIFICATION": {
+      "TITLE": "Turn on Notification",
+      "MESSAGE": "Do you want to receive message notifications?",
+      "ALLOW": "Allow",
+      "CANCEL": "Cancel"
+    }
+  },
   "INTRODUCTION": {
     "TITLE": "Find a new friend who thinks like you.",
     "DESCRIPTION": "Select your gender to start!",
