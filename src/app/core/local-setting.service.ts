@@ -19,8 +19,8 @@ export class LocalSettingService {
     return localStorage.getItem(key);
   }
 
-  public requestNotificationPermission(): void {
-    Notification.requestPermission().then((permission: string) => {
+  public requestNotificationPermission(): Promise<any> {
+    return Notification.requestPermission().then((permission: string) => {
       this.set('notification_permission', permission);
     });
   }

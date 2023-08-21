@@ -33,8 +33,8 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { ConfirmComponent } from './components/confirm/confirm.component';
-import { CookieService } from 'ngx-cookie-service';
 import { LocalSettingService } from './core/local-setting.service';
+import { PushMessageService } from './core/push-message.service';
 
 @Component({
   selector: 'app-root',
@@ -64,6 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private localSettingService: LocalSettingService,
     private networkService: NetworkService,
     private matSnackBar: MatSnackBar,
+    private pushMessageService: PushMessageService,
     public matDialog: MatDialog,
   ) {
     translateService.setDefaultLang(this.getLanguageCode());
@@ -75,6 +76,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.translateService.get('HELLO_WORLD').subscribe((res: string) => {
           this.openNotificationPermissionDialog();
+          this.pushMessageService.getToken();
+        
       }),
     );
     this.subscriptions.push(
@@ -170,7 +173,9 @@ export class AppComponent implements OnInit, OnDestroy {
       this.localSettingService.set('notification_permission', result?.option);
 
       if(result?.option) {
-        this.localSettingService.requestNotificationPermission();
+        this.localSettingService.requestNotificationPermission().then(() => {
+          this.pushMessageService.getToken();
+        });
       }
 
     });
