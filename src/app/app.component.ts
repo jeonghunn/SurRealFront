@@ -12,13 +12,17 @@ import {
   RouterEvent,
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import {
+  Subscription,
+  take,
+} from 'rxjs';
 import { DataService } from './core/data.service';
 import { IdentityService } from './core/identity.service';
 import { LayoutService } from './core/layout.service';
 import { Util } from './core/util';
 import {
   Attach,
+  User,
   WindowSizeWidth,
 } from './model/type';
 import { ViewerService } from './core/viewer.service';
@@ -74,10 +78,10 @@ export class AppComponent implements OnInit, OnDestroy {
       }),
     );
     this.subscriptions.push(
-      this.translateService.get('HELLO_WORLD').subscribe((res: string) => {
-          this.openNotificationPermissionDialog();
-          this.pushMessageService.getToken();
-        
+      this.identityService.user$.subscribe((user: User) => {
+        if (user !== undefined && !this.openNotificationPermissionDialog()) {
+          this.registerClient();
+        }
       }),
     );
     this.subscriptions.push(
@@ -132,6 +136,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+      });
   public shouldSideNavOpen(): boolean {
     return (this.isSideNavOpen || !this.isSmallWidth) && this.isSignedIn;
   }
@@ -152,9 +157,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
   }
 
-  public openNotificationPermissionDialog(): void {
+  public openNotificationPermissionDialog(): boolean {
     if(!this.isSignedIn || Notification.permission !== 'default' || this.localSettingService.isUserDisallowedNotification) {
-      return;
+      return false;
     }
 
     this.notificationDialogRef = this.matDialog.open(ConfirmComponent, {
@@ -174,11 +179,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
       if(result?.option) {
         this.localSettingService.requestNotificationPermission().then(() => {
-          this.pushMessageService.getToken();
+          this.registerClient();
         });
       }
 
     });
+
+    return true;
 
   }
 

@@ -69,6 +69,15 @@ export class DataService {
     );
   }
 
+  public postClient(token: string): Observable<any> {
+    return this.httpClient.post<any>(`${this.apiUrl}/client`, {
+      token,
+    }).pipe(
+      map(this.handleResponse),
+      catchError(error => this.handleError(error)),
+    );
+  }
+
   public getFriendList(): Observable<Relation[]> {
     return this.httpClient.get<{ relations: Relation[] }>(`${this.apiUrl}/user/friends`, {}).pipe(
       map((result: { relations: Relation[] }) => result.relations),
