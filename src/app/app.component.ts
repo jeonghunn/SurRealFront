@@ -136,7 +136,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  public registerClient(): void {
+    this.pushMessageService.getToken().then((token: string) => {
+      this.dataService.postClient(token).pipe(take(1)).subscribe((res: any) => {
       });
+    });
+  }
+
+
   public shouldSideNavOpen(): boolean {
     return (this.isSideNavOpen || !this.isSmallWidth) && this.isSignedIn;
   }

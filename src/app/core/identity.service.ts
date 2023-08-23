@@ -21,6 +21,7 @@ import { DataService } from './data.service';
 export class IdentityService {
 
   public user$: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
+  private channel4Broadcast = new BroadcastChannel('user_id');
 
   public constructor(
     private cookieService: CookieService,
@@ -51,7 +52,10 @@ export class IdentityService {
 
   public verify(): Observable<User> {
     return this.dataService.verify().pipe(
-      tap((result: any) => this.user$.next(result.user)),
+      tap((result: any) => {
+        this.channel4Broadcast.postMessage(result.user?.id);
+       return  this.user$.next(result.user)
+      }),
     );
   }
 

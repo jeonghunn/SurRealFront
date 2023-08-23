@@ -13,17 +13,40 @@ firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
+let userId = null;
 
-messaging.onBackgroundMessage(messaging, (payload) => {
+messaging.onBackgroundMessage(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
-  const notificationTitle = 'Background Message Title';
+  const notificationTitle = payload.data.title;
   const notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/firebase-logo.png'
+    body: payload.data.body,
+    icon: payload.data.icon,
+    image: payload.data.image,
+    data: {
+      url: payload.data.url,
+    }
   };
 
+  if(userId && userId.toString() === payload.data.user_id){
+    return;
+  }
+
   self.registration.showNotification(notificationTitle,
-    notificationOptions);
+   notificationOptions);
 });
+
+function handleClick (event) {
+  event.notification.close();
+  // Open the url you set on notification.data
+  clients.openWindow(event.notification.data.url).focus();
+}
+self.addEventListener('notificationclick', handleClick);
+
+
+const channel4Broadcast = new BroadcastChannel('user_id');
+channel4Broadcast.onmessage = (event) => {
+  console.log('Received', event.data);
+  userId = event.data;
+}
 
