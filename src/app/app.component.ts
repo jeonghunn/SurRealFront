@@ -12,13 +12,17 @@ import {
   RouterEvent,
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import {
+  Subscription,
+  take,
+} from 'rxjs';
 import { DataService } from './core/data.service';
 import { IdentityService } from './core/identity.service';
 import { LayoutService } from './core/layout.service';
 import { Util } from './core/util';
 import {
   Attach,
+  User,
   WindowSizeWidth,
 } from './model/type';
 import { ViewerService } from './core/viewer.service';
@@ -28,6 +32,13 @@ import {
   MatSnackBarRef,
   TextOnlySnackBar,
 } from '@angular/material/snack-bar';
+import {
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { LocalSettingService } from './core/local-setting.service';
+import { PushMessageService } from './core/push-message.service';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public isSmallWidth: boolean = false;
   public isSideNavEnlarged: boolean = true;
   public isViewerOpen: boolean = true;
+  public notificationDialogRef: MatDialogRef<ConfirmComponent>;
 
   private MOBILE_WIDTH: number = WindowSizeWidth.MOBILE;
   private subscriptions: Subscription[] = [];
@@ -53,13 +65,23 @@ export class AppComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
+    private localSettingService: LocalSettingService,
     private networkService: NetworkService,
     private matSnackBar: MatSnackBar,
+    private pushMessageService: PushMessageService,
+    public matDialog: MatDialog,
   ) {
     translateService.setDefaultLang(this.getLanguageCode());
     this.subscriptions.push(
       this.dataService.httpErrorCode.subscribe((code: number) => {
         this.pageErrorCode = code;
+      }),
+    );
+    this.subscriptions.push(
+      this.identityService.user$.subscribe((user: User) => {
+        if (user !== undefined && !this.openNotificationPermissionDialog()) {
+          this.registerClient();
+        }
       }),
     );
     this.subscriptions.push(
@@ -114,6 +136,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  public registerClient(): void {
+    this.pushMessageService.getToken().then((token: string) => {
+      this.dataService.postClient(token).pipe(take(1)).subscribe((res: any) => {
+      });
+    });
+  }
+
+
   public shouldSideNavOpen(): boolean {
     return (this.isSideNavOpen || !this.isSmallWidth) && this.isSignedIn;
   }
@@ -132,6 +162,38 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
+  }
+
+  public openNotificationPermissionDialog(): boolean {
+    if(!this.isSignedIn || Notification.permission !== 'default' || this.localSettingService.isUserDisallowedNotification) {
+      return false;
+    }
+
+    this.notificationDialogRef = this.matDialog.open(ConfirmComponent, {
+      maxWidth: '600px',
+      minWidth: '280px',
+      data: {
+        title: this.translateService.instant('PERMISSION.NOTIFICATION.TITLE'),
+        message: this.translateService.instant('PERMISSION.NOTIFICATION.MESSAGE'),
+        positiveText: this.translateService.instant('PERMISSION.NOTIFICATION.ALLOW'),
+        negativeText: this.translateService.instant('PERMISSION.NOTIFICATION.CANCEL'),
+      },
+      maxHeight: '90vh',
+    });
+
+    this.notificationDialogRef.afterClosed().subscribe((result: any) => {
+      this.localSettingService.set('notification_permission', result?.option);
+
+      if(result?.option) {
+        this.localSettingService.requestNotificationPermission().then(() => {
+          this.registerClient();
+        });
+      }
+
+    });
+
+    return true;
+
   }
 
   public onWindowResize(event: any): void {
