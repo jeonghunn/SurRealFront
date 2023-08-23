@@ -13,7 +13,7 @@ import { LayoutService } from 'src/app/core/layout.service';
 export class MainComponent {
 
   public isGuest: boolean = true;
-  public readonly version: string = '2023 July Update 3';
+  public readonly version: string = '2023 August Update';
 
   public constructor(
     private identityService: IdentityService,
