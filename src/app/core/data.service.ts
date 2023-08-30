@@ -74,7 +74,6 @@ export class DataService {
       token,
     }).pipe(
       map(this.handleResponse),
-      catchError(error => this.handleError(error)),
     );
   }
 
