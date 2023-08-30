@@ -1,5 +1,8 @@
-importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js');
+
+
+importScripts('https://www.gstatic.com/firebasejs/10.3.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.3.0/firebase-messaging-compat.js');
+importScripts('assets/js/localforage.min.js')
 
 
 firebase.initializeApp({
@@ -14,6 +17,10 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 let userId = null;
+
+localforage.getItem('user_id').then(function(value) {
+  userId = value;
+});
 
 messaging.onBackgroundMessage(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);

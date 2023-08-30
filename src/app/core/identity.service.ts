@@ -50,10 +50,14 @@ export class IdentityService {
     return this.user$.getValue()?.id;
   }
 
+  public broadcastUserId(id: number = null): void {
+    this.channel4Broadcast.postMessage(id || this.id);
+  }
+
   public verify(): Observable<User> {
     return this.dataService.verify().pipe(
       tap((result: any) => {
-        this.channel4Broadcast.postMessage(result.user?.id);
+        this.broadcastUserId(result?.user?.id);
        return  this.user$.next(result.user)
       }),
     );
