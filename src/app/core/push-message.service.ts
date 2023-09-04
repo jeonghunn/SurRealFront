@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { getMessaging, getToken } from "firebase/messaging";
 import { environment } from 'src/environments/environment';
 import { initializeApp } from "firebase/app";
+import { LocalSettingService } from './local-setting.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class PushMessageService {
   public firebaseApp: any = null;
 
 
-  public constructor() {
+  public constructor(
+    private localSettingService: LocalSettingService,
+  ) {
     this.registerServiceWorker();
     this.firebaseApp = initializeApp(environment.firebase);
     this.messaging = getMessaging(); 
@@ -20,7 +23,7 @@ export class PushMessageService {
   }
 
   public registerServiceWorker(): Promise<void> {
-    if (!('serviceWorker' in navigator)) return;
+    if (!('serviceWorker' in navigator) || this.localSettingService.isUserDisallowedNotification) return;
 
     return navigator.serviceWorker.getRegistration().then((registration) => {
       console.log('registration', registration);
