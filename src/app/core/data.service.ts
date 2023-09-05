@@ -69,8 +69,9 @@ export class DataService {
     );
   }
 
-  public postClient(token: string): Observable<any> {
+  public postClient(key: string, token: string): Observable<any> {
     return this.httpClient.post<any>(`${this.apiUrl}/client`, {
+      key,
       token,
     }).pipe(
       map(this.handleResponse),

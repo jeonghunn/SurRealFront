@@ -14,6 +14,7 @@ import {
   UserSimpleSet,
 } from 'src/app/model/type';
 import { DataService } from './data.service';
+import localforage from 'localforage';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +52,9 @@ export class IdentityService {
   }
 
   public broadcastUserId(id: number = null): void {
-    this.channel4Broadcast.postMessage(id || this.id);
+    localforage.setItem('user_id', id || this.id, function (err) {
+      console.log(err);
+    });
   }
 
   public verify(): Observable<User> {

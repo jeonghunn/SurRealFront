@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
     );
     this.subscriptions.push(
       this.identityService.user$.subscribe((user: User) => {
-        if (user !== undefined && !this.openNotificationPermissionDialog()) {
+        if (user !== undefined && this.localSettingService.isUserGrantNotification) {
           this.registerClient();
         }
       }),
@@ -138,7 +138,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public registerClient(): void {
     this.pushMessageService.getToken().then((token: string) => {
-      this.dataService.postClient(token).pipe(take(1)).subscribe((res: any) => {
+      const key: string = this.localSettingService.get('client_id');
+
+      this.dataService.postClient(key, token).pipe(take(1)).subscribe((res: any) => {
+        this.localSettingService.set('client_id', res?.id);
       });
     });
   }
@@ -186,7 +189,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
       if(result?.option) {
         this.localSettingService.requestNotificationPermission().then(() => {
-          this.registerClient();
+          this.pushMessageService.init().then(() => {
+            this.registerClient();
+          });
         });
       }
 
