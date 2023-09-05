@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
     );
     this.subscriptions.push(
       this.identityService.user$.subscribe((user: User) => {
-        if (user !== undefined && !this.openNotificationPermissionDialog()) {
+        if (user !== undefined && this.openNotificationPermissionDialog()) {
           this.registerClient();
         }
       }),
