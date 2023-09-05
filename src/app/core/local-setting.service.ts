@@ -11,6 +11,10 @@ export class LocalSettingService {
     return this.get('notification_permission') === 'false';
   }
 
+  public get isUserGrantNotification(): boolean {
+    return this.get('notification_permission') === 'granted';
+  }
+
   public set(key: string, value: string): void {
     localStorage.setItem(key, value);
   }

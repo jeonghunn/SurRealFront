@@ -186,7 +186,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
       if(result?.option) {
         this.localSettingService.requestNotificationPermission().then(() => {
-          this.registerClient();
+          this.pushMessageService.init().then(() => {
+            this.registerClient();
+          });
         });
       }
 

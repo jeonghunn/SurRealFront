@@ -16,14 +16,25 @@ export class PushMessageService {
   public constructor(
     private localSettingService: LocalSettingService,
   ) {
-    this.registerServiceWorker();
+    this.init();
+  }
+
+  public init(): Promise<void> {
+    if (!this.localSettingService.isUserGrantNotification) {
+      return Promise.resolve();
+    }
+
     this.firebaseApp = initializeApp(environment.firebase);
     this.messaging = getMessaging(); 
-    
+
+    return this.registerServiceWorker();
   }
 
   public registerServiceWorker(): Promise<void> {
-    if (!('serviceWorker' in navigator) || this.localSettingService.isUserDisallowedNotification) return;
+    if (!('serviceWorker' in navigator)) {
+      return Promise.resolve();
+    }
+
 
     return navigator.serviceWorker.getRegistration().then((registration) => {
       console.log('registration', registration);
@@ -34,6 +45,11 @@ export class PushMessageService {
 }
 
   public getToken(): Promise<string> {
+    if (!this.messaging) {
+      console.log('messaging is not initialized');
+      return Promise.resolve(null);
+    }
+
     return getToken(this.messaging, { vapidKey: environment.firebaseVapidKey }).then((currentToken: string) => {
       if (currentToken) {
         console.log('currentToken', currentToken);
