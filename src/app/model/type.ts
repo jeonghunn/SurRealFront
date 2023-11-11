@@ -19,6 +19,7 @@ export enum ChatSpaceCategory {
 
 export enum LiveCategory {
   NOW,
+  SUMMARY,
   MAP,
   ATTENDEE,
   ATTACH,

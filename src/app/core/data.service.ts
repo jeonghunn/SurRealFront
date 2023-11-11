@@ -144,6 +144,13 @@ export class DataService {
     );
   }
 
+  public getSummary(groupId: number, roomId: number): Observable<string> {
+    return this.httpClient.get<{ response: string }>(`${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100`).pipe(
+      map((result : { response: string }) => result?.response),
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
   public getChats(
     groupId: number,
     roomId: number,
