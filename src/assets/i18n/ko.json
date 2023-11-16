@@ -135,6 +135,7 @@
       },
       "LIVE": {
         "CATEGORY": {
+          "SUMMARY": "요약",
           "MAP": "맵",
           "NOW": "Now",
           "ATTENDEE": "참여자",

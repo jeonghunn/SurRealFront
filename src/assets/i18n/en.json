@@ -126,6 +126,7 @@
       },
       "LIVE": {
         "CATEGORY": {
+          "SUMMARY": "Summary",
           "MAP": "Map",
           "NOW": "Now",
           "ATTENDEE": "Attendees",
