@@ -39,6 +39,7 @@ import {
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { LocalSettingService } from './core/local-setting.service';
 import { PushMessageService } from './core/push-message.service';
+import { v4 } from 'uuid';
 
 @Component({
   selector: 'app-root',
@@ -138,7 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public registerClient(): void {
     this.pushMessageService.getToken().then((token: string) => {
-      const key: string = this.localSettingService.get('client_id');
+      const key: string = this.localSettingService.get('client_id') || v4();
 
       this.dataService.postClient(key, token).pipe(take(1)).subscribe((res: any) => {
         this.localSettingService.set('client_id', res?.id);
@@ -164,6 +165,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    this.openNotificationPermissionDialog();
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
   }
 
