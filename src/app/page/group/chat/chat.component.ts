@@ -17,6 +17,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import {
@@ -34,6 +35,7 @@ import {
   Chat,
   FileContainer,
   Room,
+  Topic,
 } from 'src/app/model/type';
 
 @Component({
@@ -47,7 +49,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public room: Room;
 
   @Input()
+  public topic: Topic;
+
+  @Input()
   public chats: Chat[];
+
+  @Input()
+  public extraChats: Chat[];
 
   @Input()
   public isDisabled: boolean = false;
@@ -57,6 +65,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   @Input()
   public isFullyLoad: boolean = false;
+
 
   public readonly DEFAULT_FOOTER_WIDTH: number = 400;
   public readonly CHAT_AUTO_SCROLL_ALLOW_THRESHOLD: number = 16;
@@ -73,6 +82,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public chatContainerHeight: string = null;
   public isMultiLineEnabled: boolean = false;
   public isTouchMode: boolean = false;
+  public isHeaderVisible: boolean = true;
+
+  public replyChat: Chat = null;
+  public focusedMessageChat: Chat = null;
 
   public files: FileContainer[] = [];
 
@@ -87,6 +100,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   @ViewChild('chatContainer')
   private chatContainer: ElementRef;
 
+  @ViewChild('headerContainer')
+  private headerContainer: ElementRef;
+
   @ViewChild('fileInput')
   private fileInput: ElementRef;
 
@@ -100,6 +116,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     private dataService: DataService,
     private matDialog: MatDialog,
     private translateService: TranslateService,
+    private router: Router, 
   ) {
 
     this.subscriptions = [
@@ -136,6 +153,26 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public onFileButtonClick(): void {
     this.fileInput.nativeElement.click();
+  }
+
+  public goToParentTopic(): void {
+    let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
+
+    if (this.topic?.parent_id) {
+      url += `/topic/${this.topic?.parent_id}`;
+    }
+
+    this.router.navigateByUrl(url).then(null);
+  }
+
+  public goToTopic(id: number): void {
+    let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
+
+    if (id) {
+      url += `/topic/${id}`;
+    }
+
+    this.router.navigateByUrl(url).then(null);
   }
 
   public isHideName(chat: Chat, index: number): boolean {
@@ -353,24 +390,63 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public sendMessage(
     text: string,
-    meta: any = null,
+    meta: any = {},
     ): void {
     this.isAutoScrollActive = true;
     this.message = '';
-    this.chatSend.emit(new Chat(null, text, null, null, meta));
+
+    if (this.replyChat) {
+      this.dataService.createTopicByChat(
+        this.room?.group_id,
+        this.room?.id,
+        this.replyChat?.id,
+        `${this.replyChat?.user?.name}: ${this.replyChat?.content}`,
+      ).pipe(take(1)).subscribe((result: any) => {
+        this.replyChat = null;
+        meta.topic_id = result?.id;
+        this.emitChatSend(text, result?.id, meta);
+        this.goToTopic(result?.id);
+      });
+
+      return;
+    }
+
+    this.emitChatSend(text, this.topic?.id, meta);
+    
     this.message = '';
 
+  }
+
+  public emitChatSend(
+    text: string,
+    topicId: number = null,
+    meta: any = null,
+    ): void {
+    this.chatSend.emit(new Chat(
+      null,
+      text,
+      null,
+      null,
+      topicId,
+      meta,
+      ));
   }
 
   public onChatFieldResize(height: number) {
     const margin: number = this.isShortWidth ? 24 : -24;
-    const messageBoxHeight: number = (height > 200 ? 200 : height) + margin;
+    const headerHeight: number = this.headerContainer?.nativeElement?.offsetHeight;
+    const delta: number = (height > 200 ? 200 : height) + margin + headerHeight;
 
     
-    this.chatContainerHeight = `calc(100% - ${ messageBoxHeight }px)`;
+    this.chatContainerHeight = `calc(100% - ${ delta }px)`;
     this.changeDetectorRef.markForCheck();
 
   }
+
+  public onOtherChatClick(chat: Chat): void {
+   this.goToTopic(chat?.topic_id);
+  }
+    
 
 
 }

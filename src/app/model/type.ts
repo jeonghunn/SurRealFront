@@ -93,22 +93,25 @@ export class CommunicationResult extends Communication {
 
 export class Chat extends Communication {
 
-  public id?: number;
+  public id?: string;
   public content: string;
   public user?: User;
+  public topic_id?: number;
   public meta?: any;
 
   public constructor(
-    id: number,
+    id: string,
     content: string,
     createdAt: string,
     user: User,
+    topicId: number = null,
     meta: any = null,
   ) {
     super(CommunicationType.CHAT, createdAt);
     this.id = id;
     this.content = content;
     this.user = user;
+    this.topic_id = topicId;
     this.meta = meta;
   }
 
@@ -160,6 +163,18 @@ export class Room {
   public limit: number;
   public status: number;
 
+}
+
+export class Topic {
+  public id: number;
+  public name: string;
+  public category: string;
+  public parent_id: number;
+  public chat_id: string;
+  public chat?: Chat;
+  public user_id: number;
+  public created_at: string;
+  public updated_at: string;
 }
 
 export class FileContainer {

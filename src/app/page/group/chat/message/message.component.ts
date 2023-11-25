@@ -1,7 +1,9 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
+  Output,
   SecurityContext,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -13,6 +15,11 @@ import {
   Attach,
   AttachType,
 } from 'src/app/model/type';
+import {
+  CdkContextMenuTrigger,
+  CdkMenuItem,
+  CdkMenu,
+} from '@angular/cdk/menu';
 
 @Component({
   selector: 'app-message',
@@ -20,6 +27,9 @@ import {
   styleUrls: [ './message.component.scss' ],
 })
 export class MessageComponent {
+
+  @Input()
+  public id: number;
 
   @Input()
   public user_id: number;
@@ -43,7 +53,16 @@ export class MessageComponent {
   public isShowTime: boolean;
 
   @Input()
+  public isAllowControl: boolean = false;
+
+  @Input()
   public attaches: Attach[] = [];
+
+  @Output()
+  public reply: EventEmitter<null> = new EventEmitter<null>();
+
+
+  public isFocused: boolean = false;
 
   public withEmojis: RegExp = /\p{Extended_Pictographic}/u
 
@@ -79,6 +98,11 @@ export class MessageComponent {
     this.viewerService.open(this.attaches, index);
 
     this.changeDetectorRef.markForCheck();
+  }
+
+
+  public onReplyClick(): void {
+    this.reply.emit();
   }
 
 }

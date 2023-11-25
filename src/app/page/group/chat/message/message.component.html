@@ -1,4 +1,9 @@
-<div class="message">
+<div
+class="message"
+(click)="isFocused = true"
+(mouseover)="isFocused = true"
+(mouseleave)="isFocused = false"
+>
     <div class="row">
         <div class="chat">
             <div
@@ -29,5 +34,14 @@
         [src]="getSrcText(file)"
         (click)="onThumbnailClick(i)"
     ></app-thumbnail>
+    </div>
+    <div
+        class="controls"
+        *ngIf="isFocused && isAllowControl"
+    >
+        <button
+        mat-stroked-button
+        (click)="onReplyClick()"
+        >{{ 'GROUP.ROOM.CHAT.REPLY' | translate }}</button>
     </div>
 </div>

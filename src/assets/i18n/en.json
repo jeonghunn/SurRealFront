@@ -122,7 +122,9 @@
         "DISABLED": "Chat Disabled",
         "WRITE_A_MESSAGE": "Write a message...",
         "EMOJI": "Emoji",
-        "SEND": "Send"
+        "SEND": "Send",
+        "REPLY": "Reply",
+        "ALL_CHATS": "All Chats"
       },
       "LIVE": {
         "CATEGORY": {

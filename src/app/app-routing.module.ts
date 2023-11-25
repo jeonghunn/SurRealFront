@@ -27,7 +27,14 @@ const routes: Routes = [
     children: [
       { path: 'create', component: GroupCreateComponent },
       { path: ':id', component: GroupComponent },
-      { path: ':id/room/:room_id', component: GroupComponent },
+      {
+        path: ':id/room/:room_id',
+        component: GroupComponent,
+      },
+      {
+        path: ':id/room/:room_id/topic/:topic_id',
+        component: GroupComponent,
+      },
     ],
   },
   {

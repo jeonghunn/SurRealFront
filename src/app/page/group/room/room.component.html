@@ -2,7 +2,9 @@
   #chatComponent
   *ngIf="isChatViewOpen"
   [chats]="chats"
+  [extraChats]="recentExtraChats"
   [room]="room"
+  [topic]="topic"
   [isDisabled]="!isAuthenticated || isChatDisabled"
   [isLoading]="isChatLoading"
   [isFullyLoad]="isChatFullyLoad"
