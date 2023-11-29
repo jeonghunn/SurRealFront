@@ -7,6 +7,8 @@ import {
 import { Subscription } from 'rxjs';
 import { RoomService } from 'src/app/core/room.service';
 
+
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -47,6 +49,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   /** Canvas 2d context */
   private context: CanvasRenderingContext2D;
 
+  private map: google.maps.Map;
+  private markers: google.maps.Marker[] = [];
+
   public constructor(
     private elementRef: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
@@ -66,6 +71,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.updateCanvasWidth();
+    this.initMap();
   }
 
   public ngAfterViewInit(): void {
@@ -89,6 +95,15 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.canvasBoundary.yMin,
       this.canvasBoundary.height,
     );
+  }
+
+  public initMap(): void {
+    const mapOptions: google.maps.MapOptions = {
+      zoom: 10,
+      center: { lat: -33.9, lng: 151.2 },
+    };
+
+    this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
   }
 
   public getPosition(
