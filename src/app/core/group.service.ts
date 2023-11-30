@@ -30,7 +30,7 @@ export class GroupService {
 
   public open(id: number, roomId: number = null): void {
     this.dataService.getGroup(id).pipe(take(1)).subscribe((group: Group) => {
-      const defaultRoomId: number = parseInt(localStorage.getItem(`group_${id}_room_id`), 10);
+      const defaultRoomId: number = parseInt(localStorage.getItem(`group_${id}_room_id`), 10) || null;
       this.openedGroup$.next(group);
       this.openRoom(id, roomId || defaultRoomId);
     });
@@ -39,6 +39,7 @@ export class GroupService {
   public openRoom(groupId: number, id: number | null): void {
     if (!groupId || !id) {
       this.openedRoom$.next(null);
+      return;
     }
 
     this.dataService.getRoom(groupId, id).pipe(take(1)).subscribe((room: Room) => {
