@@ -14,6 +14,7 @@ import { ViewerService } from 'src/app/core/viewer.service';
 import {
   Attach,
   AttachType,
+  ChatCategory,
 } from 'src/app/model/type';
 import {
   CdkContextMenuTrigger,
@@ -27,6 +28,9 @@ import {
   styleUrls: [ './message.component.scss' ],
 })
 export class MessageComponent {
+
+  @Input()
+  public category: ChatCategory = ChatCategory.MESSAGE;
 
   @Input()
   public id: number;
@@ -50,6 +54,9 @@ export class MessageComponent {
   public date: string;
 
   @Input()
+  public meta: any = {};
+
+  @Input()
   public isShowTime: boolean;
 
   @Input()
@@ -65,6 +72,7 @@ export class MessageComponent {
   public isFocused: boolean = false;
 
   public withEmojis: RegExp = /\p{Extended_Pictographic}/u
+  public readonly chatCategory: typeof ChatCategory = ChatCategory;
 
   public constructor(
     private router: Router,

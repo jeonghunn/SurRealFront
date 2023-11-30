@@ -98,9 +98,11 @@ export class Chat extends Communication {
   public user?: User;
   public topic_id?: number;
   public meta?: any;
+  public category?: ChatCategory;
 
   public constructor(
     id: string,
+    category: ChatCategory,
     content: string,
     createdAt: string,
     user: User,
@@ -109,6 +111,7 @@ export class Chat extends Communication {
   ) {
     super(CommunicationType.CHAT, createdAt);
     this.id = id;
+    this.category = category;
     this.content = content;
     this.user = user;
     this.topic_id = topicId;
@@ -204,6 +207,11 @@ export enum AttachStatus {
   NORMAL,
   PROCESSING,
   REMOVED,
+}
+
+export enum ChatCategory {
+  MESSAGE,
+  TOPIC_PREVIEW,
 }
 
 export class ResponseSet {

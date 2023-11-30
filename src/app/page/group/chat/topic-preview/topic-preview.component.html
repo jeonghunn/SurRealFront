@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ title }}</mat-card-title>
+      <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+    </mat-card-header>
+    
+    <div class="content">
+        <app-message
+        *ngFor="let chat of chats; let i = index"
+        (click)="onOtherChatClick(chat)"
+        [name]="chat.user?.name"
+        [user_id]="chat.user?.id"
+        [message]="chat.content"
+        [date]="chat?.createdAt"
+        [attaches]="chat?.meta?.attaches"
+        [isAllowControl]="false"
+        [color]="chat?.user?.color || '#46a35e'"
+        [isShowTime]="true"
+      ></app-message>
+    </div>
+
+    <mat-card-actions align="end">
+      <button
+      mat-button
+      (click)="goToTopic(topicId)"
+      >{{ 'GROUP.ROOM.CHAT.MORE' | translate }}</button>
+    </mat-card-actions>
+  </mat-card>

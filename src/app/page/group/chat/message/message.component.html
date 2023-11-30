@@ -1,4 +1,5 @@
 <div
+*ngIf="category === chatCategory.MESSAGE"
 class="message"
 (click)="isFocused = true"
 (mouseover)="isFocused = true"
@@ -44,4 +45,14 @@ class="message"
         (click)="onReplyClick()"
         >{{ 'GROUP.ROOM.CHAT.REPLY' | translate }}</button>
     </div>
+</div>
+<div
+*ngIf="category === chatCategory.TOPIC_PREVIEW && isAllowControl"
+class="box"
+>
+    <app-topic-preview
+    [title]="message"
+    [topicId]="meta?.child_topic_id"
+    [room]="room"
+    ></app-topic-preview>
 </div>

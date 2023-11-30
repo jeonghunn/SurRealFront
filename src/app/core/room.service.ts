@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { FileContainer } from 'src/app/model/type';
+import {
+  BehaviorSubject,
+  Subject,
+} from 'rxjs';
+import {
+  Chat,
+  FileContainer,
+} from 'src/app/model/type';
 import { DataService } from './data.service';
 
 @Injectable({
@@ -10,6 +16,8 @@ export class RoomService {
 
   public liveRoomContent$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
   public uploadFiles$: BehaviorSubject<FileContainer[]> = new BehaviorSubject<FileContainer[]>([]);
+  public lastOtherChat$: Subject<Chat> = new BehaviorSubject<Chat>(null);
+
 
   public constructor(
     private dataService: DataService,
@@ -23,6 +31,10 @@ export class RoomService {
     this.uploadFiles$.next(currentFiles.concat(files));
   }
 
+  public pushOtherChat(chat: Chat): void {
+    this.lastOtherChat$.next(chat);
+  }
+  
   public clearFiles(): void {
     this.uploadFiles$.next([]);
   }

@@ -124,7 +124,8 @@
         "EMOJI": "Emoji",
         "SEND": "Send",
         "REPLY": "Reply",
-        "ALL_CHATS": "All Chats"
+        "ALL_CHATS": "All Chats",
+        "MORE": "More"
       },
       "LIVE": {
         "CATEGORY": {

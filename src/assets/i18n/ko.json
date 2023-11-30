@@ -132,7 +132,8 @@
         "WRITE_A_MESSAGE": "메시지를 입력하세요...",
         "EMOJI": "이모티콘",
         "SEND": "보내기",
-        "ALL_CHATS": "전체 대화"
+        "ALL_CHATS": "전체 대화",
+        "MORE": "더보기"
       },
       "LIVE": {
         "CATEGORY": {

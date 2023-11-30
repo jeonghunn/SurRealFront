@@ -33,7 +33,9 @@ import { RoomService } from 'src/app/core/room.service';
 import { Util } from 'src/app/core/util';
 import {
   Chat,
+  ChatSpaceCategory,
   FileContainer,
+  ChatCategory,
   Room,
   Topic,
 } from 'src/app/model/type';
@@ -405,7 +407,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
         this.replyChat = null;
         meta.topic_id = result?.id;
         this.emitChatSend(text, result?.id, meta);
-        this.goToTopic(result?.id);
       });
 
       return;
@@ -424,6 +425,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     ): void {
     this.chatSend.emit(new Chat(
       null,
+      ChatCategory.MESSAGE,
       text,
       null,
       null,

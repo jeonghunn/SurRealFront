@@ -351,6 +351,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
       case CommunicationType.CHAT:
         const chat: Chat = new Chat(
           msg.id,
+          msg.category,
           msg.content,
           msg.createdAt,
           msg.user,
@@ -426,6 +427,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public pushChat(chat: Chat, topicId: number): void {
 
     if (topicId !== this.topicId) {
+      this.roomService.pushOtherChat(chat);
       this.extraChats.push(chat);
       this.recentExtraChats = this.extraChats?.slice(-3);
       this.changeDetectorRef.markForCheck();
