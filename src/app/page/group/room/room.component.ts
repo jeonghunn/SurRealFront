@@ -167,12 +167,14 @@ export class RoomComponent implements OnDestroy, OnChanges {
             this.topicId,
             ).pipe(take(1)).subscribe((topic: Topic) => {
 
-            if (this.topic && this.topicId !== this.topic?.id) {
+            if (this.room && this.topicId !== this.topic?.id) {
+              this.setTopic(topic);
               this.resetRoom();
               this.initRoom(this.room);
+            } else {
+              this.setTopic(topic);
             }
 
-            this.topic = topic;
           });
         }
 
@@ -191,7 +193,14 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
   }
 
+  public setTopic(topic: Topic): void {
+    this.topicId = topic?.id;
+    this.topic = topic;
+  }
+
   public resetRoom(): void {
+    this.webSocketSubject?.complete();
+    this.webSocketSubject?.unsubscribe();
     this.chatQueue$?.unsubscribe();
     this.dateCriteria = new Date();
     this.futureDateCriteria = new Date();

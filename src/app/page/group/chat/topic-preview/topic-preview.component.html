@@ -9,6 +9,7 @@
         *ngFor="let chat of chats; let i = index"
         (click)="onOtherChatClick(chat)"
         [name]="chat.user?.name"
+        [category]="chat.category"
         [user_id]="chat.user?.id"
         [message]="chat.content"
         [date]="chat?.createdAt"
