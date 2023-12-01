@@ -86,6 +86,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isTouchMode: boolean = false;
   public isHeaderVisible: boolean = true;
 
+  public isHeaderUpdated: boolean = false;
+
   public replyChat: Chat = null;
   public focusedMessageChat: Chat = null;
 
@@ -133,7 +135,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
         this.files = files;
         this.changeDetectorRef.markForCheck();
       }),
-    
+      this.roomService.lastOtherChat$.subscribe((chat: Chat) => {
+        this.isHeaderUpdated = true;
+      }),
     ];
   }
 
@@ -195,14 +199,25 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.roomService.addFiles(files);
   }
 
+  public onHeaderResize(height: number): void {
+    this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
+  }
+
+
   public ngOnChanges(changes: SimpleChanges): void {
     let scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
 
-    if (changes?.room) {
+    if (changes?.room || changes?.topic) {
       this.isManualScroll = true;
       this.isAutoScrollActive = true;
       this.lastChatLength = 0;
       scrollTop = 0;
+      this.isHeaderUpdated = true;
+      this.changeDetectorRef.markForCheck();
+    }
+
+    if (changes?.extraChats) {
+      this.isHeaderUpdated = true;
     }
 
     if (
@@ -241,6 +256,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public ngAfterViewChecked(): void {
+
+    if (this.isHeaderUpdated) {
+      this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
+      this.isHeaderUpdated = false;
+      console.log('after view checked header updated');
+    }
+
     if (this.lastChatLength !== this.chats?.length && this.isAutoScrollActive) {
       this.lastChatLength = this.chats?.length;
       this.scrollToBottom(true);
