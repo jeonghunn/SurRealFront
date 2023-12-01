@@ -164,8 +164,14 @@ export class DataService {
     );
   }
 
-  public getSummary(groupId: number, roomId: number): Observable<string> {
-    return this.httpClient.get<{ response: string }>(`${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100`).pipe(
+  public getSummary(groupId: number, roomId: number, topicId: number): Observable<string> {
+    let url: string = `${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100`;
+
+    if (topicId) { 
+      url += `&topic_id=${topicId}`;
+    }
+
+    return this.httpClient.get<{ response: string }>(url).pipe(
       map((result : { response: string }) => result?.response),
       catchError(error => this.handleError(error, false)),
     );
