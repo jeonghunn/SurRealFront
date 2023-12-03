@@ -1,10 +1,51 @@
 @import "src/assets/style/attrs";
 @import "src/assets/style/palette";
 
+:host {
+  display: block;
+}
+
 .loader {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.header {
+
+  margin-bottom: 8px;
+  
+  .title {
+    display: flex;
+    height: 48px;
+
+    h1 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      line-height: 48px;
+      height: 48px;
+      margin-left: 8px;
+    }
+    
+  }
+  .other-chat {
+    h3 {
+      margin-top: 4px;
+      margin-left: 8px;
+      margin-bottom: 4px;
+      line-height: 24px;
+      height: 24px;
+      font-weight: bold;
+    }
+    margin-top: 4px;
+    border: 1px solid var(--list-background-dark);
+    border-radius: 8px;
+    margin-bottom: 4px;
+
+    app-message {
+      cursor: pointer;
+    }
+  }
 }
 
 .chats {
@@ -38,8 +79,8 @@
     display: none;
   }
   
-  .attachment {
-    display: flex;
+  .input_panel {
+    display: block;
     width: inherit;
     overflow-x: auto;
     margin-bottom: 16px;
@@ -52,6 +93,26 @@
 
     app-thumbnail {
       margin-right: 8px;
+    }
+
+    .reply {
+      width: 100%;
+      margin-bottom: 8px;
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+
+        mat-icon {
+          cursor: pointer;
+          transform: scale(0.8);
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .attachment {
+      display: flex;
     }
 
   }

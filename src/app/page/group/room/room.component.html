@@ -2,7 +2,9 @@
   #chatComponent
   *ngIf="isChatViewOpen"
   [chats]="chats"
+  [extraChats]="recentExtraChats"
   [room]="room"
+  [topic]="topic"
   [isDisabled]="!isAuthenticated || isChatDisabled"
   [isLoading]="isChatLoading"
   [isFullyLoad]="isChatFullyLoad"
@@ -15,6 +17,7 @@
 <app-detail-view
   *ngIf="isLiveViewOpen"
   [room]="room"
+  [topicId]="topicId"
   class="live"
 ></app-detail-view>
 <app-room-info

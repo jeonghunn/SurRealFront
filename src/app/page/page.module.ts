@@ -41,6 +41,7 @@ import { DragDirective } from '../core/directive/drag-drop.directive';
 import { CoreModule } from '../core/core.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SummaryComponent } from './group/detail-view/summary/summary.component';
+import { TopicPreviewComponent } from './group/chat/topic-preview/topic-preview.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { SummaryComponent } from './group/detail-view/summary/summary.component'
     GroupInfoComponent,
     MapComponent,
     SummaryComponent,
+    TopicPreviewComponent,
   ],
     imports: [
         CommonModule,

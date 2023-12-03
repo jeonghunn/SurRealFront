@@ -1,4 +1,41 @@
 <div
+*ngIf="topic"
+#headerContainer
+class="header"
+>
+  <div class="title">
+    <button
+    mat-icon-button
+    aria-label="Upward"
+    (click)="goToParentTopic()"
+    >
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
+    <h1>{{ topic?.name }}</h1>
+  </div>
+  <div
+  *ngIf="extraChats?.length > 0"
+  class="other-chat"
+  >
+    <h3>{{ 'GROUP.ROOM.CHAT.ALL_CHATS' | translate }}</h3>
+    <app-message
+    #otherMessageComponent
+    *ngFor="let chat of extraChats; let i = index"
+    (click)="onOtherChatClick(chat)"
+    [name]="chat.user?.name"
+    [category]="chat.category"
+    [user_id]="chat.user?.id"
+    [message]="chat.content"
+    [date]="chat?.createdAt"
+    [attaches]="chat?.meta?.attaches"
+    [isAllowControl]="false"
+    [color]="chat?.user?.color || '#46a35e'"
+    [isShowTime]="true"
+  ></app-message>
+  </div>
+
+</div>
+<div
   #chatContainer
   [style.height]="chatContainerHeight"
   (scroll)="onScroll($event)"
@@ -13,12 +50,16 @@
   <app-message
     #messageComponent
     *ngFor="let chat of chats; let i = index"
+    (reply)="replyChat = chat"
     [name]="chat.user?.name"
     [user_id]="chat.user?.id"
+    [category]="chat.category"
     [message]="chat.content"
     [date]="chat?.createdAt"
     [attaches]="chat?.meta?.attaches"
+    [meta]="chat?.meta"
     [isHideProfile]="isHideName(chat, i)"
+    [isAllowControl]="true"
     [color]="chat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>
@@ -46,15 +87,34 @@
   (change)="onFileSelected($event)"
 />
 <div
-*ngIf="files?.length > 0"
-class="attachment"
+*ngIf="files?.length > 0 || replyChat"
+class="input_panel"
 >
+
+<div class="reply">
+  <div class="header">
+    <h1>Reply to {{ replyChat.user?.name }}</h1>
+    <mat-icon (click)="replyChat = null">close</mat-icon>
+  </div>
+  <app-message
+    [name]="replyChat.user?.name"
+    [user_id]="replyChat.user?.id"
+    [message]="replyChat.content"
+    [date]="replyChat?.createdAt"
+    [attaches]="replyChat?.meta?.attaches"
+    [color]="replyChat?.user?.color || '#46a35e'"
+    [isShowTime]="true"
+  ></app-message>
+</div>
+
+<div class="attachment">
   <app-thumbnail
     *ngFor="let file of files"
     (click)="openAttachDeleteDialog(file)"
     [isClickable]="true"
     [src]="getSrcText(file)"
   ></app-thumbnail>
+</div>
 </div>
   <mat-error *ngIf="chatErrorMessage">
     {{ chatErrorMessage | translate }}

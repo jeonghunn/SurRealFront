@@ -13,7 +13,11 @@ import {
   MatSnackBarRef,
   TextOnlySnackBar,
 } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -47,6 +51,7 @@ import {
   FileContainer,
   LiveMessage,
   Room,
+  Topic,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
 import { RoomService } from 'src/app/core/room.service';
@@ -64,6 +69,8 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
   public webSocketSubject: WebSocketSubject<any> = null;
   public chats: Chat[] = null;
+  public extraChats: Chat[] = null;
+  public recentExtraChats: Chat[] = null;
   public dateCriteria: Date;
   public futureDateCriteria: Date;
   public chatQueue$: Subject<{ offset: number, isFuture: boolean }> = new Subject();
@@ -82,6 +89,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public groupId: number;
 
   public room: Room;
+  public topic: Topic;
 
   public isConnected: boolean = false;
   public connectCount: number = 0;
@@ -94,6 +102,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public offset: number = 0;
   public futureOffset: number = 0;
   public isShortWidth: boolean = false;
+  public topicId: number = null;
 
   public readonly DEFAULT_CHAT_MARGIN: number = 72;
   public readonly FILE_ATTACH_HEIGHT: number = 88;
@@ -120,15 +129,15 @@ export class RoomComponent implements OnDestroy, OnChanges {
     private roomService: RoomService,
     private layoutService: LayoutService,
     private networkService: NetworkService,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.init();
   }
   
   public ngOnChanges(changes: SimpleChanges): void {
-    // console.log('onchanges called');
-    // if (!this.isConnected) {
-    //   this.reInit();
-    // }
+    if (!this.isConnected) {
+      this.reInit();
+    }
   }
 
   public init(): void {
@@ -148,6 +157,29 @@ export class RoomComponent implements OnDestroy, OnChanges {
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
       }),
+      this.activatedRoute.params.subscribe((params: Params) => {
+        this.topicId = params?.topic_id ? parseInt(params.topic_id) :  null;
+
+        if (this.topicId) {
+          this.dataService.getTopic(
+            params?.id,
+            params?.room_id,
+            this.topicId,
+            ).pipe(take(1)).subscribe((topic: Topic) => {
+
+            if (this.room && this.topicId !== this.topic?.id) {
+              this.setTopic(topic);
+              this.resetRoom();
+              this.initRoom(this.room);
+            } else {
+              this.setTopic(topic);
+            }
+
+          });
+        }
+
+
+      }),
       this.networkService.isConnected$.subscribe((isConnected: boolean) => {
 
         if (!isConnected) {
@@ -161,16 +193,50 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
   }
 
+  public setTopic(topic: Topic): void {
+    this.topicId = topic?.id;
+    this.topic = topic;
+  }
+
   public resetRoom(): void {
+    this.webSocketSubject?.complete();
+    this.webSocketSubject?.unsubscribe();
     this.chatQueue$?.unsubscribe();
     this.dateCriteria = new Date();
     this.futureDateCriteria = new Date();
     this.isChatFullyLoad = false;
     this.isChatDisabled = false;
     this.chats = null;
+    this.extraChats = null;
+    this.recentExtraChats = null;
     this.offset = 0;
     this.changeDetectorRef.markForCheck();
   }
+
+  public partition(array: any[], filter: any) {
+    let pass = [], fail = [];
+    array.forEach((e, idx, arr) => (filter(e, idx, arr) ? pass : fail).push(e));
+    return [pass, fail];
+  }
+
+  public updateChats(result: any, isReverse: boolean): void {
+    const [currentChats, otherChats] = this.partition(result?.chats, (chat) => chat.topic_id === this.topicId);
+
+    console.log('update chats', currentChats, otherChats);
+
+    if (!isReverse) {
+      this.chats = [ ...this.chats, ...currentChats ];
+      this.extraChats = [ ...this.extraChats, ...otherChats ];
+    } else {
+      this.chats = [ ...currentChats, ...this.chats ];
+      this.extraChats = [ ...otherChats, ...this.extraChats ];
+    }
+
+    this.recentExtraChats = this.extraChats.slice(-3);
+    this.changeDetectorRef.markForCheck();
+  }
+
+
 
   public initRoom(room: Room): void {
     this.room = room;
@@ -179,12 +245,12 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
     this.subscriptions.push(
       this.chatQueue$.pipe(
-        concatMap(i => this.fetchChats(i.offset, i.isFuture)),
+        concatMap(i => this.fetchChats(i.offset, i.isFuture, this.topicId)),
       ).subscribe((result: { isFuture: boolean, chats: Chat[] }) => {
           this.isChatLoading = false;
           console.log('init', result, this.offset);
           if (result?.isFuture) {
-            this.chats = [ ...this.chats, ...result?.chats ];
+            this.updateChats(result, false);
 
             if (result?.chats?.length > 0) {
               this.fetchFutureChats();
@@ -193,7 +259,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
               this.sendAuthMessage();
             }
           } else {
-            this.chats = [ ...result?.chats, ...this.chats ];
+            this.updateChats(result, true);
             this.isChatFullyLoad = result?.chats?.length === 0;
           }
 
@@ -203,11 +269,18 @@ export class RoomComponent implements OnDestroy, OnChanges {
     );
 
     this.initWebSocket();
-    this.chats = [];
+    this.initChatLists();
+
     this.chatQueue$.next({
       offset: this.offset,
       isFuture: false,
     });
+  }
+
+  public initChatLists(): void {
+    this.chats = [];
+    this.extraChats = [];
+    this.recentExtraChats = [];
   }
 
   public initWebSocket(): void {
@@ -287,13 +360,15 @@ export class RoomComponent implements OnDestroy, OnChanges {
       case CommunicationType.CHAT:
         const chat: Chat = new Chat(
           msg.id,
+          msg.category,
           msg.content,
           msg.createdAt,
           msg.user,
+          msg.topic_id,
           msg.meta,
         );
-        this.chats.push(chat);
-        this.changeDetectorRef.markForCheck();
+
+        this.pushChat(chat, msg.topic_id);
         
         break;
       case CommunicationType.AUTH:
@@ -358,6 +433,20 @@ export class RoomComponent implements OnDestroy, OnChanges {
     
   }
 
+  public pushChat(chat: Chat, topicId: number): void {
+
+    if (topicId !== this.topicId) {
+      this.roomService.pushOtherChat(chat);
+      this.extraChats.push(chat);
+      this.recentExtraChats = this.extraChats?.slice(-3);
+      this.changeDetectorRef.markForCheck();
+      return;
+    }
+
+    this.chats.push(chat);
+    this.changeDetectorRef.markForCheck();
+  }
+
   public initChatHeight(isExpand: boolean = false): void {
     let margin: number = this.DEFAULT_CHAT_MARGIN;
 
@@ -388,7 +477,11 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.futureOffset += this.CHAT_FETCH_COUNT;
   }
 
-  public fetchChats(offset: number, isFuture: boolean): Observable<{
+  public fetchChats(
+    offset: number,
+    isFuture: boolean,
+    topicId: number = null,
+    ): Observable<{
     isFuture: Boolean,
     chats: Chat[],
   }> {
@@ -404,6 +497,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     return this.dataService.getChats(
       this.room?.group_id,
       this.room?.id,
+      topicId,
       isFuture ? this.futureDateCriteria : this.dateCriteria,
       offset,
       isFuture,

@@ -167,6 +167,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.openNotificationPermissionDialog();
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
+    this.openNotificationPermissionDialog();
   }
 
   public openNotificationPermissionDialog(): boolean {
