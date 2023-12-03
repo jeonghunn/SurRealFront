@@ -23,6 +23,7 @@ import {
   LiveMessage,
   Relation,
   Room,
+  Topic,
   User,
   UserSimpleSet,
 } from 'src/app/model/type';
@@ -78,6 +79,16 @@ export class DataService {
     );
   }
 
+  public getTopic(
+    groupId: number,
+    roomId: number,
+    topicId: number,
+    ): Observable<Topic> {
+    return this.httpClient.get<Topic>(`${this.apiUrl}/group/${groupId}/room/${roomId}/topic/${topicId}`, {}).pipe(
+      catchError(error => this.handleError(error)),
+    );
+  }
+
   public getFriendList(): Observable<Relation[]> {
     return this.httpClient.get<{ relations: Relation[] }>(`${this.apiUrl}/user/friends`, {}).pipe(
       map((result: { relations: Relation[] }) => result.relations),
@@ -120,6 +131,15 @@ export class DataService {
     );
   }
 
+  public createTopicByChat(groupId: number, roomId: number, chatId: string, name: string): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.apiUrl}/group/${groupId}/room/${roomId}/topic/chat/${chatId}`,
+      { name },
+      ).pipe(
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
   public postAttach(
     roomId: number,
     file: File,
@@ -144,8 +164,14 @@ export class DataService {
     );
   }
 
-  public getSummary(groupId: number, roomId: number): Observable<string> {
-    return this.httpClient.get<{ response: string }>(`${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100`).pipe(
+  public getSummary(groupId: number, roomId: number, topicId: number): Observable<string> {
+    let url: string = `${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100`;
+
+    if (topicId) { 
+      url += `&topic_id=${topicId}`;
+    }
+
+    return this.httpClient.get<{ response: string }>(url).pipe(
       map((result : { response: string }) => result?.response),
       catchError(error => this.handleError(error, false)),
     );
@@ -154,6 +180,7 @@ export class DataService {
   public getChats(
     groupId: number,
     roomId: number,
+    topicId: number,
     date: Date,
     offset: number = 0,
     isFuture: boolean = false,
@@ -163,6 +190,11 @@ export class DataService {
       chats: Chat[],
     }> {
     const dateTimestamp: number = date.getTime() / 1000;
+    let url: string = `${this.apiUrl}/group/${groupId}/room/${roomId}/chat?offset=${offset}&limit=${limit}&date=${dateTimestamp}&future=${isFuture ? 1 : 0}`;
+
+    if (topicId) { 
+      url += `&topic_id=${topicId}`;
+    }
 
     const result: any = {
       isFuture: isFuture as boolean,
@@ -170,7 +202,7 @@ export class DataService {
     }
 
     return this.httpClient.get<{ chats: Chat[] }>(
-      `${this.apiUrl}/group/${groupId}/room/${roomId}/chat?offset=${offset}&limit=${limit}&date=${dateTimestamp}&future=${isFuture ? 1 : 0}`,
+      url,
       {},
       ).pipe(
       map((value: { chats: Chat[] }) => {

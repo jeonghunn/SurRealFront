@@ -7,6 +7,7 @@ import { ThemePalette } from '@angular/material/core';
 import {
   LiveCategory,
   Room,
+  Topic,
 } from 'src/app/model/type';
 
 @Component({
@@ -18,6 +19,9 @@ export class DetailViewComponent {
 
   @Input()
   public room: Room;
+
+  @Input()
+  public topicId: number;
 
   public readonly liveCategoryType: typeof LiveCategory = LiveCategory;
 

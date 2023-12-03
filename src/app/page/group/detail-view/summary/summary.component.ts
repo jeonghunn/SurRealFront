@@ -18,6 +18,9 @@ export class SummaryComponent implements OnInit {
   @Input()
   public room: Room;
 
+  @Input()
+  public topicId: number;
+
   public title: string;
   public result: string;
 
@@ -35,6 +38,7 @@ export class SummaryComponent implements OnInit {
     this.dataService.getSummary(
       this.room?.group_id,
       this.room?.id,
+      this.topicId,
       ).pipe(take(1)).subscribe(
         (response: string) => {
           this.title = response.substring(0, response.indexOf('\n'));
