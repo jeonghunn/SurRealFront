@@ -21,9 +21,9 @@
         [selected]="category === liveCategoryType.NOW"
       >{{ 'GROUP.ROOM.LIVE.CATEGORY.NOW' | translate }}</mat-chip-option>
       <mat-chip-option
-        (click)="onClick(liveCategoryType.MAP)"
-        [selected]="category === liveCategoryType.MAP"
-      >{{ 'GROUP.ROOM.LIVE.CATEGORY.MAP' | translate }}</mat-chip-option>
+      (click)="onClick(liveCategoryType.SUMMARY)"
+      [selected]="category === liveCategoryType.SUMMARY"
+    >{{ 'GROUP.ROOM.LIVE.CATEGORY.SUMMARY' | translate }}</mat-chip-option>
       <mat-chip-option
         (click)="onClick(liveCategoryType.ATTENDEE)"
         [selected]="category === liveCategoryType.ATTENDEE"
@@ -34,6 +34,13 @@
       >{{ 'GROUP.ROOM.LIVE.CATEGORY.ATTACH' | translate }}</mat-chip-option>
     </mat-chip-listbox>
     <div class="view">
+      <ng-container *ngIf="category === liveCategoryType.SUMMARY">
+        <app-summary
+        [room]="room"
+        [topicId]="topicId"
+        style="width: 100%; height: 100%;"
+        ></app-summary>
+      </ng-container>
       <ng-container *ngIf="category === liveCategoryType.MAP">
         <app-map style="width: 100%; height: 100%;"></app-map>
       </ng-container>

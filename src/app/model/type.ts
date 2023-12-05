@@ -19,6 +19,7 @@ export enum ChatSpaceCategory {
 
 export enum LiveCategory {
   NOW,
+  SUMMARY,
   MAP,
   ATTENDEE,
   ATTACH,
@@ -92,22 +93,28 @@ export class CommunicationResult extends Communication {
 
 export class Chat extends Communication {
 
-  public id?: number;
+  public id?: string;
   public content: string;
   public user?: User;
+  public topic_id?: number;
   public meta?: any;
+  public category?: ChatCategory;
 
   public constructor(
-    id: number,
+    id: string,
+    category: ChatCategory,
     content: string,
     createdAt: string,
     user: User,
+    topicId: number = null,
     meta: any = null,
   ) {
     super(CommunicationType.CHAT, createdAt);
     this.id = id;
+    this.category = category;
     this.content = content;
     this.user = user;
+    this.topic_id = topicId;
     this.meta = meta;
   }
 
@@ -161,6 +168,18 @@ export class Room {
 
 }
 
+export class Topic {
+  public id: number;
+  public name: string;
+  public category: string;
+  public parent_id: number;
+  public chat_id: string;
+  public chat?: Chat;
+  public user_id: number;
+  public created_at: string;
+  public updated_at: string;
+}
+
 export class FileContainer {
   public file: File;
   public url: any;
@@ -188,6 +207,11 @@ export enum AttachStatus {
   NORMAL,
   PROCESSING,
   REMOVED,
+}
+
+export enum ChatCategory {
+  MESSAGE,
+  TOPIC_PREVIEW,
 }
 
 export class ResponseSet {

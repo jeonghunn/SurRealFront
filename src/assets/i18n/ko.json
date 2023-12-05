@@ -131,10 +131,13 @@
         "DISABLED": "대화가 활성화되지 않음",
         "WRITE_A_MESSAGE": "메시지를 입력하세요...",
         "EMOJI": "이모티콘",
-        "SEND": "보내기"
+        "SEND": "보내기",
+        "ALL_CHATS": "전체 대화",
+        "MORE": "더보기"
       },
       "LIVE": {
         "CATEGORY": {
+          "SUMMARY": "요약",
           "MAP": "맵",
           "NOW": "Now",
           "ATTENDEE": "참여자",
