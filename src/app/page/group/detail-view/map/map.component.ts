@@ -5,6 +5,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { options } from 'sanitize-html';
 import { RoomService } from 'src/app/core/room.service';
 
 
@@ -50,7 +51,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   private context: CanvasRenderingContext2D;
 
   private map: google.maps.Map;
-  private markers: google.maps.Marker[] = [];
+  private marker: google.maps.Marker;
+  private infowindow: google.maps.InfoWindow;
 
   public constructor(
     private elementRef: ElementRef,
@@ -76,7 +78,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.context = (this.canvasElement.nativeElement as HTMLCanvasElement).getContext('2d');
-
     this.draw();
   }
 
@@ -96,15 +97,59 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.canvasBoundary.height,
     );
   }
-
+  
   public initMap(): void {
     const mapOptions: google.maps.MapOptions = {
       zoom: 10,
-      center: { lat: -33.9, lng: 151.2 },
+      center: { lat: 35.871, lng: 128.601 },
     };
 
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    this.Marker();
+
+    this.map.addListener('rightclick', (event: google.maps.MapMouseEvent) => {
+      this.makeMarker(event.latLng);
+  });
+
+  this.marker.addListener('rightclick', () => {
+    this.removeMarker();
+});
   }
+
+  private Marker(): void {
+    this.marker = new google.maps.Marker({
+      position: { lat: 35.88979960417728, lng: 128.6101853686389 },
+      map: this.map,
+    });
+
+    this.getMarkerPos();
+   
+    google.maps.event.addListener(this.marker, "click", () => {
+      this.infowindow.open(this.map, this.marker);
+    });
+  };
+
+  private makeMarker(location: google.maps.LatLng):void{
+    this.marker = new google.maps.Marker({
+      position: location,
+      map: this.map,
+      title: 'My Marker',
+  });
+  }
+  
+  private getMarkerPos():void{
+    this.infowindow = new google.maps.InfoWindow({
+      content: "<p>Marker Location:" + this.marker.getPosition() + "</p>",
+    });
+  };
+
+  private removeMarker(): void {
+    if (this.marker) {
+        this.marker.setMap(null);
+    }
+}
+
 
   public getPosition(
     source: number,
