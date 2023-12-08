@@ -28,6 +28,7 @@ import {
   UserSimpleSet,
 } from 'src/app/model/type';
 import { environment } from 'src/environments/environment';
+import { Util } from './util';
 
 @Injectable({
   providedIn: 'root',
@@ -134,7 +135,7 @@ export class DataService {
   public createTopicByChat(groupId: number, roomId: number, chatId: string, name: string): Observable<any> {
     return this.httpClient.post<any>(
       `${this.apiUrl}/group/${groupId}/room/${roomId}/topic/chat/${chatId}`,
-      { name },
+      { name: Util.truncate(name, 20) },
       ).pipe(
       catchError(error => this.handleError(error, false)),
     );
