@@ -147,6 +147,10 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  public closeSideNav(): void {
+    this.isSideNavOpen = false;
+    this.changeDetectorRef.markForCheck();
+  }
 
   public shouldSideNavOpen(): boolean {
     return (this.isSideNavOpen || !this.isSmallWidth) && this.isSignedIn;
