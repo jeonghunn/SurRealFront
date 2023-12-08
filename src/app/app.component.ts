@@ -139,7 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public registerClient(): void {
     this.pushMessageService.getToken().then((token: string) => {
-      const key: string = this.localSettingService.get('client_id') || v4();
+      const key: string = this.localSettingService.get('client_id') || v4().toString();
 
       this.dataService.postClient(key, token).pipe(take(1)).subscribe((res: any) => {
         this.localSettingService.set('client_id', res?.id);
@@ -171,7 +171,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public openNotificationPermissionDialog(): boolean {
-    if(!this.isSignedIn || Notification.permission !== 'default' || this.localSettingService.isUserDisallowedNotification) {
+    if(
+      !this.isSignedIn ||
+      Notification.permission === 'denied' ||
+      Notification.permission === 'granted' ||
+      this.localSettingService.isUserDisallowedNotification
+      ) {
       return false;
     }
 
