@@ -91,7 +91,10 @@ class="header"
 class="input_panel"
 >
 
-<div class="reply">
+<div
+*ngIf="replyChat"
+class="reply"
+>
   <div class="header">
     <h1>Reply to {{ replyChat.user?.name }}</h1>
     <mat-icon (click)="replyChat = null">close</mat-icon>
@@ -107,7 +110,10 @@ class="input_panel"
   ></app-message>
 </div>
 
-<div class="attachment">
+<div
+*ngIf="files?.length > 0"
+class="attachment"
+>
   <app-thumbnail
     *ngFor="let file of files"
     (click)="openAttachDeleteDialog(file)"
