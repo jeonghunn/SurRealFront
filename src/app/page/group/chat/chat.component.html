@@ -155,7 +155,8 @@ class="attachment"
       mat-icon-button
       matSuffix
       [attr.aria-label]="'GROUP.ROOM.CHAT.ATTACH_A_FILE' | translate"
-      (click)="onFileButtonClick()"
+      (click)="onFileButtonClick($event)"
+      (touchend)="onFileButtonClick($event)"
     >
       <mat-icon matSuffix>attach_file</mat-icon>
     </button>
