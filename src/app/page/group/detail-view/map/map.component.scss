@@ -1,10 +1,11 @@
-canvas {
-
-  background-image: url("/assets/img/room/background.png");
-  background-size: 150%;
-  background-position: 45% 0;
-  background-repeat: no-repeat;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  color: #ff0000;
+#mapContainer {
+  position: relative;
 }
+
+#pac-input {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 250px;
+}
+
