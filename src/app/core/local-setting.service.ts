@@ -12,7 +12,11 @@ export class LocalSettingService {
   }
 
   public get isUserGrantNotification(): boolean {
-    return this.get('notification_permission') === 'granted';
+    return this.get('notification_permission') === 'granted' || 
+    (
+      'Notification' in window &&
+      Notification.permission === 'granted'
+    );
   }
 
   public set(key: string, value: string): void {

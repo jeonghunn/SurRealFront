@@ -1,11 +1,13 @@
 <app-skeleton-loader
-    *ngIf="!result"
+    *ngIf="!spaceKey"
     count="13"
     width="90%"
 ></app-skeleton-loader>
-<ng-container *ngIf="result">
-    <h1>{{ title }}</h1>
-    <p class="content">
-        {{ result }}
-    </p>
+<ng-container *ngIf="spaceKey">
+    <app-document
+    [groupId]="groupId"
+    [roomId]="room?.id"
+    [spaceKey]="spaceKey"
+    >
+    </app-document>
 </ng-container>

@@ -1,0 +1,79 @@
+<div
+*ngIf="!space"
+class="container"
+>
+    <h1>실시간으로 협동하기</h1>
+
+    <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+    </div>
+
+    <div
+    *ngIf="!selectedApp"
+    class="apps"
+    >
+        <div
+        mat-ripple
+        class="app"
+        (click)="selectApp('document')"
+        >
+            <span class="icon">📄</span>
+            <span class="name">{{ 'GROUP.ROOM.LIVE.SPACE.APP.DOCUMENT' | translate }}</span>
+        </div>
+    
+        <div
+        mat-ripple
+        class="app"
+        (click)="selectApp('map')"
+        >
+            <span class="icon">🌎</span>
+            <span class="name">{{ 'GROUP.ROOM.LIVE.SPACE.APP.MAP' | translate }}</span>
+        </div>
+          
+    </div>
+
+    <div
+    *ngIf="selectedApp && !topic && !isLoading"
+    class="creation"
+    >
+
+        <mat-form-field class="example-full-width">
+            <mat-label>{{ 'GROUP.ROOM.LIVE.SPACE.TITLE.NAME' | translate }}</mat-label>
+            <input
+                matInput
+                [placeholder]=" 'GROUP.ROOM.LIVE.SPACE.TITLE.PLACEHOLDER' | translate "
+                [(ngModel)]="title"
+                >
+        </mat-form-field>
+    
+        <div class="controls">
+            <button
+                mat-button
+                (click)="onCancelButtonClick()"
+            >{{ 'GROUP.ROOM.LIVE.SPACE.CANCEL' | translate }}</button>
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="onCreateButtonClick()"
+            >{{ 'GROUP.ROOM.LIVE.SPACE.CREATE' | translate }}</button>
+        </div>
+    
+
+    </div>
+</div>
+<div
+*ngIf="space && selectedApp === 'document'"
+class="container">
+    <app-document
+    [groupId]="groupId"
+    [roomId]="roomId"
+    [spaceKey]="space?.key"
+    ></app-document>
+</div>
+
+<div
+*ngIf="space && selectedApp === 'map'"
+class="container">
+<p>This place is just for the map.</p>
+</div>
+

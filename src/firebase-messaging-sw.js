@@ -35,9 +35,9 @@ messaging.onBackgroundMessage(function(payload) {
     }
   };
 
-  if(userId && userId.toString() === payload.data.user_id){
-    return;
-  }
+  // if(userId && userId.toString() === payload.data.user_id){
+  //   return;
+  // }
 
   self.registration.showNotification(notificationTitle,
    notificationOptions);

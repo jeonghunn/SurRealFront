@@ -157,8 +157,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     return new Array(i);
   }
 
-  public onFileButtonClick(): void {
+  public onFileButtonClick(event: MouseEvent): void {
+    event.stopPropagation();
     this.fileInput.nativeElement.click();
+  }
+
+  public onChatClick(chat: Chat): void {
+    this.roomService.clipboardChat$.next(chat);
   }
 
   public goToParentTopic(): void {

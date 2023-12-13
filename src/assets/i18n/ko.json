@@ -139,9 +139,22 @@
         "CATEGORY": {
           "SUMMARY": "요약",
           "MAP": "맵",
-          "NOW": "Now",
+          "NOW": "Space",
           "ATTENDEE": "참여자",
           "ATTACH": "파일"
+        },
+        "SPACE": {
+          "SPACE": "Space",
+          "APP": {
+            "DOCUMENT": "문서",
+            "MAP": "지도"
+          },
+          "TITLE": {
+            "NAME": "제목",
+            "PLACEHOLDER": "제목을 입력하세요"
+          },
+          "CANCEL": "취소",
+          "CREATE": "만들기"
         }
       },
       "DEFAULT_NAME": "대화",
