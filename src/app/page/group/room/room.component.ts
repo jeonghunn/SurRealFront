@@ -284,6 +284,9 @@ export class RoomComponent implements OnDestroy, OnChanges {
   }
 
   public initWebSocket(): void {
+    if (!this.room) {
+      return;
+    }
 
     this.webSocketSubject?.complete();
     this.webSocketSubject?.unsubscribe();

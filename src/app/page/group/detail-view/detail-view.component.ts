@@ -21,7 +21,13 @@ export class DetailViewComponent {
   public room: Room;
 
   @Input()
+  public groupId: number;
+
+  @Input()
   public topicId: number;
+
+  @Input()
+  public topic: Topic;
 
   public readonly liveCategoryType: typeof LiveCategory = LiveCategory;
 
