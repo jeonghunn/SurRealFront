@@ -31,6 +31,12 @@ export enum CommunicationType {
   LIVE,
 }
 
+export enum SpaceActionType {
+  INSERT,
+  UPDATE,
+  DELETE,
+}
+
 export enum ResponseResult {
   SUCCESS = 'success',
   ERROR = 'error',
@@ -146,6 +152,17 @@ export class LiveMessage extends Communication {
   }
 }
 
+export class SpaceAction {
+  public type: SpaceActionType;
+  public content: SpaceItem;
+}
+
+export class SpaceItem {
+  public id: string;
+  public index: number;
+  public data: any;
+}
+
 export class Group {
   public id: number;
   public name: string;
@@ -178,6 +195,7 @@ export class Topic {
   public user_id: number;
   public created_at: string;
   public updated_at: string;
+  public space?: any;
 }
 
 export class FileContainer {

@@ -134,6 +134,19 @@
           "NOW": "Space",
           "ATTENDEE": "Attendees",
           "ATTACH": "Files"
+        },
+        "SPACE": {
+          "SPACE": "Space",
+          "APP": {
+            "DOCUMENT": "Document",
+            "MAP": "Map"
+          },
+          "TITLE": {
+            "NAME": "Title",
+            "PLACEHOLDER": "Enter a title"
+          },
+          "CANCEL": "Cancel",
+          "CREATE": "Create"
         }
       },
       "DEFAULT_NAME": "Conversation",

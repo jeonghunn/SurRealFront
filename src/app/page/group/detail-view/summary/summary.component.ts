@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnChanges,
   OnInit,
 } from '@angular/core';
 import { take } from 'rxjs';
@@ -13,7 +14,7 @@ import { Room } from 'src/app/model/type';
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss']
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent implements OnChanges {
 
   @Input()
   public room: Room;
@@ -21,8 +22,11 @@ export class SummaryComponent implements OnInit {
   @Input()
   public topicId: number;
 
-  public title: string;
-  public result: string;
+  @Input()
+  public groupId: number;
+
+
+  public spaceKey: string = null;
 
 
   public constructor(
@@ -30,8 +34,10 @@ export class SummaryComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
   ) {}
   
-  public ngOnInit(): void {
+  public ngOnChanges(changes: any): void {
+    if(changes.topicId) {
     this.summary();
+    }
   }
 
   public summary(): void {
@@ -40,12 +46,12 @@ export class SummaryComponent implements OnInit {
       this.room?.id,
       this.topicId,
       ).pipe(take(1)).subscribe(
-        (response: string) => {
-          this.title = response.substring(0, response.indexOf('\n'));
-          this.result = response.substring(response.indexOf('\n') + 1);
-
+        (result: any) => {
+          this.spaceKey = result?.spaceKey;
+          console.log(this.spaceKey, result);
           this.changeDetectorRef.markForCheck();
-  });
+    });
+
   }
   
   

@@ -1,0 +1,21 @@
+<div class="container">
+
+    <mat-card>
+        <div class="header">
+            <h1
+            #titleElement
+            [contentEditable]="isEditMode"
+            (input)="onContentChanged($event)"
+            class="title">
+        </h1>
+        </div>
+        <div
+        #contentElement
+        class="content"
+        [contentEditable]="isEditMode"
+        (input)="onContentChanged($event)"
+        ></div>
+    
+      </mat-card>
+
+</div>

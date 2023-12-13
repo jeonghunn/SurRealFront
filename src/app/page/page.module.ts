@@ -42,6 +42,7 @@ import { CoreModule } from '../core/core.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SummaryComponent } from './group/detail-view/summary/summary.component';
 import { TopicPreviewComponent } from './group/chat/topic-preview/topic-preview.component';
+import { DocumentComponent } from './group/detail-view/document/document.component';
 import { SpaceComponent } from './group/detail-view/space/space.component';
 
 
@@ -64,6 +65,7 @@ import { SpaceComponent } from './group/detail-view/space/space.component';
     MapComponent,
     SummaryComponent,
     TopicPreviewComponent,
+    DocumentComponent,
     SpaceComponent,
   ],
     imports: [

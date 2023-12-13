@@ -141,6 +141,57 @@ export class DataService {
     );
   }
 
+  public updateSpace(
+    key: string,
+    groupId: number,
+    roomId: number,
+    title: string,
+    content: any,
+    basedVersion: number,
+    ): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.apiUrl}/group/${groupId}/room/${roomId}/space/${key}`,
+        {
+          based_version: basedVersion,
+          title,
+          content,
+        },
+        ).pipe(
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
+  public createTopic(
+    groupId: number,
+    roomId: number,
+    topicId: number,
+    name: string,
+    spaceAppName: string,
+    ): Observable<{
+      space: any,
+      topic: Topic,
+    }> {
+    return this.httpClient.post<{
+      space: any,
+      topic: Topic,
+    }>(
+      `${this.apiUrl}/group/${groupId}/room/${roomId}/topic`,
+      {
+        topic_id: topicId,
+        name: name,
+        space: spaceAppName,
+      },
+      ).pipe(
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
+  public getSpace(groupId: number, roomId: number, key: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/group/${groupId}/room/${roomId}/space/${key}`).pipe(
+      catchError(error => this.handleError(error, false)),
+    );
+  }
+
   public postAttach(
     roomId: number,
     file: File,
@@ -165,15 +216,14 @@ export class DataService {
     );
   }
 
-  public getSummary(groupId: number, roomId: number, topicId: number): Observable<string> {
+  public getSummary(groupId: number, roomId: number, topicId: number): Observable<any> {
     let url: string = `${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100`;
 
     if (topicId) { 
       url += `&topic_id=${topicId}`;
     }
 
-    return this.httpClient.get<{ response: string }>(url).pipe(
-      map((result : { response: string }) => result?.response),
+    return this.httpClient.get<any>(url).pipe(
       catchError(error => this.handleError(error, false)),
     );
   }
@@ -282,6 +332,7 @@ export class DataService {
         this.matSnackBar.open(this.translateService.instant('HTTP_ERROR.404_NOT_FOUND.DESCRIPTION'));
         isBigError = isBig;
         break;
+      case 406:
       case 500:
       case 501:
       case 502:

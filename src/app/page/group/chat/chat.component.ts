@@ -162,6 +162,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.fileInput.nativeElement.click();
   }
 
+  public onChatClick(chat: Chat): void {
+    this.roomService.clipboardChat$.next(chat);
+  }
+
   public goToParentTopic(): void {
     let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
 
