@@ -260,6 +260,7 @@ export class MapComponent implements OnInit,AfterViewInit, OnDestroy {
     if (index !== -1) {
       this.markers.splice(index, 1);
     }
+    this.updateLazy();
   }
   public onMessageReceived(msg: any): void {
 
