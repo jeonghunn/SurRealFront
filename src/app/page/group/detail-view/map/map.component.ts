@@ -22,12 +22,8 @@ import { DataService } from 'src/app/core/data.service';
 import { RoomService } from 'src/app/core/room.service';
 import {
   Marker,
-  Chat,
   CommunicationResult,
   CommunicationType,
-  LiveMessage,
-  SpaceAction,
-  SpaceActionType,
   SpaceItem,
 } from 'src/app/model/type';
 @Component({
@@ -35,7 +31,7 @@ import {
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit,AfterViewInit, OnDestroy {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   public groupId: number = null;
 
@@ -98,7 +94,6 @@ export class MapComponent implements OnInit,AfterViewInit, OnDestroy {
       zoom: 17,
       center: { lat: 35.88979960417728, lng:128.6101853686389},
     };
-    console.log(this.mapContainer);
 
     this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
 
@@ -108,7 +103,7 @@ export class MapComponent implements OnInit,AfterViewInit, OnDestroy {
     this.map.addListener('bounds_changed', () => {
       searchBox.setBounds(this.map.getBounds() as google.maps.LatLngBounds);
     });
-    let infomarkers: google.maps.Marker[] = [];
+    let infoMarkers: google.maps.Marker[] = [];
     searchBox.addListener('places_changed', () => {
       const places = searchBox.getPlaces();
 
@@ -288,7 +283,6 @@ export class MapComponent implements OnInit,AfterViewInit, OnDestroy {
         return;
       }
 
-      // this.isEditMode = space.isEditMode;
       this.space = space;
       this.title = space.title;
       this.content = space.content ||[];
@@ -298,9 +292,7 @@ export class MapComponent implements OnInit,AfterViewInit, OnDestroy {
 
   public update(): void {
     this.mapping();
-    console.log(this.markers);
-    console.log(this.content);
-    console.log(this.space)
+
     this.dataService.updateSpace(
       this.space?.key,
       this.groupId,
@@ -346,7 +338,6 @@ export class MapComponent implements OnInit,AfterViewInit, OnDestroy {
   }
 
   public onConnectionComplete(): void {
-    console.log('docuent socket complete');
     this.isAllowEdit = true;
     this.changeDetectorRef.markForCheck();
 
