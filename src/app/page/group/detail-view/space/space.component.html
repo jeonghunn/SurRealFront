@@ -74,6 +74,10 @@ class="container">
 <div
 *ngIf="space && selectedApp === 'map'"
 class="container">
-<p>This place is just for the map.</p>
+<app-map
+    [groupId]="groupId"
+    [roomId]="roomId"
+    [spaceKey]="space?.key"
+    ></app-map>
 </div>
 

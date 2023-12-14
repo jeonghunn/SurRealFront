@@ -1,160 +1,348 @@
 import {
-  AfterViewInit, ChangeDetectorRef,
+  ChangeDetectorRef,
   Component,
-  ElementRef, OnInit,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
   ViewChild,
+  AfterViewInit,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+  import {
+    catchError,
+    delayWhen,
+    retryWhen,
+    take,
+    tap,
+    throwError,
+    timer,
+  } from 'rxjs';
+import { DataService } from 'src/app/core/data.service';
 import { RoomService } from 'src/app/core/room.service';
-
+import {
+  Marker,
+  CommunicationResult,
+  CommunicationType,
+  SpaceItem,
+} from 'src/app/model/type';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: [ './map.component.scss' ],
+  styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input()
+  public groupId: number = null;
 
-  @ViewChild('canvasElement')
-  public canvasElement: ElementRef;
+  @Input()
+  public roomId: number = null;
 
-  public canvasWidth: number = 0;
+  @Input()
+  public spaceKey: string = null;
 
-  private characterX: number = 0;
-  private characterY: number = 0;
+  public space: any = null;
+  public map: google.maps.Map;
+  public markers: google.maps.Marker[] = [];
+  public currentInfoWindow: google.maps.InfoWindow;
+  public title: string = null;
+  public content: Marker[] = [];
+  public data: SpaceItem[] = [];
+  public isConnected: boolean = false;
+  public reconnectDelay: number = 5000;
+  public isAuthenticated: boolean = false;
+  public reAuthDelay: number = 100;
+  public isAllowEdit: boolean = false;
 
-  private canvasBoundary: any = {
-    xMin: 12,
-    xMax: 90,
-    yMin: 4,
-    yMax: 79,
-    width: 78,
-    height: 75,
-  };
-
-  private mapBoundary: any = {
-    xMax: 9.28,
-    xMin: -8.62,
-    yMin: -12.89,
-    yMax: 4.5,
-    width: 17.9,
-    height : 17.39,
-  };
-
-  private speed: number = 10;
-
-  private subscriptions: Subscription[] = [];
-
-  /** Canvas 2d context */
-  private context: CanvasRenderingContext2D;
-
+  public subscriptions: any = [];
+  public updateTimerSubscription: any = null;
+  @ViewChild('mapContainer') mapContainer: ElementRef;
+  @ViewChild('pacInput') pacInput: ElementRef;
   public constructor(
-    private elementRef: ElementRef,
-    private changeDetectorRef: ChangeDetectorRef,
+    private dataService: DataService,
     private roomService: RoomService,
-  ) {
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
+  
+  public ngOnInit(): void {
+    this.load();
+    this.roomService.initSpaceWebSocket(this.roomId, this.spaceKey);
     this.subscriptions = [
-      this.roomService.liveRoomContent$.subscribe((data: any) => {
-        this.updateObjectPositions(data[0].x, data[0].y);
-
-        if (this.context) {
-          this.draw();
-        }
-
-      }),
+      this.roomService.spaceWebSocketSubject$.pipe(
+        retryWhen(errors =>
+          errors.pipe(
+            tap(val => this.onConnectionError(val)),
+            delayWhen(val => timer(this.reconnectDelay)),
+          ),
+        ),
+      ).subscribe(
+        (msg: any) => this.onMessageReceived(msg),
+        (err) => this.onConnectionError(err),
+        () => this.onConnectionComplete(),
+      ),
     ];
   }
-
-  public ngOnInit(): void {
-    this.updateCanvasWidth();
+  public ngAfterViewInit(): void{
+    this.initMap();
+  }
+  public ngOnDestroy(): void {
+    this.roomService.closeSpaceWebSocket();
   }
 
-  public ngAfterViewInit(): void {
-    this.context = (this.canvasElement.nativeElement as HTMLCanvasElement).getContext('2d');
+  public initMap(): void {
+    const mapOptions: google.maps.MapOptions = {
+      zoom: 17,
+      center: { lat: 35.88979960417728, lng:128.6101853686389},
+    };
 
-    this.draw();
+    this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
+
+    const searchBox = new google.maps.places.SearchBox(this.pacInput.nativeElement);
+    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.pacInput.nativeElement);
+
+    this.map.addListener('bounds_changed', () => {
+      searchBox.setBounds(this.map.getBounds() as google.maps.LatLngBounds);
+    });
+    let infoMarkers: google.maps.Marker[] = [];
+    searchBox.addListener('places_changed', () => {
+      const places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      infomarkers.forEach((marker) => {
+        marker.setMap(null);
+      });
+      infomarkers = [];
+
+      const bounds = new google.maps.LatLngBounds();
+      places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+          console.log('Returned place contains no geometry');
+          return;
+        }
+
+        const icon = {
+          url: place.icon as string,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25),
+        };
+        
+        var photos = place.photos;
+        
+
+        const infomarker= new google.maps.Marker({
+          map: this.map,
+          icon,
+          title: place.name,
+          position: place.geometry.location,
+        })
+        infomarkers.push(infomarker);
+
+        const contentString = `
+          <div>
+            <p>${place.name}</p>
+            <img src="${photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="Place Photo">
+            <p>${place.formatted_address}</p>
+            
+          </div>
+        `;
+
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 300,
+        });
+        
+
+        infomarker.addListener('click', () => {
+          if (this.currentInfoWindow) {
+            this.currentInfoWindow.close();
+          }
+      
+          infowindow.open(this.map, infomarker);
+
+          this.currentInfoWindow = infowindow;
+        });
+
+        infomarker.addListener('rightclick', () => {
+          const savemarker= new google.maps.Marker({
+            map: this.map,
+            icon,
+            title: place.name,
+            position: place.geometry.location,
+          })
+          savemarker.addListener('click', () => {
+            infowindow.open(this.map, savemarker);
+          });
+      
+          savemarker.addListener('rightclick', () => {
+            this.removeMarker(savemarker);
+          });
+          this.markers.push(savemarker);
+        });
+
+
+
+        if (place.geometry.viewport) {
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      this.map.fitBounds(bounds);
+    });
+
+    this.map.addListener('rightclick', (event: google.maps.MapMouseEvent) => {
+      this.makeMarker(event.latLng);
+    });
   }
 
-  public updateObjectPositions(x: number, y: number): void {
-    this.characterX = this.getPosition(
-      x,
-      this.mapBoundary.xMin,
-      this.mapBoundary.width,
-      this.canvasBoundary.xMin,
-      this.canvasBoundary.width,
-      );
-    this.characterY = this.getPosition(
-      y,
-      this.mapBoundary.yMin,
-      this.mapBoundary.height,
-      this.canvasBoundary.yMin,
-      this.canvasBoundary.height,
-    );
+  private makeMarker(location: google.maps.LatLng): void {
+    const newMarker = new google.maps.Marker({
+      position: location,
+      map: this.map,
+      title: 'My Marker',
+    });
+
+    this.markers.push(newMarker);
+    this.updateLazy();
+    const infowindow = new google.maps.InfoWindow({
+      content: `<p>Marker Location: ${newMarker.getTitle()}</p>`,
+      maxWidth: 200,
+    });
+
+    newMarker.addListener('click', () => {
+      infowindow.open(this.map, newMarker);
+    });
+
+    newMarker.addListener('rightclick', () => {
+      this.removeMarker(newMarker);
+    });
   }
-
-  public getPosition(
-    source: number,
-    min: number,
-    length: number,
-    targetMin: number,
-    targetLength: number,
-    ): number {
-    return (this.canvasWidth * (targetMin / 100)) + (this.canvasWidth * (targetLength / 100) * ((source - min) / length));
+  private loadMarkers(markers: Marker[]) {
+    markers.map(marker => {
+      const newMarker = new google.maps.Marker({
+        position: { lat: marker.lat, lng: marker.lng },
+        map: this.map,
+        title: marker.title,
+      });
+  
+      this.markers.push(newMarker);
+  
+      const infowindow = new google.maps.InfoWindow({
+        content: `<p>${newMarker.getTitle()}</p>`,
+        maxWidth: 200,
+      });
+  
+      newMarker.addListener('click', () => {
+        infowindow.open(this.map, newMarker);
+      });
+  
+      newMarker.addListener('rightclick', () => {
+        this.removeMarker(newMarker);
+      });
+    });
   }
+  
 
-  public updateCanvasWidth(): void {
-    this.canvasWidth = Math.min(
-      this.elementRef.nativeElement.parentElement.offsetWidth,
-      this.elementRef.nativeElement.parentElement.offsetHeight,
-      ) ;
+  private removeMarker(marker: google.maps.Marker): void {
+    marker.setMap(null);
+
+    const index = this.markers.indexOf(marker);
+    if (index !== -1) {
+      this.markers.splice(index, 1);
+    }
+    this.updateLazy();
   }
+  public onMessageReceived(msg: any): void {
 
-  public onResize(event: any): void {
-    this.canvasWidth = 100;
-    this.changeDetectorRef.detectChanges();
-    this.updateCanvasWidth();
-  }
+    switch (msg.T) {
+      case CommunicationType.AUTH:
+        const authResult: CommunicationResult = msg as CommunicationResult;
+        this.roomService.onAuthResultReceived(authResult.result);
+      case CommunicationType.LIVE:
+        const version: number = parseInt(msg.content || 0);
+        
+        if (version <= this.space?.version) {
+          return;
+        }
 
-  public onKeyDown(event: any): void {
+        this.load();
 
-    switch (event?.keyCode) {
-      case 38:
-      case 87:
-        this.characterY -= this.speed;
-        break;
-      case 40:
-      case 83:
-        this.characterY += this.speed;
-        break;
-      case 37:
-      case 65:
-        this.characterX -= this.speed;
-        break;
-      case 39:
-      case 68:
-        this.characterX += this.speed;
         break;
     }
-
-    this.draw();
   }
 
-  private draw(): void {
-    this.context.clearRect(0, 0, this.canvasWidth, this.canvasWidth);
-    this.context.font = '24px Arial';
-    this.context.textBaseline = 'top';
-    this.context.textAlign = 'left';
 
-    // this.context.canvas.width = this.elementRef.nativeElement?.width;
-    // this.context.canvas.height = this.elementRef.nativeElement?.height;
+  public load(): void {
+    this.dataService.getSpace(this.groupId, this.roomId, this.spaceKey).subscribe((space) => {
+      if (space.updatedAt === this.space?.updatedAt) {
+        return;
+      }
 
-    this.context.fillText(`X : ${Math.round(this.characterX * 100) / 100}, Y : ${Math.round(this.characterY * 100) / 100}`, 0, 0, 100);
-
-    this.context.beginPath();
-    this.context.arc(this.characterX, this.characterY, 8, 0, Math.PI * 2, true); // Outer circle
-    this.context.moveTo(110, 75);
-    this.context.fillStyle='rgba(250,0,0,0.4)';
-    this.context.fill();
-    this.context.stroke();
+      this.space = space;
+      this.title = space.title;
+      this.content = space.content ||[];
+      this.loadMarkers(JSON.parse(space.content));
+     });
   }
 
+  public update(): void {
+    this.mapping();
+
+    this.dataService.updateSpace(
+      this.space?.key,
+      this.groupId,
+      this.roomId,
+      this.title,
+      JSON.stringify(this.content),
+      this.space?.version,
+      ).pipe(
+        take(1),
+        catchError((err) => {
+         if (err?.status === 406) {
+          this.load();
+        }
+        return throwError(err);
+      }),
+      ).subscribe((space) => {
+      this.space = space;
+      });
+    }
+
+    public updateLazy(): void {
+      if (this.updateTimerSubscription){
+        this.updateTimerSubscription.unsubscribe();
+      }
+  
+      this.updateTimerSubscription = timer(1000).pipe(take(1)).subscribe(() => {
+        this.update();
+      });
+    }
+  public mapping(): void{
+    this.content=this.markers.map((item: any) => {
+      const position = item.getPosition();
+      let lat:number = position.lat();
+      let lng:number = position.lng();
+      const result: Marker = new Marker(item.getTitle(),lat,lng);
+      return result;
+    });
+  }
+
+  public onConnectionError(error: any = null): void {
+    console.log('ConnectionError', error);
+    this.isConnected = false;
+  }
+
+  public onConnectionComplete(): void {
+    this.isAllowEdit = true;
+    this.changeDetectorRef.markForCheck();
+
+    if (!this.isConnected) {
+      this.load();
+    }
+  }
 }
