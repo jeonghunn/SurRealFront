@@ -40,11 +40,12 @@ export class SummaryComponent implements OnChanges {
     }
   }
 
-  public summary(): void {
+  public summary(isForce: boolean = false): void {
     this.dataService.getSummary(
       this.room?.group_id,
       this.room?.id,
       this.topicId,
+      isForce,
       ).pipe(take(1)).subscribe(
         (result: any) => {
           this.spaceKey = result?.spaceKey;
@@ -54,6 +55,10 @@ export class SummaryComponent implements OnChanges {
 
   }
   
+  public onClickReSummarize(): void {
+    this.spaceKey = null;
+    this.summary(true);
+  }
   
 
 }
