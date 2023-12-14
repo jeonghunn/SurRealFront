@@ -400,6 +400,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public onAuthResultReceived(isSuccess: boolean): void {
     if (isSuccess) {
       this.isAuthenticated = true;
+      this.changeDetectorRef.markForCheck();
       return;
     }
 
