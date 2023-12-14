@@ -143,6 +143,9 @@
           "ATTENDEE": "참여자",
           "ATTACH": "파일"
         },
+        "SUMMARY": {
+          "RESUMMARY": "다시 요약하기"
+        },
         "SPACE": {
           "SPACE": "Space",
           "APP": {

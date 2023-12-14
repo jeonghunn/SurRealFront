@@ -135,6 +135,9 @@
           "ATTENDEE": "Attendees",
           "ATTACH": "Files"
         },
+        "SUMMARY": {
+          "RESUMMARY": "Summarize Again"
+        },
         "SPACE": {
           "SPACE": "Space",
           "APP": {
