@@ -51,7 +51,6 @@ class="header"
     #messageComponent
     *ngFor="let chat of chats; let i = index"
     (reply)="replyChat = chat"
-    (click)="onChatClick(chat)"
     [name]="chat.user?.name"
     [user_id]="chat.user?.id"
     [category]="chat.category"
