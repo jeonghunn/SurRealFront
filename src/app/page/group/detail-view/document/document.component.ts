@@ -128,6 +128,9 @@ public saveCaretPosition(context: any): [any, number] {
 }
 
 public restoreCaretPosition(context: any, length: number, selection: any): void {
+  this.contentElement.nativeElement.blur();
+  this.contentElement.nativeElement.focus();
+
   let pos = this.getTextNodeAtPosition(context, length);
   selection.removeAllRanges();
   let range = new Range();
@@ -154,7 +157,7 @@ public getTextNodeAtPosition(root: Node, index: number){
   public onContentChanged(event: any): void {
     this.isFocused = true;
     this.title = this.titleElement.nativeElement.innerText;
-    this.content = this.contentElement.nativeElement.innerText;
+    this.content = this.convertToText(this.contentElement.nativeElement.innerText);
     this.updateLazy();
   }
 
@@ -213,6 +216,10 @@ public getTextNodeAtPosition(root: Node, index: number){
 
         break;
     }
+  }
+
+  public convertToText(content: string): string {
+    return content.replace(/\n\n\n/g, '\n\n');
   }
 
   public update(): void {
