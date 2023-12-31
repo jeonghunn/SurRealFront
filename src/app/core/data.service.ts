@@ -156,9 +156,7 @@ export class DataService {
           title,
           content,
         },
-        ).pipe(
-      catchError(error => this.handleError(error, false)),
-    );
+        );
   }
 
   public createTopic(
