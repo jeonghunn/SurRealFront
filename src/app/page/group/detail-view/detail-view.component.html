@@ -32,10 +32,6 @@
         (click)="onClick(liveCategoryType.ATTACH)"
         [selected]="category === liveCategoryType.ATTACH"
       >{{ 'GROUP.ROOM.LIVE.CATEGORY.ATTACH' | translate }}</mat-chip-option>
-      <mat-chip-option
-        (click)="onClick(liveCategoryType.MAP)"
-        [selected]="category === liveCategoryType.MAP"
-      >{{ 'GROUP.ROOM.LIVE.CATEGORY.MAP' | translate }}</mat-chip-option>
     </mat-chip-listbox>
     <div class="view">
       <ng-container *ngIf="category === liveCategoryType.NOW">
