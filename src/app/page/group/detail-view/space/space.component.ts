@@ -49,6 +49,8 @@ export class SpaceComponent implements OnChanges {
   
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes?.topic) {
+      this.selectedApp = null;
+      this.space = null;
       this.getSpace();
     }    
   }
@@ -90,7 +92,7 @@ export class SpaceComponent implements OnChanges {
     this.dataService.createTopic(
       this.groupId,
       this.roomId,
-      null,
+      this.topic?.id,
       this.title,
       this.selectedApp,
       ).pipe(
