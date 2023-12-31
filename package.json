@@ -28,6 +28,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@types/video.js": "^7.3.52",
     "firebase": "^10.2.0",
+    "google-maps": "^4.3.3",
     "localforage": "^1.10.0",
     "luxon": "^3.3.0",
     "ngx-cookie-service": "^16.0.0",

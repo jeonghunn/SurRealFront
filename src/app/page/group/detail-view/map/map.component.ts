@@ -26,12 +26,18 @@ import {
   CommunicationType,
   SpaceItem,
 } from 'src/app/model/type';
+import {
+  Loader,
+  LoaderOptions,
+} from 'google-maps';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MapComponent implements OnInit, OnDestroy {
   @Input()
   public groupId: number = null;
 
@@ -40,6 +46,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input()
   public spaceKey: string = null;
+
+  
+
+  public mapOptions: LoaderOptions = {
+    libraries: ['places'],
+  };
+  public loader: Loader = new Loader(environment.mapApiKey, this.mapOptions);
+  public google: any = null;
+
 
   public space: any = null;
   public map: google.maps.Map;
@@ -62,10 +77,18 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private dataService: DataService,
     private roomService: RoomService,
     private changeDetectorRef: ChangeDetectorRef,
-  ) {}
+  ) {
+    this.loader.load().then((google) => {
+      this.google = google;
+      this.initMap();
+    });
+  }
+
+  public init(): void {
+
+  }
   
   public ngOnInit(): void {
-    this.load();
     this.roomService.initSpaceWebSocket(this.roomId, this.spaceKey);
     this.subscriptions = [
       this.roomService.spaceWebSocketSubject$.pipe(
@@ -82,9 +105,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       ),
     ];
   }
-  public ngAfterViewInit(): void{
-    this.initMap();
-  }
+
   public ngOnDestroy(): void {
     this.roomService.closeSpaceWebSocket();
   }
@@ -95,15 +116,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       center: { lat: 35.88979960417728, lng:128.6101853686389},
     };
 
-    this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
+    this.map = new this.google.maps.Map(this.mapContainer.nativeElement, mapOptions);
 
-    const searchBox = new google.maps.places.SearchBox(this.pacInput.nativeElement);
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.pacInput.nativeElement);
+    const searchBox = new this.google.maps.places.SearchBox(this.pacInput.nativeElement);
+    this.map.controls[this.google.maps.ControlPosition.TOP_CENTER].push(this.pacInput.nativeElement);
 
     this.map.addListener('bounds_changed', () => {
       searchBox.setBounds(this.map.getBounds() as google.maps.LatLngBounds);
     });
-    let infoMarkers: google.maps.Marker[] = [];
+    let infomarkers: google.maps.Marker[] = [];
     searchBox.addListener('places_changed', () => {
       const places = searchBox.getPlaces();
 
@@ -116,7 +137,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       infomarkers = [];
 
-      const bounds = new google.maps.LatLngBounds();
+      const bounds = new this.google.maps.LatLngBounds();
       places.forEach((place) => {
         if (!place.geometry || !place.geometry.location) {
           console.log('Returned place contains no geometry');
@@ -125,16 +146,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         const icon = {
           url: place.icon as string,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25),
+          size: new this.google.maps.Size(71, 71),
+          origin: new this.google.maps.Point(0, 0),
+          anchor: new this.google.maps.Point(17, 34),
+          scaledSize: new this.google.maps.Size(25, 25),
         };
         
         var photos = place.photos;
         
 
-        const infomarker= new google.maps.Marker({
+        const infomarker= new this.google.maps.Marker({
           map: this.map,
           icon,
           title: place.name,
@@ -151,7 +172,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           </div>
         `;
 
-        const infowindow = new google.maps.InfoWindow({
+        const infowindow = new this.google.maps.InfoWindow({
           content: contentString,
           maxWidth: 300,
         });
@@ -167,8 +188,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           this.currentInfoWindow = infowindow;
         });
 
-        infomarker.addListener('rightclick', () => {
-          const savemarker= new google.maps.Marker({
+        infomarker.addListener('dbclick', () => {
+          const savemarker= new this.google.maps.Marker({
             map: this.map,
             icon,
             title: place.name,
@@ -195,13 +216,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.map.fitBounds(bounds);
     });
 
-    this.map.addListener('rightclick', (event: google.maps.MapMouseEvent) => {
+    this.map.addListener('click', (event: google.maps.MapMouseEvent) => {
       this.makeMarker(event.latLng);
     });
   }
 
   private makeMarker(location: google.maps.LatLng): void {
-    const newMarker = new google.maps.Marker({
+    const newMarker = new this.google.maps.Marker({
       position: location,
       map: this.map,
       title: 'My Marker',
@@ -209,7 +230,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.markers.push(newMarker);
     this.updateLazy();
-    const infowindow = new google.maps.InfoWindow({
+    const infowindow = new this.google.maps.InfoWindow({
       content: `<p>Marker Location: ${newMarker.getTitle()}</p>`,
       maxWidth: 200,
     });
@@ -224,7 +245,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   private loadMarkers(markers: Marker[]) {
     markers.map(marker => {
-      const newMarker = new google.maps.Marker({
+      const newMarker = new this.google.maps.Marker({
         position: { lat: marker.lat, lng: marker.lng },
         map: this.map,
         title: marker.title,
@@ -232,7 +253,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   
       this.markers.push(newMarker);
   
-      const infowindow = new google.maps.InfoWindow({
+      const infowindow = new this.google.maps.InfoWindow({
         content: `<p>${newMarker.getTitle()}</p>`,
         maxWidth: 200,
       });
@@ -285,8 +306,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.space = space;
       this.title = space.title;
-      this.content = space.content ||[];
-      this.loadMarkers(JSON.parse(space.content));
+      this.content = space.content ? JSON.parse(space.content) : [];
+      this.loadMarkers(this.content);
      });
   }
 
