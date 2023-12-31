@@ -102,9 +102,10 @@ export class MessageComponent {
      return attach.extension?.toUpperCase();
   }
 
-  public onThumbnailClick(index: number): void {
-    this.viewerService.open(this.attaches, index);
+  public onThumbnailClick(index: number, event: MouseEvent): void {
+    event.stopPropagation();
 
+    this.viewerService.open(this.attaches, index);
     this.changeDetectorRef.markForCheck();
   }
 

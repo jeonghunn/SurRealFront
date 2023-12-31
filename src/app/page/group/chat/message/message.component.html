@@ -33,7 +33,7 @@ class="message"
         *ngFor="let file of attaches; let i = index"
         [isClickable]="true"
         [src]="getSrcText(file)"
-        (click)="onThumbnailClick(i)"
+        (click)="onThumbnailClick(i, $event)"
     ></app-thumbnail>
     </div>
     <div
