@@ -2,7 +2,7 @@
 
 importScripts('https://www.gstatic.com/firebasejs/10.3.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.3.0/firebase-messaging-compat.js');
-importScripts('assets/js/localforage.min.js')
+//importScripts('assets/js/localforage.min.js')
 
 
 firebase.initializeApp({
@@ -18,9 +18,9 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 let userId = null;
 
-localforage.getItem('user_id').then(function(value) {
-  userId = value;
-});
+// localforage.getItem('user_id').then(function(value) {
+//   userId = value;
+// });
 
 messaging.onBackgroundMessage(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
@@ -39,8 +39,10 @@ messaging.onBackgroundMessage(function(payload) {
   //   return;
   // }
 
-  self.registration.showNotification(notificationTitle,
-   notificationOptions);
+  return self.registration.showNotification(notificationTitle,
+   notificationOptions).then(function(result) {
+    return result;
+   });
 });
 
 function handleClick (event) {
@@ -51,9 +53,9 @@ function handleClick (event) {
 self.addEventListener('notificationclick', handleClick);
 
 
-const channel4Broadcast = new BroadcastChannel('user_id');
-channel4Broadcast.onmessage = (event) => {
-  console.log('Received', event.data);
-  userId = event.data;
-}
+// const channel4Broadcast = new BroadcastChannel('user_id');
+// channel4Broadcast.onmessage = (event) => {
+//   console.log('Received', event.data);
+//   userId = event.data;
+// }
 
