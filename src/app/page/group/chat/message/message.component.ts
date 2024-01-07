@@ -67,6 +67,9 @@ export class MessageComponent {
 
   @Output()
   public reply: EventEmitter<null> = new EventEmitter<null>();
+  
+  @Output()
+  public update: EventEmitter<null> = new EventEmitter<null>();
 
 
   public isFocused: boolean = false;

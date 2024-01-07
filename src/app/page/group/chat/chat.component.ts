@@ -77,13 +77,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public message: string;
   public isAutoScrollActive: boolean = true;
   public isManualScroll: boolean = true;
+  public isInteracting: boolean = false;
   public lastChatLength: number = 0;
   public uploadingFiles: number = 0;
   public chatErrorMessage: string = null;
   public attachDeleteDialogRef: MatDialogRef<ConfirmComponent>;
   public chatContainerHeight: string = null;
   public isMultiLineEnabled: boolean = false;
-  public isTouchMode: boolean = false;
   public isHeaderVisible: boolean = true;
 
   public isHeaderUpdated: boolean = false;
@@ -268,11 +268,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       console.log('after view checked header updated');
     }
 
+    this.executeAutoScroll();
+
+  }
+
+  public executeAutoScroll(): void {
     if (this.lastChatLength !== this.chats?.length && this.isAutoScrollActive) {
       this.lastChatLength = this.chats?.length;
       this.scrollToBottom(true);
     }
-
   }
 
   public openAttachDeleteDialog(file: any): void {
@@ -300,20 +304,43 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   }
 
+  public onMouseOver() {
+    this.isManualScroll = true;
+    this.isInteracting = true;
+  }
+
+  public onTouchStart() {
+    this.isManualScroll = true;
+    this.isInteracting = true;
+  }
+
+  public onMouseLeave() {
+    this.isInteracting = false;
+  }
+
+  public onTouchEnd() {
+    this.isInteracting = false;
+  }
+
   public onScroll(event: any): void {
     const scrollTop: number = event?.target?.scrollTop;
     const shouldAutoScrollActive: boolean = scrollTop >
       event?.target?.scrollHeight - event?.target?.offsetHeight - this.CHAT_AUTO_SCROLL_ALLOW_THRESHOLD;
 
-    if (!this.isManualScroll) {
-      if (shouldAutoScrollActive) {
-        this.isManualScroll = true;
-      }
+    if (!this.isManualScroll && shouldAutoScrollActive) {
+      this.isAutoScrollActive = true;
+      
       return;
     }
 
     if (scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD) {
       this.loadPreviousChats.emit();
+    }
+
+
+    if (!this.isInteracting && this.isAutoScrollActive && !shouldAutoScrollActive) {
+      this.scrollToBottom(true);
+      return;
     }
 
     this.isAutoScrollActive = shouldAutoScrollActive;

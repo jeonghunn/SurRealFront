@@ -54,5 +54,6 @@ class="box"
     [title]="message"
     [topicId]="meta?.child_topic_id"
     [room]="room"
+    (update)="update?.emit()"
     ></app-topic-preview>
 </div>
