@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'SurReal';
   public pageErrorCode: number;
   public isSmallWidth: boolean = false;
-  public isSideNavEnlarged: boolean = true;
+  public isSideNavEnlarged: boolean = false;
   public isViewerOpen: boolean = true;
   public notificationDialogRef: MatDialogRef<ConfirmComponent>;
 
