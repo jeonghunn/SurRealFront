@@ -177,8 +177,13 @@ export class AppComponent implements OnInit, OnDestroy {
   public openNotificationPermissionDialog(): boolean {
     if(
       !this.isSignedIn ||
-      Notification.permission === 'denied' ||
-      Notification.permission === 'granted' ||
+      (
+        'Notification' in window &&
+        (
+          Notification.permission === 'denied' ||
+        Notification.permission === 'granted'
+        )
+      )||
       this.localSettingService.isUserDisallowedNotification
       ) {
       return false;
