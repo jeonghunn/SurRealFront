@@ -268,15 +268,14 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       console.log('after view checked header updated');
     }
 
+    if (!this.isManualScroll && this.isAutoScrollActive) {
     this.executeAutoScroll();
+    }
 
   }
 
   public executeAutoScroll(): void {
-    if (this.lastChatLength !== this.chats?.length && this.isAutoScrollActive) {
-      this.lastChatLength = this.chats?.length;
-      this.scrollToBottom(true);
-    }
+    this.scrollToBottom(true);
   }
 
   public openAttachDeleteDialog(file: any): void {
@@ -327,11 +326,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     const shouldAutoScrollActive: boolean = scrollTop >
       event?.target?.scrollHeight - event?.target?.offsetHeight - this.CHAT_AUTO_SCROLL_ALLOW_THRESHOLD;
 
-    if (!this.isManualScroll && shouldAutoScrollActive) {
-      this.isAutoScrollActive = true;
-      
-      return;
-    }
 
     if (scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD) {
       this.loadPreviousChats.emit();
@@ -339,11 +333,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
 
     if (!this.isInteracting && this.isAutoScrollActive && !shouldAutoScrollActive) {
-      this.scrollToBottom(true);
+      this.executeAutoScroll();
       return;
     }
 
-    this.isAutoScrollActive = shouldAutoScrollActive;
+    this.isAutoScrollActive = !this.isManualScroll && shouldAutoScrollActive;
+
   }
 
   public scrollToBottom(isNotForced: boolean = false): void {
@@ -351,6 +346,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       this.isManualScroll = false;
       this.chatContainer.nativeElement.scrollTop =
         this.chatContainer.nativeElement.scrollHeight - this.chatContainer.nativeElement.offsetHeight;
+      this.changeDetectorRef.markForCheck();
     }
   }
 
