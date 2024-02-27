@@ -5,12 +5,16 @@
   [ngClass]="isLarge ? 'creation-large' : 'creation'"
   >
   <mat-icon>add</mat-icon>
-  <span *ngIf="isLarge">{{ 'GROUP_LIST.ADD' | translate }}</span>
+  <span *ngIf="isLarge">{{ (isLarge ? 'GROUP_LIST.ADD_DETAIL' : 'GROUP_LIST.ADD') | translate }}</span>
   </div>
+  <span
+    *ngIf="!isLarge"
+    class="name"
+    >{{ isLarge ? 'GROUP_LIST.ADD_DETAIL' : 'GROUP_LIST.ADD' | translate }}</span>
   <div
     matRipple
     *ngFor="let group of groups"
-    class="profile"
+    [className]="isLarge ? 'profile-large' : 'profile'"
     [matRippleDisabled]="!isLarge"
     (click)="onGroupClick(group.id)"
   >
@@ -22,8 +26,7 @@
       [color]="getColor(group)"
     ></app-profile-icon>
     <span
-      *ngIf="isLarge"
-      class="name"
+    class="name"
     >{{ getTitle(group) }}</span>
   </div>
 </div>

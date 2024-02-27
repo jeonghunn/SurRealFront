@@ -98,7 +98,8 @@
     }
   },
   "GROUP_LIST": {
-    "ADD": "새로 추가하기"
+    "ADD": "추가",
+    "ADD_DETAIL": "새로 추가하기"
   },
   "GROUP_CREATE": {
     "FRIENDS": "친구",

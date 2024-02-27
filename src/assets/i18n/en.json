@@ -89,7 +89,8 @@
     }
   },
   "GROUP_LIST": {
-    "ADD": "Add Friends or Create a group"
+    "ADD": "Add",
+    "ADD_DETAIL": "Add Friends or Create a group"
   },
   "GROUP_CREATE": {
     "FRIENDS": "Friends",
