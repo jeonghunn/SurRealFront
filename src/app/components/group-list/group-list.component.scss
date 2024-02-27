@@ -5,6 +5,7 @@
   margin-left: auto;
   margin-right: auto;
   overflow-y: auto;
+  text-align: center;
 
   .header {
     text-align: center;
@@ -19,7 +20,7 @@
 
   }
 
-  .profile {
+  .profile-large {
     margin: 8px auto 0 0;
     padding-left: 8px;
     padding-right: 8px;
@@ -32,6 +33,20 @@
       font-weight: bold;
       font-size: 24px;
       text-overflow:ellipsis;
+    }
+  }
+
+  .profile {
+    margin: 8px auto 0 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: block;
+    text-align: center;
+
+    .name {
+      font-size: 12px;
+      text-overflow:ellipsis;
+      font-weight: bold;
     }
   }
 
@@ -56,6 +71,12 @@
 
     mat-icon {
     }
+  }
+
+  .name {
+    font-size: 12px;
+    text-overflow:ellipsis;
+    font-weight: bold;
   }
 
   .creation-large {

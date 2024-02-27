@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
@@ -54,6 +55,8 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
   public chatQueue$: Subject<{ offset: number, isFuture: boolean }> = new Subject();
   public cancelDelay$: Subject<any> = new Subject();
 
+  public update: EventEmitter<any> = new EventEmitter();
+
   private readonly CHAT_FETCH_COUNT: number = 5;
 
   public constructor(
@@ -101,6 +104,7 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
   public updateChats(result: any, isReverse: boolean): void {
     this.chats = isReverse ? [ ...result.chats, ...this.chats ] : [ ...this.chats, ...result.chats ];
     this.changeDetectorRef.markForCheck();
+    this.update.emit();
   }
 
 

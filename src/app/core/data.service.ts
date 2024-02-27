@@ -156,9 +156,7 @@ export class DataService {
           title,
           content,
         },
-        ).pipe(
-      catchError(error => this.handleError(error, false)),
-    );
+        );
   }
 
   public createTopic(
@@ -216,8 +214,13 @@ export class DataService {
     );
   }
 
-  public getSummary(groupId: number, roomId: number, topicId: number): Observable<any> {
-    let url: string = `${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100`;
+  public getSummary(
+    groupId: number,
+    roomId: number,
+    topicId: number,
+    isForce: boolean,
+    ): Observable<any> {
+    let url: string = `${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100&force=${isForce}`;
 
     if (topicId) { 
       url += `&topic_id=${topicId}`;

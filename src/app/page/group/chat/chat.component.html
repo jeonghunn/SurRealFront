@@ -39,8 +39,10 @@ class="header"
   #chatContainer
   [style.height]="chatContainerHeight"
   (scroll)="onScroll($event)"
-  (mouseover)="isManualScroll = true"
-  (touchstart)="isManualScroll = true"
+  (mouseover)="onMouseOver()"
+  (touchstart)="onTouchStart()"
+  (touchend)="onTouchEnd()"
+  (mouseleave)="onMouseLeave()"
   class="chats"
 >
   <app-skeleton-loader
@@ -51,7 +53,7 @@ class="header"
     #messageComponent
     *ngFor="let chat of chats; let i = index"
     (reply)="replyChat = chat"
-    (click)="onChatClick(chat)"
+    (update)="executeAutoScroll()"
     [name]="chat.user?.name"
     [user_id]="chat.user?.id"
     [category]="chat.category"

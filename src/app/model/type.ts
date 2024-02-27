@@ -66,6 +66,8 @@ export class Relation {
   public target_id: number;
 }
 
+
+
 export class Communication {
   public T: CommunicationType;
   public createdAt?: string;
@@ -151,6 +153,19 @@ export class LiveMessage extends Communication {
     this.content = content;
   }
 }
+
+export class Marker {
+  public title: string;
+  public lat: number;
+  public lng: number;
+
+  public constructor(title: string, lat: number, lng: number) {
+    this.title = title;
+    this.lat = lat;
+    this.lng = lng;
+  }
+}
+
 
 export class SpaceAction {
   public type: SpaceActionType;

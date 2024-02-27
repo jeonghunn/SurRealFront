@@ -67,6 +67,9 @@ export class MessageComponent {
 
   @Output()
   public reply: EventEmitter<null> = new EventEmitter<null>();
+  
+  @Output()
+  public update: EventEmitter<null> = new EventEmitter<null>();
 
 
   public isFocused: boolean = false;
@@ -102,9 +105,10 @@ export class MessageComponent {
      return attach.extension?.toUpperCase();
   }
 
-  public onThumbnailClick(index: number): void {
-    this.viewerService.open(this.attaches, index);
+  public onThumbnailClick(index: number, event: MouseEvent): void {
+    event.stopPropagation();
 
+    this.viewerService.open(this.attaches, index);
     this.changeDetectorRef.markForCheck();
   }
 

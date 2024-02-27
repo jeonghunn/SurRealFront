@@ -3,11 +3,19 @@
     count="13"
     width="90%"
 ></app-skeleton-loader>
-<ng-container *ngIf="spaceKey">
+<div
+*ngIf="spaceKey"
+class="container"
+>
     <app-document
     [groupId]="groupId"
     [roomId]="room?.id"
     [spaceKey]="spaceKey"
     >
     </app-document>
-</ng-container>
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="onClickReSummarize()"
+    >{{ 'GROUP.ROOM.LIVE.SUMMARY.RESUMMARY' | translate }}</button>
+</div>

@@ -20,6 +20,7 @@ import {
 import { DataService } from 'src/app/core/data.service';
 import { IdentityService } from 'src/app/core/identity.service';
 import { RoomService } from 'src/app/core/room.service';
+import { Util } from 'src/app/core/util';
 import {
   Chat,
   CommunicationResult,
@@ -57,6 +58,7 @@ export class DocumentComponent implements OnInit, OnDestroy, OnChanges {
   public isAuthenticated: boolean = false;
   public reAuthDelay: number = 100;
   public isAllowEdit: boolean = false;
+  public isFocused: boolean = false;
 
   public subscriptions: any = [];
   public updateTimerSubscription: any = null;
@@ -112,9 +114,50 @@ export class DocumentComponent implements OnInit, OnDestroy, OnChanges {
     this.onContentChanged(null);
   }
 
+public saveCaretPosition(context: any): [any, number] {
+    if (!context) {
+      return [null, null];
+    }
+
+    let selection = window.getSelection();
+    let range = selection.getRangeAt(0);
+    range.setStart(context, 0 );
+    let length: number = range.toString().length;
+
+    return [selection, length];
+}
+
+public restoreCaretPosition(context: any, length: number, selection: any): void {
+  this.contentElement.nativeElement.blur();
+  this.contentElement.nativeElement.focus();
+
+  let pos = this.getTextNodeAtPosition(context, length);
+  selection.removeAllRanges();
+  let range = new Range();
+  range.setStart(pos.node ,pos.position);
+  selection.addRange(range);
+}
+
+public getTextNodeAtPosition(root: Node, index: number){
+  const NODE_TYPE = NodeFilter.SHOW_TEXT;
+  var treeWalker = document.createTreeWalker(root, NODE_TYPE, function next(elem) {
+      if(index > elem.textContent.length){
+          index -= elem.textContent.length;
+          return NodeFilter.FILTER_REJECT
+      }
+      return NodeFilter.FILTER_ACCEPT;
+  });
+  var c = treeWalker.nextNode();
+  return {
+      node: c? c: root,
+      position: index
+  };
+}
+
   public onContentChanged(event: any): void {
+    this.isFocused = true;
     this.title = this.titleElement.nativeElement.innerText;
-    this.content = this.contentElement.nativeElement.innerText;
+    this.content = this.convertToText(this.contentElement.nativeElement.innerText);
     this.updateLazy();
   }
 
@@ -147,6 +190,7 @@ export class DocumentComponent implements OnInit, OnDestroy, OnChanges {
 
   public ngOnDestroy(): void {
     this.roomService.closeSpaceWebSocket();
+    Util.unsubscribe(...this.subscriptions);
   }
 
   public onConnectionError(error: any = null): void {
@@ -172,6 +216,10 @@ export class DocumentComponent implements OnInit, OnDestroy, OnChanges {
 
         break;
     }
+  }
+
+  public convertToText(content: string): string {
+    return content.replace(/\n\n\n/g, '\n\n');
   }
 
   public update(): void {
@@ -210,17 +258,30 @@ export class DocumentComponent implements OnInit, OnDestroy, OnChanges {
 
 
   public load(): void {
+
+    let [selection, length]: [any, number] = [null, null];
+
+    if (this.isFocused) {
+      [selection, length] = this.saveCaretPosition(this.contentElement?.nativeElement);
+    }
+   
     this.dataService.getSpace(this.groupId, this.roomId, this.spaceKey).subscribe((space) => {
       if (space.updatedAt === this.space?.updatedAt) {
         return;
       }
 
       // this.isEditMode = space.isEditMode;
+      this.isFocused = false;
       this.space = space;
       this.title = space.title;
       this.content = space.content;
       this.titleElement.nativeElement.innerText = space.title;
       this.contentElement.nativeElement.innerText = space.content;
+
+      if (selection) {
+        this.restoreCaretPosition(this.contentElement?.nativeElement, length, selection);
+      }
+
      });
   }
 

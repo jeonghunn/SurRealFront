@@ -2,12 +2,20 @@
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
+  margin-left: 8px;
   margin-bottom: 16px;
   border-radius: 8px;
   min-height: 80px;
 
   .profile {
     display: flex;
+
+    app-profile-icon {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 16px;
+    }
+    
     .content {
       margin-top: auto;
       margin-bottom: auto;

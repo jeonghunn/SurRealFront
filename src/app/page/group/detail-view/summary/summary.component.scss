@@ -7,8 +7,11 @@
     margin-right: 16px;
 }
 
-.content {
-    white-space: pre;
-    word-break: break-all;
-    overflow-y: auto;
+.container {
+    display: block;
+    text-align: center;
+
+    button {
+        margin-top: 16px;
+    }
 }

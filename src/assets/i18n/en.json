@@ -89,7 +89,8 @@
     }
   },
   "GROUP_LIST": {
-    "ADD": "Add Friends or Create a group"
+    "ADD": "Add",
+    "ADD_DETAIL": "Add Friends or Create a group"
   },
   "GROUP_CREATE": {
     "FRIENDS": "Friends",
@@ -134,6 +135,9 @@
           "NOW": "Space",
           "ATTENDEE": "Attendees",
           "ATTACH": "Files"
+        },
+        "SUMMARY": {
+          "RESUMMARY": "Summarize Again"
         },
         "SPACE": {
           "SPACE": "Space",
