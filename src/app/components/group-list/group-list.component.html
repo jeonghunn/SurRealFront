@@ -11,10 +11,11 @@
     *ngIf="!isLarge"
     class="name"
     >{{ isLarge ? 'GROUP_LIST.ADD_DETAIL' : 'GROUP_LIST.ADD' | translate }}</span>
+    
   <div
     matRipple
     *ngFor="let group of groups"
-    [className]="isLarge ? 'profile-large' : 'profile'"
+    [ngClass]="isLarge ? 'profile-large' : 'profile'"
     [matRippleDisabled]="!isLarge"
     (click)="onGroupClick(group.id)"
   >
