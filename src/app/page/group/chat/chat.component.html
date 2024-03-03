@@ -176,7 +176,7 @@ class="attachment"
       #send_button
       mat-icon-button
       matSuffix
-      (click)="onSendExecute(message)"
+      (click)="onSendKeyPress($event, message)"
       [attr.aria-label]="'GROUP.ROOM.CHAT.SEND' | translate"
     >
       <mat-icon
