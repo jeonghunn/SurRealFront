@@ -374,6 +374,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.onSendExecute(text);
   }
 
+  public onSendButtonClicked(text: string): void {
+    this.onSendExecute(text);
+  }
+
   public initMultiLineSetting(): void {
     this.isMultiLineEnabled = false;
   }
