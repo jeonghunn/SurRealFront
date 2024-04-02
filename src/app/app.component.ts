@@ -79,6 +79,11 @@ export class AppComponent implements OnInit, OnDestroy {
       }),
     );
     this.subscriptions.push(
+      this.translateService.onDefaultLangChange.subscribe(() => {
+        this.openNotificationPermissionDialog();
+      }),
+    );
+    this.subscriptions.push(
       this.identityService.user$.subscribe((user: User) => {
         if (user !== undefined && this.localSettingService.isUserGrantNotification) {
           this.registerClient();
@@ -169,9 +174,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.openNotificationPermissionDialog();
     this.isSmallWidth = window.innerWidth < this.MOBILE_WIDTH;
-    this.openNotificationPermissionDialog();
   }
 
   public openNotificationPermissionDialog(): boolean {
