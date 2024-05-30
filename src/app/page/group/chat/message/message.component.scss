@@ -1,6 +1,20 @@
 @import "src/assets/style/attrs";
 @import "src/assets/style/palette";
 
+.date {
+  width: fit-content;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+  background-color: var(--list-background-dark);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+
+}
+
 .message {
   padding-top: 4px;
   padding-bottom: 4px;

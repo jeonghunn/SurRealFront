@@ -63,6 +63,7 @@ class="header"
     [meta]="chat?.meta"
     [isHideProfile]="isHideName(chat, i)"
     [isAllowControl]="true"
+    [isNewDay]="i === 0 || isNewDate(chat, chats[i - 1])"
     [color]="chat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>
@@ -176,7 +177,7 @@ class="attachment"
       #send_button
       mat-icon-button
       matSuffix
-      (click)="onSendKeyPress($event, message)"
+      (click)="onSendButtonClicked(message)"
       [attr.aria-label]="'GROUP.ROOM.CHAT.SEND' | translate"
     >
       <mat-icon

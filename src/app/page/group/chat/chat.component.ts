@@ -208,6 +208,17 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
   }
 
+  public isNewDate(chat: Chat, previousChat: Chat): boolean {
+    if (!previousChat) {
+      return true;
+    }
+
+    const previousDate: Date = DateTime.fromISO(previousChat?.createdAt).toJSDate();
+    const currentDate: Date = DateTime.fromISO(chat?.createdAt).toJSDate();
+
+    return previousDate.getDay() !== currentDate.getDay();
+  
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     let scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
@@ -374,6 +385,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.onSendExecute(text);
   }
 
+  public onSendButtonClicked(text: string): void {
+    this.onSendExecute(text);
+  }
+
   public initMultiLineSetting(): void {
     this.isMultiLineEnabled = false;
   }
@@ -381,6 +396,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public onSendExecute(text: string): void {
     this.chatErrorMessage = null;
     this.initMultiLineSetting();
+    this.scrollToBottom();
 
     if ((!text || text?.length === 0) && this.files?.length === 0) {
       return;

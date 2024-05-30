@@ -63,6 +63,9 @@ export class MessageComponent {
   public isAllowControl: boolean = false;
 
   @Input()
+  public isNewDay: boolean = false;
+
+  @Input()
   public attaches: Attach[] = [];
 
   @Output()
@@ -86,6 +89,10 @@ export class MessageComponent {
   }
 
   public get getFormattedDate(): string {
+    return DateTime.fromISO(this.date).toLocaleString(DateTime.DATE_FULL);
+  }
+
+  public get getFormattedDateTime(): string {
     return DateTime.fromISO(this.date).toLocaleString(DateTime.TIME_SIMPLE);
   }
 
