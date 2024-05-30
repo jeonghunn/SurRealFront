@@ -1,4 +1,10 @@
 <div
+*ngIf="isNewDay"
+>
+    <div class="date">{{ getFormattedDate }}</div>
+</div>
+
+<div
 *ngIf="category === chatCategory.MESSAGE"
 class="message"
 (click)="isFocused = true"
@@ -22,7 +28,7 @@ class="message"
         <span
             *ngIf="isShowTime"
             class="date-time"
-        >{{ getFormattedDate }}</span>
+        >{{ getFormattedDateTime }}</span>
     
     </div>
     <div

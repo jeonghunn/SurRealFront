@@ -208,6 +208,17 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
   }
 
+  public isNewDate(chat: Chat, previousChat: Chat): boolean {
+    if (!previousChat) {
+      return true;
+    }
+
+    const previousDate: Date = DateTime.fromISO(previousChat?.createdAt).toJSDate();
+    const currentDate: Date = DateTime.fromISO(chat?.createdAt).toJSDate();
+
+    return previousDate.getDay() !== currentDate.getDay();
+  
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     let scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
