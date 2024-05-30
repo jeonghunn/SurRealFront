@@ -385,6 +385,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public onSendExecute(text: string): void {
     this.chatErrorMessage = null;
     this.initMultiLineSetting();
+    this.scrollToBottom();
 
     if ((!text || text?.length === 0) && this.files?.length === 0) {
       return;
