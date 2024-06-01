@@ -216,8 +216,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     const previousDate: Date = DateTime.fromISO(previousChat?.createdAt).toJSDate();
     const currentDate: Date = DateTime.fromISO(chat?.createdAt).toJSDate();
 
-    return previousDate.getDay() !== currentDate.getDay();
-  
+    return previousDate.getDate() !== currentDate.getDate() ||
+    previousDate.getMonth() !== currentDate.getMonth() ||
+    previousDate.getFullYear() !== currentDate.getFullYear();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
