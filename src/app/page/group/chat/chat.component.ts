@@ -281,7 +281,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
 
     if (!this.isManualScroll && this.isAutoScrollActive) {
-    this.executeAutoScroll();
+      this.executeAutoScroll();
     }
 
   }
