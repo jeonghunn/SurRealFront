@@ -3,8 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {
   HttpClient,
-  HttpClientModule,
   HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
 } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -50,66 +51,58 @@ const globalRippleConfig: RippleGlobalOptions = {
   },
 };
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    MainComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ComponentsModule,
-    PageModule,
-    MatCardModule,
-    MatChipsModule,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatRadioModule,
-    MatInputModule,
-    MatSidenavModule,
-    MatSnackBarModule,
-    HttpClientModule,
-    NgxSkeletonLoaderModule.forRoot(
-      {
-        animation: 'progress',
-      },
-    ),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [ HttpClient ],
-      },
-    }),
-    FormsModule,
-    LayoutModule,
-    MatRippleModule,
-  ],
-  providers: [
-    Guard,
-    {
-      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 2500 },
-    },
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi   : true,
-    },
-    {
-      provide: MAT_RIPPLE_GLOBAL_OPTIONS,
-      useValue: globalRippleConfig,
-    },
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: {
-        subscriptSizing: 'dynamic'
-      }
-    }
-  ],
-  bootstrap: [ AppComponent ],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        MainComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ComponentsModule,
+        PageModule,
+        MatCardModule,
+        MatChipsModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatRadioModule,
+        MatInputModule,
+        MatSidenavModule,
+        MatSnackBarModule,
+        NgxSkeletonLoaderModule.forRoot({
+            animation: 'progress',
+        }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        }),
+        FormsModule,
+        LayoutModule,
+        MatRippleModule], providers: [
+        Guard,
+        {
+            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+            useValue: { duration: 2500 },
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+        {
+            provide: MAT_RIPPLE_GLOBAL_OPTIONS,
+            useValue: globalRippleConfig,
+        },
+        {
+            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+            useValue: {
+                subscriptSizing: 'dynamic'
+            }
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 
 export class AppModule { }
