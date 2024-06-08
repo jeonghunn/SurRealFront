@@ -76,7 +76,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isShortWidth: boolean = false;
   public message: string;
   public isAutoScrollActive: boolean = true;
-  public isManualScroll: boolean = true;
+  public isManualScroll: boolean = false;
   public isInteracting: boolean = false;
   public isChatLoading: boolean = false;
   public lastChatLength: number = 0;
@@ -226,7 +226,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     let scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
 
     if (changes?.room || changes?.topic) {
-      this.isManualScroll = true;
+      this.isManualScroll = false;
       this.isAutoScrollActive = true;
       this.lastChatLength = 0;
       scrollTop = 0;
