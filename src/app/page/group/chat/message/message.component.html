@@ -14,7 +14,7 @@ class="message"
     <div class="row">
         <div class="chat">
             <div
-                *ngIf="!isHideProfile"
+                *ngIf="!isHideProfile || isNewDay"
                 class="profile"
                 (click)="onProfileClick()"
                 [style.backgroundColor]="color"
