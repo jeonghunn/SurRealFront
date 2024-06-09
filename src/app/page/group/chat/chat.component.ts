@@ -76,8 +76,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isShortWidth: boolean = false;
   public message: string;
   public isAutoScrollActive: boolean = true;
-  public isManualScroll: boolean = true;
+  public isManualScroll: boolean = false;
   public isInteracting: boolean = false;
+  public isChatLoading: boolean = false;
   public lastChatLength: number = 0;
   public uploadingFiles: number = 0;
   public chatErrorMessage: string = null;
@@ -225,7 +226,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     let scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
 
     if (changes?.room || changes?.topic) {
-      this.isManualScroll = true;
+      this.isManualScroll = false;
       this.isAutoScrollActive = true;
       this.lastChatLength = 0;
       scrollTop = 0;
@@ -470,12 +471,14 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.message = '';
 
     if (this.replyChat) {
+      this.isChatLoading = true;
       this.dataService.createTopicByChat(
         this.room?.group_id,
         this.room?.id,
         this.replyChat?.id,
         `${this.replyChat?.user?.name}: ${this.replyChat?.content}`,
       ).pipe(take(1)).subscribe((result: any) => {
+        this.isChatLoading = false;
         this.replyChat = null;
         meta.topic_id = result?.id;
         this.emitChatSend(text, result?.id, meta);

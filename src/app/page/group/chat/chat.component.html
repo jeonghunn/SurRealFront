@@ -131,7 +131,7 @@ class="attachment"
     {{ chatErrorMessage | translate }}
   </mat-error>
   <mat-progress-bar
-    *ngIf="uploadingFiles > 0"
+    *ngIf="uploadingFiles > 0 || isChatLoading"
     mode="indeterminate"
   ></mat-progress-bar>
   <mat-form-field
