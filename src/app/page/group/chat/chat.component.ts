@@ -321,6 +321,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.fileInput.nativeElement.value = '';
   }
 
+  public clearAttaches(): void {
+    this.roomService.clearFiles();
+    this.fileInput.nativeElement.value = '';
+  }
+
+
   public onMouseOver() {
     this.isManualScroll = true;
     this.isInteracting = true;
@@ -457,7 +463,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
                 attaches,
               }
               );
-            this.roomService.clearFiles();
+            this.clearAttaches();
           }
         });
       });
