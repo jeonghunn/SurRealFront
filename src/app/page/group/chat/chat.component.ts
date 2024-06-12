@@ -308,12 +308,17 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
     this.attachDeleteDialogRef.afterClosed().subscribe((result: any) => {
       if (result?.option) {
-        this.roomService.deleteAttachByUrl(result?.data);
+        this.deleteAttachByUrl(result?.data);  
       }
 
       this.attachDeleteDialogRef = null;
     });
 
+  }
+
+  public deleteAttachByUrl(url: string): void {
+    this.roomService.deleteAttachByUrl(url);
+    this.fileInput.nativeElement.value = '';
   }
 
   public onMouseOver() {
