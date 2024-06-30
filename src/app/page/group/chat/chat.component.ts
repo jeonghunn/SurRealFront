@@ -487,7 +487,14 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
         this.room?.id,
         this.replyChat?.id,
         `${this.replyChat?.user?.name}: ${this.replyChat?.content}`,
-      ).pipe(take(1)).subscribe((result: any) => {
+      ).pipe(
+        take(1),
+        catchError((err: any) => {
+          this.isChatLoading = false;
+          console.log('[ERROR] Create Topic by Chat : ', err);
+          return of(err);
+        }),
+      ).subscribe((result: any) => {
         this.isChatLoading = false;
         this.replyChat = null;
         meta.topic_id = result?.id;
