@@ -201,6 +201,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public resetRoom(): void {
     this.webSocketSubject?.complete();
     this.webSocketSubject?.unsubscribe();
+    this.chatQueue$.complete();
     this.chatQueue$?.unsubscribe();
     this.dateCriteria = new Date();
     this.futureDateCriteria = new Date();
