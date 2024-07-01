@@ -66,6 +66,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isLoading: boolean = false;
 
   @Input()
+  public isChatLoading: boolean = true;
+
+  @Input()
   public isFullyLoad: boolean = false;
 
 
@@ -78,7 +81,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isAutoScrollActive: boolean = true;
   public isManualScroll: boolean = false;
   public isInteracting: boolean = false;
-  public isChatLoading: boolean = false;
   public lastChatLength: number = 0;
   public uploadingFiles: number = 0;
   public chatErrorMessage: string = null;

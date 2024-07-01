@@ -157,6 +157,7 @@ class="attachment"
     ></textarea>
 
     <button
+      *ngIf="!isLoading && !isDisabled"
       mat-icon-button
       matSuffix
       [attr.aria-label]="'GROUP.ROOM.CHAT.ATTACH_A_FILE' | translate"
