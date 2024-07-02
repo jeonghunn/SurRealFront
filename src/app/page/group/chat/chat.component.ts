@@ -228,11 +228,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     let scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
 
     if (changes?.room || changes?.topic) {
-      this.isManualScroll = false;
-      this.isAutoScrollActive = true;
-      this.lastChatLength = 0;
+      this.init();
       scrollTop = 0;
-      this.isHeaderUpdated = true;
       this.changeDetectorRef.markForCheck();
     }
 
@@ -264,6 +261,14 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public getDate(): Date {
     return DateTime.now();
+  }
+
+  public init(): void {
+    this.isManualScroll = false;
+    this.isAutoScrollActive = true;
+    this.lastChatLength = 0;
+    this.isHeaderUpdated = true;
+    this.replyChat = null;
   }
 
 
