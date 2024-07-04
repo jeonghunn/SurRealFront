@@ -295,7 +295,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.webSocketSubject = webSocket({
       url: `${environment.socketServerUrl}${this.room?.id}`,
       deserializer: (message) => {
-        this.resetFutureCriteria();
         return this.dataService.deserializeSocketMessage(message);
       },
       serializer: message => this.dataService.serializeSocketMessage(message),
@@ -347,9 +346,25 @@ export class RoomComponent implements OnDestroy, OnChanges {
     }
   }
 
-  public resetFutureCriteria(): void {
-    this.futureDateCriteria = new Date();
+  public resetFutureCriteria(criteriaDate: Date | null = null): void {
     this.futureOffset = 0;
+
+    console.log('futureDateCriteria', criteriaDate, this.futureDateCriteria);
+
+    if (criteriaDate?.getTime() > this.futureDateCriteria?.getTime()){
+      this.futureDateCriteria = criteriaDate;
+      return;
+    }
+
+    if (this.chats?.length === 0) {
+      this.futureDateCriteria = new Date();
+      return;
+    }
+
+    if (new Date(this.chats[this.chats.length - 1]?.createdAt) > this.futureDateCriteria) {
+      this.futureDateCriteria = new Date(this.chats[this.chats.length - 1]?.createdAt);
+    }
+
   }
 
   public onWindowResize(): void {
@@ -373,6 +388,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
         );
 
         this.pushChat(chat, msg.topic_id);
+        this.resetFutureCriteria(new Date(chat.createdAt));
         
         break;
       case CommunicationType.AUTH:
