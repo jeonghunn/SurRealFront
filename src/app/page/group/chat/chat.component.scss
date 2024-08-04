@@ -50,7 +50,7 @@
 
 .chats {
   width: 400px;
-  height: 100%;
+  height: calc(100% - 136px);
   overflow: auto;
   position: fixed;
 
@@ -126,7 +126,7 @@
 
   .chats {
     width: 100%;
-    height: calc(100% - #{$CHAT_FOOTER_HEIGHT});
+    height: calc(100% - 184px);
   }
 
 .footer {
