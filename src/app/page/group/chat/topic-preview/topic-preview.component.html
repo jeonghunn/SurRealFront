@@ -5,6 +5,11 @@
     </mat-card-header>
     
     <div class="content">
+        <app-skeleton-loader
+        *ngIf="isChatLoading"
+        count="4"
+        ></app-skeleton-loader>
+
         <app-message
         *ngFor="let chat of chats; let i = index"
         (click)="onOtherChatClick(chat)"
