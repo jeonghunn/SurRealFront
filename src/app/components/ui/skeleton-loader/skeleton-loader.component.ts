@@ -33,7 +33,7 @@ export class SkeletonLoaderComponent implements OnInit {
     const prefersDark: boolean =
       window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (prefersDark) {
-      this.style['backgroundColor'] = darkPalette.SKELETON_LOADER;
+      this.style['backgroundColor'] = this.style['backgroundColor'] || darkPalette.SKELETON_LOADER;
       this.animation = 'progress-dark';
     }
 
