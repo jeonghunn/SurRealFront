@@ -24,16 +24,16 @@
     </div>
 
     <app-video-viewer
-    *ngIf="currentAttach?.type === attachType.VIDEO && currentAttach?.status === attachStatus.NORMAL"
+    *ngIf="currentAttach?.type === attachType.VIDEO && currentAttach?.status !== attachStatus.PROCESSING"
     class="video-player"
-    [src]="currentAttach?.url + '?prefer=video/mp4'"
+    [src]="currentAttach?.status === attachStatus.NORMAL ? currentAttach.urls?.converted : currentAttach.urls?.origin"
     [mimeType]="currentAttach?.mimetype"
     ></app-video-viewer>
 
     <img
         *ngIf="currentAttach?.type === attachType.IMAGE"
         class="image"
-        [src]="currentAttach?.url"
+        [src]="currentAttach.urls?.origin"
         [ngStyle]="imageStyle"
         (click)="onImageClick($event)"
     />

@@ -240,6 +240,7 @@ export enum AttachStatus {
   NORMAL,
   PROCESSING,
   REMOVED,
+  UNPROCESSED,
 }
 
 export enum ChatCategory {
@@ -261,6 +262,6 @@ export class Attach {
   mimetype: string;
   type: number;
   size: number;
-  url: string;
+  urls: any;
   status: AttachStatus;
 }

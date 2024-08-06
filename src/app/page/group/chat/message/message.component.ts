@@ -106,7 +106,7 @@ export class MessageComponent {
 
   public getSrcText(attach: Attach) {
     if(attach.type === AttachType.IMAGE) {
-      return this.sanitizer.sanitize(SecurityContext.URL, `${attach.url}?width=160&height=160`);
+      return this.sanitizer.sanitize(SecurityContext.URL, attach.urls?.thumbnail);
     }
 
      return attach.extension?.toUpperCase();

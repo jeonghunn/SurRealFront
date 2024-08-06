@@ -130,7 +130,7 @@ export class ViewerComponent implements OnDestroy {
 
   public onDownloadClick(event: MouseEvent, attach: Attach): boolean {
     event.preventDefault();
-    window.open(attach.url, "_blank");
+    window.open(attach?.urls?.origin, "_blank");
 
     return false;
   }
