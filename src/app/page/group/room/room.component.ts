@@ -301,7 +301,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
       openObserver: {
         next: value => {
           if (!this.isConnected && this.offset > 0 && this.connectCount > 0) {
-            console.log('its about time to load future chats');
             this.fetchFutureChats();
           } else {
             this.sendAuthMessage();
@@ -349,8 +348,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public resetFutureCriteria(criteriaDate: Date | null = null): void {
     this.futureOffset = 0;
 
-    console.log('futureDateCriteria', criteriaDate, this.futureDateCriteria);
-
     if (criteriaDate?.getTime() > this.futureDateCriteria?.getTime()){
       this.futureDateCriteria = criteriaDate;
       return;
@@ -372,8 +369,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
   }
 
   public onMessageReceived(msg: any): void {
-
-    console.log('message receiv', msg) ;
 
     switch (msg.T) {
       case CommunicationType.CHAT:
