@@ -43,7 +43,7 @@ class="header"
   (touchstart)="onTouchStart()"
   (touchend)="onTouchEnd()"
   (mouseleave)="onMouseLeave()"
-  (mousewheel)="onMouseWheel()"
+  (mousewheel)="onMouseWheel($event)"
   class="chats"
 >
   <app-skeleton-loader
@@ -157,6 +157,7 @@ class="attachment"
     ></textarea>
 
     <button
+      *ngIf="!isLoading && !isDisabled"
       mat-icon-button
       matSuffix
       [attr.aria-label]="'GROUP.ROOM.CHAT.ATTACH_A_FILE' | translate"

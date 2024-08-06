@@ -295,14 +295,12 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.webSocketSubject = webSocket({
       url: `${environment.socketServerUrl}${this.room?.id}`,
       deserializer: (message) => {
-        this.resetFutureCriteria();
         return this.dataService.deserializeSocketMessage(message);
       },
       serializer: message => this.dataService.serializeSocketMessage(message),
       openObserver: {
         next: value => {
           if (!this.isConnected && this.offset > 0 && this.connectCount > 0) {
-            console.log('its about time to load future chats');
             this.fetchFutureChats();
           } else {
             this.sendAuthMessage();
@@ -347,9 +345,23 @@ export class RoomComponent implements OnDestroy, OnChanges {
     }
   }
 
-  public resetFutureCriteria(): void {
-    this.futureDateCriteria = new Date();
+  public resetFutureCriteria(criteriaDate: Date | null = null): void {
     this.futureOffset = 0;
+
+    if (criteriaDate?.getTime() > this.futureDateCriteria?.getTime()){
+      this.futureDateCriteria = criteriaDate;
+      return;
+    }
+
+    if (this.chats?.length === 0) {
+      this.futureDateCriteria = new Date();
+      return;
+    }
+
+    if (new Date(this.chats[this.chats.length - 1]?.createdAt) > this.futureDateCriteria) {
+      this.futureDateCriteria = new Date(this.chats[this.chats.length - 1]?.createdAt);
+    }
+
   }
 
   public onWindowResize(): void {
@@ -357,8 +369,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
   }
 
   public onMessageReceived(msg: any): void {
-
-    console.log('message receiv', msg) ;
 
     switch (msg.T) {
       case CommunicationType.CHAT:
@@ -373,6 +383,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
         );
 
         this.pushChat(chat, msg.topic_id);
+        this.resetFutureCriteria(new Date(chat.createdAt));
         
         break;
       case CommunicationType.AUTH:

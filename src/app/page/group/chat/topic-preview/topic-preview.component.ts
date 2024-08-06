@@ -81,6 +81,7 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
         this.room = room;
 
         this.fetchChats(0, false, this.topicId).pipe(take(1)).subscribe((result: any) => {
+          this.isChatLoading = false;
           this.updateChats(result,false);
         });
       }),
@@ -131,6 +132,7 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
     isFuture: Boolean,
     chats: Chat[],
   }> {
+    this.isChatLoading = true;
 
     return this.dataService.getChats(
       this.room?.group_id,
