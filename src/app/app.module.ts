@@ -46,7 +46,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
 const globalRippleConfig: RippleGlobalOptions = {
   disabled: false,
   animation: {
-    enterDuration: 150,
+    enterDuration: 50,
     exitDuration: 0,
   },
 };
