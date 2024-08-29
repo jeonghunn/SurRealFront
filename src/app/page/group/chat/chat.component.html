@@ -101,10 +101,11 @@ class="input_panel"
 class="reply"
 >
   <div class="header">
-    <h1>Reply to {{ replyChat.user?.name }}</h1>
+    <h3>{{ 'GROUP.ROOM.CHAT.REPLY_TO_USER' | translate: {name : replyChat.user?.name} }}</h3>
     <mat-icon (click)="replyChat = null">close</mat-icon>
   </div>
-  <app-message
+  <div class="body">
+    <app-message
     [name]="replyChat.user?.name"
     [user_id]="replyChat.user?.id"
     [message]="replyChat.content"
@@ -113,18 +114,26 @@ class="reply"
     [color]="replyChat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>
+
+  </div>
+
 </div>
 
 <div
 *ngIf="files?.length > 0"
 class="attachment"
 >
-  <app-thumbnail
+  <div class="header">
+    <h3>{{ 'GROUP.ROOM.CHAT.ATTACHMENTS' | translate}}</h3>
+  </div>
+  <div class="body">
+    <app-thumbnail
     *ngFor="let file of files"
     (click)="openAttachDeleteDialog(file)"
     [isClickable]="true"
     [src]="getSrcText(file)"
   ></app-thumbnail>
+  </div>
 </div>
 </div>
   <mat-error *ngIf="chatErrorMessage">

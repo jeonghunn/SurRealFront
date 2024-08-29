@@ -97,24 +97,49 @@
       margin-right: 8px;
     }
 
+    h3 {
+      margin-top: 4px;
+      margin-left: 8px;
+      margin-bottom: 4px;
+      line-height: 24px;
+      height: 24px;
+      font-weight: bold;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+      mat-icon {
+        cursor: pointer;
+        transform: scale(0.8);
+        margin-right: 8px;
+      }
+    }
+
     .reply {
       width: 100%;
       margin-bottom: 8px;
 
-      .header {
-        display: flex;
-        justify-content: space-between;
-
-        mat-icon {
-          cursor: pointer;
-          transform: scale(0.8);
-          margin-right: 8px;
-        }
+      .body {
+        flex-wrap: wrap;
+        margin-top: 8px;
+        margin-right: 8px;
+        border-radius: 16px;
+        padding: 16px 16px 16px 16px;
+        background-color: var(--quote-box-color);
       }
+
     }
 
     .attachment {
-      display: flex;
+      display: block;
+
+      .body {
+        display: flex;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
     }
 
   }

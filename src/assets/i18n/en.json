@@ -126,7 +126,9 @@
         "SEND": "Send",
         "REPLY": "Reply",
         "ALL_CHATS": "All Chats",
-        "MORE": "More"
+        "MORE": "More",
+        "REPLY_TO_USER": "Reply to {{name}}",
+        "ATTACHMENTS": "Attachments"
       },
       "LIVE": {
         "CATEGORY": {
