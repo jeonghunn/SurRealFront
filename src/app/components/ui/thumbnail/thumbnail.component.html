@@ -1,5 +1,17 @@
 <div
 #thumbnail
-[style]="style"
+[ngStyle]="style"
+[@glow]="isGlowing"
 class="icon"
->{{ isPlaceHolder ? this.src : '' }}</div>
+>
+<span class="placeholder">{{ isPlaceHolder ? this.src : '' }}</span>
+
+<mat-spinner
+    *ngIf="percentage < 100"
+    diameter="48"
+    strokeWidth="4"
+    class="spinner"
+    [mode]="percentage > 2 ? 'determinate' : 'indeterminate'"
+    [value]="percentage"
+></mat-spinner>
+</div>

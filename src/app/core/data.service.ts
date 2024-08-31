@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   Observable,
   Subject,
   throwError,
@@ -36,6 +37,7 @@ import { Util } from './util';
 export class DataService {
   public httpErrorCode: Subject<number> = new Subject<number>();
 
+  public transferProgresses$: BehaviorSubject<{ [key: string]: number }> = new BehaviorSubject<{ [key: string]: number }>({});
   private readonly apiUrl: string = environment.api_url;
 
   public constructor(
@@ -64,6 +66,18 @@ export class DataService {
     return message;
   }
 
+  public setTransferProgress(key: string, value: number): void {
+    const progresses: { [key: string]: number } = this.transferProgresses$.getValue();
+    progresses[key] = value;
+    this.transferProgresses$.next(progresses);
+  }
+
+  public removeTransferProgress(key: string): void {
+    const progresses: { [key: string]: number } = this.transferProgresses$.getValue();
+    delete progresses[key];
+    this.transferProgresses$.next(progresses);
+  }
+
   public signUp(formData: FormData): Observable<UserSimpleSet> {
     return this.httpClient.post<UserSimpleSet>(`${this.apiUrl}/user`, formData).pipe(
       map(this.handleResponse),
@@ -88,6 +102,25 @@ export class DataService {
     return this.httpClient.get<Topic>(`${this.apiUrl}/group/${groupId}/room/${roomId}/topic/${topicId}`, {}).pipe(
       catchError(error => this.handleError(error)),
     );
+  }
+
+
+  public getBlob(url: string, fileName: string): Observable<any> {
+    const headers: HttpHeaders = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+    });
+
+    this.setTransferProgress(url, 0.1);
+
+    return this.httpClient.get(url, {
+        headers,
+        responseType: 'blob',
+        reportProgress: true,
+    }).pipe(
+        catchError(error => this.handleError(error, false)),
+    );
+    
   }
 
   public getFriendList(): Observable<Relation[]> {

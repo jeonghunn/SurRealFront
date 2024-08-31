@@ -9,6 +9,7 @@ import {
 import {
   Subscription,
   delay,
+  map,
   take,
 } from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
@@ -130,11 +131,27 @@ export class ViewerComponent implements OnDestroy {
 
   public onDownloadClick(event: MouseEvent, attach: Attach): boolean {
     event.preventDefault();
-    window.open(attach?.urls?.origin, "_blank");
+    this.download(attach);
 
     return false;
   }
 
+
+  public download(attach: Attach): void {
+    this.dataService.getBlob(attach.urls.origin, `${attach.name}.${attach.extension}`).pipe(
+      take(1),
+      
+    ).subscribe((result: any) => {
+      const url: string = window.URL.createObjectURL(result);
+      const a: HTMLAnchorElement = document.createElement('a');
+      a.href = url;
+      a.download = `${attach.name}.${attach.extension}`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+    );
+  }
+  
   public onArrowClick(event: MouseEvent, indexOffset: number): void {
     event?.stopPropagation();
 
