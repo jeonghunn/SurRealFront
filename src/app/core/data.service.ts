@@ -165,7 +165,7 @@ export class DataService {
     );
   }
 
-  public createTopicByChat(groupId: number, roomId: number, chatId: string, name: string): Observable<any> {
+  public createTopicByChat(groupId: string, roomId: number, chatId: string, name: string): Observable<any> {
     return this.httpClient.post<any>(
       `${this.apiUrl}/group/${groupId}/room/${roomId}/topic/chat/${chatId}`,
       { name: Util.truncate(name, 20) },
@@ -248,7 +248,7 @@ export class DataService {
   }
 
   public getSummary(
-    groupId: number,
+    groupId: string,
     roomId: number,
     topicId: number,
     isForce: boolean,
@@ -265,7 +265,7 @@ export class DataService {
   }
 
   public getChats(
-    groupId: number,
+    groupId: string,
     roomId: number,
     topicId: number,
     date: Date,
