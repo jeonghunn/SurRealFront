@@ -21,12 +21,9 @@ export class HttpProgressInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.reportProgress) {
-      // only intercept when the request is configured to report its progress
       return next.handle(req).pipe(
         tap(event => {
-          // if the event is for download progress
           if (event.type === 3) {
-            console.log(event);
             const percentDone = Math.round((100 * event.loaded) / event.total);
             this.dataService.setTransferProgress(req.url, percentDone);
 
