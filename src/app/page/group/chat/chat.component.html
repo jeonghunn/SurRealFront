@@ -22,6 +22,7 @@ class="header"
     #otherMessageComponent
     *ngFor="let chat of extraChats; let i = index"
     (click)="onOtherChatClick(chat)"
+    [id]="chat.id"
     [name]="chat.user?.name"
     [category]="chat.category"
     [user_id]="chat.user?.id"
@@ -55,6 +56,7 @@ class="header"
     *ngFor="let chat of chats; let i = index"
     (reply)="replyChat = chat"
     (update)="executeAutoScroll()"
+    [id]="chat.id"
     [name]="chat.user?.name"
     [user_id]="chat.user?.id"
     [category]="chat.category"
@@ -106,6 +108,7 @@ class="reply"
   </div>
   <div class="body">
     <app-message
+    [id]="replyChat.id"
     [name]="replyChat.user?.name"
     [user_id]="replyChat.user?.id"
     [message]="replyChat.content"

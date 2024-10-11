@@ -16,6 +16,7 @@ import {
 import {
   catchError,
   map,
+  take,
 } from 'rxjs/operators';
 import {
   Chat,
@@ -104,11 +105,23 @@ export class DataService {
     );
   }
 
+  public refreshChat(id: string): Observable<Chat> {
+    return this.httpClient.get<Chat>(`${this.apiUrl}/chat/${id}/refresh`, {}).pipe(
+      catchError(error => this.handleError(error, false)),
+    );
+  }
 
-  public getBlob(url: string, fileName: string): Observable<any> {
+
+  public getBlob(
+    url: string,
+    fileName: string,
+    chatId: string = null,
+  ): Observable<any> {
+
     const headers: HttpHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
         'Content-Disposition': `attachment; filename="${fileName}"`,
+        'cache': 'no-cache',
     });
 
     this.setTransferProgress(url, 0.1);
@@ -118,7 +131,11 @@ export class DataService {
         responseType: 'blob',
         reportProgress: true,
     }).pipe(
-        catchError(error => this.handleError(error, false)),
+        catchError(error => {
+            this.removeTransferProgress(url);
+            this.refreshChat(chatId).pipe(take(1)).subscribe((chat: Chat) => {});
+            return this.handleError(error, false);
+        }),
     );
     
   }

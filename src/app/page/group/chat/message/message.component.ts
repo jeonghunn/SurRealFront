@@ -33,7 +33,7 @@ export class MessageComponent {
   public category: ChatCategory = ChatCategory.MESSAGE;
 
   @Input()
-  public id: number;
+  public id: string;
 
   @Input()
   public user_id: number;
@@ -115,7 +115,7 @@ export class MessageComponent {
   public onThumbnailClick(index: number, event: MouseEvent): void {
     event.stopPropagation();
 
-    this.viewerService.open(this.attaches, index);
+    this.viewerService.open(this.attaches, index, this.id);
     this.changeDetectorRef.markForCheck();
   }
 
