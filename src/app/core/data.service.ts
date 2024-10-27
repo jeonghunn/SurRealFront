@@ -106,9 +106,7 @@ export class DataService {
   }
 
   public refreshChat(id: string): Observable<Chat> {
-    return this.httpClient.get<Chat>(`${this.apiUrl}/chat/${id}/refresh`, {}).pipe(
-      catchError(error => this.handleError(error, false)),
-    );
+    return this.httpClient.get<Chat>(`${this.apiUrl}/chat/${id}/refresh`, {});
   }
 
 

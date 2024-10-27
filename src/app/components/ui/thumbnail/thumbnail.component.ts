@@ -14,7 +14,10 @@ import {
   OnInit,
   SecurityContext,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import {
+  Subscription,
+  take,
+} from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
 import { Util } from 'src/app/core/util';
 
@@ -42,6 +45,12 @@ export class ThumbnailComponent implements OnChanges, OnInit, OnDestroy {
 
   @Input()
   public src: string;
+
+  @Input()
+  public chatId: string;
+
+  @Input()
+  public attachId: string;
 
   @Input()
   public isClickable: boolean = true;
@@ -122,11 +131,20 @@ export class ThumbnailComponent implements OnChanges, OnInit, OnDestroy {
 
       image.onerror = () => {
 
-        if (retry++ < 10) {
+        if (retry++ < 4) {
           setTimeout(() => {
             image.src = this.src;
             delay += 500;
           }, delay);
+
+          return;
+        }
+        
+        if (retry === 5) {
+          this.dataService.refreshChat(this.chatId).pipe(take(1)).subscribe((result: any) => {
+            this.initStyle(`url(${result?.meta?.attaches})`);
+            this.changeDetectorRef.markForCheck();
+          });
         }
 
       }
