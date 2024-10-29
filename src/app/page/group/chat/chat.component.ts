@@ -74,15 +74,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public readonly DEFAULT_FOOTER_WIDTH: number = 400;
   public readonly CHAT_AUTO_SCROLL_ALLOW_THRESHOLD: number = 16;
-  public readonly CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD: number = 30;
+  public readonly CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD: number = 210;
 
   public isShortWidth: boolean = false;
   public message: string;
   public isAutoScrollActive: boolean = true;
   public isManualScroll: boolean = false;
   public isInteracting: boolean = false;
+  public isTouching: boolean = false;
   public lastChatScrollDeltaY: number = 0;
-  public lastChatLength: number = 0;
   public uploadingFiles: number = 0;
   public chatErrorMessage: string = null;
   public attachDeleteDialogRef: MatDialogRef<ConfirmComponent>;
@@ -256,7 +256,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public init(): void {
     this.isManualScroll = false;
     this.isAutoScrollActive = true;
-    this.lastChatLength = 0;
     this.isHeaderUpdated = true;
     this.replyChat = null;
   }
@@ -272,20 +271,37 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public ngAfterViewChecked(): void {
 
+    const scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
+
     if (this.isHeaderUpdated) {
       this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
       this.isHeaderUpdated = false;
-      console.log('after view checked header updated');
     }
 
     if (!this.isManualScroll && this.isAutoScrollActive) {
       this.executeAutoScroll();
     }
 
-    if (this.chatContainer && this.isScrollTopNeedToBeSet && !this.isChatLoading) {
-      const scrollTopCandidate = this.chatContainer.nativeElement.scrollHeight - this.chatContainerScrollHeight + this.lastScrollTop - this.CHAT_LOADING_PROGRESS_BAR_HEIGHT;
+    if (
+      this.chatContainer &&
+      this.isScrollTopNeedToBeSet &&
+      !this.isChatLoading &&
+      scrollTop >= 0 &&
+      this.chatContainer.nativeElement.scrollHeight > this.chatContainerScrollHeight + this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
+      !this.isTouching
+    ) {
+      const scrollTopCandidate = this.chatContainer.nativeElement.scrollHeight - this.chatContainerScrollHeight + this.lastScrollTop + this.CHAT_AUTO_SCROLL_ALLOW_THRESHOLD;
       this.chatContainer.nativeElement.scrollTop = scrollTopCandidate;
       this.isScrollTopNeedToBeSet = false;
+
+      return;
+    }
+    
+    if (
+      this.chatContainerScrollHeight === 0 &&
+      scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
+      !this.isFullyLoad) {
+      this.emitLoadingPreviousChats();
     }
 
 
@@ -343,6 +359,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public onTouchStart() {
     this.isManualScroll = true;
     this.isInteracting = true;
+    this.isTouching = true;
   }
 
   public onMouseLeave() {
@@ -351,15 +368,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public onTouchEnd() {
     this.isInteracting = false;
+    this.isTouching = false;
   }
 
   public emitLoadingPreviousChats(): void {
     this.changeDetectorRef.markForCheck();
     this.chatContainerScrollHeight = this.chatContainer.nativeElement.scrollHeight;
     this.lastScrollTop = this.chatContainer.nativeElement.scrollTop;
-    this.isScrollTopNeedToBeSet = true;
     this.loadPreviousChats.emit();
-    
+    this.isScrollTopNeedToBeSet = true;
   }
 
   public onScroll(event: any): void {
@@ -369,10 +386,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
     if (
       scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
+      scrollTop >= -1 &&
       !this.isLoading &&
-      this.chatContainer.nativeElement.scrollHeight > this.chatContainerScrollHeight &&
-      this.isInteracting &&
-      (this.lastChatScrollDeltaY > 10 || scrollTop === 0)
+      !this.isTouching
     ) {
       this.emitLoadingPreviousChats();
     }

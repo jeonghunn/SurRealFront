@@ -38,7 +38,9 @@ class="message"
     <app-thumbnail
         *ngFor="let file of attaches; let i = index"
         [isClickable]="true"
+        [chatId]="id"
         [src]="getSrcText(file)"
+        [key]="file.urls?.origin"
         (click)="onThumbnailClick(i, $event)"
     ></app-thumbnail>
     </div>

@@ -21,6 +21,8 @@ import {
   CdkMenuItem,
   CdkMenu,
 } from '@angular/cdk/menu';
+import { DataService } from 'src/app/core/data.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-message',
@@ -33,7 +35,7 @@ export class MessageComponent {
   public category: ChatCategory = ChatCategory.MESSAGE;
 
   @Input()
-  public id: number;
+  public id: string;
 
   @Input()
   public user_id: number;
@@ -76,6 +78,7 @@ export class MessageComponent {
 
 
   public isFocused: boolean = false;
+  public isRefreshRequested: boolean = false;
 
   public withEmojis: RegExp = /\p{Extended_Pictographic}/u
   public readonly chatCategory: typeof ChatCategory = ChatCategory;
@@ -85,6 +88,7 @@ export class MessageComponent {
     private sanitizer: DomSanitizer,
     private changeDetectorRef: ChangeDetectorRef,
     private viewerService: ViewerService,
+    private dataService: DataService,
   ) {
   }
 
@@ -105,17 +109,29 @@ export class MessageComponent {
   }
 
   public getSrcText(attach: Attach) {
-    if(attach.type === AttachType.IMAGE) {
-      return this.sanitizer.sanitize(SecurityContext.URL, attach.urls?.thumbnail);
+    const thumbnailUrl = attach.urls?.thumbnail;
+   if (attach.type === AttachType.IMAGE) {
+
+      if (!thumbnailUrl && !this.isRefreshRequested) {
+        this.requestRefresh();
+      }
+
+      return this.sanitizer.sanitize(SecurityContext.URL, thumbnailUrl);
     }
 
      return attach.extension?.toUpperCase();
   }
 
+  public requestRefresh(): void {
+    this.dataService.refreshChat(this.id).pipe(take(1)).subscribe();
+    this.isRefreshRequested = true;
+  }
+    
+
   public onThumbnailClick(index: number, event: MouseEvent): void {
     event.stopPropagation();
 
-    this.viewerService.open(this.attaches, index);
+    this.viewerService.open(this.attaches, index, this.id);
     this.changeDetectorRef.markForCheck();
   }
 

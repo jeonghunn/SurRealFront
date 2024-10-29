@@ -179,7 +179,7 @@ export class SpaceItem {
 }
 
 export class Group {
-  public id: number;
+  public id: string;
   public name: string;
   public user_id: number;
   public target_id: number;
@@ -192,7 +192,7 @@ export class Room {
   public description: string;
   public user?: User;
   public group: Group;
-  public group_id?: number;
+  public group_id?: string;
   public letter: string;
   public online_count: number;
   public limit: number;

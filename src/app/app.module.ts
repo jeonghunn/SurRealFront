@@ -32,12 +32,13 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
-import { AuthInterceptor } from './core/auth.intercepter';
+import { AuthInterceptor } from './core/intercepter/auth.intercepter';
 import { Guard } from './core/guard/guard';
 import { LayoutModule } from './layout/layout.module';
 import { MainComponent } from './main/main.component';
 import { PageModule } from './page/page.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { HttpProgressInterceptor } from './core/intercepter/progress.intercepter';
 
 const HttpLoaderFactory = (http: HttpClient) => {
   return new TranslateHttpLoader(http);
@@ -46,7 +47,7 @@ const HttpLoaderFactory = (http: HttpClient) => {
 const globalRippleConfig: RippleGlobalOptions = {
   disabled: false,
   animation: {
-    enterDuration: 150,
+    enterDuration: 50,
     exitDuration: 0,
   },
 };
@@ -91,6 +92,11 @@ const globalRippleConfig: RippleGlobalOptions = {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true,
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: HttpProgressInterceptor,
+          multi: true
         },
         {
             provide: MAT_RIPPLE_GLOBAL_OPTIONS,

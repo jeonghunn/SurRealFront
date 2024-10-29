@@ -33,6 +33,7 @@
     <img
         *ngIf="currentAttach?.type === attachType.IMAGE"
         class="image"
+        crossorigin="anonymous"
         [src]="currentAttach.urls?.origin"
         [ngStyle]="imageStyle"
         (click)="onImageClick($event)"

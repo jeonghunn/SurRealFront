@@ -9,6 +9,7 @@ import {
 import {
   Subscription,
   delay,
+  map,
   take,
 } from 'rxjs';
 import { DataService } from 'src/app/core/data.service';
@@ -39,6 +40,7 @@ export class ViewerComponent implements OnDestroy {
   public isImageExpanded: boolean = false;
   public attachInfoRequestCount: number = 0;
   public isClosed: boolean = false;
+  public chatId: string = null;
 
   public constructor(
     private viewerService: ViewerService,
@@ -49,6 +51,9 @@ export class ViewerComponent implements OnDestroy {
     this.subscriptions = [
       this.viewerService.attaches$.subscribe((attaches: Attach[]) => {
         this.attaches = attaches;
+      }),
+      this.viewerService.chatId$.subscribe((chatId: string) => {
+        this.chatId = chatId;
       }),
       this.viewerService.index$.subscribe((index: number) => {
         if (!this.attaches) {
@@ -130,11 +135,31 @@ export class ViewerComponent implements OnDestroy {
 
   public onDownloadClick(event: MouseEvent, attach: Attach): boolean {
     event.preventDefault();
-    window.open(attach?.urls?.origin, "_blank");
+    this.download(attach);
 
     return false;
   }
 
+
+  public download(attach: Attach): void {
+    this.dataService.getBlob(
+      attach.urls.origin,
+      `${attach.name}.${attach.extension}`,
+      this.chatId,
+    ).pipe(
+      take(1),
+      
+    ).subscribe((result: any) => {
+      const url: string = window.URL.createObjectURL(result);
+      const a: HTMLAnchorElement = document.createElement('a');
+      a.href = url;
+      a.download = `${attach.name}.${attach.extension}`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+    );
+  }
+  
   public onArrowClick(event: MouseEvent, indexOffset: number): void {
     event?.stopPropagation();
 
