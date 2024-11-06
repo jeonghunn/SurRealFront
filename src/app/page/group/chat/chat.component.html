@@ -84,7 +84,7 @@ class="header"
 
 <div
   class="footer"
-  [style.width]="footerWidth"
+  [ngStyle]="footerStyle"
 >
 <input
   #fileInput
@@ -162,6 +162,7 @@ class="attachment"
       (keyup.enter)="onSendKeyPress($event, message)"
       (keydown.control.enter)="makeNewLine($event)"
       (heightUpdate)="onChatFieldResize($event)"
+      (focus)="onChatFieldFocus()"
       id="chat_message_input"
       type="text"
       autocomplete="off"

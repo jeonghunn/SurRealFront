@@ -99,6 +99,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public replyChat: Chat = null;
   public focusedMessageChat: Chat = null;
 
+  public footerBottom: number | string = 0;
+
   public files: FileContainer[] = [];
 
   @Output()
@@ -160,6 +162,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
 
     return `${ this.DEFAULT_FOOTER_WIDTH }px`;
+  }
+
+  public get footerStyle(): any {
+    return {
+      width: this.footerWidth,
+      bottom: this.footerBottom,
+    };
   }
 
   public counter(i: number): any[] {
@@ -505,6 +514,16 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
 
     this.sendMessage(text);
+  }
+
+  public onChatFieldFocus(): void {
+    this.footerBottom = '-100%';
+    this.changeDetectorRef.markForCheck();
+    setTimeout(() => {
+      this.footerBottom = 0;
+      this.changeDetectorRef.markForCheck();
+    }, 100);
+
   }
 
   public sendMessage(
