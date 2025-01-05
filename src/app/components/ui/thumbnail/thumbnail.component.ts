@@ -22,21 +22,22 @@ import { DataService } from 'src/app/core/data.service';
 import { Util } from 'src/app/core/util';
 
 @Component({
-  selector: 'app-thumbnail',
-  templateUrl: './thumbnail.component.html',
-  styleUrls: [ './thumbnail.component.scss' ],
-  animations: [
-    trigger('glow', [
-      state('true', style({
-        boxShadow: '0 0 16px 0px var(--glow-color)',
-      })),
-      state('false', style({
-        boxShadow: '0 0 0px 0px var(--glow-color)',
-      })),
-      transition('true => false', animate('500ms ease-in')),
-      transition('false => true', animate('500ms ease-out')),
-    ]),
-  ],
+    selector: 'app-thumbnail',
+    templateUrl: './thumbnail.component.html',
+    styleUrls: ['./thumbnail.component.scss'],
+    animations: [
+        trigger('glow', [
+            state('true', style({
+                boxShadow: '0 0 16px 0px var(--glow-color)',
+            })),
+            state('false', style({
+                boxShadow: '0 0 0px 0px var(--glow-color)',
+            })),
+            transition('true => false', animate('500ms ease-in')),
+            transition('false => true', animate('500ms ease-out')),
+        ]),
+    ],
+    standalone: false
 })
 export class ThumbnailComponent implements OnChanges, OnInit, OnDestroy {
 

@@ -5,9 +5,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-bigerror',
-  templateUrl: './bigerror.component.html',
-  styleUrls: [ './bigerror.component.scss' ],
+    selector: 'app-bigerror',
+    templateUrl: './bigerror.component.html',
+    styleUrls: ['./bigerror.component.scss'],
+    standalone: false
 })
 export class BigerrorComponent {
 

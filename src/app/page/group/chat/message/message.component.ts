@@ -25,9 +25,10 @@ import { DataService } from 'src/app/core/data.service';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-message',
-  templateUrl: './message.component.html',
-  styleUrls: [ './message.component.scss' ],
+    selector: 'app-message',
+    templateUrl: './message.component.html',
+    styleUrls: ['./message.component.scss'],
+    standalone: false
 })
 export class MessageComponent {
 

@@ -6,12 +6,10 @@ import {
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @Component({
-  selector: 'app-emoji-picker',
-  templateUrl: './emoji-picker.component.html',
-  styleUrls: ['./emoji-picker.component.scss'],
-  standalone: true,
-  imports: [PickerComponent],
-
+    selector: 'app-emoji-picker',
+    templateUrl: './emoji-picker.component.html',
+    styleUrls: ['./emoji-picker.component.scss'],
+    imports: [PickerComponent]
 })
 
 export class EmojiPickerComponent {

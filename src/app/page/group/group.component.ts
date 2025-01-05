@@ -23,9 +23,10 @@ import { FileHandle } from 'src/app/core/directive/drag-drop.directive';
 import { RoomService } from 'src/app/core/room.service';
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.component.html',
-  styleUrls: [ './group.component.scss' ],
+    selector: 'app-group',
+    templateUrl: './group.component.html',
+    styleUrls: ['./group.component.scss'],
+    standalone: false
 })
 export class GroupComponent implements OnDestroy {
 

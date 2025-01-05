@@ -42,9 +42,10 @@ import { PushMessageService } from './core/push-message.service';
 import { v4 } from 'uuid';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: [ './app.component.scss' ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'SurReal';

@@ -60,10 +60,11 @@ import { LayoutService } from 'src/app/core/layout.service';
 import { NetworkService } from 'src/app/core/network.service';
 
 @Component({
-  selector: 'app-room',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './room.component.html',
-  styleUrls: [ './room.component.scss' ],
+    selector: 'app-room',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './room.component.html',
+    styleUrls: ['./room.component.scss'],
+    standalone: false
 })
 export class RoomComponent implements OnDestroy, OnChanges {
 

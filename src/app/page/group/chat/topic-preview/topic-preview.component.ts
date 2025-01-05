@@ -25,9 +25,10 @@ import {
 } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-topic-preview',
-  templateUrl: './topic-preview.component.html',
-  styleUrls: ['./topic-preview.component.scss']
+    selector: 'app-topic-preview',
+    templateUrl: './topic-preview.component.html',
+    styleUrls: ['./topic-preview.component.scss'],
+    standalone: false
 })
 export class TopicPreviewComponent implements OnInit, OnDestroy {
 

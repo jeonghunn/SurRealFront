@@ -22,9 +22,10 @@ import { IdentityService } from 'src/app/core/identity.service';
 import { UserSimpleSet } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: [ './sign-up.component.scss' ],
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss'],
+    standalone: false
 })
 export class SignUpComponent implements OnInit {
 

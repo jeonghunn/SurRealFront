@@ -14,9 +14,10 @@ import { IdentityService } from 'src/app/core/identity.service';
 import { Util } from 'src/app/core/util';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: [ './navbar.component.scss' ],
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    standalone: false
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
