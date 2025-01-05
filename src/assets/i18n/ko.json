@@ -133,6 +133,7 @@
         "WRITE_A_MESSAGE": "메시지를 입력하세요...",
         "EMOJI": "이모티콘",
         "SEND": "보내기",
+        "REPLY": "답장",
         "ALL_CHATS": "전체 대화",
         "MORE": "더보기",
         "REPLY_TO_USER": "{{name}}에게 답변",
