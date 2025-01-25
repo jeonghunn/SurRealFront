@@ -41,7 +41,6 @@ class="header"
   [style.height]="chatContainerHeight"
   (scroll)="onScroll($event)"
   (mouseover)="onMouseOver()"
-  (touchstart)="onTouchStart()"
   (touchend)="onTouchEnd()"
   (mouseleave)="onMouseLeave()"
   (mousewheel)="onMouseWheel($event)"
@@ -83,6 +82,7 @@ class="header"
 </div>
 
 <div
+  #footer
   class="footer"
   [ngStyle]="footerStyle"
 >
@@ -149,6 +149,7 @@ class="attachment"
   <mat-form-field
     (touchstart)="isMultiLineEnabled = true"
     (mousedown)="this.message?.length === 0 ? isMultiLineEnabled = false : null"
+    (mousedown)="onChatFieldFocus()"
     appearance="outline"
   >
     <textarea
@@ -161,8 +162,7 @@ class="attachment"
       [defaultHeight]="DEFAULT_FOOTER_HEIGHT"
       (keyup.enter)="onSendKeyPress($event, message)"
       (keydown.control.enter)="makeNewLine($event)"
-      (heightUpdate)="onChatFieldResize($event)"
-      (focus)="onChatFieldFocus()"
+      (heightUpdate)="onChatFieldResize()"
       id="chat_message_input"
       type="text"
       autocomplete="off"

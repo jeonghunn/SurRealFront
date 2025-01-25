@@ -52,7 +52,6 @@ export class GroupComponent implements OnDestroy {
   public constructor(
     private layoutService: LayoutService,
     private activatedRoute: ActivatedRoute,
-    private dataService: DataService,
     private groupService: GroupService,
     private roomService: RoomService, 
     private router: Router,
@@ -66,7 +65,7 @@ export class GroupComponent implements OnDestroy {
       }),
       this.groupService.openedRoom$.subscribe((room: Room | null) => {
         this.room = room;
-        this.category = room ? ChatSpaceCategory.CHAT : ChatSpaceCategory.INFO;
+        this.category = room ? ChatSpaceCategory.CHAT : ChatSpaceCategory.ROOM;
       }),
       this.activatedRoute.params.subscribe((params: Params) => {
         this.groupId = params?.id;
@@ -78,6 +77,10 @@ export class GroupComponent implements OnDestroy {
       this.layoutService.isSideNavOpen$.subscribe((isSideNavOpen: boolean) => {
         this.isSideNavOpen = isSideNavOpen;
       }),
+      this.groupService.toggleViewAll$.subscribe(() => {
+        this.open(ChatSpaceCategory.ROOM);
+      }),
+
     ];
   }
 
@@ -114,11 +117,11 @@ export class GroupComponent implements OnDestroy {
   }
 
   public openRoom(room: Room): void {
-    this.router.navigateByUrl(`/group/${this.groupId}/room/${room?.id}`).then(null);
+    this.groupService.openRoom(this.groupId, room?.id);
   }
 
   public ngOnDestroy(): void {
-    this.groupService.openedRoom$.next(null);
+    this.groupService.close();
     Util.unsubscribe(...this.subscriptions);
   }
 }

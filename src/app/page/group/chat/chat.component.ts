@@ -110,14 +110,18 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   @Output()
   public readonly loadPreviousChats: EventEmitter<null> = new EventEmitter<null>();
 
-  public readonly DEFAULT_FOOTER_HEIGHT: number = 24;
+  public readonly DEFAULT_FOOTER_HEIGHT: number = 48;
   public readonly CHAT_LOADING_PROGRESS_BAR_HEIGHT: number = 210;
+  public readonly CHAT_INPUT_FIELD_TOP_MARGIN: number = 8;
 
   @ViewChild('chatContainer')
   private chatContainer: ElementRef;
 
   @ViewChild('headerContainer')
   private headerContainer: ElementRef;
+
+  @ViewChild('footer')
+  private footer: ElementRef;
 
   @ViewChild('fileInput')
   private fileInput: ElementRef;
@@ -138,7 +142,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.subscriptions = [
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
-        this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
+        this.onChatFieldResize();
       }),
       this.layoutService.isSideNavOpen$.subscribe(isOpen => {
         this.changeDetectorRef.markForCheck();
@@ -151,6 +155,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
         this.isHeaderUpdated = true;
       }),
     ];
+
+    window.visualViewport.onresize = () => {
+      this.onChatFieldFocus();
+    }
   }
 
   public get isSideNavOpen(): boolean {
@@ -224,7 +232,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onHeaderResize(height: number): void {
-    this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
+    this.onChatFieldResize();
   }
 
   public isNewDate(chat: Chat, previousChat: Chat): boolean {
@@ -284,7 +292,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     const scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
 
     if (this.isHeaderUpdated) {
-      this.onChatFieldResize(this.DEFAULT_FOOTER_HEIGHT);
+      this.onChatFieldResize();
       this.isHeaderUpdated = false;
     }
 
@@ -348,12 +356,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public deleteAttachByUrl(url: string): void {
     this.roomService.deleteAttachByUrl(url);
-    this.fileInput.nativeElement.value = '';
+    this.fileInput.nativeElement.value = null;
   }
 
   public clearAttaches(): void {
     this.roomService.clearFiles();
-    this.fileInput.nativeElement.value = '';
+    this.fileInput.nativeElement.value = null;
   }
 
 
@@ -518,12 +526,14 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onChatFieldFocus(): void {
-    this.footerBottom = '-100%';
+    this.footerBottom = '100%';
     this.changeDetectorRef.markForCheck();
     setTimeout(() => {
       this.footerBottom = 0;
+      this.onChatFieldResize();
+
       this.changeDetectorRef.markForCheck();
-    }, 100);
+    }, 1);
 
   }
 
@@ -580,13 +590,16 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       ));
   }
 
-  public onChatFieldResize(height: number) {
-    const margin: number = this.isShortWidth ? 24 : -24;
-    const headerHeight: number = this.headerContainer?.nativeElement?.offsetHeight;
-    const delta: number = (height > 200 ? 200 : height) + margin + headerHeight;
+  public onChatFieldResize() {
+    const footerHeight: number = this.footer?.nativeElement?.offsetHeight || 0;
+    const headerHeight: number = this.headerContainer?.nativeElement?.offsetHeight || 0;
+    const unavailableHeight: number = window.innerHeight - window.visualViewport?.height;
+    const delta: number = footerHeight + headerHeight + unavailableHeight + this.CHAT_INPUT_FIELD_TOP_MARGIN;
 
-    
-    this.chatContainerHeight = `calc(100% - ${ delta }px)`;
+    console.log('footerHeight', footerHeight);
+
+    this.chatContainerHeight = `calc(100% - ${delta}px)`;
+    this.footerBottom = Math.round(window.innerHeight - window.visualViewport?.height) + 'px';
     this.changeDetectorRef.markForCheck();
 
   }

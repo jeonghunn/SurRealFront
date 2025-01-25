@@ -152,9 +152,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
         this.resetRoom();
         this.initRoom(room);
       }),
-      this.roomService.uploadFiles$.subscribe((files: FileContainer[]) => {
-        this.initChatHeight(files?.length > 0);
-      }),
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
       }),
@@ -364,11 +361,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     }
 
   }
-
-  public onWindowResize(): void {
-    this.initChatHeight(false);
-  }
-
+  
   public onMessageReceived(msg: any): void {
 
     switch (msg.T) {

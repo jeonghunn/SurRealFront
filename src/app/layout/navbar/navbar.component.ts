@@ -10,6 +10,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { GroupService } from 'src/app/core/group.service';
 import { IdentityService } from 'src/app/core/identity.service';
 import { Util } from 'src/app/core/util';
 
@@ -28,6 +29,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public readonly isSmallWidth: boolean = false;
 
   public userFirstName: string;
+  public currentGroupId: string = null;
+
 
   private subscriptions: Subscription[] = [];
 
@@ -36,10 +39,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private identityService: IdentityService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
+    private groupService: GroupService,
   ) {
-    this.subscriptions.push( this.identityService.user$.subscribe(() => {
-      this.userFirstName = this.identityService.firstName;
-    }));
+    this.subscriptions = [
+      this.identityService.user$.subscribe(() => {
+        this.userFirstName = this.identityService.firstName;
+      }),
+      this.groupService.openedGroup$.subscribe((group) => {
+        console.log('asdfasdf group', group);
+        this.currentGroupId = group ? group.id : null;
+      }),
+    ];
   }
 
   public get isSignedIn(): boolean {
@@ -76,6 +86,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public goMyProfile(): void {
     this.router.navigateByUrl(`user/${this.identityService.id}`).then(null);
   }
+
+  public onViewAllClick(): void {
+    this.groupService.toggleViewAll$.next(true);
+  }
+
 
   public onSideNavToggleClick(): void {
     this.toggleSidNav.emit();

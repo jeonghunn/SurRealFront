@@ -9,7 +9,6 @@
   [isLoading]="isChatLoading || !isAuthenticated"
   [isChatLoading]="isChatLoading"
   [isFullyLoad]="isChatFullyLoad"
-  (window:resize)="onWindowResize($event)"
   (chatSend)="sendMessage($event)"
   (loadPreviousChats)="fetchPreviousChats()"
   class="chat"

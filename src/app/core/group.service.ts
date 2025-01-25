@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
+  Subject,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 import {
@@ -17,6 +18,7 @@ export class GroupService {
   public groups$: BehaviorSubject<Group[]> = new BehaviorSubject<Group[]>(undefined);
   public openedGroup$: BehaviorSubject<Group> = new BehaviorSubject<Group>(undefined);
   public openedRoom$: BehaviorSubject<Room> = new BehaviorSubject<Room>(undefined);
+  public toggleViewAll$: Subject<boolean> = new Subject<boolean>();
 
   public constructor(
     public dataService: DataService,
@@ -34,6 +36,11 @@ export class GroupService {
       this.openedGroup$.next(group);
       this.openRoom(id, roomId || defaultRoomId);
     });
+  }
+
+  public close(): void {
+    this.openedGroup$.next(null);
+    this.openedRoom$.next(null);
   }
 
   public openRoom(groupId: number, id: number | null): void {

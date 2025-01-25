@@ -11,8 +11,14 @@
   </ng-container>
   <ng-template #signedIn>
     <button
+      *ngIf="!isSmallWidth"
       mat-button
-    ><mat-icon>notifications_none</mat-icon></button>
+    ><mat-icon>search</mat-icon></button>
+    <button
+      *ngIf="isSmallWidth && currentGroupId"
+      mat-button
+      (click)="onViewAllClick()"
+    ><mat-icon>apps</mat-icon></button>
     <button
       mat-button
       [matMenuTriggerFor]="profileMenu"

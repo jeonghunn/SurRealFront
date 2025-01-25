@@ -75,16 +75,11 @@
   }
 
   .tabs {
-    backdrop-filter: blur(10px);
     z-index: $FLOAT_ZINDEX;
-    top: $NAV_MOBILE_HEIGHT;
-
-    position: fixed;
     width: 100%;
   }
 
   .content {
-    padding-top: $TAB_HEIGHT;
     .room {
       width: 100%;
     }
