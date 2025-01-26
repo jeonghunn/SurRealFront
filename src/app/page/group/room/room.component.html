@@ -11,6 +11,7 @@
   [isFullyLoad]="isChatFullyLoad"
   (chatSend)="sendMessage($event)"
   (loadPreviousChats)="fetchPreviousChats()"
+  (window:scroll)="onWindowScroll($event)"
   class="chat"
   [ngStyle]="chatStyle"
 ></app-chat>

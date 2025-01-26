@@ -361,6 +361,14 @@ export class RoomComponent implements OnDestroy, OnChanges {
     }
 
   }
+
+  public onWindowScroll(event: any): void {
+    this.resetWindowScroll();
+  }
+
+  public resetWindowScroll(): void {
+    window.scrollTo(0, 0);
+  }
   
   public onMessageReceived(msg: any): void {
 
