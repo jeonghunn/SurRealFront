@@ -46,7 +46,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.userFirstName = this.identityService.firstName;
       }),
       this.groupService.openedGroup$.subscribe((group) => {
-        console.log('asdfasdf group', group);
         this.currentGroupId = group ? group.id : null;
       }),
     ];

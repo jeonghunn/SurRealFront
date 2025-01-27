@@ -596,8 +596,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     const unavailableHeight: number = window.innerHeight - window.visualViewport?.height;
     const delta: number = footerHeight + headerHeight + unavailableHeight + this.CHAT_INPUT_FIELD_TOP_MARGIN;
 
-    console.log('footerHeight', footerHeight);
-
     this.chatContainerHeight = `calc(100% - ${delta}px)`;
     this.footerBottom = Math.round(window.innerHeight - window.visualViewport?.height) + 'px';
     this.changeDetectorRef.markForCheck();
