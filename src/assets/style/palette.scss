@@ -1,6 +1,6 @@
 
 :host {
-  --body-background: #303030;
+  --body-background: #000000;
   --list-item-hover: #424242;
   --list-background-dark: #6d6d6d;
   --button-background: #EAEAEA;
@@ -9,12 +9,14 @@
   --shadow-color: #1c1c1c;
   --quote-box-color: #1c1c1c;
   --glow-color: #ffffff;
+  --mat-sidenav-content-background-color: var(--body-background);
+  --mat-sidenav-container-background-color: #1c1c1c;
 
 }
 
 @media (prefers-color-scheme: light) {
   :host {
-    --body-background: #fafafa;
+    --body-background: #ffffff;
     --list-item-hover: #F5F5F5;
     --list-background-dark: #eeeeee;
     --button-background: #EAEAEA;
@@ -23,6 +25,8 @@
     --shadow-color: #EAEAEA;
     --quote-box-color: #EAEAEA;
     --glow-color: #b29be8;
+    --mat-sidenav-content-background-color: var(--body-background);
+    --mat-sidenav-container-background-color: #FFFFFF;
   }
 
 }
