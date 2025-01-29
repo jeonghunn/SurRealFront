@@ -16,9 +16,10 @@ import { DataService } from 'src/app/core/data.service';
 import { Topic } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-space',
-  templateUrl: './space.component.html',
-  styleUrls: ['./space.component.scss']
+    selector: 'app-space',
+    templateUrl: './space.component.html',
+    styleUrls: ['./space.component.scss'],
+    standalone: false
 })
 export class SpaceComponent implements OnChanges {
 

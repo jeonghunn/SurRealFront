@@ -60,10 +60,11 @@ import { LayoutService } from 'src/app/core/layout.service';
 import { NetworkService } from 'src/app/core/network.service';
 
 @Component({
-  selector: 'app-room',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './room.component.html',
-  styleUrls: [ './room.component.scss' ],
+    selector: 'app-room',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './room.component.html',
+    styleUrls: ['./room.component.scss'],
+    standalone: false
 })
 export class RoomComponent implements OnDestroy, OnChanges {
 
@@ -150,9 +151,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
         this.resetRoom();
         this.initRoom(room);
-      }),
-      this.roomService.uploadFiles$.subscribe((files: FileContainer[]) => {
-        this.initChatHeight(files?.length > 0);
       }),
       this.layoutService.windowResize$.subscribe(window => {
         this.isShortWidth = this.layoutService.isShortWidth();
@@ -364,10 +362,14 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
   }
 
-  public onWindowResize(): void {
-    this.initChatHeight(false);
+  public onWindowScroll(event: any): void {
+    this.resetWindowScroll();
   }
 
+  public resetWindowScroll(): void {
+    window.scrollTo(0, 0);
+  }
+  
   public onMessageReceived(msg: any): void {
 
     switch (msg.T) {

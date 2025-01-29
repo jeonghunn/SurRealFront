@@ -17,9 +17,10 @@ import {
 } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-friend-button',
-  templateUrl: './friend-button.component.html',
-  styleUrls: [ './friend-button.component.scss' ],
+    selector: 'app-friend-button',
+    templateUrl: './friend-button.component.html',
+    styleUrls: ['./friend-button.component.scss'],
+    standalone: false
 })
 export class FriendButtonComponent implements OnChanges {
 

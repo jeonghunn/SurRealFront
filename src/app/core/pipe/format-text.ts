@@ -8,7 +8,10 @@ import {
 } from "@angular/platform-browser";
 import sanitizeHtml from 'sanitize-html';
 
-@Pipe({ name: 'formatText', })
+@Pipe({
+    name: 'formatText',
+    standalone: false
+})
 export class FormatText implements PipeTransform {
   constructor(private sanitize: DomSanitizer) {}
 

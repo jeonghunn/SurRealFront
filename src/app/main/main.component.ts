@@ -6,9 +6,10 @@ import { IdentityService } from 'src/app/core/identity.service';
 import { LayoutService } from 'src/app/core/layout.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: [ './main.component.scss' ],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    standalone: false
 })
 export class MainComponent {
 

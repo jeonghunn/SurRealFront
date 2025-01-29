@@ -17,9 +17,10 @@ import {
 } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-group-list',
-  templateUrl: './group-list.component.html',
-  styleUrls: [ './group-list.component.scss' ],
+    selector: 'app-group-list',
+    templateUrl: './group-list.component.html',
+    styleUrls: ['./group-list.component.scss'],
+    standalone: false
 })
 export class GroupListComponent implements OnDestroy {
 

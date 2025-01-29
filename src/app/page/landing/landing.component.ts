@@ -5,9 +5,10 @@ import {
 import { IdentityService } from 'src/app/core/identity.service';
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: [ './landing.component.scss' ],
+    selector: 'app-landing',
+    templateUrl: './landing.component.html',
+    styleUrls: ['./landing.component.scss'],
+    standalone: false
 })
 export class LandingComponent {
 

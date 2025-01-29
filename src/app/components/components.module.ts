@@ -29,7 +29,6 @@ import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
 import { ViewerComponent } from './viewer/viewer.component';
-import { NgxFilesizeModule } from 'ngx-filesize';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { VideoViewerComponent } from './viewer/video-viewer/video-viewer.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -82,7 +81,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NgxSkeletonLoaderModule,
     PickerComponent,
     EmojiPickerComponent,
-    NgxFilesizeModule,
     MatProgressSpinnerModule,
   ],
 })

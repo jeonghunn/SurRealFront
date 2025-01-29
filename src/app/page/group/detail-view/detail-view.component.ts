@@ -11,9 +11,10 @@ import {
 } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-detail-view',
-  templateUrl: './detail-view.component.html',
-  styleUrls: [ './detail-view.component.scss' ],
+    selector: 'app-detail-view',
+    templateUrl: './detail-view.component.html',
+    styleUrls: ['./detail-view.component.scss'],
+    standalone: false
 })
 export class DetailViewComponent {
 

@@ -21,9 +21,10 @@ import { Util } from 'src/app/core/util';
 import { Room } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-room-list',
-  templateUrl: './room-list.component.html',
-  styleUrls: [ './room-list.component.scss' ],
+    selector: 'app-room-list',
+    templateUrl: './room-list.component.html',
+    styleUrls: ['./room-list.component.scss'],
+    standalone: false
 })
 export class RoomListComponent implements OnChanges, OnDestroy {
 

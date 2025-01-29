@@ -25,9 +25,10 @@ import { DataService } from 'src/app/core/data.service';
 import { EmojiPickerComponent } from 'src/app/components/emoji-picker/emoji-picker.component';
 
 @Component({
-  selector: 'app-room-create',
-  templateUrl: './room-create.component.html',
-  styleUrls: [ './room-create.component.scss' ],
+    selector: 'app-room-create',
+    templateUrl: './room-create.component.html',
+    styleUrls: ['./room-create.component.scss'],
+    standalone: false
 })
 export class RoomCreateComponent implements OnInit {
 

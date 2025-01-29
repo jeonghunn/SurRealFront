@@ -32,9 +32,10 @@ import {
 } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-document',
-  templateUrl: './document.component.html',
-  styleUrls: ['./document.component.scss']
+    selector: 'app-document',
+    templateUrl: './document.component.html',
+    styleUrls: ['./document.component.scss'],
+    standalone: false
 })
 export class DocumentComponent implements OnInit, OnDestroy, OnChanges {
 

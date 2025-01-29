@@ -9,9 +9,10 @@ import { DataService } from 'src/app/core/data.service';
 import { Relation } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-friend-list',
-  templateUrl: './friend-list.component.html',
-  styleUrls: [ './friend-list.component.scss' ],
+    selector: 'app-friend-list',
+    templateUrl: './friend-list.component.html',
+    styleUrls: ['./friend-list.component.scss'],
+    standalone: false
 })
 export class FriendListComponent implements OnInit {
 

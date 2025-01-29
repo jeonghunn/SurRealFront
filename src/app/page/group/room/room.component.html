@@ -9,9 +9,9 @@
   [isLoading]="isChatLoading || !isAuthenticated"
   [isChatLoading]="isChatLoading"
   [isFullyLoad]="isChatFullyLoad"
-  (window:resize)="onWindowResize($event)"
   (chatSend)="sendMessage($event)"
   (loadPreviousChats)="fetchPreviousChats()"
+  (window:scroll)="onWindowScroll($event)"
   class="chat"
   [ngStyle]="chatStyle"
 ></app-chat>

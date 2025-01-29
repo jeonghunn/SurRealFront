@@ -10,9 +10,10 @@ import { DataService } from 'src/app/core/data.service';
 import { Room } from 'src/app/model/type';
 
 @Component({
-  selector: 'app-summary',
-  templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.scss']
+    selector: 'app-summary',
+    templateUrl: './summary.component.html',
+    styleUrls: ['./summary.component.scss'],
+    standalone: false
 })
 export class SummaryComponent implements OnChanges {
 

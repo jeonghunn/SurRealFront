@@ -7,9 +7,10 @@ import { NgxSkeletonLoaderConfig } from 'ngx-skeleton-loader/lib/ngx-skeleton-lo
 import darkPalette from '../../../palette';
 
 @Component({
-  selector: 'app-skeleton-loader',
-  templateUrl: './skeleton-loader.component.html',
-  styleUrls: ['./skeleton-loader.component.scss']
+    selector: 'app-skeleton-loader',
+    templateUrl: './skeleton-loader.component.html',
+    styleUrls: ['./skeleton-loader.component.scss'],
+    standalone: false
 })
 export class SkeletonLoaderComponent implements OnInit {
 

@@ -4,9 +4,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-room-item',
-  templateUrl: './room-item.component.html',
-  styleUrls: [ './room-item.component.scss' ],
+    selector: 'app-room-item',
+    templateUrl: './room-item.component.html',
+    styleUrls: ['./room-item.component.scss'],
+    standalone: false
 })
 export class RoomItemComponent {
 
