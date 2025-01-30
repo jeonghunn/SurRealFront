@@ -367,6 +367,11 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public onMouseOver() {
   }
 
+  public onMouseDown() {
+    this.isManualScroll = true;
+    this.isInteracting = true;
+  }
+
   public onMouseWheel(event: any) {
     this.isManualScroll = true;
     this.isInteracting = true;
