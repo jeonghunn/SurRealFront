@@ -195,6 +195,7 @@ class="attachment"
       mat-icon-button
       matSuffix
       (click)="onSendButtonClicked(message)"
+      (touchend)="onSendButtonClicked(message)"
       [attr.aria-label]="'GROUP.ROOM.CHAT.SEND' | translate"
     >
       <mat-icon
