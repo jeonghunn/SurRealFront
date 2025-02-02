@@ -316,6 +316,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
     
     if (
+      this.chatContainerScrollHeight < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
       scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
       !this.isFullyLoad) {
       this.emitLoadingPreviousChats();
