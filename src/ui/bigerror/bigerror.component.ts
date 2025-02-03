@@ -8,7 +8,7 @@ import {
     selector: 'app-bigerror',
     templateUrl: './bigerror.component.html',
     styleUrls: ['./bigerror.component.scss'],
-    standalone: false
+    standalone: true,
 })
 export class BigerrorComponent {
 

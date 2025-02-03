@@ -32,6 +32,7 @@ import { ViewerComponent } from './viewer/viewer.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { VideoViewerComponent } from './viewer/video-viewer/video-viewer.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BigerrorComponent } from 'src/ui/bigerror/bigerror.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     PickerComponent,
     EmojiPickerComponent,
     MatProgressSpinnerModule,
+    BigerrorComponent,
   ],
 })
 export class ComponentsModule { }
