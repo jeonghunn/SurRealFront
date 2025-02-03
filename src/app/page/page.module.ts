@@ -44,6 +44,7 @@ import { SummaryComponent } from './group/detail-view/summary/summary.component'
 import { TopicPreviewComponent } from './group/chat/topic-preview/topic-preview.component';
 import { DocumentComponent } from './group/detail-view/document/document.component';
 import { SpaceComponent } from './group/detail-view/space/space.component';
+import { SpinnerComponent } from "../../ui/spinner/spinner.component";
 
 
 @NgModule({
@@ -69,28 +70,29 @@ import { SpaceComponent } from './group/detail-view/space/space.component';
     SpaceComponent,
   ],
     imports: [
-        CommonModule,
-        LayoutModule,
-        MatExpansionModule,
-        MatStepperModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatTabsModule,
-        TranslateModule,
-        MatListModule,
-        MatIconModule,
-        ReactiveFormsModule,
-        UiModule,
-        MatCardModule,
-        MatProgressBarModule,
-        ComponentsModule,
-        FormsModule,
-        NgxSkeletonLoaderModule,
-        MatRippleModule,
-        MatChipsModule,
-        CoreModule,
-    ],
+    CommonModule,
+    LayoutModule,
+    MatExpansionModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    TranslateModule,
+    MatListModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    UiModule,
+    MatCardModule,
+    MatProgressBarModule,
+    ComponentsModule,
+    FormsModule,
+    NgxSkeletonLoaderModule,
+    MatRippleModule,
+    MatChipsModule,
+    CoreModule,
+    SpinnerComponent,
+],
 })
 export class PageModule { }
