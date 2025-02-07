@@ -80,7 +80,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public isShortWidth: boolean = false;
   public message: string;
   public isAutoScrollActive: boolean = true;
-  public isManualScroll: boolean = false;
   public isInteracting: boolean = false;
   public isTouching: boolean = false;
   public lastChatScrollDeltaY: number = 0;
@@ -272,7 +271,6 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public init(): void {
-    this.isManualScroll = false;
     this.isAutoScrollActive = true;
     this.isHeaderUpdated = true;
     this.replyChat = null;
@@ -290,13 +288,18 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public ngAfterViewChecked(): void {
 
     const scrollTop: number = this.chatContainer?.nativeElement?.scrollTop;
+    const scrollHeight: number = this.chatContainer?.nativeElement?.scrollHeight;
+    const scrollOffset: number = this.chatContainer?.nativeElement?.offsetHeight;
 
     if (this.isHeaderUpdated) {
       this.onChatFieldResize();
       this.isHeaderUpdated = false;
     }
 
-    if (!this.isManualScroll && this.isAutoScrollActive) {
+    if (
+      this.isAutoScrollActive &&
+      scrollTop < scrollHeight - scrollOffset - this.CHAT_AUTO_SCROLL_ALLOW_THRESHOLD
+    ) {
       this.executeAutoScroll();
     }
 
@@ -369,18 +372,18 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onMouseDown() {
-    this.isManualScroll = true;
+    this.isAutoScrollActive = false;
     this.isInteracting = true;
   }
 
   public onMouseWheel(event: any) {
-    this.isManualScroll = true;
+    this.isAutoScrollActive = false;
     this.isInteracting = true;
     this.lastChatScrollDeltaY = event?.deltaY;
   }
 
   public onTouchStart() {
-    this.isManualScroll = true;
+    this.isAutoScrollActive = false;
     this.isInteracting = true;
     this.isTouching = true;
   }
@@ -422,13 +425,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       return;
     }
 
-    this.isAutoScrollActive = !this.isManualScroll && shouldAutoScrollActive;
+    this.isAutoScrollActive = shouldAutoScrollActive;
 
   }
 
   public scrollToBottom(isNotForced: boolean = false): void {
     if (this.chatContainer.nativeElement && (!isNotForced || this.isAutoScrollActive)) {
-      this.isManualScroll = false;
+      this.isAutoScrollActive = true;
       this.chatContainer.nativeElement.scrollTop =
         this.chatContainer.nativeElement.scrollHeight - this.chatContainer.nativeElement.offsetHeight;
       this.changeDetectorRef.markForCheck();
