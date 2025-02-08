@@ -449,6 +449,17 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.changeDetectorRef.markForCheck();
   }
 
+  public onSendKeyDown(event: any): void {
+    if (event?.isComposing === true) {
+      return;
+    }
+
+    if (event?.key === 'Enter' && !this.isMultiLineEnabled) {
+      event.preventDefault();
+    }
+
+  }
+
   public onSendKeyPress(event: any, text: string): void {
     if (this.isMultiLineEnabled || event?.isComposing === true) {
       return; 
