@@ -248,7 +248,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
         concatMap(i => this.fetchChats(i.offset, i.isFuture, this.topicId)),
       ).subscribe((result: { isFuture: boolean, chats: Chat[] }) => {
           this.isChatLoading = false;
-          console.log('init', result, this.offset);
           if (result?.isFuture) {
             this.updateChats(result, false);
 
@@ -400,8 +399,8 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
         this.pushChat(chat, msg.topic_id);
         this.resetFutureCriteria(new Date(chat.createdAt));
-        
         this.removeFromSendingChats(msg.ticket_id);
+
         break;
       case CommunicationType.AUTH:
         const authResult: CommunicationResult = msg as CommunicationResult;
