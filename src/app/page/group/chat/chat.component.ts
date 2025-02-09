@@ -61,6 +61,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public extraChats: Chat[];
 
   @Input()
+  public sendingChats: Chat[];
+
+  @Input()
   public isDisabled: boolean = false;
 
   @Input()

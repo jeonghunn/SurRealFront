@@ -71,6 +71,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public webSocketSubject: WebSocketSubject<any> = null;
   public chats: Chat[] = null;
   public extraChats: Chat[] = null;
+  public sendingChats: Chat[] = [];
   public recentExtraChats: Chat[] = null;
   public dateCriteria: Date;
   public futureDateCriteria: Date;
@@ -369,6 +370,19 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public resetWindowScroll(): void {
     window.scrollTo(0, 0);
   }
+
+  public removeFromSendingChats(ticketId: string): void {
+    if (!this.sendingChats || this.sendingChats.length === 0) {
+      return;
+    }
+
+    this.sendingChats = this.sendingChats.filter((sendingChat: Chat) => sendingChat.ticket_id !== ticketId);
+    this.changeDetectorRef.markForCheck();
+  }
+
+  public getChatTicketId(): string {
+    return Math.random().toString(36).substring(2);
+  }
   
   public onMessageReceived(msg: any): void {
 
@@ -387,6 +401,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
         this.pushChat(chat, msg.topic_id);
         this.resetFutureCriteria(new Date(chat.createdAt));
         
+        this.removeFromSendingChats(msg.ticket_id);
         break;
       case CommunicationType.AUTH:
         const authResult: CommunicationResult = msg as CommunicationResult;
@@ -414,6 +429,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public onAuthResultReceived(isSuccess: boolean): void {
     if (isSuccess) {
       this.isAuthenticated = true;
+      this.retrySendMessages();
       this.changeDetectorRef.markForCheck();
       return;
     }
@@ -538,8 +554,17 @@ export class RoomComponent implements OnDestroy, OnChanges {
   }
 
   public sendMessage(chat: Chat): void {
+    chat.ticket_id = this.getChatTicketId();
+    this.sendingChats.push(chat);
     this.webSocketSubject.next(chat);
   }
+
+  public retrySendMessages(): void {
+    this.sendingChats.forEach((chat: Chat) => {
+      this.webSocketSubject.next(chat);
+    });
+  }
+
 
   public ngOnDestroy(): void {
     this.webSocketSubject?.unsubscribe();

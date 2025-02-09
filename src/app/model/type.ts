@@ -107,6 +107,7 @@ export class Chat extends Communication {
   public topic_id?: number;
   public meta?: any;
   public category?: ChatCategory;
+  public ticket_id: string;
 
   public constructor(
     id: string,

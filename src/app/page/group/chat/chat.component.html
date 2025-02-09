@@ -71,6 +71,27 @@ class="header"
     [color]="chat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>
+
+  <!-- Sending Chats -->
+  <app-message
+  #messageComponent
+  *ngFor="let chat of sendingChats; let i = index"
+  (reply)="replyChat = chat"
+  (update)="executeAutoScroll()"
+  [id]="chat.id"
+  [name]="chat.user?.name"
+  [user_id]="chat.user?.id"
+  [category]="chat.category"
+  [message]="chat.content"
+  [date]="chat?.createdAt"
+  [attaches]="chat?.meta?.attaches"
+  [meta]="chat?.meta"
+  [isHideProfile]="isHideName(chat, i)"
+  [isAllowControl]="false"
+  [color]="chat?.user?.color || '#46a35e'"
+  [isShowTime]="true"
+  ></app-message>
+  
 </div>
 
 
