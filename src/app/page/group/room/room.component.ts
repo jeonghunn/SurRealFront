@@ -108,6 +108,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
 
   public readonly DEFAULT_CHAT_MARGIN: number = 72;
   public readonly FILE_ATTACH_HEIGHT: number = 88;
+  public readonly RECONNECT_DELAY_ALERT_CRITERIA: number = 10000;
 
   public chatStyle: any = {
     height: null,
@@ -445,7 +446,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.isConnected = false;
     this.reconnectDelay = this.reconnectDelay * 1.5;
 
-    if(this.reconnectDelay < 3000) {
+    if(this.reconnectDelay < this.RECONNECT_DELAY_ALERT_CRITERIA) {
       return;
     }
 
