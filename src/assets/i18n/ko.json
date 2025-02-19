@@ -72,12 +72,12 @@
     "TITLE": "로그인",
     "EMAIL": "이메일 주소",
     "PASSWORD": "비밀번호",
-    "SIGN_UP": "SurReal에 계정 등록",
+    "SIGN_UP": "계정 생성하기",
     "HIDE_PASSWORD": "비밀번호 숨기기",
     "WRONG": "올바르지 않은 이메일 주소 또는 비밀번호 입니다."
   },
   "SIGN_UP": {
-    "TITLE": "계정 등록",
+    "TITLE": "계정 생성하기",
     "EMAIL": "이메일 주소",
     "PASSWORD": "비밀번호",
     "NAME": "이름",
