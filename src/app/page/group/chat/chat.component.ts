@@ -603,12 +603,13 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     text: string,
     topicId: string = null,
     meta: any = null,
+    createdAt: string = DateTime.now().toISO(),
     ): void {
     this.chatSend.emit(new Chat(
       null,
       ChatCategory.MESSAGE,
       text,
-      null,
+      createdAt,
       null,
       topicId,
       meta,
