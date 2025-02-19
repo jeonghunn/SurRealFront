@@ -467,7 +467,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     
   }
 
-  public pushChat(chat: Chat, topicId: number): void {
+  public pushChat(chat: Chat, topicId: string = null): void {
 
     if (topicId !== this.topicId) {
       this.roomService.pushOtherChat(chat);
