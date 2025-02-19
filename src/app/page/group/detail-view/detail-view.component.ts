@@ -25,7 +25,7 @@ export class DetailViewComponent {
   public groupId: number;
 
   @Input()
-  public topicId: number;
+  public topicId: string;
 
   @Input()
   public topic: Topic;

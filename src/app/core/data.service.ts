@@ -98,7 +98,7 @@ export class DataService {
   public getTopic(
     groupId: number,
     roomId: number,
-    topicId: number,
+    topicId: string,
     ): Observable<Topic> {
     return this.httpClient.get<Topic>(`${this.apiUrl}/group/${groupId}/room/${roomId}/topic/${topicId}`, {}).pipe(
       catchError(error => this.handleError(error)),
@@ -210,7 +210,7 @@ export class DataService {
   public createTopic(
     groupId: number,
     roomId: number,
-    topicId: number,
+    topicId: string,
     name: string,
     spaceAppName: string,
     ): Observable<{
@@ -265,7 +265,7 @@ export class DataService {
   public getSummary(
     groupId: string,
     roomId: number,
-    topicId: number,
+    topicId: string,
     isForce: boolean,
     ): Observable<any> {
     let url: string = `${this.apiUrl}/group/${groupId}/room/${roomId}/summary?offset=0&limit=100&force=${isForce}`;
@@ -282,7 +282,7 @@ export class DataService {
   public getChats(
     groupId: string,
     roomId: number,
-    topicId: number,
+    topicId: string,
     date: Date,
     offset: number = 0,
     isFuture: boolean = false,

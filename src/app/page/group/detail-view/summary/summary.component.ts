@@ -21,7 +21,7 @@ export class SummaryComponent implements OnChanges {
   public room: Room;
 
   @Input()
-  public topicId: number;
+  public topicId: string;
 
   @Input()
   public groupId: number;

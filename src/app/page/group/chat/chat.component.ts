@@ -205,7 +205,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.router.navigateByUrl(url).then(null);
   }
 
-  public goToTopic(id: number): void {
+  public goToTopic(id: string): void {
     let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
 
     if (id) {
@@ -601,7 +601,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public emitChatSend(
     text: string,
-    topicId: number = null,
+    topicId: string = null,
     meta: any = null,
     ): void {
     this.chatSend.emit(new Chat(

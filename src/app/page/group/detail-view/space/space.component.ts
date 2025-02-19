@@ -83,7 +83,7 @@ export class SpaceComponent implements OnChanges {
     this.changeDetectorRef.markForCheck();
   }
 
-  public goToTopic(topicId: number): void {
+  public goToTopic(topicId: string): void {
     this.router.navigate([`/group/${this.groupId}/chat/${this.roomId}/topic/${topicId}`]);
   }
 

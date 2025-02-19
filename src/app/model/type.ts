@@ -104,7 +104,7 @@ export class Chat extends Communication {
   public id?: string;
   public content: string;
   public user?: User;
-  public topic_id?: number;
+  public topic_id?: string;
   public meta?: any;
   public category?: ChatCategory;
   public ticket_id: string;
@@ -115,7 +115,7 @@ export class Chat extends Communication {
     content: string,
     createdAt: string,
     user: User,
-    topicId: number = null,
+    topicId: string = null,
     meta: any = null,
   ) {
     super(CommunicationType.CHAT, createdAt);
@@ -202,7 +202,7 @@ export class Room {
 }
 
 export class Topic {
-  public id: number;
+  public id: string;
   public name: string;
   public category: string;
   public parent_id: number;

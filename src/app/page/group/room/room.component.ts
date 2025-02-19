@@ -104,7 +104,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public offset: number = 0;
   public futureOffset: number = 0;
   public isShortWidth: boolean = false;
-  public topicId: number = null;
+  public topicId: string = null;
 
   public readonly DEFAULT_CHAT_MARGIN: number = 72;
   public readonly FILE_ATTACH_HEIGHT: number = 88;
@@ -158,7 +158,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
         this.isShortWidth = this.layoutService.isShortWidth();
       }),
       this.activatedRoute.params.subscribe((params: Params) => {
-        this.topicId = params?.topic_id ? parseInt(params.topic_id) :  null;
+        this.topicId = params?.topic_id || null;
 
         if (this.topicId) {
           this.dataService.getTopic(
@@ -398,7 +398,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
           msg.meta,
         );
 
-        this.pushChat(chat, msg.topic_id);
+        this.pushChat(chat, msg?.topic_id);
         this.resetFutureCriteria(new Date(chat.createdAt));
         this.removeFromSendingChats(msg.ticket_id);
 
@@ -514,7 +514,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public fetchChats(
     offset: number,
     isFuture: boolean,
-    topicId: number = null,
+    topicId: string = null,
     ): Observable<{
     isFuture: Boolean,
     chats: Chat[],
