@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import {
+  Observable,
   Subscription,
   catchError,
   of,
@@ -487,6 +488,48 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.isMultiLineEnabled = false;
   }
 
+
+  public uploadFiles(): Observable<any> {
+    return new Observable(observer => {
+      this.files.forEach(file => {
+        this.uploadingFiles++;
+        this.dataService.postAttach(this.room?.id, file?.file).pipe(
+          take(1),
+          catchError((err: any) => {
+            this.uploadingFiles = 0;
+            console.log('[ERROR] File Upload : ', err);
+            observer.error(err);
+            return of(err);
+          }),
+        ).subscribe((res: any) => {
+          observer.next(res);
+          this.uploadingFiles--;
+          if (this.uploadingFiles === 0) {
+            observer.complete();
+          }
+        });
+      });
+    });
+  }
+  
+  public handleFileUploadError(err: any): Observable<any> {
+    this.uploadingFiles = 0;
+    console.log('[ERROR] File Upload : ', err);
+
+    switch (err?.status) {
+      case 413:
+        this.chatErrorMessage = 'HTTP_ERROR.413_PAYLOAD_TOO_LARGE.DESCRIPTION';
+        break;
+      default:
+        this.chatErrorMessage = 'ERROR.UNKNOWN';
+        break;
+    }
+
+    this.changeDetectorRef.markForCheck();
+
+    return of(err);
+  }
+
   public onSendExecute(text: string): void {
     this.chatErrorMessage = null;
     this.initMultiLineSetting();
@@ -499,49 +542,31 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     if(this.files?.length > 0) {
       const attaches: any[] = [];
 
-      this.files.forEach(file => {
-        this.uploadingFiles++;
-        this.dataService.postAttach(this.room?.id, file?.file).pipe(
-          take(1),
-          catchError((err: any) => {
-            this.uploadingFiles = 0;
-            console.log('[ERROR] File Upload : ', err);
+      this.uploadFiles().pipe(
+        take(1),
+        catchError((err: any) => {
 
-            switch (err?.status) {
-              case 413:
-                this.chatErrorMessage = 'HTTP_ERROR.413_PAYLOAD_TOO_LARGE.DESCRIPTION';
-                break;
-              default:
-                this.chatErrorMessage = 'ERROR.UNKNOWN';
-                break;
-            }
-
-            this.changeDetectorRef.markForCheck();
-
-            return of(err);
-          }),
-        ).subscribe((res: any) => {
-          attaches.push({
-            binary_name: res?.binary_name,
-            type: res?.type,
-            name: res?.name,
-            extension: res?.extension,
-            mimetype: res?.mimetype,
-            size: res?.size,
-          });
-
-          this.uploadingFiles--;
-
-          if (this.uploadingFiles === 0) {
-            this.sendMessage(
-              text,
-              {
-                attaches,
-              }
-              );
-            this.clearAttaches();
-          }
+          return of(err);
+        }),
+      ).subscribe((res: any) => {
+        attaches.push({
+          binary_name: res?.binary_name,
+          type: res?.type,
+          name: res?.name,
+          extension: res?.extension,
+          mimetype: res?.mimetype,
+          size: res?.size,
         });
+
+        if (this.uploadingFiles === 0) {
+          this.sendMessage(
+            text,
+            {
+              attaches,
+            }
+          );
+          this.clearAttaches();
+        }
       });
 
       return;
@@ -570,27 +595,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.message = '';
 
     if (this.replyChat) {
-      this.isChatLoading = true;
-      this.dataService.createTopicByChat(
-        this.room?.group_id,
-        this.room?.id,
-        this.replyChat?.id,
-        `${this.replyChat?.user?.name}: ${this.replyChat?.content}`,
-      ).pipe(
-        take(1),
-        catchError((err: any) => {
-          this.isChatLoading = false;
-          console.log('[ERROR] Create Topic by Chat : ', err);
-          return of(err);
-        }),
-      ).subscribe((result: any) => {
-        this.isChatLoading = false;
-        this.replyChat = null;
-        meta.topic_id = result?.id;
-        this.emitChatSend(text, result?.id, meta);
-      });
-
-      return;
+      meta.reply_to = this.replyChat;
     }
 
     this.emitChatSend(text, this.topic?.id, meta);
