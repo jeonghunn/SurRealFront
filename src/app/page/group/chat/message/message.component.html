@@ -61,6 +61,7 @@ class="box"
     <app-topic-preview
     [title]="message"
     [topicId]="meta?.child_topic_id"
+    [chat]="meta?.chat"
     [room]="room"
     (update)="update?.emit()"
     ></app-topic-preview>

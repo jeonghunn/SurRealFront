@@ -41,6 +41,9 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
   @Input()
   public title: string;
 
+  @Input()
+  public chat: Chat = null;
+
   public room: Room;
 
   public subscriptions: Subscription[] = [];
