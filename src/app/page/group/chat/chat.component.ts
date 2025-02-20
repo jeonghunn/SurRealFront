@@ -160,7 +160,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     ];
 
     window.visualViewport.onresize = () => {
-      this.onChatFieldFocus();
+      this.refreshChatFieldLayout();
     }
   }
 
@@ -232,6 +232,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
    
 
     this.roomService.addFiles(files);
+    this.refreshChatFieldLayout();
   }
 
   public onHeaderResize(height: number): void {
@@ -367,11 +368,23 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public deleteAttachByUrl(url: string): void {
     this.roomService.deleteAttachByUrl(url);
     this.fileInput.nativeElement.value = null;
+    this.refreshChatFieldLayout();
   }
 
   public clearAttaches(): void {
     this.roomService.clearFiles();
     this.fileInput.nativeElement.value = null;
+    this.refreshChatFieldLayout();
+  }
+
+  public closeReply(): void {
+    this.replyChat = null;
+    this.refreshChatFieldLayout();
+  }
+
+  public openReply(replyTo: Chat): void {
+    this.replyChat = replyTo;
+    this.refreshChatFieldLayout();
   }
 
 
@@ -575,7 +588,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.sendMessage(text);
   }
 
-  public onChatFieldFocus(): void {
+  public refreshChatFieldLayout(): void {
     this.footerBottom = '100%';
     this.changeDetectorRef.markForCheck();
     setTimeout(() => {

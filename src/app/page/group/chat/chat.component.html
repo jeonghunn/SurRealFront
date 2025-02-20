@@ -55,7 +55,7 @@ class="header"
   <app-message
     #messageComponent
     *ngFor="let chat of chats; let i = index"
-    (reply)="replyChat = chat"
+    (reply)="openReply(chat)"
     (update)="executeAutoScroll()"
     [id]="chat.id"
     [name]="chat.user?.name"
@@ -127,7 +127,7 @@ class="reply"
 >
   <div class="header">
     <h3>{{ 'GROUP.ROOM.CHAT.REPLY_TO_USER' | translate: {name : replyChat.user?.name} }}</h3>
-    <mat-icon (click)="replyChat = null">close</mat-icon>
+    <mat-icon (click)="closeReply()">close</mat-icon>
   </div>
   <div class="body">
     <app-message
@@ -172,7 +172,7 @@ class="attachment"
   <mat-form-field
     (touchstart)="isMultiLineEnabled = true"
     (mousedown)="this.message?.length === 0 ? isMultiLineEnabled = false : null"
-    (mousedown)="onChatFieldFocus()"
+    (mousedown)="refreshChatFieldLayout()"
     appearance="outline"
   >
     <textarea
