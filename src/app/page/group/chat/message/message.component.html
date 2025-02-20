@@ -6,6 +6,7 @@
 
 <div
 *ngIf="category === chatCategory.MESSAGE"
+[ngClass]="{ 'control-disallowed': !isAllowControl }"
 class="message"
 (click)="isFocused = true"
 (mouseover)="isFocused = true"
