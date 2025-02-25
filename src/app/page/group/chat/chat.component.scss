@@ -18,6 +18,8 @@
   .title {
     display: flex;
     height: 48px;
+    box-shadow: 0px 4px 3px var(--shadow-color);
+    border-radius: 8px;
 
     h1 {
       text-overflow: ellipsis;
@@ -25,6 +27,13 @@
       line-height: 48px;
       height: 48px;
       margin-left: 8px;
+    }
+
+    .reply {
+      span {
+        font-weight: bold;
+        margin-left: 4px;
+      }
     }
     
   }

@@ -11,7 +11,25 @@ class="header"
     >
       <mat-icon>arrow_upward</mat-icon>
     </button>
-    <h1>{{ topic?.name }}</h1>
+    <h1 *ngIf="topic?.name">{{ topic?.name }}</h1>
+    <div
+      *ngIf="topic?.chat"
+      class="reply"
+    >
+      <span>{{ 'GROUP.ROOM.CHAT.REPLY_TITLE' | translate }}:</span>
+      <app-message
+      [id]="topic?.chat?.id"
+      [name]="topic?.chat?.user?.name"
+      [category]="topic?.chat?.category"
+      [user_id]="topic?.chat?.user?.id"
+      [message]="topic?.chat?.content"
+      [date]="topic?.chat?.createdAt"
+      [attaches]="topic?.chat?.meta?.attaches"
+      [isAllowControl]="false"
+      [color]="topic?.chat?.user?.color || '#46a35e'"
+      [isShowTime]="true"
+    ></app-message>
+    </div>
   </div>
   <div
   *ngIf="extraChats?.length > 0"

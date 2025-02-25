@@ -128,7 +128,8 @@
         "ALL_CHATS": "All Chats",
         "MORE": "More",
         "REPLY_TO_USER": "Reply to {{name}}",
-        "ATTACHMENTS": "Attachments"
+        "ATTACHMENTS": "Attachments",
+        "REPLY_TITLE": "Reply To"
       },
       "LIVE": {
         "CATEGORY": {
