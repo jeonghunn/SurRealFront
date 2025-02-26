@@ -609,6 +609,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
     if (this.replyChat) {
       meta.reply_to = this.replyChat;
+      this.closeReply();
     }
 
     this.emitChatSend(text, this.topic?.id, meta);
