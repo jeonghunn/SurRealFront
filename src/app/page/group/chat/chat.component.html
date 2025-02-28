@@ -11,7 +11,25 @@ class="header"
     >
       <mat-icon>arrow_upward</mat-icon>
     </button>
-    <h1>{{ topic?.name }}</h1>
+    <h1 *ngIf="topic?.name">{{ topic?.name }}</h1>
+    <div
+      *ngIf="topic?.chat"
+      class="reply"
+    >
+      <span>{{ 'GROUP.ROOM.CHAT.REPLY_TITLE' | translate }}:</span>
+      <app-message
+      [id]="topic?.chat?.id"
+      [name]="topic?.chat?.user?.name"
+      [category]="topic?.chat?.category"
+      [user_id]="topic?.chat?.user?.id"
+      [message]="topic?.chat?.content"
+      [date]="topic?.chat?.createdAt"
+      [attaches]="topic?.chat?.meta?.attaches"
+      [isAllowControl]="false"
+      [color]="topic?.chat?.user?.color || '#46a35e'"
+      [isShowTime]="true"
+    ></app-message>
+    </div>
   </div>
   <div
   *ngIf="extraChats?.length > 0"
@@ -55,7 +73,7 @@ class="header"
   <app-message
     #messageComponent
     *ngFor="let chat of chats; let i = index"
-    (reply)="replyChat = chat"
+    (reply)="openReply(chat)"
     (update)="executeAutoScroll()"
     [id]="chat.id"
     [name]="chat.user?.name"
@@ -71,6 +89,27 @@ class="header"
     [color]="chat?.user?.color || '#46a35e'"
     [isShowTime]="true"
   ></app-message>
+
+  <!-- Sending Chats -->
+  <app-message
+  #messageComponent
+  *ngFor="let chat of sendingChats; let i = index"
+  (reply)="replyChat = chat"
+  (update)="executeAutoScroll()"
+  [id]="chat.id"
+  [name]="chat.user?.name"
+  [user_id]="chat.user?.id"
+  [category]="chat.category"
+  [message]="chat.content"
+  [date]="chat?.createdAt"
+  [attaches]="chat?.meta?.attaches"
+  [meta]="chat?.meta"
+  [isHideProfile]="isHideName(chat, i)"
+  [isAllowControl]="false"
+  [color]="chat?.user?.color || '#46a35e'"
+  [isShowTime]="true"
+  ></app-message>
+  
 </div>
 
 
@@ -106,7 +145,7 @@ class="reply"
 >
   <div class="header">
     <h3>{{ 'GROUP.ROOM.CHAT.REPLY_TO_USER' | translate: {name : replyChat.user?.name} }}</h3>
-    <mat-icon (click)="replyChat = null">close</mat-icon>
+    <mat-icon (click)="closeReply()">close</mat-icon>
   </div>
   <div class="body">
     <app-message
@@ -151,7 +190,7 @@ class="attachment"
   <mat-form-field
     (touchstart)="isMultiLineEnabled = true"
     (mousedown)="this.message?.length === 0 ? isMultiLineEnabled = false : null"
-    (mousedown)="onChatFieldFocus()"
+    (mousedown)="refreshChatFieldLayout()"
     appearance="outline"
   >
     <textarea

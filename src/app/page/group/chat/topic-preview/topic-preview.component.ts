@@ -36,10 +36,13 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
   public chats: Chat[] = [];
 
   @Input()
-  public topicId: number;
+  public topicId: string;
 
   @Input()
   public title: string;
+
+  @Input()
+  public chat: Chat = null;
 
   public room: Room;
 
@@ -87,7 +90,7 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
         });
       }),
       this.roomService.lastOtherChat$.subscribe((chat: Chat) => {
-        if (!chat || chat?.topic_id !== this.topicId) {
+        if (!chat || !chat?.topic_id?.match(this.topicId)) {
           return;
         }
 
@@ -114,7 +117,7 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
     this.chats = [];
   }
 
-  public goToTopic(id: number): void {
+  public goToTopic(id: string): void {
     let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
 
     if (id) {
@@ -128,7 +131,7 @@ export class TopicPreviewComponent implements OnInit, OnDestroy {
   public fetchChats(
     offset: number,
     isFuture: boolean,
-    topicId: number = null,
+    topicId: string = null,
     ): Observable<{
     isFuture: Boolean,
     chats: Chat[],

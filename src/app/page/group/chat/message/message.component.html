@@ -6,6 +6,7 @@
 
 <div
 *ngIf="category === chatCategory.MESSAGE"
+[ngClass]="{ 'control-disallowed': !isAllowControl }"
 class="message"
 (click)="isFocused = true"
 (mouseover)="isFocused = true"
@@ -61,6 +62,7 @@ class="box"
     <app-topic-preview
     [title]="message"
     [topicId]="meta?.child_topic_id"
+    [chat]="meta?.chat"
     [room]="room"
     (update)="update?.emit()"
     ></app-topic-preview>

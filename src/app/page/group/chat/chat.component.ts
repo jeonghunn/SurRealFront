@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import {
+  Observable,
   Subscription,
   catchError,
   of,
@@ -59,6 +60,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   @Input()
   public extraChats: Chat[];
+
+  @Input()
+  public sendingChats: Chat[];
 
   @Input()
   public isDisabled: boolean = false;
@@ -156,7 +160,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     ];
 
     window.visualViewport.onresize = () => {
-      this.onChatFieldFocus();
+      this.refreshChatFieldLayout();
     }
   }
 
@@ -202,7 +206,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.router.navigateByUrl(url).then(null);
   }
 
-  public goToTopic(id: number): void {
+  public goToTopic(id: string): void {
     let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
 
     if (id) {
@@ -228,6 +232,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
    
 
     this.roomService.addFiles(files);
+    this.refreshChatFieldLayout();
   }
 
   public onHeaderResize(height: number): void {
@@ -319,9 +324,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
     
     if (
-      this.chatContainerScrollHeight < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
+      this.chatContainer.nativeElement.scrollHeight <= this.chatContainer.nativeElement.offsetHeight &&
       scrollTop < this.CHAT_PREVIOUS_CHAT_LOAD_THRESHOLD &&
-      !this.isFullyLoad) {
+      !this.isFullyLoad &&
+      !this.isLoading &&
+      !this.isChatLoading
+    ) {
       this.emitLoadingPreviousChats();
     }
 
@@ -360,11 +368,23 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public deleteAttachByUrl(url: string): void {
     this.roomService.deleteAttachByUrl(url);
     this.fileInput.nativeElement.value = null;
+    this.refreshChatFieldLayout();
   }
 
   public clearAttaches(): void {
     this.roomService.clearFiles();
     this.fileInput.nativeElement.value = null;
+    this.refreshChatFieldLayout();
+  }
+
+  public closeReply(): void {
+    this.replyChat = null;
+    this.refreshChatFieldLayout();
+  }
+
+  public openReply(replyTo: Chat): void {
+    this.replyChat = replyTo;
+    this.refreshChatFieldLayout();
   }
 
 
@@ -481,6 +501,48 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.isMultiLineEnabled = false;
   }
 
+
+  public uploadFiles(): Observable<any> {
+    return new Observable(observer => {
+      this.files.forEach(file => {
+        this.uploadingFiles++;
+        this.dataService.postAttach(this.room?.id, file?.file).pipe(
+          take(1),
+          catchError((err: any) => {
+            this.uploadingFiles = 0;
+            console.log('[ERROR] File Upload : ', err);
+            observer.error(err);
+            return of(err);
+          }),
+        ).subscribe((res: any) => {
+          observer.next(res);
+          this.uploadingFiles--;
+          if (this.uploadingFiles === 0) {
+            observer.complete();
+          }
+        });
+      });
+    });
+  }
+  
+  public handleFileUploadError(err: any): Observable<any> {
+    this.uploadingFiles = 0;
+    console.log('[ERROR] File Upload : ', err);
+
+    switch (err?.status) {
+      case 413:
+        this.chatErrorMessage = 'HTTP_ERROR.413_PAYLOAD_TOO_LARGE.DESCRIPTION';
+        break;
+      default:
+        this.chatErrorMessage = 'ERROR.UNKNOWN';
+        break;
+    }
+
+    this.changeDetectorRef.markForCheck();
+
+    return of(err);
+  }
+
   public onSendExecute(text: string): void {
     this.chatErrorMessage = null;
     this.initMultiLineSetting();
@@ -493,49 +555,31 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     if(this.files?.length > 0) {
       const attaches: any[] = [];
 
-      this.files.forEach(file => {
-        this.uploadingFiles++;
-        this.dataService.postAttach(this.room?.id, file?.file).pipe(
-          take(1),
-          catchError((err: any) => {
-            this.uploadingFiles = 0;
-            console.log('[ERROR] File Upload : ', err);
+      this.uploadFiles().pipe(
+        take(1),
+        catchError((err: any) => {
 
-            switch (err?.status) {
-              case 413:
-                this.chatErrorMessage = 'HTTP_ERROR.413_PAYLOAD_TOO_LARGE.DESCRIPTION';
-                break;
-              default:
-                this.chatErrorMessage = 'ERROR.UNKNOWN';
-                break;
-            }
-
-            this.changeDetectorRef.markForCheck();
-
-            return of(err);
-          }),
-        ).subscribe((res: any) => {
-          attaches.push({
-            binary_name: res?.binary_name,
-            type: res?.type,
-            name: res?.name,
-            extension: res?.extension,
-            mimetype: res?.mimetype,
-            size: res?.size,
-          });
-
-          this.uploadingFiles--;
-
-          if (this.uploadingFiles === 0) {
-            this.sendMessage(
-              text,
-              {
-                attaches,
-              }
-              );
-            this.clearAttaches();
-          }
+          return of(err);
+        }),
+      ).subscribe((res: any) => {
+        attaches.push({
+          binary_name: res?.binary_name,
+          type: res?.type,
+          name: res?.name,
+          extension: res?.extension,
+          mimetype: res?.mimetype,
+          size: res?.size,
         });
+
+        if (this.uploadingFiles === 0) {
+          this.sendMessage(
+            text,
+            {
+              attaches,
+            }
+          );
+          this.clearAttaches();
+        }
       });
 
       return;
@@ -544,7 +588,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.sendMessage(text);
   }
 
-  public onChatFieldFocus(): void {
+  public refreshChatFieldLayout(): void {
     this.footerBottom = '100%';
     this.changeDetectorRef.markForCheck();
     setTimeout(() => {
@@ -564,27 +608,8 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.message = '';
 
     if (this.replyChat) {
-      this.isChatLoading = true;
-      this.dataService.createTopicByChat(
-        this.room?.group_id,
-        this.room?.id,
-        this.replyChat?.id,
-        `${this.replyChat?.user?.name}: ${this.replyChat?.content}`,
-      ).pipe(
-        take(1),
-        catchError((err: any) => {
-          this.isChatLoading = false;
-          console.log('[ERROR] Create Topic by Chat : ', err);
-          return of(err);
-        }),
-      ).subscribe((result: any) => {
-        this.isChatLoading = false;
-        this.replyChat = null;
-        meta.topic_id = result?.id;
-        this.emitChatSend(text, result?.id, meta);
-      });
-
-      return;
+      meta.reply_to = this.replyChat;
+      this.closeReply();
     }
 
     this.emitChatSend(text, this.topic?.id, meta);
@@ -595,14 +620,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public emitChatSend(
     text: string,
-    topicId: number = null,
+    topicId: string = null,
     meta: any = null,
+    createdAt: string = DateTime.now().toISO(),
     ): void {
     this.chatSend.emit(new Chat(
       null,
       ChatCategory.MESSAGE,
       text,
-      null,
+      createdAt,
       null,
       topicId,
       meta,
