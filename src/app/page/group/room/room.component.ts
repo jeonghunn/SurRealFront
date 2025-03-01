@@ -71,6 +71,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public webSocketSubject: WebSocketSubject<any> = null;
   public chats: Chat[] = null;
   public extraChats: Chat[] = null;
+  public sendingChats: Chat[] = [];
   public recentExtraChats: Chat[] = null;
   public dateCriteria: Date;
   public futureDateCriteria: Date;
@@ -103,10 +104,11 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public offset: number = 0;
   public futureOffset: number = 0;
   public isShortWidth: boolean = false;
-  public topicId: number = null;
+  public topicId: string = null;
 
   public readonly DEFAULT_CHAT_MARGIN: number = 72;
   public readonly FILE_ATTACH_HEIGHT: number = 88;
+  public readonly RECONNECT_DELAY_ALERT_CRITERIA: number = 10000;
 
   public chatStyle: any = {
     height: null,
@@ -156,7 +158,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
         this.isShortWidth = this.layoutService.isShortWidth();
       }),
       this.activatedRoute.params.subscribe((params: Params) => {
-        this.topicId = params?.topic_id ? parseInt(params.topic_id) :  null;
+        this.topicId = params?.topic_id || null;
 
         if (this.topicId) {
           this.dataService.getTopic(
@@ -247,7 +249,6 @@ export class RoomComponent implements OnDestroy, OnChanges {
         concatMap(i => this.fetchChats(i.offset, i.isFuture, this.topicId)),
       ).subscribe((result: { isFuture: boolean, chats: Chat[] }) => {
           this.isChatLoading = false;
-          console.log('init', result, this.offset);
           if (result?.isFuture) {
             this.updateChats(result, false);
 
@@ -369,6 +370,19 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public resetWindowScroll(): void {
     window.scrollTo(0, 0);
   }
+
+  public removeFromSendingChats(ticketId: string): void {
+    if (!this.sendingChats || this.sendingChats.length === 0) {
+      return;
+    }
+
+    this.sendingChats = this.sendingChats.filter((sendingChat: Chat) => sendingChat.ticket_id !== ticketId);
+    this.changeDetectorRef.markForCheck();
+  }
+
+  public getChatTicketId(): string {
+    return Math.random().toString(36).substring(2);
+  }
   
   public onMessageReceived(msg: any): void {
 
@@ -384,9 +398,10 @@ export class RoomComponent implements OnDestroy, OnChanges {
           msg.meta,
         );
 
-        this.pushChat(chat, msg.topic_id);
+        this.pushChat(chat, msg?.topic_id);
         this.resetFutureCriteria(new Date(chat.createdAt));
-        
+        this.removeFromSendingChats(msg.ticket_id);
+
         break;
       case CommunicationType.AUTH:
         const authResult: CommunicationResult = msg as CommunicationResult;
@@ -414,6 +429,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public onAuthResultReceived(isSuccess: boolean): void {
     if (isSuccess) {
       this.isAuthenticated = true;
+      this.retrySendMessages();
       this.changeDetectorRef.markForCheck();
       return;
     }
@@ -430,7 +446,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     this.isConnected = false;
     this.reconnectDelay = this.reconnectDelay * 1.5;
 
-    if(this.reconnectDelay < 3000) {
+    if(this.reconnectDelay < this.RECONNECT_DELAY_ALERT_CRITERIA) {
       return;
     }
 
@@ -451,7 +467,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
     
   }
 
-  public pushChat(chat: Chat, topicId: number): void {
+  public pushChat(chat: Chat, topicId: string = null): void {
 
     if (topicId !== this.topicId) {
       this.roomService.pushOtherChat(chat);
@@ -498,7 +514,7 @@ export class RoomComponent implements OnDestroy, OnChanges {
   public fetchChats(
     offset: number,
     isFuture: boolean,
-    topicId: number = null,
+    topicId: string = null,
     ): Observable<{
     isFuture: Boolean,
     chats: Chat[],
@@ -538,8 +554,17 @@ export class RoomComponent implements OnDestroy, OnChanges {
   }
 
   public sendMessage(chat: Chat): void {
+    chat.ticket_id = this.getChatTicketId();
+    this.sendingChats.push(chat);
     this.webSocketSubject.next(chat);
   }
+
+  public retrySendMessages(): void {
+    this.sendingChats.forEach((chat: Chat) => {
+      this.webSocketSubject.next(chat);
+    });
+  }
+
 
   public ngOnDestroy(): void {
     this.webSocketSubject?.unsubscribe();

@@ -49,10 +49,6 @@ export class TextareaAutoResizeDirective implements OnInit, OnChanges {
 
   @HostListener(':input', ['$event'])
   public onInput(event: any) {
-    if (!this.multiline && !event.data) {
-      this.reset();
-      return;
-    }
     
     this.resize();
   }

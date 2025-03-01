@@ -87,6 +87,12 @@
   
 }
 
+.control-disallowed {
+  &:hover {
+    background-color: transparent;
+  }
+}
+
 .box {
   padding-top: 4px;
   padding-bottom: 4px;

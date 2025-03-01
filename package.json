@@ -1,6 +1,6 @@
 {
   "name": "surreal-front",
-  "version": "0.11.4",
+  "version": "0.12.0",
   "main": "main.js",
   "scripts": {
     "ng": "ng",
