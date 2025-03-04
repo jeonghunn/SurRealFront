@@ -504,20 +504,30 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   public uploadFiles(): Observable<any> {
     return new Observable(observer => {
+      const attaches: any[] = [];
       this.files.forEach(file => {
         this.uploadingFiles++;
         this.dataService.postAttach(this.room?.id, file?.file).pipe(
           take(1),
           catchError((err: any) => {
             this.uploadingFiles = 0;
-            console.log('[ERROR] File Upload : ', err);
             observer.error(err);
             return of(err);
           }),
         ).subscribe((res: any) => {
-          observer.next(res);
           this.uploadingFiles--;
+
+          attaches.push({
+            binary_name: res?.binary_name,
+            type: res?.type,
+            name: res?.name,
+            extension: res?.extension,
+            mimetype: res?.mimetype,
+            size: res?.size,
+          });
+
           if (this.uploadingFiles === 0) {
+            observer.next(attaches);
             observer.complete();
           }
         });
@@ -553,33 +563,21 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     }
 
     if(this.files?.length > 0) {
-      const attaches: any[] = [];
 
       this.uploadFiles().pipe(
         take(1),
         catchError((err: any) => {
-
           return of(err);
         }),
-      ).subscribe((res: any) => {
-        attaches.push({
-          binary_name: res?.binary_name,
-          type: res?.type,
-          name: res?.name,
-          extension: res?.extension,
-          mimetype: res?.mimetype,
-          size: res?.size,
-        });
+      ).subscribe((attaches: any) => {
 
-        if (this.uploadingFiles === 0) {
-          this.sendMessage(
-            text,
-            {
-              attaches,
-            }
-          );
-          this.clearAttaches();
-        }
+        this.sendMessage(
+          text,
+          {
+            attaches,
+          }
+        );
+        this.clearAttaches();
       });
 
       return;
