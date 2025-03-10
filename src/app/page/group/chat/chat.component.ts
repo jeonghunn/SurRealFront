@@ -94,6 +94,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public chatContainerScrollHeight: number = 0;
   public lastScrollTop: number = 0;
   public isScrollTopNeedToBeSet: boolean = false;
+  public isComposing: boolean = false;
 
   public isMultiLineEnabled: boolean = false;
   public isHeaderVisible: boolean = true;
@@ -128,6 +129,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
 
   @ViewChild('fileInput')
   private fileInput: ElementRef;
+
+  @ViewChild('fakeChatInput')
+  private fakeChatInput: ElementRef;
+
+  @ViewChild('chatField')
+  private chatField: ElementRef;
 
   private readonly subscriptions: Subscription[] = [];
 
@@ -470,7 +477,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onSendKeyDown(event: any): void {
-    if (event?.isComposing === true) {
+    if (event?.isComposing === true || this.isComposing) {
       return;
     }
 
@@ -478,6 +485,15 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       event.preventDefault();
     }
 
+  }
+
+
+  public onCompositionStart(event: any): void {
+    this.isComposing = true;
+  }
+
+  public onCompositionEnd(event: any): void {
+    this.isComposing = false;
   }
 
   public onSendKeyPress(event: any, text: string): void {
@@ -493,8 +509,11 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     this.onSendExecute(text);
   }
 
-  public onSendButtonClicked(text: string): void {
+  public onSendButtonClicked(event: any, text: string): void {
     this.onSendExecute(text);
+
+    this.fakeChatInput.nativeElement.focus();
+    this.chatField.nativeElement.focus({preventScroll: true});
   }
 
   public initMultiLineSetting(): void {
