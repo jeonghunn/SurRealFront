@@ -190,6 +190,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     };
   }
 
+  public get isUsingSWKeyboard(): boolean {
+    return window.visualViewport?.height < window.innerHeight
+  }
+
   public counter(i: number): any[] {
     return new Array(i);
   }
@@ -466,11 +470,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public makeNewLine(event: any): void {
-    if (event?.isComposing === true) {
+    if (event?.isComposing === true || this.isComposing) {
       return;
     }
 
-    this.message += '\n';
     this.isMultiLineEnabled = true;
     event.target.setSelectionRange(this.message.length, this.message.length);
     this.changeDetectorRef.markForCheck();
@@ -481,7 +484,12 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       return;
     }
 
-    if (event?.key === 'Enter' && !this.isMultiLineEnabled) {
+    // Do not make new line when enter key is pressed
+    if (
+      event?.key === 'Enter' &&
+      !this.isMultiLineEnabled &&
+      !this.isUsingSWKeyboard
+    ) {
       event.preventDefault();
     }
 
@@ -497,7 +505,11 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public onSendKeyPress(event: any, text: string): void {
-    if (this.isMultiLineEnabled || event?.isComposing === true) {
+    if (
+      this.isMultiLineEnabled ||
+      this.isUsingSWKeyboard ||
+      event?.isComposing === true
+    ) {
       return; 
     }
 
