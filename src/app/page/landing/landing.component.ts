@@ -8,7 +8,7 @@ import { IdentityService } from 'src/app/core/identity.service';
     selector: 'app-landing',
     templateUrl: './landing.component.html',
     styleUrls: ['./landing.component.scss'],
-    standalone: false
+    standalone: true,
 })
 export class LandingComponent {
 
