@@ -72,6 +72,15 @@
   background-color: var(--body-background);
   z-index: $FLOAT_ZINDEX;
 
+  .fake-input {
+    position:absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+
   mat-form-field {
     width: inherit;
     min-height: 56px;

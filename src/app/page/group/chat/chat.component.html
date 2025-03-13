@@ -193,17 +193,26 @@ class="attachment"
     (mousedown)="refreshChatFieldLayout()"
     appearance="outline"
   >
+    <input
+    #fakeChatInput
+    type="text"
+    readonly="readonly"
+    class="fake-input"
+    />
     <textarea
       matInput
+      #chatField
       appTextareaAutoResize
       [(ngModel)]="message"
       [disabled]="isDisabled || uploadingFiles > 0"
       [placeholder]=" (isDisabled ? 'GROUP.ROOM.CHAT.DISABLED' : 'GROUP.ROOM.CHAT.WRITE_A_MESSAGE') | translate"
       [multiline]="isMultiLineEnabled"
       [defaultHeight]="DEFAULT_FOOTER_HEIGHT"
+      (compositionstart)="onCompositionStart($event)"
+      (compositionend)="onCompositionEnd($event)"
       (keyup.enter)="onSendKeyPress($event, message)"
       (keydown.enter)="onSendKeyDown($event)"
-      (keydown.control.enter)="makeNewLine($event)"
+      (keydown.alt.enter)="makeNewLine($event)"
       (heightUpdate)="onChatFieldResize()"
       id="chat_message_input"
       type="text"
@@ -234,8 +243,8 @@ class="attachment"
       #send_button
       mat-icon-button
       matSuffix
-      (click)="onSendButtonClicked(message)"
-      (touchend)="onSendButtonClicked(message)"
+      (click)="onSendButtonClicked($event, message)"
+      (touchend)="onSendButtonClicked($event, message)"
       [attr.aria-label]="'GROUP.ROOM.CHAT.SEND' | translate"
     >
       <mat-icon
