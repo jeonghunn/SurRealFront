@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { IdentityService } from 'src/app/core/identity.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { IdentityService } from 'src/app/core/identity.service';
     templateUrl: './landing.component.html',
     styleUrls: ['./landing.component.scss'],
     standalone: true,
+    imports: [ MatButtonModule ],
 })
 export class LandingComponent {
 
