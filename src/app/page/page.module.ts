@@ -54,7 +54,6 @@ import { SpinnerComponent } from "../../ui/spinner/spinner.component";
     IntroPageComponent,
     SignInComponent,
     SignUpComponent,
-    LandingComponent,
     GroupCreateComponent,
     ProfilePageComponent,
     GroupComponent,

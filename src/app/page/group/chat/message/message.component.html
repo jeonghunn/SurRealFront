@@ -22,14 +22,18 @@ class="message"
             >{{ name }}</div>
             <span
                 class="text"
-                [style.fontSize]="fontSize"
+                [ngStyle]="textStyle"
                 [innerHTML]="message | formatText"
             ></span>
         </div>
         <span
-            *ngIf="isShowTime"
+            *ngIf="isShowTime && !isSending"
             class="date-time"
         >{{ getFormattedDateTime }}</span>
+        <mat-icon
+            *ngIf="isSending"
+            class="sending-indicator"
+        >send</mat-icon>
     
     </div>
     <div

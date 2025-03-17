@@ -23,6 +23,7 @@ import {
 } from '@angular/cdk/menu';
 import { DataService } from 'src/app/core/data.service';
 import { take } from 'rxjs/operators';
+import palette from 'src/app/palette';
 
 @Component({
     selector: 'app-message',
@@ -46,6 +47,9 @@ export class MessageComponent {
 
   @Input()
   public isHideProfile: boolean = false;
+
+  @Input()
+  public isSending: boolean = false;
 
   @Input()
   public name: string;
@@ -103,6 +107,13 @@ export class MessageComponent {
 
   public get fontSize(): string {
     return this.withEmojis.test(this.message) && this.message?.length < 10 ? '3rem' : null;
+  }
+
+  public get textStyle(): any {
+    return {
+      color: this.isSending ? palette.SKELETON_LOADER : null,
+      fontSize: this.fontSize,
+    };
   }
 
   public onProfileClick(): void {

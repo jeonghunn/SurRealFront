@@ -29,6 +29,7 @@ import {
 } from 'rxjs';
 import { ConfirmComponent } from 'src/app/components/confirm/confirm.component';
 import { DataService } from 'src/app/core/data.service';
+import { IdentityService } from 'src/app/core/identity.service';
 import { LayoutService } from 'src/app/core/layout.service';
 import { RoomService } from 'src/app/core/room.service';
 import { Util } from 'src/app/core/util';
@@ -39,6 +40,7 @@ import {
   ChatCategory,
   Room,
   Topic,
+  User,
 } from 'src/app/model/type';
 
 @Component({
@@ -95,6 +97,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   public lastScrollTop: number = 0;
   public isScrollTopNeedToBeSet: boolean = false;
   public isComposing: boolean = false;
+  public user: User = null;
 
   public isMultiLineEnabled: boolean = false;
   public isHeaderVisible: boolean = true;
@@ -146,6 +149,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
     private dataService: DataService,
     private matDialog: MatDialog,
     private translateService: TranslateService,
+    private identityService: IdentityService,
     private router: Router, 
   ) {
 
@@ -163,6 +167,9 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       }),
       this.roomService.lastOtherChat$.subscribe((chat: Chat) => {
         this.isHeaderUpdated = true;
+      }),
+      this.identityService.user$.subscribe((user: any) => {
+        this.user = user;
       }),
     ];
 
@@ -658,7 +665,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
       ChatCategory.MESSAGE,
       text,
       createdAt,
-      null,
+      this.user,
       topicId,
       meta,
       ));

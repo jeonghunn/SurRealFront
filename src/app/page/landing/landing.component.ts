@@ -2,13 +2,15 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { IdentityService } from 'src/app/core/identity.service';
 
 @Component({
     selector: 'app-landing',
     templateUrl: './landing.component.html',
     styleUrls: ['./landing.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [ MatButtonModule ],
 })
 export class LandingComponent {
 
