@@ -29,7 +29,6 @@ import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ThumbnailComponent } from './ui/thumbnail/thumbnail.component';
 import { ViewerComponent } from './viewer/viewer.component';
-import { ConfirmComponent } from './confirm/confirm.component';
 import { VideoViewerComponent } from './viewer/video-viewer/video-viewer.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BigerrorComponent } from 'src/ui/bigerror/bigerror.component';
@@ -49,7 +48,6 @@ import { BigerrorComponent } from 'src/ui/bigerror/bigerror.component';
     SkeletonLoaderComponent,
     ThumbnailComponent,
     ViewerComponent,
-    ConfirmComponent,
     VideoViewerComponent,
   ],
     exports: [
@@ -62,7 +60,6 @@ import { BigerrorComponent } from 'src/ui/bigerror/bigerror.component';
         SkeletonLoaderComponent,
         ThumbnailComponent,
         ViewerComponent,
-        ConfirmComponent,
     ],
   imports: [
     UiModule,
