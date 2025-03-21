@@ -7,7 +7,7 @@
   top: 0;
   width: 100%;
   height: $NAV_HEIGHT;
-  backdrop-filter: blur(5px);
+  backdrop-filter: alpha(opacity=50);
   z-index: $FLOAT_ZINDEX;
 
   .info {
