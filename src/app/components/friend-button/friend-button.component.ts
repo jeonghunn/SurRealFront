@@ -6,6 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { MatMenuModule } from '@angular/material/menu';
 import { take } from 'rxjs/operators';
 import { DataService } from 'src/app/core/data.service';
 import { IdentityService } from 'src/app/core/identity.service';
@@ -15,12 +16,17 @@ import {
   RelationStatus,
   User,
 } from 'src/app/model/type';
+import { FriendMenuComponent } from './friend-menu/friend-menu.component';
 
 @Component({
     selector: 'app-friend-button',
     templateUrl: './friend-button.component.html',
     styleUrls: ['./friend-button.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      MatMenuModule,
+      FriendMenuComponent,
+    ]
 })
 export class FriendButtonComponent implements OnChanges {
 

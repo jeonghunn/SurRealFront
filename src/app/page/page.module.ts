@@ -25,7 +25,6 @@ import { AboutComponent } from './about/about.component';
 import { ChatComponent } from './group/chat/chat.component';
 import { MessageComponent } from './group/chat/message/message.component';
 import { DetailViewComponent } from './group/detail-view/detail-view.component';
-import { GroupCreateComponent } from './group/group-create/group-create.component';
 import { GroupComponent } from './group/group.component';
 import { IntroPageComponent } from './intro-page/intro-page.component';
 import { LandingComponent } from './landing/landing.component';
@@ -45,6 +44,7 @@ import { TopicPreviewComponent } from './group/chat/topic-preview/topic-preview.
 import { DocumentComponent } from './group/detail-view/document/document.component';
 import { SpaceComponent } from './group/detail-view/space/space.component';
 import { SpinnerComponent } from "../../ui/spinner/spinner.component";
+import { ProfileIconComponent } from '../components/ui/profile-icon/profile-icon.component';
 
 
 @NgModule({
@@ -54,7 +54,6 @@ import { SpinnerComponent } from "../../ui/spinner/spinner.component";
     IntroPageComponent,
     SignInComponent,
     SignUpComponent,
-    GroupCreateComponent,
     ProfilePageComponent,
     GroupComponent,
     ChatComponent,
@@ -92,6 +91,7 @@ import { SpinnerComponent } from "../../ui/spinner/spinner.component";
     MatChipsModule,
     CoreModule,
     SpinnerComponent,
+    ProfileIconComponent,
 ],
 })
 export class PageModule { }

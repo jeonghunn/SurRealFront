@@ -12,12 +12,26 @@ import {
   Group,
   User,
 } from 'src/app/model/type';
+import { FriendMenuComponent } from 'src/app/components/friend-button/friend-menu/friend-menu.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ProfileIconComponent } from '../ui/profile-icon/profile-icon.component';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      FriendMenuComponent,
+      ProfileIconComponent,
+      MatMenuModule,
+      MatIconModule,
+      MatButtonModule,
+    ],
 })
 export class UserProfileComponent {
 

@@ -17,6 +17,7 @@ import { ComponentsModule } from '../components/components.module';
 import { GroupListComponent } from '../components/group-list/group-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OneContainerComponent } from './one-container/one-container.component';
+import { ProfileIconComponent } from '../components/ui/profile-icon/profile-icon.component';
 
 export const matTooltipCustomConfig: MatTooltipDefaultOptions = {
   showDelay: 5,
@@ -41,8 +42,8 @@ export const matTooltipCustomConfig: MatTooltipDefaultOptions = {
     MatProgressBarModule,
     TranslateModule,
     MatMenuModule,
-    ComponentsModule,
     MatTooltipModule,
+    ProfileIconComponent,
   ],
   exports: [
     GroupListComponent,
