@@ -48,7 +48,7 @@ import { v4 } from 'uuid';
     standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public title: string = 'SurReal';
+  public title: string = 'Doltok';
   public pageErrorCode: number;
   public isSmallWidth: boolean = false;
   public isSideNavEnlarged: boolean = false;
