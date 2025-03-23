@@ -104,7 +104,9 @@
   "GROUP_CREATE": {
     "FRIENDS": "친구",
     "CREATE_A_GROUP": "그룹 생성",
-    "SEARCH": "찾기"
+    "SEARCH": "찾기",
+    "ADD_FRIENDS": "친구 추가",
+    "ADD_GROUP": "그룹 또는 커뮤니티 추가"
   },
   "FRIEND_LIST": {
     "EMPTY": "친구를 추가하여 대화를 시작해보세요."
