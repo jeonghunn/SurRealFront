@@ -6,9 +6,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FriendListComponent } from 'src/app/components/friend-list/friend-list.component';
 
 @Component({
-    selector: 'app-group-create',
-    templateUrl: './group-create.component.html',
-    styleUrls: ['./group-create.component.scss'],
+    selector: 'app-addition',
+    templateUrl: './addition.component.html',
+    styleUrls: ['./addition.component.scss'],
     standalone: true,
     imports: [
         MatButtonModule,
@@ -18,6 +18,6 @@ import { FriendListComponent } from 'src/app/components/friend-list/friend-list.
         TranslateModule,
     ],
 })
-export class GroupCreateComponent {
+export class AdditionComponent {
 
 }
