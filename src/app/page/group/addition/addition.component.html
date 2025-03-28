@@ -1,6 +1,10 @@
 <div class="header">
 
-  <button mat-fab extended>
+  <button
+    mat-fab
+    extended
+    (click)="go('g/create')"
+  >
     <mat-icon>group_add</mat-icon>
     <span>{{ 'GROUP_CREATE.ADD_GROUP' | translate }}</span>
   </button>

@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { FriendListComponent } from 'src/app/components/friend-list/friend-list.component';
+import { GroupCreateComponent } from '../group-create/group-create.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-addition',
@@ -20,4 +22,14 @@ import { FriendListComponent } from 'src/app/components/friend-list/friend-list.
 })
 export class AdditionComponent {
 
+    public constructor(
+        private router: Router,
+    ) {
+    }
+
+
+    public go(url: string): void {
+        this.router.navigateByUrl(url);
+    }
+    
 }

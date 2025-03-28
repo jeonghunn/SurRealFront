@@ -215,7 +215,7 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public goToParentTopic(): void {
-    let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
+    let url: string = `/g/${this.room?.group_id}/r/${this.room?.id}`;
 
     if (this.topic?.parent_id) {
       url += `/topic/${this.topic?.parent_id}`;
@@ -225,10 +225,10 @@ export class ChatComponent implements OnDestroy, AfterViewChecked, OnChanges {
   }
 
   public goToTopic(id: string): void {
-    let url: string = `/group/${this.room?.group_id}/room/${this.room?.id}`;
+    let url: string = `/g/${this.room?.group_id}/r/${this.room?.id}`;
 
     if (id) {
-      url += `/topic/${id}`;
+      url += `/t/${id}`;
     }
 
     this.router.navigateByUrl(url).then(null);

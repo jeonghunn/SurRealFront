@@ -14,6 +14,7 @@ import { ProfilePageComponent } from './page/profile-page/profile-page.component
 import { SettingComponent } from './page/setting/setting.component';
 import { SignInComponent } from './page/sign-in/sign-in.component';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
+import { GroupCreateComponent } from './page/group/group-create/group-create.component';
 
 const routes: Routes = [
   {
@@ -22,17 +23,18 @@ const routes: Routes = [
     canActivate: [ Guard ],
   },
   {
-    path: 'group',
+    path: 'g',
     canActivate: [ Guard ],
     children: [
       { path: 'add', component: AdditionComponent },
+      { path: 'create', component: GroupCreateComponent },
       { path: ':id', component: GroupComponent },
       {
-        path: ':id/room/:room_id',
+        path: ':id/r/:room_id',
         component: GroupComponent,
       },
       {
-        path: ':id/room/:room_id/topic/:topic_id',
+        path: ':id/r/:room_id/t/:topic_id',
         component: GroupComponent,
       },
     ],
@@ -48,7 +50,7 @@ const routes: Routes = [
     canActivate: [ Guard ],
   },
   {
-    path: 'user/:id',
+    path: 'u/:id',
     component: ProfilePageComponent,
     canActivate: [ Guard ],
   },

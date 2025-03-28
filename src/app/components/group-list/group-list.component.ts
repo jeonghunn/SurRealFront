@@ -81,7 +81,7 @@ export class GroupListComponent implements OnDestroy {
   }
 
   public onGroupClick(id: number): void {
-    this.router.navigateByUrl(`/group/${id}`);
+    this.router.navigateByUrl(`/g/${id}`);
   }
 
 }
