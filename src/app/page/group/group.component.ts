@@ -8,7 +8,6 @@ import {
   Router,
 } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DataService } from 'src/app/core/data.service';
 import { GroupService } from 'src/app/core/group.service';
 import { IdentityService } from 'src/app/core/identity.service';
 import { LayoutService } from 'src/app/core/layout.service';
