@@ -1,0 +1,40 @@
+.header {
+    margin-left: 8px;
+}
+
+.content {
+    margin-top : 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+
+    .create {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 600px;
+
+        mat-card-content {
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+
+        mat-card-actions {
+            justify-content: flex-end;
+        }
+    }
+
+    .title {
+        display: flex;
+        margin-right: 16px;
+        .letter {
+            font-size: 32px;
+            height: 56px;
+            margin-right: 4px;
+        }
+    }
+
+    app-emoji-picker {
+        margin-right: 24px;
+    }
+
+
+}

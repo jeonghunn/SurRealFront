@@ -1,0 +1,34 @@
+<div class="header">
+    <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>
+
+<div class="content">
+
+    <mat-card class="create" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>{{'GROUP_CREATE.CREATE_A_GROUP' | translate }}</mat-card-title>
+          <mat-card-subtitle>{{ 'GROUP_CREATE.EXPLANATION' | translate }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field class="example-full-width">
+                <input
+                  matInput
+                  [placeholder]="'GROUP_CREATE.NAME_FIELD_PLACEHOLDER' | translate"
+                  >
+              </mat-form-field>
+
+            <mat-slide-toogle>Slide MEEEE</mat-slide-toogle>
+            
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button>{{'GROUP_CREATE.CREATE_BUTTON' | translate }}</button>
+        </mat-card-actions>
+      </mat-card>
+      
+
+
+</div>
+
+<h1></h1>

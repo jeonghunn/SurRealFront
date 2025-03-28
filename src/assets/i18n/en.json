@@ -97,7 +97,10 @@
     "CREATE_A_GROUP": "Create a Group",
     "SEARCH": "Search",
     "ADD_FRIENDS": "Add Friends",
-    "ADD_GROUP": "Add Group or Community"
+    "ADD_GROUP": "Add Group or Community",
+    "EXPLANATION": "Enter the group or community name you'd like to create.",
+    "NAME_FIELD_PLACEHOLDER": "Name",
+    "CREATE_BUTTON": "Create"
   },
   "FRIEND_LIST": {
     "EMPTY": "Add a friend to start conversation."
