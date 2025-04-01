@@ -17,9 +17,16 @@
                   matInput
                   [placeholder]="'GROUP_CREATE.NAME_FIELD_PLACEHOLDER' | translate"
                   >
-              </mat-form-field>
+            </mat-form-field>
 
-            <mat-slide-toogle>Slide MEEEE</mat-slide-toogle>
+            <div class="toggles">
+              <mat-slide-toggle
+                fromControlName="is_public"
+                [checked]="isPublic"
+                >{{'GROUP_CREATE.PUBLIC' | translate }}
+              </mat-slide-toggle>
+            </div>
+            
             
         </mat-card-content>
         <mat-card-actions>

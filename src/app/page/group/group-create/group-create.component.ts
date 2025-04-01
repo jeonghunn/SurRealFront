@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-group-create',
@@ -21,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatSlideToggleModule,
   ]
 })
 
@@ -29,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class GroupCreateComponent {
 
   public isLoading: boolean = false;
+  public isPublic: boolean = false;
 
 
   public goBack(): void {

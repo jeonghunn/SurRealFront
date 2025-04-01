@@ -109,7 +109,8 @@
     "CREATE_GROUP": "그룹 또는 커뮤니티 만들기",
     "EXPLANATION": "생성할 그룹 혹은 커뮤니티의 이름을 입력해 주세요.",
     "NAME_FIELD_PLACEHOLDER": "이름 입력",
-    "CREATE_BUTTON": "만들기"
+    "CREATE_BUTTON": "만들기",
+    "PUBLIC": "공개"
   },
   "FRIEND_LIST": {
     "EMPTY": "친구를 추가하여 대화를 시작해보세요."

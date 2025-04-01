@@ -100,7 +100,8 @@
     "ADD_GROUP": "Add Group or Community",
     "EXPLANATION": "Enter the group or community name you'd like to create.",
     "NAME_FIELD_PLACEHOLDER": "Name",
-    "CREATE_BUTTON": "Create"
+    "CREATE_BUTTON": "Create",
+    "PUBLIC": "Public"
   },
   "FRIEND_LIST": {
     "EMPTY": "Add a friend to start conversation."
