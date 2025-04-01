@@ -40,7 +40,7 @@
     "tslib": "^2.2.0",
     "uuid": "^9.0.1",
     "video.js": "^8.3.0",
-    "wait-on": "^5.3.0",
+    "wait-on": "^8.0.3",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -59,9 +59,9 @@
     "@types/sanitize-html": "^2.9.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
-    "codelyzer": "^6.0.0",
-    "cypress": "^10.11.0",
-    "electron": "^20.1.1",
+    "codelyzer": "^0.0.28",
+    "cypress": "^14.2.1",
+    "electron": "^35.1.2",
     "eslint": "^8.57.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
@@ -70,7 +70,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
+    "protractor": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~5.6.3"
