@@ -1,15 +1,21 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
 } from '@angular/core';
+import { MatRippleModule } from '@angular/material/core';
 
 @Component({
     selector: 'app-profile-icon',
     templateUrl: './profile-icon.component.html',
     styleUrls: ['./profile-icon.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      MatRippleModule,
+      CommonModule,
+    ],
 })
 export class ProfileIconComponent implements OnChanges {
 

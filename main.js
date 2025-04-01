@@ -15,7 +15,7 @@ function createWindow () {
 
   mainWindow.loadURL(
     url.format({
-      pathname: 'surreal.unopenedbox.com',
+      pathname: 'doltok.com',
       protocol: "https:",
       slashes: true
     })

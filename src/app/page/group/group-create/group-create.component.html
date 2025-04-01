@@ -1,15 +1,41 @@
-<mat-tab-group>
-  <mat-tab
-    [label]="'GROUP_CREATE.FRIENDS' | translate"
-  >
-    <div class="content">
-      <mat-card appearance="outlined" class="friends">
-        <app-friend-list></app-friend-list>
+<div class="header">
+    <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>
+
+<div class="content">
+
+    <mat-card class="create" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>{{'GROUP_CREATE.CREATE_A_GROUP' | translate }}</mat-card-title>
+          <mat-card-subtitle>{{ 'GROUP_CREATE.EXPLANATION' | translate }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field class="example-full-width">
+                <input
+                  matInput
+                  [placeholder]="'GROUP_CREATE.NAME_FIELD_PLACEHOLDER' | translate"
+                  >
+            </mat-form-field>
+
+            <div class="toggles">
+              <mat-slide-toggle
+                fromControlName="is_public"
+                [checked]="isPublic"
+                >{{'GROUP_CREATE.PUBLIC' | translate }}
+              </mat-slide-toggle>
+            </div>
+            
+            
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-flat-button>{{'GROUP_CREATE.CREATE_BUTTON' | translate }}</button>
+        </mat-card-actions>
       </mat-card>
-    </div>
+      
 
-  </mat-tab>
-  <mat-tab [label]="'GROUP_CREATE.CREATE_A_GROUP' | translate">
 
-  </mat-tab>
-</mat-tab-group>
+</div>
+
+<h1></h1>

@@ -1,0 +1,25 @@
+<div class="header">
+
+  <button
+    mat-fab
+    extended
+    (click)="go('g/create')"
+  >
+    <mat-icon>group_add</mat-icon>
+    <span>{{ 'GROUP_CREATE.ADD_GROUP' | translate }}</span>
+  </button>
+
+  <button
+    mat-fab
+    extended
+  >
+    <mat-icon>person_add</mat-icon>
+    <span>{{ 'GROUP_CREATE.ADD_FRIENDS' | translate }}</span>
+  </button>
+</div>
+
+<div class="content">
+  <mat-card appearance="outlined" class="friends">
+    <app-friend-list></app-friend-list>
+  </mat-card>
+</div>

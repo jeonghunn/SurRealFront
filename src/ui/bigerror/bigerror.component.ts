@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
@@ -9,6 +10,9 @@ import {
     templateUrl: './bigerror.component.html',
     styleUrls: ['./bigerror.component.scss'],
     standalone: true,
+    imports: [
+      CommonModule,
+    ]
 })
 export class BigerrorComponent {
 
